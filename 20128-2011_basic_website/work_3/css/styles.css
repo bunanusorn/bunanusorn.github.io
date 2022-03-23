@@ -10,7 +10,7 @@ body {
 
 /* Style the header */
 header {
-  background-color: #666;
+  background-color: #923d13;
   padding: 30px;
   text-align: center;
   font-size: 35px;
@@ -23,7 +23,7 @@ nav {
   width: 30%;
   height: 600px;
   /* only for demonstration, should be removed */
-  background: #ccc;
+  background: #e9b350;
   padding: 20px;
 }
 
@@ -51,7 +51,7 @@ section::after {
 
 /* Style the footer */
 footer {
-  background-color: #777;
+  background-color: #362621;
   padding: 10px;
   text-align: center;
   color: white;
