@@ -33,6 +33,10 @@ nav ul {
   padding: 0;
 }
 
+strong {
+  color: #e9b350;
+}
+
 article {
   float: left;
   padding: 20px;
