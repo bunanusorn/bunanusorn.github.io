@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สื่อการสอน: การใช้งานสูตร VLOOKUP ใน Excel | ครูอนุสรณ์ บุญเจริญปัญญา</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt & Sarabun & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: {
+                            DEFAULT: '#6B0F1A',
+                            dark: '#4A0810',
+                            light: '#8E1B29',
+                            50: '#FDF2F3',
+                            100: '#FCE7E9'
+                        },
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#F3E5AB',
+                            dark: '#AA8A22',
+                            50: '#FCF9EE'
+                        },
+                        excel: {
+                            green: '#107C41',
+                            light: '#E6F4EA',
+                            border: '#D1D5DB'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Prompt', 'Sarabun', 'sans-serif'],
+                        body: ['Sarabun', 'Prompt', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-maroon selection:text-white">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-maroon-dark via-maroon to-maroon-light text-white shadow-xl border-b-4 border-gold relative overflow-hidden">
+        <!-- Decorative subtle pattern -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#D4AF37 1.5px, transparent 1.5px); background-size: 24px 24px;"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <!-- College Logo -->
+                <div class="shrink-0 bg-white p-2 rounded-full shadow-lg border-2 border-gold w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center overflow-hidden">
+                    <img src="logo.png.png" 
+                         alt="โลโก้วิทยาลัยอาชีวศึกษาเทคโนโลยีฐานวิทยาศาสตร์ (ชลบุรี)" 
+                         class="w-full h-full object-contain"
+                         onerror="this.onerror=null; this.src='https://placehold.co/200x200/6B0F1A/D4AF37?text=SBTVC';">
+                </div>
+
+                <!-- Title & Instructor Info -->
+                <div class="text-center md:text-left flex-1">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-maroon-dark/60 border border-gold/40 text-gold-light text-xs sm:text-sm font-medium mb-2">
+                        <i class="fa-solid fa-graduation-cap text-gold"></i>
+                        <span>วิทยาลัยอาชีวศึกษาเทคโนโลยีฐานวิทยาศาสตร์ (ชลบุรี)</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white drop-shadow-sm">
+                        คู่มือและสื่อการสอน: การใช้งานสูตร <span class="text-gold font-mono">VLOOKUP</span> ใน Excel
+                    </h1>
+                    <p class="mt-2 text-slate-100 text-sm sm:text-base font-body flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-1">
+                        <span class="flex items-center gap-1.5 font-medium text-gold-light">
+                            <i class="fa-solid fa-chalkboard-user text-gold"></i>
+                            โดย ครูอนุสรณ์ บุญเจริญปัญญา
+                        </span>
+                        <span class="hidden sm:inline text-white/40">|</span>
+                        <span class="text-white/80 text-xs sm:text-sm">
+                            <i class="fa-solid fa-file-excel text-emerald-400 mr-1"></i> ทักษะคอมพิวเตอร์และการประมวลผลข้อมูลทางธุรกิจ
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Navigation Bar -->
+        <nav class="bg-maroon-dark/90 backdrop-blur-md border-t border-white/10 sticky top-0 z-30">
+            <div class="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
+                <div class="flex overflow-x-auto no-scrollbar py-2 gap-1 sm:gap-2 justify-start md:justify-center">
+                    <button onclick="switchTab('intro')" id="nav-intro" class="nav-btn active-nav px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex items-center gap-2 bg-gold text-maroon-dark shadow-sm">
+                        <i class="fa-solid fa-book-open"></i> 1. ความหมาย VLOOKUP
+                    </button>
+                    <button onclick="switchTab('syntax')" id="nav-syntax" class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10">
+                        <i class="fa-solid fa-code"></i> 2. โครงสร้างสูตร (4 ส่วน)
+                    </button>
+                    <button onclick="switchTab('simulator')" id="nav-simulator" class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10">
+                        <i class="fa-solid fa-flask"></i> 3. ห้องทดลองจำลองสูตร
+                    </button>
+                    <button onclick="switchTab('errors')" id="nav-errors" class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10">
+                        <i class="fa-solid fa-triangle-exclamation"></i> 4. ข้อผิดพลาด & เคล็ดลับ
+                    </button>
+                    <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10">
+                        <i class="fa-solid fa-list-check"></i> 5. แบบทดสอบ (5 ข้อ)
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- ========================================================= -->
+        <!-- SECTION 1: INTRODUCTION                                   -->
+        <!-- ========================================================= -->
+        <section id="sec-intro" class="tab-section space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-maroon-50 border-b border-maroon-100 px-6 py-4 flex items-center justify-between">
+                    <h2 class="text-xl sm:text-2xl font-bold text-maroon flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-maroon text-gold flex items-center justify-center text-sm font-bold">1</span>
+                        VLOOKUP คืออะไร? (Vertical Lookup)
+                    </h2>
+                    <span class="hidden sm:inline-block text-xs font-semibold uppercase tracking-wider text-maroon bg-white px-3 py-1 rounded-full border border-maroon/20">พื้นฐานสำคัญ</span>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-7 space-y-4 font-body text-base sm:text-lg leading-relaxed text-slate-700">
+                            <p>
+                                <strong class="text-maroon font-sans text-xl">VLOOKUP</strong> ย่อมาจากคำว่า 
+                                <span class="bg-gold-50 text-maroon-dark font-semibold px-2 py-0.5 rounded border border-gold/40">Vertical Lookup</span> 
+                                ซึ่งแปลตรงตัวว่า <strong>"การค้นหาข้อมูลในแนวตั้ง"</strong> เป็นหนึ่งในฟังก์ชันยอดนิยมและสำคัญที่สุดของโปรแกรม Microsoft Excel
+                            </p>
+                            <p>
+                                หลักการทำงานของ VLOOKUP คือ <strong>การนำค่าอ้างอิงที่เราต้องการค้นหา (เช่น รหัสสินค้า, รหัสนักศึกษา, เลขประจำตัวประชาชน) ไปไล่ค้นหาในคอลัมน์ซ้ายสุดของตารางฐานข้อมูล (จากบนลงล่าง)</strong> เมื่อพบแถวที่ตรงกันแล้ว สูตรจะวิ่งไปทางขวาตามลำดับคอลัมน์ที่เรากำหนด เพื่อดึงข้อมูลในช่องนั้นมาแสดงผลให้อัตโนมัติ
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 font-sans">
+                                <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-4">
+                                    <div class="flex items-center gap-2 text-emerald-800 font-semibold mb-1">
+                                        <i class="fa-solid fa-bolt text-emerald-600"></i> ประหยัดเวลาทำงาน
+                                    </div>
+                                    <p class="text-sm text-emerald-900/80">ไม่ต้องเลื่อนสายตาหาข้อมูลเองทีละบรรทัด แม้ตารางจะมีข้อมูลเป็นหมื่นรายการก็ค้นหาเสร็จในเสี้ยววินาที</p>
+                                </div>
+                                <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4">
+                                    <div class="flex items-center gap-2 text-amber-900 font-semibold mb-1">
+                                        <i class="fa-solid fa-shield-check text-amber-600"></i> ลดความผิดพลาด
+                                    </div>
+                                    <p class="text-sm text-amber-900/80">ลดปัญหาการพิมพ์ข้อมูลซ้ำซ้อนหรือคัดลอกข้อมูลผิดบรรทัด และอัปเดตค่าให้อัตโนมัติเมื่อต้นทางเปลี่ยน</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Visual Diagram of Vertical Lookup -->
+                        <div class="lg:col-span-5 bg-slate-100 rounded-2xl p-5 border border-slate-200">
+                            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center justify-between">
+                                <span>แผนภาพหลักการทำงาน</span>
+                                <span class="text-maroon"><i class="fa-solid fa-arrows-up-down mr-1"></i>คอลัมน์ 1 &rarr; ขวา</span>
+                            </div>
+                            <div class="bg-white rounded-xl border border-slate-300 overflow-hidden shadow-sm text-xs sm:text-sm">
+                                <div class="grid grid-cols-3 bg-slate-200 font-bold text-slate-700 border-b border-slate-300 text-center">
+                                    <div class="p-2 border-r border-slate-300 bg-maroon text-white">คอลัมน์ 1 (หลัก)</div>
+                                    <div class="p-2 border-r border-slate-300">คอลัมน์ 2</div>
+                                    <div class="p-2">คอลัมน์ 3</div>
+                                </div>
+                                <div class="grid grid-cols-3 border-b border-slate-200 text-center text-slate-500">
+                                    <div class="p-2.5 border-r border-slate-200 bg-maroon-50/50 font-mono">ST-01 <i class="fa-solid fa-arrow-down text-maroon/40 ml-1"></i></div>
+                                    <div class="p-2.5 border-r border-slate-200">สมชาย</div>
+                                    <div class="p-2.5">ช่างไฟฟ้า</div>
+                                </div>
+                                <div class="grid grid-cols-3 border-b border-slate-200 text-center text-slate-500">
+                                    <div class="p-2.5 border-r border-slate-200 bg-maroon-50/50 font-mono">ST-02 <i class="fa-solid fa-arrow-down text-maroon/40 ml-1"></i></div>
+                                    <div class="p-2.5 border-r border-slate-200">สมหญิง</div>
+                                    <div class="p-2.5">การบัญชี</div>
+                                </div>
+                                <div class="grid grid-cols-3 bg-gold-50 font-semibold text-maroon-dark text-center relative">
+                                    <div class="p-2.5 border-r border-gold/40 bg-maroon text-gold font-mono flex items-center justify-center gap-1">
+                                        <span>ST-03</span>
+                                        <i class="fa-solid fa-arrow-right text-white animate-pulse"></i>
+                                    </div>
+                                    <div class="p-2.5 border-r border-gold/40 flex items-center justify-center gap-1 text-slate-600">
+                                        <span>วิชัย</span>
+                                        <i class="fa-solid fa-arrow-right text-maroon"></i>
+                                    </div>
+                                    <div class="p-2.5 bg-emerald-100 text-emerald-900 font-bold border-2 border-emerald-500 rounded-br-lg">
+                                        คอมพิวเตอร์
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 text-xs text-slate-600 text-center">
+                                1. ค้นหา <strong>ST-03</strong> ลงมาในคอลัมน์ซ้ายสุด &rarr; 2. วิ่งไปคอลัมน์ที่ 3 &rarr; 3. ได้คำตอบ <strong>"คอมพิวเตอร์"</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button onclick="switchTab('syntax')" class="px-5 py-2.5 bg-maroon hover:bg-maroon-dark text-white rounded-xl font-medium text-sm transition flex items-center gap-2 shadow-sm">
+                            <span>ถัดไป: เรียนรู้โครงสร้างสูตรทั้ง 4 ส่วน</span>
+                            <i class="fa-solid fa-arrow-right text-gold"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SECTION 2: SYNTAX (4 ARGUMENTS)                           -->
+        <!-- ========================================================= -->
+        <section id="sec-syntax" class="tab-section hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-maroon-50 border-b border-maroon-100 px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+                    <h2 class="text-xl sm:text-2xl font-bold text-maroon flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-maroon text-gold flex items-center justify-center text-sm font-bold">2</span>
+                        โครงสร้างสูตร VLOOKUP (ทั้ง 4 ส่วนประกอบ)
+                    </h2>
+                    <span class="text-xs text-slate-600 bg-white px-3 py-1 rounded-full border border-slate-200">
+                        <i class="fa-solid fa-hand-pointer text-maroon mr-1"></i> คลิกที่แต่ละส่วนของสูตรเพื่อดูคำอธิบายละเอียด
+                    </span>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-6">
+                    <!-- Interactive Formula Bar -->
+                    <div class="bg-slate-900 rounded-2xl p-4 sm:p-6 shadow-inner border border-slate-700">
+                        <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-mono">
+                            <span class="px-2 py-0.5 bg-emerald-600 text-white rounded font-bold">fx</span>
+                            <span>แถบสูตรใน Excel (คลิกเลือกพารามิเตอร์ด้านล่าง)</span>
+                        </div>
+                        <div class="font-mono text-base sm:text-xl md:text-2xl flex flex-wrap items-center gap-y-2 leading-relaxed">
+                            <span class="text-white font-bold">=VLOOKUP(</span>
+                            
+                            <button onclick="selectSyntaxParam(1)" id="syn-btn-1" class="syn-pill px-2.5 py-1 rounded-lg bg-blue-500/20 text-blue-300 border-2 border-blue-400 font-semibold transition-all hover:scale-105">
+                                lookup_value
+                            </button>
+                            <span class="text-slate-400 mx-1">,</span>
+                            
+                            <button onclick="selectSyntaxParam(2)" id="syn-btn-2" class="syn-pill px-2.5 py-1 rounded-lg bg-rose-500/10 text-rose-300 border border-rose-500/40 font-semibold transition-all hover:scale-105">
+                                table_array
+                            </button>
+                            <span class="text-slate-400 mx-1">,</span>
+                            
+                            <button onclick="selectSyntaxParam(3)" id="syn-btn-3" class="syn-pill px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-300 border border-amber-500/40 font-semibold transition-all hover:scale-105">
+                                col_index_num
+                            </button>
+                            <span class="text-slate-400 mx-1">,</span>
+                            
+                            <button onclick="selectSyntaxParam(4)" id="syn-btn-4" class="syn-pill px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/40 font-semibold transition-all hover:scale-105">
+                                [range_lookup]
+                            </button>
+                            
+                            <span class="text-white font-bold">)</span>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Explanation Box -->
+                    <div id="syntax-detail-box" class="rounded-2xl border-2 border-blue-200 bg-blue-50/40 p-6 transition-all">
+                        <!-- Content injected by JS -->
+                    </div>
+
+                    <!-- Quick Reference Cards for all 4 parts -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                        <div onclick="selectSyntaxParam(1)" class="cursor-pointer p-4 rounded-xl border border-blue-200 bg-white hover:shadow-md transition">
+                            <div class="text-xs font-bold text-blue-600 uppercase mb-1">ส่วนที่ 1 (ค้นหาอะไร)</div>
+                            <div class="font-mono font-bold text-slate-800 mb-1">lookup_value</div>
+                            <p class="text-xs text-slate-600">ค่าอ้างอิงที่ต้องการนำไปค้นหา เช่น ช่องเซลล์รหัสสินค้า `F2`</p>
+                        </div>
+                        <div onclick="selectSyntaxParam(2)" class="cursor-pointer p-4 rounded-xl border border-rose-200 bg-white hover:shadow-md transition">
+                            <div class="text-xs font-bold text-rose-600 uppercase mb-1">ส่วนที่ 2 (ค้นหาที่ไหน)</div>
+                            <div class="font-mono font-bold text-slate-800 mb-1">table_array</div>
+                            <p class="text-xs text-slate-600">ขอบเขตตารางฐานข้อมูล ควรล็อกเซลล์ด้วย F4 เช่น `$A$2:$D$7`</p>
+                        </div>
+                        <div onclick="selectSyntaxParam(3)" class="cursor-pointer p-4 rounded-xl border border-amber-200 bg-white hover:shadow-md transition">
+                            <div class="text-xs font-bold text-amber-600 uppercase mb-1">ส่วนที่ 3 (เอาคอลัมน์ไหน)</div>
+                            <div class="font-mono font-bold text-slate-800 mb-1">col_index_num</div>
+                            <p class="text-xs text-slate-600">ลำดับคอลัมน์ที่ต้องการดึงค่า นับจากซ้ายสุดของตาราง (1, 2, 3...)</p>
+                        </div>
+                        <div onclick="selectSyntaxParam(4)" class="cursor-pointer p-4 rounded-xl border border-emerald-200 bg-white hover:shadow-md transition">
+                            <div class="text-xs font-bold text-emerald-600 uppercase mb-1">ส่วนที่ 4 (ตรงเป๊ะหรือใกล้เคียง)</div>
+                            <div class="font-mono font-bold text-slate-800 mb-1">[range_lookup]</div>
+                            <p class="text-xs text-slate-600">`FALSE` (0) = ตรงทุกตัวอักษร<br>`TRUE` (1) = ค่าใกล้เคียง/ช่วงคะแนน</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-2">
+                        <button onclick="switchTab('intro')" class="px-4 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-medium text-sm transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left"></i> ย้อนกลับ
+                        </button>
+                        <button onclick="switchTab('simulator')" class="px-5 py-2.5 bg-maroon hover:bg-maroon-dark text-white rounded-xl font-medium text-sm transition flex items-center gap-2 shadow-sm">
+                            <span>ถัดไป: ทดลองใช้สูตรในห้องจำลอง Excel</span>
+                            <i class="fa-solid fa-arrow-right text-gold"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SECTION 3: INTERACTIVE EXCEL SIMULATOR                    -->
+        <!-- ========================================================= -->
+        <section id="sec-simulator" class="tab-section hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-maroon-50 border-b border-maroon-100 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <h2 class="text-xl sm:text-2xl font-bold text-maroon flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-maroon text-gold flex items-center justify-center text-sm font-bold">3</span>
+                        ห้องทดลองจำลองสูตร VLOOKUP
+                    </h2>
+                    
+                    <!-- Mode Switcher -->
+                    <div class="inline-flex rounded-xl bg-white p-1 border border-maroon/20 shadow-xs self-start sm:self-auto">
+                        <button onclick="setSimMode('exact')" id="sim-mode-exact" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-maroon text-white transition">
+                            โหมด 1: ค้นหาตรงเป๊ะ (FALSE)
+                        </button>
+                        <button onclick="setSimMode('approx')" id="sim-mode-approx" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-maroon transition">
+                            โหมด 2: ตัดเกรดช่วงคะแนน (TRUE)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-4 sm:p-6 lg:p-8 space-y-6">
+                    <!-- Excel Formula Bar Preview -->
+                    <div class="bg-slate-100 border border-slate-300 rounded-xl p-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 shadow-inner">
+                        <div class="flex items-center gap-2 shrink-0">
+                            <span class="bg-white border border-slate-300 px-3 py-1 rounded text-xs font-mono font-bold text-slate-700" id="sim-active-cell">G3</span>
+                            <span class="text-emerald-700 font-mono font-bold text-sm px-2">fx</span>
+                        </div>
+                        <div class="flex-1 bg-white border border-slate-300 rounded px-3 py-1.5 font-mono text-sm sm:text-base overflow-x-auto whitespace-nowrap" id="sim-formula-display">
+                            <!-- Formula injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- MODE 1: EXACT MATCH (PRODUCT DATABASE) -->
+                    <div id="sim-container-exact" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <!-- Left Table: Master Data (A1:D7) -->
+                        <div class="lg:col-span-7 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-bold text-slate-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-table text-excel-green"></i> ตารางฐานข้อมูลสินค้า (<code class="text-maroon">$A$2:$D$7</code>)
+                                </span>
+                                <span class="text-xs text-slate-500">คอลัมน์ 1 = รหัสสินค้า</span>
+                            </div>
+                            
+                            <div class="overflow-x-auto rounded-xl border border-slate-300 shadow-xs">
+                                <table class="w-full text-xs sm:text-sm border-collapse bg-white">
+                                    <thead>
+                                        <tr class="bg-slate-200 text-slate-600 font-mono text-center border-b border-slate-300">
+                                            <th class="w-8 py-1.5 border-r border-slate-300 bg-slate-300/70"></th>
+                                            <th class="py-1.5 border-r border-slate-300">A <span class="block text-[10px] font-sans text-maroon font-bold">(คอลัมน์ 1)</span></th>
+                                            <th class="py-1.5 border-r border-slate-300">B <span class="block text-[10px] font-sans text-slate-500">(คอลัมน์ 2)</span></th>
+                                            <th class="py-1.5 border-r border-slate-300">C <span class="block text-[10px] font-sans text-slate-500">(คอลัมน์ 3)</span></th>
+                                            <th class="py-1.5">D <span class="block text-[10px] font-sans text-slate-500">(คอลัมน์ 4)</span></th>
+                                        </tr>
+                                        <tr class="bg-excel-green text-white font-semibold border-b border-slate-300">
+                                            <td class="text-center font-mono bg-slate-200 text-slate-600 border-r border-slate-300 py-2">1</td>
+                                            <td class="px-3 py-2 border-r border-emerald-600">รหัสสินค้า</td>
+                                            <td class="px-3 py-2 border-r border-emerald-600">ชื่อสินค้า</td>
+                                            <td class="px-3 py-2 border-r border-emerald-600">หมวดหมู่</td>
+                                            <td class="px-3 py-2 text-right">ราคา (บาท)</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="exact-table-body" class="divide-y divide-slate-200">
+                                        <!-- Rows rendered by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Right Table: Lookup Form -->
+                        <div class="lg:col-span-5 space-y-4">
+                            <div class="bg-maroon-50/60 border border-maroon/20 rounded-2xl p-5 space-y-4">
+                                <div class="flex items-center justify-between border-b border-maroon/10 pb-2">
+                                    <h3 class="font-bold text-maroon flex items-center gap-2">
+                                        <i class="fa-solid fa-magnifying-glass"></i> แบบฟอร์มค้นหาสินค้า
+                                    </h3>
+                                    <span class="text-xs font-mono bg-white px-2 py-0.5 rounded border border-slate-200">FALSE (ตรงเป๊ะ)</span>
+                                </div>
+
+                                <!-- Input 1: lookup_value -->
+                                <div>
+                                    <label class="block text-xs font-bold text-blue-700 mb-1">
+                                        1. เลือกหรือพิมพ์รหัสสินค้า (เซลล์ <code class="bg-blue-100 px-1 rounded">G2</code> - lookup_value):
+                                    </label>
+                                    <div class="flex gap-2">
+                                        <select id="exact-select-id" onchange="syncExactInput(this.value)" class="flex-1 rounded-xl border-2 border-blue-300 bg-white px-3 py-2 text-sm font-mono font-bold text-slate-800 focus:outline-none focus:border-blue-600">
+                                            <option value="P001">P001</option>
+                                            <option value="P002" selected>P002</option>
+                                            <option value="P003">P003</option>
+                                            <option value="P004">P004</option>
+                                            <option value="P005">P005</option>
+                                            <option value="P006">P006</option>
+                                            <option value="P999">P999 (ลองรหัสที่ไม่มีในตาราง)</option>
+                                        </select>
+                                        <input type="text" id="exact-text-id" value="P002" oninput="updateExactSim()" placeholder="พิมพ์รหัส..." class="w-28 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-mono uppercase focus:outline-none focus:border-maroon">
+                                    </div>
+                                </div>
+
+                                <!-- Input 2: col_index_num -->
+                                <div>
+                                    <label class="block text-xs font-bold text-amber-700 mb-1">
+                                        2. เลือกคอลัมน์ที่ต้องการดึงข้อมูล (<code class="bg-amber-100 px-1 rounded">col_index_num</code>):
+                                    </label>
+                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                        <button onclick="setExactCol(2)" id="col-btn-2" class="exact-col-btn py-2 px-2 rounded-lg text-xs font-semibold border-2 border-amber-500 bg-amber-100 text-amber-900 transition">
+                                            คอลัมน์ 2<br><span class="font-normal text-[11px]">ชื่อสินค้า</span>
+                                        </button>
+                                        <button onclick="setExactCol(3)" id="col-btn-3" class="exact-col-btn py-2 px-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-slate-600 hover:bg-slate-50 transition">
+                                            คอลัมน์ 3<br><span class="font-normal text-[11px]">หมวดหมู่</span>
+                                        </button>
+                                        <button onclick="setExactCol(4)" id="col-btn-4" class="exact-col-btn py-2 px-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-slate-600 hover:bg-slate-50 transition">
+                                            คอลัมน์ 4<br><span class="font-normal text-[11px]">ราคา</span>
+                                        </button>
+                                        <button onclick="setExactCol(5)" id="col-btn-5" class="exact-col-btn py-2 px-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-rose-600 hover:bg-rose-50 transition">
+                                            คอลัมน์ 5<br><span class="font-normal text-[11px]">ลองใส่เกิน!</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Result Box -->
+                                <div class="bg-white rounded-xl border-2 border-excel-green p-4 shadow-sm">
+                                    <div class="text-xs text-slate-500 font-medium mb-1">ผลลัพธ์ที่ได้ในเซลล์ <code class="font-mono font-bold text-slate-700">G3</code>:</div>
+                                    <div id="exact-result-value" class="text-xl sm:text-2xl font-bold text-excel-green font-sans">
+                                        เมาส์ไร้สาย Logitech
+                                    </div>
+                                    <div id="exact-result-explain" class="mt-2 text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-200 leading-relaxed">
+                                        <!-- Step by step explanation -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MODE 2: APPROXIMATE MATCH (GRADING SYSTEM) -->
+                    <div id="sim-container-approx" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <!-- Left Table: Grade Criteria -->
+                        <div class="lg:col-span-6 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-bold text-slate-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-table text-maroon"></i> ตารางเกณฑ์การตัดเกรด (<code class="text-maroon">$A$2:$B$6</code>)
+                                </span>
+                                <span class="text-xs text-rose-600 font-semibold">*ต้องเรียงคะแนนจากน้อยไปมากเสมอ!</span>
+                            </div>
+                            
+                            <div class="overflow-x-auto rounded-xl border border-slate-300 shadow-xs">
+                                <table class="w-full text-sm border-collapse bg-white">
+                                    <thead>
+                                        <tr class="bg-slate-200 text-slate-600 font-mono text-center border-b border-slate-300">
+                                            <th class="w-10 py-1.5 border-r border-slate-300 bg-slate-300/70"></th>
+                                            <th class="py-1.5 border-r border-slate-300">A (คอลัมน์ 1)</th>
+                                            <th class="py-1.5">B (คอลัมน์ 2)</th>
+                                        </tr>
+                                        <tr class="bg-maroon text-white font-semibold border-b border-slate-300">
+                                            <td class="text-center font-mono bg-slate-200 text-slate-600 border-r border-slate-300 py-2">1</td>
+                                            <td class="px-4 py-2 border-r border-maroon-light">คะแนนขั้นต่ำ</td>
+                                            <td class="px-4 py-2">เกรดที่ได้</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="approx-table-body" class="divide-y divide-slate-200">
+                                        <!-- Rendered by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Score Tester -->
+                        <div class="lg:col-span-6 space-y-4">
+                            <div class="bg-gold-50/70 border border-gold/50 rounded-2xl p-5 space-y-4">
+                                <div class="flex items-center justify-between border-b border-gold/30 pb-2">
+                                    <h3 class="font-bold text-maroon-dark flex items-center gap-2">
+                                        <i class="fa-solid fa-award text-gold-dark"></i> ทดลองตัดเกรดด้วย VLOOKUP(..., TRUE)
+                                    </h3>
+                                    <span class="text-xs font-mono bg-white px-2 py-0.5 rounded border border-gold/40">TRUE (ใกล้เคียง)</span>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <label class="text-xs font-bold text-slate-700">เลื่อนแถบหรือพิมพ์คะแนนสอบของนักศึกษา (0 - 100):</label>
+                                        <span id="approx-score-badge" class="font-mono font-bold text-lg text-maroon bg-white px-3 py-0.5 rounded-lg border border-maroon/20">76</span>
+                                    </div>
+                                    <input type="range" id="approx-score-slider" min="0" max="100" value="76" oninput="updateApproxSim(this.value)" class="w-full accent-maroon cursor-pointer h-2 bg-slate-200 rounded-lg">
+                                    <div class="flex justify-between text-[11px] text-slate-500 font-mono mt-1">
+                                        <span>0</span>
+                                        <span>50 (D)</span>
+                                        <span>60 (C)</span>
+                                        <span>70 (B)</span>
+                                        <span>80 (A)</span>
+                                        <span>100</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white rounded-xl border-2 border-maroon p-4 shadow-sm">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="text-xs text-slate-500">เกรดที่คำนวณได้:</div>
+                                            <div id="approx-result-grade" class="text-3xl font-bold text-maroon mt-0.5">เกรด B</div>
+                                        </div>
+                                        <div class="w-12 h-12 rounded-full bg-maroon-50 flex items-center justify-center text-maroon text-xl font-bold border border-maroon/20" id="approx-grade-circle">
+                                            B
+                                        </div>
+                                    </div>
+                                    <p id="approx-result-explain" class="mt-3 text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-200 leading-relaxed">
+                                        <!-- Explanation -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-2">
+                        <button onclick="switchTab('syntax')" class="px-4 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-medium text-sm transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left"></i> ย้อนกลับ
+                        </button>
+                        <button onclick="switchTab('errors')" class="px-5 py-2.5 bg-maroon hover:bg-maroon-dark text-white rounded-xl font-medium text-sm transition flex items-center gap-2 shadow-sm">
+                            <span>ถัดไป: ข้อผิดพลาดที่พบบ่อยและเคล็ดลับ</span>
+                            <i class="fa-solid fa-arrow-right text-gold"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SECTION 4: COMMON ERRORS & PRO TIPS                       -->
+        <!-- ========================================================= -->
+        <section id="sec-errors" class="tab-section hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-maroon-50 border-b border-maroon-100 px-6 py-4">
+                    <h2 class="text-xl sm:text-2xl font-bold text-maroon flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-maroon text-gold flex items-center justify-center text-sm font-bold">4</span>
+                        ข้อผิดพลาดที่พบบ่อย (Errors) และเคล็ดลับสำคัญ
+                    </h2>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-8">
+                    <!-- Error Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- #N/A -->
+                        <div class="rounded-2xl border-2 border-rose-200 bg-rose-50/30 p-5 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="inline-block px-3 py-1 rounded-lg bg-rose-600 text-white font-mono font-bold text-lg mb-3 shadow-xs">
+                                    #N/A
+                                </div>
+                                <h3 class="font-bold text-slate-800 text-lg mb-2">ไม่พบข้อมูลที่ค้นหา (Not Available)</h3>
+                                <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside font-body">
+                                    <li>พิมพ์ค่าค้นหาผิด หรือไม่มีรหัสนี้ในฐานข้อมูลจริง</li>
+                                    <li><strong>มีช่องว่าง (Space)</strong> แอบซ่อนอยู่หน้าหรือหลังข้อความ</li>
+                                    <li>รูปแบบข้อมูลไม่ตรงกัน (เช่น ช่องหนึ่งเป็นตัวเลข อีกช่องเก็บเป็นข้อความ Text)</li>
+                                    <li><strong>ลืมกด F4 ล็อกตาราง</strong> เมื่อลากสูตรลงมา ทำให้กรอบตารางเลื่อนหลุด</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-rose-200 text-xs text-rose-900">
+                                <strong>วิธีแก้:</strong> ตรวจสอบคำสะกด ลบช่องว่างส่วนเกิน หรือใช้สูตร <code class="font-mono bg-slate-100 px-1 rounded">=IFERROR(VLOOKUP(...), "ไม่พบข้อมูล")</code> ครอบไว้
+                            </div>
+                        </div>
+
+                        <!-- #REF! -->
+                        <div class="rounded-2xl border-2 border-amber-200 bg-amber-50/30 p-5 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="inline-block px-3 py-1 rounded-lg bg-amber-600 text-white font-mono font-bold text-lg mb-3 shadow-xs">
+                                    #REF!
+                                </div>
+                                <h3 class="font-bold text-slate-800 text-lg mb-2">การอ้างอิงผิดพลาด (Reference Error)</h3>
+                                <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside font-body">
+                                    <li>ระบุตัวเลข <code class="font-mono text-amber-800">col_index_num</code> <strong>เกินจำนวนคอลัมน์</strong> ที่คลุมไว้ใน <code class="font-mono text-amber-800">table_array</code></li>
+                                    <li>เช่น คลุมตารางไว้แค่ 4 คอลัมน์ (A:D) แต่ดันใส่เลขคอลัมน์เป็น 5</li>
+                                    <li>เผลอลบคอลัมน์ในตารางฐานข้อมูลทิ้งหลังจากเขียนสูตรไปแล้ว</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-amber-200 text-xs text-amber-900">
+                                <strong>วิธีแก้:</strong> นับจำนวนคอลัมน์ในขอบเขตตารางที่เลือกใหม่ให้ถูกต้อง และแก้ตัวเลข <code class="font-mono bg-slate-100 px-1 rounded">col_index_num</code> ให้ไม่เกินขอบเขต
+                            </div>
+                        </div>
+
+                        <!-- #VALUE! -->
+                        <div class="rounded-2xl border-2 border-purple-200 bg-purple-50/30 p-5 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="inline-block px-3 py-1 rounded-lg bg-purple-600 text-white font-mono font-bold text-lg mb-3 shadow-xs">
+                                    #VALUE!
+                                </div>
+                                <h3 class="font-bold text-slate-800 text-lg mb-2">ค่าพารามิเตอร์ไม่ถูกต้อง (Value Error)</h3>
+                                <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside font-body">
+                                    <li>ใส่เลขลำดับคอลัมน์ (<code class="font-mono text-purple-800">col_index_num</code>) <strong>น้อยกว่า 1</strong> (เช่น ใส่ 0 หรือติดลบ)</li>
+                                    <li>ใส่ตัวอักษรลงในช่องที่สูตรต้องการตัวเลข</li>
+                                    <li>ค่าที่ค้นหา (<code class="font-mono text-purple-800">lookup_value</code>) มีความยาวเกิน 255 ตัวอักษร</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-purple-200 text-xs text-purple-900">
+                                <strong>วิธีแก้:</strong> ตรวจสอบว่าเลขลำดับคอลัมน์ต้องเป็นจำนวนเต็มที่มากกว่าหรือเท่ากับ 1 เสมอ
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Golden Rules Banner -->
+                    <div class="bg-gradient-to-r from-maroon-dark to-maroon rounded-2xl p-6 text-white shadow-md border-l-8 border-gold">
+                        <h3 class="text-lg sm:text-xl font-bold text-gold flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-star"></i> 3 กฎเหล็กที่ต้องจำให้ขึ้นใจเมื่อใช้ VLOOKUP
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-white/10 backdrop-blur-xs rounded-xl p-4 border border-white/15">
+                                <div class="font-bold text-gold-light mb-1">1. ค้นหาจากซ้ายไปขวาเท่านั้น</div>
+                                <p class="text-white/90 font-body">คอลัมน์ที่ใช้เป็นตัวค้นหา (<code class="font-mono text-gold">lookup_value</code>) <strong>ต้องอยู่คอลัมน์ซ้ายสุด</strong> ของตารางที่คลุมเสมอ VLOOKUP ไม่สามารถค้นหาย้อนกลับไปทางซ้ายได้</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-xs rounded-xl p-4 border border-white/15">
+                                <div class="font-bold text-gold-light mb-1">2. อย่าลืมกดปุ่ม F4 ล็อกตาราง ($)</div>
+                                <p class="text-white/90 font-body">ทุกครั้งที่คลุมตารางฐานข้อมูล ให้กด <kbd class="px-1.5 py-0.5 bg-white text-maroon font-mono font-bold rounded text-xs">F4</kbd> เพื่อใส่เครื่องหมาย <code class="font-mono text-gold">$A$2:$D$10</code> ป้องกันตารางเลื่อนเวลาลากสูตร</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-xs rounded-xl p-4 border border-white/15">
+                                <div class="font-bold text-gold-light mb-1">3. ใส่ FALSE (หรือ 0) เสมอถ้าต้องการตรงเป๊ะ</div>
+                                <p class="text-white/90 font-body">หากไม่ใส่ส่วนที่ 4 Excel จะถือว่าเป็น <code class="font-mono text-gold">TRUE</code> โดยอัตโนมัติ ซึ่งอาจดึงข้อมูลผิดแถวมาให้หากไม่ได้เรียงลำดับข้อมูลไว้</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-2">
+                        <button onclick="switchTab('simulator')" class="px-4 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-medium text-sm transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left"></i> ย้อนกลับ
+                        </button>
+                        <button onclick="switchTab('quiz')" class="px-5 py-2.5 bg-gold hover:bg-gold-dark text-maroon-dark font-bold rounded-xl text-sm transition flex items-center gap-2 shadow-sm">
+                            <span>ถัดไป: ทำแบบทดสอบทบทวนความรู้ (5 ข้อ)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SECTION 5: INTERACTIVE QUIZ                               -->
+        <!-- ========================================================= -->
+        <section id="sec-quiz" class="tab-section hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-maroon-50 border-b border-maroon-100 px-6 py-4 flex items-center justify-between">
+                    <h2 class="text-xl sm:text-2xl font-bold text-maroon flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-maroon text-gold flex items-center justify-center text-sm font-bold">5</span>
+                        แบบทดสอบทบทวนความรู้เรื่อง VLOOKUP
+                    </h2>
+                    <span class="text-xs font-semibold text-maroon bg-white px-3 py-1 rounded-full border border-maroon/20">
+                        จำนวน 5 ข้อ
+                    </span>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-6">
+                    <!-- Score Summary Banner (Hidden until submitted) -->
+                    <div id="quiz-result-banner" class="hidden rounded-2xl p-6 bg-gradient-to-r from-maroon-dark to-maroon text-white shadow-lg border-2 border-gold">
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gold text-maroon-dark flex flex-col items-center justify-center font-bold shadow-md shrink-0">
+                                    <span class="text-2xl leading-none" id="quiz-score-num">0</span>
+                                    <span class="text-xs">/ 5</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gold" id="quiz-feedback-title">ผลการทดสอบของคุณ</h3>
+                                    <p class="text-sm text-white/90 mt-1" id="quiz-feedback-desc">ดูเฉลยละเอียดของแต่ละข้อได้ที่ด้านล่าง</p>
+                                </div>
+                            </div>
+                            <button onclick="resetQuiz()" class="px-4 py-2 bg-white text-maroon hover:bg-gold-light font-semibold rounded-xl text-sm transition shrink-0 shadow-xs">
+                                <i class="fa-solid fa-rotate-right mr-1"></i> ทำแบบทดสอบอีกครั้ง
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Questions Container -->
+                    <div id="quiz-questions-container" class="space-y-6">
+                        <!-- Questions rendered via JS -->
+                    </div>
+
+                    <!-- Validation Warning Box (Replaces alert()) -->
+                    <div id="quiz-warning-msg" class="hidden p-4 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-circle-exclamation text-amber-600 text-lg"></i>
+                        <span>กรุณาเลือกคำตอบให้ครบทั้ง 5 ข้อก่อนกดส่งคำตอบครับ</span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-200">
+                        <button onclick="switchTab('errors')" class="px-4 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-medium text-sm transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left"></i> ย้อนกลับ
+                        </button>
+                        <button id="quiz-submit-btn" onclick="submitQuiz()" class="px-6 py-3 bg-maroon hover:bg-maroon-dark text-white font-bold rounded-xl text-sm sm:text-base transition flex items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-paper-plane text-gold"></i>
+                            <span>ส่งคำตอบและตรวจคะแนน</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-maroon-dark text-white/80 border-t-4 border-gold mt-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                <div class="flex items-center gap-3">
+                    <img src="logo.png.png" alt="Logo" class="w-10 h-10 object-contain bg-white rounded-full p-1" onerror="this.style.display='none'">
+                    <div>
+                        <p class="text-sm sm:text-base font-semibold text-white">
+                            จัดทำโดย ครูอนุสรณ์ บุญเจริญปัญญา | วิทยาลัยอาชีวศึกษาเทคโนโลยีฐานวิทยาศาสตร์ (ชลบุรี)
+                        </p>
+                        <p class="text-xs text-gold-light/80 mt-0.5">
+                            สื่อการเรียนรู้รายวิชาคอมพิวเตอร์และการประมวลผลข้อมูล • อ้างอิงแนวทางจาก JobsDB Thailand
+                        </p>
+                    </div>
+                </div>
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-white transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-up text-gold"></i> กลับขึ้นด้านบน
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // ==========================================
+        // 1. TAB NAVIGATION LOGIC
+        // ==========================================
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('.tab-section').forEach(sec => {
+                sec.classList.add('hidden');
+            });
+            // Show target section
+            const target = document.getElementById('sec-' + tabId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            // Update nav button styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-gold', 'text-maroon-dark', 'shadow-sm');
+                btn.classList.add('text-white/80', 'hover:text-white', 'hover:bg-white/10');
+            });
+
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-white/80', 'hover:text-white', 'hover:bg-white/10');
+                activeBtn.classList.add('bg-gold', 'text-maroon-dark', 'shadow-sm');
+            }
+
+            // Scroll smoothly to top of main content on mobile
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // 2. SYNTAX INTERACTIVE EXPLAINER
+        // ==========================================
+        const syntaxData = {
+            1: {
+                title: "1. lookup_value (ค่าที่ต้องการค้นหา)",
+                badge: "จำเป็นต้องระบุ (Required)",
+                borderClass: "border-blue-300 bg-blue-50/60",
+                badgeClass: "bg-blue-600 text-white",
+                desc: "คือ <strong>\"คีย์หลัก\" หรือข้อมูลอ้างอิง</strong> ที่เรามีอยู่แล้ว และต้องการนำไปค้นหาในตารางฐานข้อมูล เช่น รหัสสินค้า, รหัสนักศึกษา หรือชื่อพนักงาน",
+                example: "ตัวอย่าง: <code>G2</code> (คลิกที่ช่องเซลล์ที่เก็บค่ารหัสสินค้า) หรือพิมพ์ตรงๆ ในเครื่องหมายคำพูด เช่น <code>\"P001\"</code>",
+                tip: "ค่านี้จะต้องปรากฏอยู่ใน <strong>คอลัมน์แรก (ซ้ายสุด)</strong> ของตารางฐานข้อมูลในส่วนที่ 2 เสมอ"
+            },
+            2: {
+                title: "2. table_array (ตารางฐานข้อมูลที่ต้องการค้นหา)",
+                badge: "จำเป็นต้องระบุ (Required)",
+                borderClass: "border-rose-300 bg-rose-50/60",
+                badgeClass: "bg-rose-600 text-white",
+                desc: "คือ <strong>ขอบเขตพื้นที่ของตารางฐานข้อมูลทั้งหมด</strong> ที่มีทั้งคอลัมน์ตัวค้นหา และคอลัมน์คำตอบที่เราต้องการดึงข้อมูล",
+                example: "ตัวอย่าง: <code>$A$2:$D$7</code> (คลุมตั้งแต่คอลัมน์ A แถวที่ 2 จนถึงคอลัมน์ D แถวที่ 7)",
+                tip: "<strong>สำคัญมาก:</strong> หลังจากคลุมตารางแล้ว ควรกดปุ่ม <kbd class='px-1.5 py-0.5 bg-slate-800 text-white rounded text-xs'>F4</kbd> เพื่อใส่เครื่องหมาย <code>$</code> ล็อกตำแหน่งตารางไว้ ไม่ให้ตารางเลื่อนเวลาคัดลอกสูตรลงแถวถัดไป"
+            },
+            3: {
+                title: "3. col_index_num (ลำดับคอลัมน์ที่ต้องการดึงข้อมูล)",
+                badge: "จำเป็นต้องระบุ (Required)",
+                borderClass: "border-amber-300 bg-amber-50/60",
+                badgeClass: "bg-amber-600 text-white",
+                desc: "คือ <strong>ตัวเลขระบุลำดับคอลัมน์</strong> ของคำตอบที่เราต้องการดึงมาแสดง โดยให้นับจากคอลัมน์ซ้ายสุดของตาราง <code>table_array</code> เป็นคอลัมน์ที่ 1, 2, 3... ไปเรื่อยๆ",
+                example: "ตัวอย่าง: หากตารางเริ่มที่คอลัมน์ A (รหัสสินค้า = 1), B (ชื่อสินค้า = 2), C (ราคา = 3) ถ้าต้องการดึง 'ราคา' ให้ใส่เลข <code>3</code>",
+                tip: "ต้องใส่เป็น <strong>ตัวเลขเท่านั้น</strong> (ห้ามใส่ชื่อหัวตารางหรือตัวอักษรคอลัมน์ A, B, C) และห้ามใส่ตัวเลขเกินจำนวนคอลัมน์ที่คลุมไว้"
+            },
+            4: {
+                title: "4. [range_lookup] (รูปแบบการค้นหา)",
+                badge: "ทางเลือก (แนะนำให้ระบุเสมอ)",
+                borderClass: "border-emerald-300 bg-emerald-50/60",
+                badgeClass: "bg-emerald-600 text-white",
+                desc: "กำหนดเงื่อนไขความแม่นยำในการค้นหา สามารถใส่ได้ 2 ค่า คือ:<br>• <strong>FALSE (หรือเลข 0):</strong> ค้นหาแบบ <u>ตรงกันทุกตัวอักษร (Exact Match)</u> ใช้กับ รหัสสินค้า, เลขบัตรประชาชน, ชื่อคน<br>• <strong>TRUE (หรือเลข 1):</strong> ค้นหาแบบ <u>ใกล้เคียง (Approximate Match)</u> ใช้กับ ช่วงคะแนนตัดเกรด, อัตราภาษี (ต้องเรียงข้อมูลจากน้อยไปมาก)",
+                example: "ตัวอย่าง: <code>=VLOOKUP(G2, $A$2:$D$7, 2, FALSE)</code> หรือ <code>=VLOOKUP(G2, $A$2:$D$7, 2, 0)</code>",
+                tip: "ในการทำงานทั่วไป 95% จะใช้ <strong>FALSE (หรือ 0)</strong> เพื่อป้องกันไม่ให้ Excel ดึงข้อมูลที่ใกล้เคียงแต่ผิดคนมาแสดง"
+            }
+        };
+
+        function selectSyntaxParam(num) {
+            const data = syntaxData[num];
+            const box = document.getElementById('syntax-detail-box');
+            
+            // Reset all pills
+            document.querySelectorAll('.syn-pill').forEach(p => {
+                p.classList.remove('ring-2', 'ring-white', 'scale-105');
+            });
+            const activePill = document.getElementById('syn-btn-' + num);
+            if (activePill) {
+                activePill.classList.add('ring-2', 'ring-white', 'scale-105');
+            }
+
+            box.className = `rounded-2xl border-2 p-6 transition-all ${data.borderClass}`;
+            box.innerHTML = `
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900">${data.title}</h3>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full ${data.badgeClass}">${data.badge}</span>
+                </div>
+                <p class="text-slate-700 font-body text-base leading-relaxed mb-4">${data.desc}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+                    <div class="bg-white/90 p-3.5 rounded-xl border border-slate-200/80 text-slate-700">
+                        <span class="font-bold text-slate-900 block mb-1"><i class="fa-solid fa-terminal text-maroon mr-1"></i> ตัวอย่างการเขียน:</span>
+                        ${data.example}
+                    </div>
+                    <div class="bg-white/90 p-3.5 rounded-xl border border-slate-200/80 text-slate-700">
+                        <span class="font-bold text-slate-900 block mb-1"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> ข้อควรจำ:</span>
+                        ${data.tip}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // 3. INTERACTIVE EXCEL SIMULATOR
+        // ==========================================
+        const productsData = [
+            { row: 2, id: "P001", name: "คีย์บอร์ด Mechanical", category: "อุปกรณ์ต่อพ่วง", price: "1,290" },
+            { row: 3, id: "P002", name: "เมาส์ไร้สาย Logitech", category: "อุปกรณ์ต่อพ่วง", price: "590" },
+            { row: 4, id: "P003", name: "จอมอนิเตอร์ 24 นิ้ว", category: "หน้าจอแสดงผล", price: "3,850" },
+            { row: 5, id: "P004", name: "แฟลชไดรฟ์ 64GB", category: "หน่วยความจำ", price: "250" },
+            { row: 6, id: "P005", name: "หูฟังตัดเสียงรบกวน", category: "อุปกรณ์เสียง", price: "1,490" },
+            { row: 7, id: "P006", name: "เว็บแคม Full HD", category: "กล้องและวิดีโอ", price: "890" }
+        ];
+
+        const gradeData = [
+            { row: 2, minScore: 0, grade: "F", desc: "ต่ำกว่า 50 คะแนน" },
+            { row: 3, minScore: 50, grade: "D", desc: "50 - 59 คะแนน" },
+            { row: 4, minScore: 60, grade: "C", desc: "60 - 69 คะแนน" },
+            { row: 5, minScore: 70, grade: "B", desc: "70 - 79 คะแนน" },
+            { row: 6, minScore: 80, grade: "A", desc: "80 คะแนนขึ้นไป" }
+        ];
+
+        let currentSimMode = 'exact';
+        let currentExactCol = 2;
+
+        function setSimMode(mode) {
+            currentSimMode = mode;
+            const btnExact = document.getElementById('sim-mode-exact');
+            const btnApprox = document.getElementById('sim-mode-approx');
+            const boxExact = document.getElementById('sim-container-exact');
+            const boxApprox = document.getElementById('sim-container-approx');
+
+            if (mode === 'exact') {
+                btnExact.className = "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-maroon text-white transition";
+                btnApprox.className = "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-maroon transition";
+                boxExact.classList.remove('hidden');
+                boxApprox.classList.add('hidden');
+                updateExactSim();
+            } else {
+                btnApprox.className = "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-maroon text-white transition";
+                btnExact.className = "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-maroon transition";
+                boxApprox.classList.remove('hidden');
+                boxExact.classList.add('hidden');
+                updateApproxSim(document.getElementById('approx-score-slider').value);
+            }
+        }
+
+        function syncExactInput(val) {
+            document.getElementById('exact-text-id').value = val;
+            updateExactSim();
+        }
+
+        function setExactCol(colNum) {
+            currentExactCol = colNum;
+            [2, 3, 4, 5].forEach(c => {
+                const btn = document.getElementById('col-btn-' + c);
+                if (c === colNum) {
+                    btn.className = c === 5 
+                        ? "exact-col-btn py-2 px-2 rounded-lg text-xs font-semibold border-2 border-rose-500 bg-rose-100 text-rose-900 transition"
+                        : "exact-col-btn py-2 px-2 rounded-lg text-xs font-semibold border-2 border-amber-500 bg-amber-100 text-amber-900 transition";
+                } else {
+                    btn.className = c === 5
+                        ? "exact-col-btn py-2 px-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-rose-600 hover:bg-rose-50 transition"
+                        : "exact-col-btn py-2 px-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-slate-600 hover:bg-slate-50 transition";
+                }
+            });
+            updateExactSim();
+        }
+
+        function updateExactSim() {
+            const rawInput = document.getElementById('exact-text-id').value.trim().toUpperCase();
+            const tbody = document.getElementById('exact-table-body');
+            const formulaDisplay = document.getElementById('sim-formula-display');
+            const resultVal = document.getElementById('exact-result-value');
+            const resultExplain = document.getElementById('exact-result-explain');
+
+            document.getElementById('sim-active-cell').textContent = "G3";
+            formulaDisplay.innerHTML = `=VLOOKUP(<span class="text-blue-600 font-bold">G2</span>, <span class="text-rose-600 font-bold">$A$2:$D$7</span>, <span class="text-amber-600 font-bold">${currentExactCol}</span>, <span class="text-emerald-600 font-bold">FALSE</span>)`;
+
+            const matchedProduct = productsData.find(p => p.id === rawInput);
+
+            // Render table rows with highlighting
+            tbody.innerHTML = productsData.map(p => {
+                const isRowMatch = matchedProduct && p.id === matchedProduct.id;
+                const rowBg = isRowMatch ? 'bg-gold-50/90 font-semibold' : 'hover:bg-slate-50';
+                
+                const getCellClass = (colIdx, alignRight = false) => {
+                    let base = `px-3 py-2 border-r border-slate-200 ${alignRight ? 'text-right font-mono' : ''}`;
+                    if (isRowMatch && colIdx === 1) {
+                        return base + ' bg-blue-100 text-blue-900 font-mono font-bold ring-2 ring-inset ring-blue-400';
+                    }
+                    if (isRowMatch && colIdx === currentExactCol) {
+                        return base + ' bg-emerald-200 text-emerald-950 font-bold ring-2 ring-inset ring-emerald-600';
+                    }
+                    if (!isRowMatch && colIdx === currentExactCol && currentExactCol <= 4) {
+                        return base + ' bg-amber-50/50';
+                    }
+                    return base;
+                };
+
+                return `
+                    <tr class="${rowBg} transition-colors">
+                        <td class="text-center font-mono bg-slate-100 text-slate-500 border-r border-slate-300 py-2">${p.row}</td>
+                        <td class="${getCellClass(1)} font-mono">${p.id}</td>
+                        <td class="${getCellClass(2)}">${p.name}</td>
+                        <td class="${getCellClass(3)}">${p.category}</td>
+                        <td class="${getCellClass(4, true)}">${p.price}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Calculate Output & Explanation
+            if (currentExactCol > 4) {
+                resultVal.textContent = "#REF!";
+                resultVal.className = "text-2xl font-mono font-bold text-rose-600";
+                resultExplain.innerHTML = `<span class="text-rose-700 font-bold"><i class="fa-solid fa-circle-xmark mr-1"></i> เกิดข้อผิดพลาด #REF!:</span> คุณระบุลำดับคอลัมน์เป็น <strong>${currentExactCol}</strong> ซึ่งเกินขอบเขตตาราง <code>$A$2:$D$7</code> ที่มีเพียง 4 คอลัมน์!`;
+            } else if (!matchedProduct) {
+                resultVal.textContent = "#N/A";
+                resultVal.className = "text-2xl font-mono font-bold text-rose-600";
+                resultExplain.innerHTML = `<span class="text-rose-700 font-bold"><i class="fa-solid fa-circle-xmark mr-1"></i> เกิดข้อผิดพลาด #N/A:</span> สูตรค้นหารหัส <strong>"${rawInput || '(ค่าว่าง)'}"</strong> ในคอลัมน์ A แต่ไม่พบรหัสที่ตรงกันทุกตัวอักษร`;
+            } else {
+                let outputText = "";
+                let colName = "";
+                if (currentExactCol === 2) { outputText = matchedProduct.name; colName = "ชื่อสินค้า"; }
+                if (currentExactCol === 3) { outputText = matchedProduct.category; colName = "หมวดหมู่"; }
+                if (currentExactCol === 4) { outputText = matchedProduct.price + " บาท"; colName = "ราคา"; }
+
+                resultVal.textContent = outputText;
+                resultVal.className = "text-xl sm:text-2xl font-bold text-excel-green";
+                resultExplain.innerHTML = `<i class="fa-solid fa-circle-check text-excel-green mr-1"></i> สูตรพบรหัส <strong>${matchedProduct.id}</strong> ที่แถวที่ ${matchedProduct.row} จากนั้นนับไปทางขวาที่ <strong>คอลัมน์ที่ ${currentExactCol} (${colName})</strong> จึงได้คำตอบคือ <strong>"${outputText}"</strong>`;
+            }
+        }
+
+        function updateApproxSim(scoreVal) {
+            const score = parseInt(scoreVal, 10);
+            document.getElementById('approx-score-badge').textContent = score;
+            document.getElementById('sim-active-cell').textContent = "E2";
+            document.getElementById('sim-formula-display').innerHTML = `=VLOOKUP(<span class="text-blue-600 font-bold">${score}</span>, <span class="text-rose-600 font-bold">$A$2:$B$6</span>, <span class="text-amber-600 font-bold">2</span>, <span class="text-emerald-600 font-bold">TRUE</span>)`;
+
+            // Approximate match logic (largest value <= score)
+            let matchedRow = gradeData[0];
+            for (let i = 0; i < gradeData.length; i++) {
+                if (score >= gradeData[i].minScore) {
+                    matchedRow = gradeData[i];
+                }
+            }
+
+            const tbody = document.getElementById('approx-table-body');
+            tbody.innerHTML = gradeData.map(g => {
+                const isMatch = g.minScore === matchedRow.minScore;
+                return `
+                    <tr class="${isMatch ? 'bg-gold-50 font-bold' : ''}">
+                        <td class="text-center font-mono bg-slate-100 text-slate-500 border-r border-slate-300 py-2.5">${g.row}</td>
+                        <td class="px-4 py-2.5 border-r border-slate-200 font-mono ${isMatch ? 'bg-blue-100 text-blue-900' : ''}">${g.minScore} <span class="text-xs font-sans font-normal text-slate-500 ml-2">(${g.desc})</span></td>
+                        <td class="px-4 py-2.5 font-mono text-center ${isMatch ? 'bg-maroon text-gold text-base' : ''}">${g.grade}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('approx-result-grade').textContent = `เกรด ${matchedRow.grade}`;
+            document.getElementById('approx-grade-circle').textContent = matchedRow.grade;
+            document.getElementById('approx-result-explain').innerHTML = `เมื่อใช้ <strong>TRUE</strong> สูตรจะหาค่าที่มากที่สุดในคอลัมน์ A ที่ <u>น้อยกว่าหรือเท่ากับ ${score}</u> ซึ่งตรงกับเกณฑ์ขั้นต่ำ <strong>${matchedRow.minScore}</strong> (แถวที่ ${matchedRow.row}) และดึงคอลัมน์ที่ 2 คือ <strong>เกรด ${matchedRow.grade}</strong> มาแสดง`;
+        }
+
+        // ==========================================
+        // 4. INTERACTIVE QUIZ LOGIC (5 QUESTIONS)
+        // ==========================================
+        const quizQuestions = [
+            {
+                q: "1. ตัวอักษร 'V' ในฟังก์ชัน VLOOKUP ย่อมาจากคำว่าอะไร และมีความหมายอย่างไร?",
+                options: [
+                    "Value Lookup หมายถึง การค้นหาเฉพาะตัวเลขเท่านั้น",
+                    "Vertical Lookup หมายถึง การค้นหาข้อมูลในแนวตั้งจากบนลงล่าง",
+                    "Visual Lookup หมายถึง การค้นหาข้อมูลจากแผนภูมิและรูปภาพ",
+                    "Variable Lookup หมายถึง การค้นหาข้อมูลแบบสุ่ม"
+                ],
+                correct: 1,
+                explanation: "VLOOKUP ย่อมาจาก Vertical Lookup แปลว่า การค้นหาข้อมูลในแนวตั้ง โดยไล่ค้นหาจากคอลัมน์ซ้ายสุดลงมาด้านล่าง แล้วดึงข้อมูลในคอลัมน์ทางขวามาแสดง"
+            },
+            {
+                q: "2. ข้อใดคือกฎสำคัญที่สุดของคอลัมน์ที่ใช้เก็บค่าอ้างอิงในการค้นหา (lookup_value)?",
+                options: [
+                    "ต้องอยู่คอลัมน์ขวาสุดของตารางเสมอ",
+                    "ต้องอยู่คอลัมน์ซ้ายสุดของตารางฐานข้อมูลที่คลุมเสมอ",
+                    "ต้องเป็นตัวเลขเท่านั้น ห้ามเป็นตัวอักษร",
+                    "ต้องใส่สีพื้นหลังให้เซลล์เป็นสีเหลืองก่อนเสมอ"
+                ],
+                correct: 1,
+                explanation: "VLOOKUP สามารถค้นหาข้อมูลจากซ้ายไปขวาได้เท่านั้น ดังนั้นคอลัมน์ที่เป็นตัวค้นหาหลักจะต้องอยู่คอลัมน์แรก (ซ้ายสุด) ของขอบเขตตาราง (table_array) เสมอ"
+            },
+            {
+                q: "3. หากตารางฐานข้อมูลอยู่ที่ช่วงเซลล์ A2:E20 และเราต้องการล็อกตำแหน่งตารางไม่ให้เลื่อนเวลาคัดลอกสูตร ควรทำอย่างไร?",
+                options: [
+                    "คลุม A2:E20 แล้วกดปุ่ม F4 เพื่อให้กลายเป็น $A$2:$E$20",
+                    "พิมพ์เครื่องหมาย # ไว้หน้าชื่อคอลัมน์ เช่น #A2:#E20",
+                    "ใส่เครื่องหมายคำพูดครอบตาราง เช่น \"A2:E20\"",
+                    "ไม่ต้องทำอะไร Excel ล็อกตารางให้เองอัตโนมัติ"
+                ],
+                correct: 0,
+                explanation: "การกดปุ่ม F4 จะเป็นการใส่เครื่องหมาย $ (Absolute Reference) หน้าคอลัมน์และแถว เป็น $A$2:$E$20 เพื่อตรึงขอบเขตตารางฐานข้อมูลให้อยู่กับที่"
+            },
+            {
+                q: "4. ถ้าเราต้องการค้นหา 'รหัสประจำตัวนักศึกษา' ให้ตรงกันทุกตัวอักษรแบบ 100% พารามิเตอร์ตัวสุดท้าย ([range_lookup]) ควรระบุค่าใด?",
+                options: [
+                    "TRUE หรือเลข 1",
+                    "EXACT หรือคำว่า YES",
+                    "FALSE หรือเลข 0",
+                    "AUTO หรือเว้นว่างไว้"
+                ],
+                correct: 2,
+                explanation: "FALSE (หรือเลข 0) ใช้สั่งให้ Excel ค้นหาแบบตรงกันทุกตัวอักษร (Exact Match) หากไม่พบจะแสดง #N/A ส่วน TRUE (หรือเลข 1) ใช้สำหรับการหาค่าใกล้เคียงเป็นช่วง"
+            },
+            {
+                q: "5. หากเขียนสูตร =VLOOKUP(G2, $A$2:$C$10, 4, FALSE) แล้วผลลัพธ์ขึ้นว่า #REF! เกิดจากสาเหตุใด?",
+                options: [
+                    "ไม่พบรหัสที่ค้นหาในคอลัมน์ A",
+                    "ระบุเลขลำดับคอลัมน์ (col_index_num) เป็น 4 ซึ่งเกินจำนวนคอลัมน์ที่คลุมไว้ (A ถึง C มีแค่ 3 คอลัมน์)",
+                    "ลืมใส่เครื่องหมายเท่ากับหน้าสูตร",
+                    "พิมพ์คำว่า FALSE ผิด"
+                ],
+                correct: 1,
+                explanation: "ช่วงตาราง $A$2:$C$10 ครอบคลุมเพียง 3 คอลัมน์ (A=1, B=2, C=3) การระบุ col_index_num เป็นเลข 4 จึงเกินขอบเขตตาราง ทำให้เกิดข้อผิดพลาด #REF!"
+            }
+        ];
+
+        let userAnswers = new Array(quizQuestions.length).fill(null);
+        let isQuizSubmitted = false;
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-questions-container');
+            container.innerHTML = quizQuestions.map((item, qIdx) => {
+                const optionsHtml = item.options.map((opt, oIdx) => {
+                    const isSelected = userAnswers[qIdx] === oIdx;
+                    let cardStyle = "border-slate-200 hover:border-maroon/50 hover:bg-slate-50";
+                    let radioStyle = "border-slate-300";
+                    let iconHtml = "";
+
+                    if (!isQuizSubmitted) {
+                        if (isSelected) {
+                            cardStyle = "border-maroon bg-maroon-50/70 ring-1 ring-maroon";
+                            radioStyle = "border-maroon bg-maroon text-white";
+                        }
+                    } else {
+                        if (oIdx === item.correct) {
+                            cardStyle = "border-emerald-500 bg-emerald-50 font-semibold text-emerald-950";
+                            iconHtml = `<i class="fa-solid fa-circle-check text-emerald-600 ml-auto text-lg"></i>`;
+                        } else if (isSelected && oIdx !== item.correct) {
+                            cardStyle = "border-rose-500 bg-rose-50 text-rose-950";
+                            iconHtml = `<i class="fa-solid fa-circle-xmark text-rose-600 ml-auto text-lg"></i>`;
+                        } else {
+                            cardStyle = "border-slate-200 opacity-60";
+                        }
+                    }
+
+                    const letters = ["ก", "ข", "ค", "ง"];
+                    return `
+                        <button type="button" 
+                                onclick="selectQuizAnswer(${qIdx}, ${oIdx})"
+                                ${isQuizSubmitted ? 'disabled' : ''}
+                                class="w-full text-left p-3.5 rounded-xl border-2 transition-all flex items-center gap-3 ${cardStyle}">
+                            <span class="w-7 h-7 rounded-full border flex items-center justify-center text-xs font-bold shrink-0 ${isSelected && !isQuizSubmitted ? 'bg-maroon text-gold border-maroon' : 'bg-white text-slate-700 border-slate-300'}">
+                                ${letters[oIdx]}
+                            </span>
+                            <span class="text-sm sm:text-base font-body">${opt}</span>
+                            ${iconHtml}
+                        </button>
+                    `;
+                }).join('');
+
+                const explainHtml = isQuizSubmitted ? `
+                    <div class="mt-3 p-3.5 rounded-xl text-xs sm:text-sm ${userAnswers[qIdx] === item.correct ? 'bg-emerald-100/70 text-emerald-900 border border-emerald-300' : 'bg-amber-50 text-amber-950 border border-amber-300'}">
+                        <strong><i class="fa-solid fa-lightbulb mr-1"></i> คำอธิบายเฉลย:</strong> ${item.explanation}
+                    </div>
+                ` : '';
+
+                return `
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-2xs space-y-3">
+                        <h3 class="font-bold text-slate-900 text-base sm:text-lg leading-snug">${item.q}</h3>
+                        <div class="space-y-2.5 pt-1">
+                            ${optionsHtml}
+                        </div>
+                        ${explainHtml}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectQuizAnswer(qIdx, oIdx) {
+            if (isQuizSubmitted) return;
+            userAnswers[qIdx] = oIdx;
+            document.getElementById('quiz-warning-msg').classList.add('hidden');
+            renderQuiz();
+        }
+
+        function submitQuiz() {
+            if (userAnswers.includes(null)) {
+                document.getElementById('quiz-warning-msg').classList.remove('hidden');
+                return;
+            }
+
+            isQuizSubmitted = true;
+            let score = 0;
+            quizQuestions.forEach((item, idx) => {
+                if (userAnswers[idx] === item.correct) score++;
+            });
+
+            document.getElementById('quiz-score-num').textContent = score;
+            const titleEl = document.getElementById('quiz-feedback-title');
+            const descEl = document.getElementById('quiz-feedback-desc');
+
+            if (score === 5) {
+                titleEl.textContent = "ยอดเยี่ยมมาก! คุณได้คะแนนเต็ม 5/5";
+                descEl.textContent = "คุณเข้าใจหลักการและโครงสร้างสูตร VLOOKUP อย่างครบถ้วน พร้อมนำไปใช้งานจริงได้ทันที!";
+            } else if (score >= 3) {
+                titleEl.textContent = `ทำได้ดีมาก! คุณได้ ${score} เต็ม 5 คะแนน`;
+                descEl.textContent = "คุณมีความเข้าใจพื้นฐานที่ดี สามารถทบทวนคำอธิบายเพิ่มเติมในข้อที่ผิดด้านล่างได้ครับ";
+            } else {
+                titleEl.textContent = `คุณได้ ${score} เต็ม 5 คะแนน — ลองทบทวนอีกครั้งนะ!`;
+                descEl.textContent = "แนะนำให้อ่านคำอธิบายเฉลยด้านล่าง หรือกลับไปทดลองเล่นใน 'ห้องทดลองจำลองสูตร' แล้วลองทำใหม่ครับ";
+            }
+
+            document.getElementById('quiz-result-banner').classList.remove('hidden');
+            document.getElementById('quiz-submit-btn').classList.add('hidden');
+            renderQuiz();
+            document.getElementById('quiz-result-banner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetQuiz() {
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            isQuizSubmitted = false;
+            document.getElementById('quiz-result-banner').classList.add('hidden');
+            document.getElementById('quiz-submit-btn').classList.remove('hidden');
+            document.getElementById('quiz-warning-msg').classList.add('hidden');
+            renderQuiz();
+        }
+
+        // ==========================================
+        // 5. INITIALIZATION ON LOAD
+        // ==========================================
+        window.addEventListener('DOMContentLoaded', () => {
+            selectSyntaxParam(1);
+            updateExactSim();
+            renderQuiz();
+        });
+    </script>
+</body>
+</html>
