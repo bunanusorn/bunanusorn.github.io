@@ -4,7 +4,7 @@ import sets from './data/sets.json'
 import SetPicker from './components/SetPicker.vue'
 import QuestionCard from './components/QuestionCard.vue'
 import ContentBlock from './components/ContentBlock.vue'
-
+import VocabList from './components/VocabList.vue'
 const filter = ref('ทั้งหมด')
 const current = ref(sets[0].id)
 const showTh = ref(true)
@@ -46,45 +46,48 @@ function toggleTheme() {
 
 <template>
   <div class="wrap">
-    <div class="row" style="justify-content: space-between">
-      <h1>คลังข้อสอบ Reading &amp; Listening</h1>
+  <div class="row" style="justify-content: space-between">
+    <h1>คลังข้อสอบ Reading &amp; Listening</h1>
+    <div class="row">
+      <button @click="openVocab">📚 คำศัพท์</button>
       <button @click="toggleTheme">◐ ธีม</button>
     </div>
-    <p class="meta">{{ sets.length }} ชุด · {{ totalQ }} ข้อ · บทความ โจทย์ เฉลย และคำแปลไทย</p>
-
-    <SetPicker v-model:filter="filter" v-model:current="current" :list="list" :count="qCount" />
-
-    <template v-if="set">
-      <div class="toolbar row">
-        <div class="row">
-          <button :class="{ on: showTh }" @click="showTh = !showTh">คำแปลไทย {{ showTh ? 'เปิด' : 'ปิด' }}</button>
-          <button :class="{ on: memorize }" @click="toggleMemorize">โหมดท่องจำ {{ memorize ? 'เปิด' : 'ปิด' }}</button>
-          <button :class="{ on: view === 'all' }" @click="view = 'all'">ทั้งชุด</button>
-          <button :class="{ on: view === 'q' }" @click="view = 'q'">เฉพาะโจทย์</button>
-        </div>
-        <span class="meta" v-if="!memorize">
-          ตอบถูก {{ score }} / {{ answered }} (ทั้งหมด {{ qCount(set) }})
-          <button @click="picks = {}">รีเซ็ต</button>
-        </span>
-        <span class="meta" v-else>{{ qCount(set) }} ข้อ</span>
-      </div>
-
-      <h2>{{ set.title }}</h2>
-      <div class="meta">หน้า {{ set.page }} ของไฟล์ต้นฉบับ</div>
-
-      <template v-for="(it, ix) in set.items" :key="set.id + '-' + ix">
-        <QuestionCard
-          v-if="it.k === 'q'"
-          :q="it"
-          :memorize="memorize"
-          :show-th="showTh"
-          :picked="picks[ix]"
-          @pick="(l) => pick(ix, l)"
-        />
-        <ContentBlock v-else-if="view === 'all'" :item="it" :show-th="showTh" />
-      </template>
-    </template>
   </div>
+  <p class="meta">{{ sets.length }} ชุด · {{ totalQ }} ข้อ · บทความ โจทย์ เฉลย และคำแปลไทย</p>
+
+  <SetPicker v-model:filter="filter" v-model:current="current" :list="list" :count="qCount" />
+
+  <template v-if="set">
+    <div class="toolbar row">
+      <div class="row">
+        <button :class="{ on: showTh }" @click="showTh = !showTh">คำแปลไทย {{ showTh ? 'เปิด' : 'ปิด' }}</button>
+        <button :class="{ on: memorize }" @click="toggleMemorize">โหมดท่องจำ {{ memorize ? 'เปิด' : 'ปิด' }}</button>
+        <button :class="{ on: view === 'all' }" @click="view = 'all'">ทั้งชุด</button>
+        <button :class="{ on: view === 'q' }" @click="view = 'q'">เฉพาะโจทย์</button>
+      </div>
+      <span class="meta" v-if="!memorize">
+        ตอบถูก {{ score }} / {{ answered }} (ทั้งหมด {{ qCount(set) }})
+        <button @click="picks = {}">รีเซ็ต</button>
+      </span>
+      <span class="meta" v-else>{{ qCount(set) }} ข้อ</span>
+    </div>
+
+    <h2>{{ set.title }}</h2>
+    <div class="meta">หน้า {{ set.page }} ของไฟล์ต้นฉบับ</div>
+
+    <template v-for="(it, ix) in set.items" :key="set.id + '-' + ix">
+      <QuestionCard
+        v-if="it.k === 'q'"
+        :q="it"
+        :memorize="memorize"
+        :show-th="showTh"
+        :picked="picks[ix]"
+        @pick="(l) => pick(ix, l)"
+      />
+      <ContentBlock v-else-if="view === 'all'" :item="it" :show-th="showTh" />
+    </template>
+  </template>
+</div>
 </template>
 
 <style scoped>
