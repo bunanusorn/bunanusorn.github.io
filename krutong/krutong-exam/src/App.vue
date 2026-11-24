@@ -42,6 +42,8 @@ function toggleTheme() {
   const now = r.dataset.theme || (dark ? 'dark' : 'light')
   r.dataset.theme = now === 'dark' ? 'light' : 'dark'
 }
+
+const openVocab = () => window.open('/vocabulary.html', '_blank')
 </script>
 
 <template>
