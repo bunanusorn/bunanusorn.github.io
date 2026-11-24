@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning: การเขียนโปรแกรมคอมพิวเตอร์ (31910-0004)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Google Fonts: Prompt & Sarabun & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Prompt', 'Sarabun', sans-serif;
+            background-color: #f8fafc;
+        }
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .font-sarabun {
+            font-family: 'Sarabun', sans-serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(217, 119, 6, 0); }
+        }
+        .pulse-gold {
+            animation: pulse-border 2s infinite;
+        }
+
+        /* Print Styles for A4 Landscape Certificate */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+            body * {
+                visibility: hidden;
+            }
+            #certificate-print-area, #certificate-print-area * {
+                visibility: visible;
+            }
+            #certificate-print-area {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 297mm;
+                height: 210mm;
+                margin: 0 !important;
+                padding: 12mm !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                background: white !important;
+                z-index: 99999;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-amber-200 selection:text-red-900">
+
+<div id="app" class="min-h-screen flex flex-col">
+    <!-- Top Navigation Header (SBTVC Maroon & Gold Theme) -->
+    <header class="bg-gradient-to-r from-[#5c0a14] via-[#7f111e] to-[#4a0710] text-white shadow-lg sticky top-0 z-40 border-b-4 border-amber-400 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+            <!-- College & Course Brand -->
+            <div class="flex items-center space-x-3 cursor-pointer" @click="activeView = 'home'">
+                <div class="w-12 h-12 rounded-full bg-amber-400 p-1 flex items-center justify-center shadow-md shrink-0">
+                    <!-- Custom Emblem SVG representing SBTVC -->
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <circle cx="50" cy="50" r="46" fill="#7f111e" stroke="#fbbf24" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="36" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3 2"/>
+                        <path d="M50 18 L60 38 L82 40 L65 55 L70 76 L50 65 L30 76 L35 55 L18 40 L40 38 Z" fill="#fbbf24" opacity="0.9"/>
+                        <circle cx="50" cy="50" r="10" fill="#7f111e"/>
+                        <text x="50" y="54" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">SBT</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="bg-amber-400 text-[#5c0a14] text-xs font-bold px-2 py-0.5 rounded-full">รหัสวิชา 31910-0004</span>
+                        <span class="text-xs text-amber-200 hidden sm:inline">หลักสูตร ปวส. พ.ศ. 2567 • สาขาเทคโนโลยีธุรกิจดิจิทัล</span>
+                    </div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
+                        การเขียนโปรแกรมคอมพิวเตอร์ <span class="text-amber-300 font-normal text-sm hidden md:inline">(Computer Programming)</span>
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Progress & Certificate Button -->
+            <div class="flex items-center gap-3 ml-auto">
+                <!-- Overall Progress Pill -->
+                <div class="bg-black/30 backdrop-blur-sm px-3.5 py-1.5 rounded-xl border border-amber-400/30 flex items-center gap-3">
+                    <div class="text-right">
+                        <div class="text-[11px] text-amber-200">ความก้าวหน้าการเรียน</div>
+                        <div class="text-sm font-bold text-white">{{ completedCount }} / 6 หน่วย ({{ progressPercent }}%)</div>
+                    </div>
+                    <div class="w-16 sm:w-24 h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-amber-400 to-emerald-400 transition-all duration-500" :style="{ width: progressPercent + '%' }"></div>
+                    </div>
+                </div>
+
+                <!-- Certificate Button -->
+                <button @click="openCertificateModal"
+                        :class="isAllCompleted ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-[#5c0a14] pulse-gold font-bold' : 'bg-white/15 hover:bg-white/25 text-amber-100'"
+                        class="px-4 py-2 rounded-xl text-sm transition flex items-center gap-2 shadow-md cursor-pointer">
+                    <i class="fa-solid fa-award text-base"></i>
+                    <span class="hidden sm:inline">{{ isAllCompleted ? 'รับเกียรติบัตร!' : 'เกียรติบัตร' }}</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row gap-6 no-print">
+        
+        <!-- Left Sidebar: Module Navigation -->
+        <aside class="w-full lg:w-80 shrink-0 space-y-4">
+            <!-- Instructor Card -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7f111e] to-amber-600 text-white flex items-center justify-center text-xl font-bold shadow shrink-0">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs text-slate-500">ครูผู้สอนรายวิชา</p>
+                    <p class="font-bold text-slate-800 text-sm truncate">ครูอนุสรณ์ บุญเจริญปัญญา</p>
+                    <p class="text-[11px] text-[#7f111e] font-medium truncate">วท.ฐานวิทยาศาสตร์ (ชลบุรี)</p>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-3.5 bg-slate-900 text-white flex items-center justify-between">
+                    <span class="font-semibold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-amber-400"></i> หน่วยการเรียนรู้ (6 หน่วย)
+                    </span>
+                    <button @click="activeView = 'home'" class="text-xs text-amber-300 hover:underline">หน้าหลัก</button>
+                </div>
+                <div class="divide-y divide-slate-100">
+                    <button v-for="unit in units" :key="unit.id"
+                            @click="selectUnit(unit.id)"
+                            :class="[
+                                activeView === 'unit' && currentUnitId === unit.id
+                                    ? 'bg-amber-50/90 border-l-4 border-[#7f111e]'
+                                    : 'hover:bg-slate-50 border-l-4 border-transparent'
+                            ]"
+                            class="w-full text-left p-3.5 transition flex items-start gap-3">
+                        <!-- Status Icon -->
+                        <div class="mt-0.5 shrink-0">
+                            <span v-if="unitProgress[unit.id].passed"
+                                  class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold shadow-xs">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <span v-else
+                                  :class="activeView === 'unit' && currentUnitId === unit.id ? 'bg-[#7f111e] text-white' : 'bg-slate-100 text-slate-600'"
+                                  class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold">
+                                {{ unit.id }}
+                            </span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-1">
+                                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">หน่วยที่ {{ unit.id }} • {{ unit.hours }} ชม.</span>
+                                <span v-if="unitProgress[unit.id].passed" class="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-semibold">ผ่านแล้ว</span>
+                            </div>
+                            <p class="text-sm font-semibold text-slate-800 leading-snug mt-0.5 line-clamp-2">{{ unit.shortTitle }}</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Quick Demo Unlock for Teacher/Testing -->
+                <div class="p-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-2">
+                    <span class="text-[11px] text-slate-500">เครื่องมือทดสอบระบบ:</span>
+                    <div class="flex gap-1.5">
+                        <button @click="unlockAllDemo" class="text-[11px] bg-amber-100 hover:bg-amber-200 text-amber-900 font-semibold px-2.5 py-1 rounded-lg transition">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>ผ่านทุกหน่วย
+                        </button>
+                        <button @click="resetProgress" class="text-[11px] bg-slate-200 hover:bg-slate-300 text-slate-700 px-2 py-1 rounded-lg transition" title="รีเซ็ตความก้าวหน้า">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Interactive Stage -->
+        <main class="flex-1 min-w-0">
+
+            <!-- VIEW 1: HOME / COURSE OVERVIEW -->
+            <div v-if="activeView === 'home'" class="space-y-6">
+                <!-- Hero Banner -->
+                <div class="bg-gradient-to-br from-slate-900 via-[#3b070e] to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-amber-400/20">
+                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                        <div class="md:col-span-7 space-y-4">
+                            <div class="inline-flex items-center gap-2 bg-amber-400/20 border border-amber-400/40 text-amber-300 px-3 py-1 rounded-full text-xs font-medium">
+                                <i class="fa-solid fa-laptop-code"></i> บทเรียนออนไลน์เชิงโต้ตอบ (Interactive E-Learning)
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-bold leading-tight">
+                                ยินดีต้อนรับสู่รายวิชา<br>
+                                <span class="text-amber-400">การเขียนโปรแกรมคอมพิวเตอร์</span>
+                            </h2>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                เรียนรู้การวิเคราะห์ปัญหา เขียนผังงาน (Flowchart) รหัสเทียม (Pseudocode) และพัฒนาโปรแกรมประยุกต์สำหรับงานธุรกิจด้วยภาพอินโฟกราฟิกและห้องทดลองโค้ดเสมือนจริง ครบทั้ง 6 หน่วยการเรียนรู้ เมื่อผ่านเกณฑ์รับเกียรติบัตรออนไลน์ทันที!
+                            </p>
+                            <div class="flex flex-wrap gap-3 pt-2">
+                                <button @click="selectUnit(1)" class="bg-amber-400 hover:bg-amber-300 text-[#5c0a14] font-bold px-6 py-3 rounded-xl shadow-lg transition flex items-center gap-2 cursor-pointer">
+                                    <i class="fa-solid fa-play"></i> เริ่มเรียนหน่วยที่ 1 ทันที
+                                </button>
+                                <button @click="openCertificateModal" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium px-5 py-3 rounded-xl transition flex items-center gap-2 cursor-pointer">
+                                    <i class="fa-solid fa-certificate text-amber-400"></i> ดูตัวอย่างเกียรติบัตร
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hero Illustration SVG -->
+                        <div class="md:col-span-5 flex justify-center">
+                            <svg viewBox="0 0 320 250" class="w-full max-w-xs animate-float drop-shadow-2xl">
+                                <!-- Monitor -->
+                                <rect x="30" y="20" width="260" height="165" rx="16" fill="#1e293b" stroke="#fbbf24" stroke-width="4"/>
+                                <rect x="44" y="34" width="232" height="135" rx="8" fill="#0f172a"/>
+                                <!-- Code lines -->
+                                <rect x="60" y="50" width="70" height="10" rx="5" fill="#f43f5e"/>
+                                <rect x="138" y="50" width="90" height="10" rx="5" fill="#38bdf8"/>
+                                <rect x="76" y="70" width="120" height="10" rx="5" fill="#fbbf24"/>
+                                <rect x="76" y="90" width="150" height="10" rx="5" fill="#34d399"/>
+                                <rect x="92" y="110" width="100" height="10" rx="5" fill="#a78bfa"/>
+                                <rect x="60" y="130" width="85" height="10" rx="5" fill="#f43f5e"/>
+                                <!-- Stand -->
+                                <path d="M135 185 L185 185 L195 215 L125 215 Z" fill="#64748b"/>
+                                <rect x="105" y="215" width="110" height="10" rx="5" fill="#94a3b8"/>
+                                <!-- Floating Flowchart Badge -->
+                                <g transform="translate(225, 115)">
+                                    <rect x="0" y="0" width="80" height="75" rx="12" fill="#7f111e" stroke="#fbbf24" stroke-width="2.5"/>
+                                    <rect x="22" y="10" width="36" height="14" rx="7" fill="#34d399"/>
+                                    <path d="M40 24 L40 32" stroke="#fff" stroke-width="2"/>
+                                    <polygon points="40,32 56,43 40,54 24,43" fill="#fbbf24"/>
+                                    <path d="M40 54 L40 62" stroke="#fff" stroke-width="2"/>
+                                    <rect x="20" y="60" width="40" height="8" rx="4" fill="#38bdf8"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Info Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-lg mb-2">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div class="text-xl font-bold text-slate-800">6 หน่วย</div>
+                        <div class="text-xs text-slate-500">เนื้อหาครบตามหลักสูตร</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg mb-2">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="text-xl font-bold text-slate-800">60 ชม.</div>
+                        <div class="text-xs text-slate-500">ทฤษฎี 30 / ปฏิบัติ 30</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center text-lg mb-2">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+                        <div class="text-xl font-bold text-slate-800">6 Mini-Labs</div>
+                        <div class="text-xs text-slate-500">ฝึกปฏิบัติโต้ตอบจริง</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center">
+                        <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg mb-2">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div class="text-xl font-bold text-slate-800">เกียรติบัตร</div>
+                        <div class="text-xs text-slate-500">พิมพ์ PDF ได้ทันที</div>
+                    </div>
+                </div>
+
+                <!-- 6 Units Visual Cards -->
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-[#7f111e]"></i> แผนผังหน่วยการเรียนรู้ทั้งหมด
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div v-for="unit in units" :key="unit.id"
+                             @click="selectUnit(unit.id)"
+                             class="bg-white rounded-2xl p-5 border border-slate-200 hover:border-amber-400 hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-3">
+                                    <span :class="unit.badgeColor" class="text-xs font-bold px-3 py-1 rounded-full">
+                                        หน่วยที่ {{ unit.id }}
+                                    </span>
+                                    <span v-if="unitProgress[unit.id].passed" class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                                        <i class="fa-solid fa-circle-check mr-1"></i> ผ่านการทดสอบ ({{ unitProgress[unit.id].score }}/3)
+                                    </span>
+                                    <span v-else class="text-xs text-slate-400">
+                                        ทฤษฎี {{ unit.theory }} ชม. / ปฏิบัติ {{ unit.practice }} ชม.
+                                    </span>
+                                </div>
+                                <h4 class="font-bold text-slate-800 group-hover:text-[#7f111e] transition text-base mb-2">
+                                    {{ unit.title }}
+                                </h4>
+                                <p class="text-xs text-slate-500 line-clamp-2 mb-3">{{ unit.summary }}</p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                                <span class="text-slate-600 font-medium truncate max-w-[70%]">
+                                    <i class="fa-solid fa-puzzle-piece text-amber-500 mr-1"></i> ชิ้นงาน: {{ unit.deliverable }}
+                                </span>
+                                <span class="text-[#7f111e] font-bold group-hover:translate-x-1 transition">
+                                    เข้าเรียน <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: UNIT LEARNING STAGE -->
+            <div v-if="activeView === 'unit' && currentUnit" class="space-y-6">
+                
+                <!-- Unit Header Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <div class="flex items-center gap-2">
+                            <span :class="currentUnit.badgeColor" class="text-xs font-bold px-3 py-1 rounded-full">
+                                หน่วยการเรียนรู้ที่ {{ currentUnit.id }}
+                            </span>
+                            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">
+                                ทฤษฎี {{ currentUnit.theory }} ชม. • ปฏิบัติ {{ currentUnit.practice }} ชม. (รวม {{ currentUnit.hours }} ชม.)
+                            </span>
+                        </div>
+                        <span v-if="unitProgress[currentUnit.id].passed" class="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                            <i class="fa-solid fa-circle-check"></i> ผ่านหน่วยนี้แล้ว
+                        </span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">{{ currentUnit.title }}</h2>
+                    <p class="text-sm text-slate-600 mt-2">{{ currentUnit.summary }}</p>
+                    <div class="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center gap-2">
+                        <i class="fa-solid fa-briefcase text-amber-600 text-base"></i>
+                        <span><strong>ชิ้นงานประจำหน่วย:</strong> {{ currentUnit.deliverable }}</span>
+                    </div>
+                </div>
+
+                <!-- Step Tabs inside Unit -->
+                <div class="grid grid-cols-3 gap-2 bg-slate-200/70 p-1.5 rounded-2xl">
+                    <button @click="unitTab = 'visual'"
+                            :class="unitTab === 'visual' ? 'bg-white text-[#7f111e] shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'"
+                            class="py-2.5 px-3 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-image"></i> <span>1. ภาพอินโฟกราฟิก & เนื้อหา</span>
+                    </button>
+                    <button @click="unitTab = 'lab'"
+                            :class="unitTab === 'lab' ? 'bg-white text-[#7f111e] shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'"
+                            class="py-2.5 px-3 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-flask-vial"></i> <span>2. ห้องทดลองโต้ตอบ (Lab)</span>
+                    </button>
+                    <button @click="unitTab = 'quiz'"
+                            :class="unitTab === 'quiz' ? 'bg-white text-[#7f111e] shadow-sm font-bold' : 'text-slate-600 hover:text-slate-900'"
+                            class="py-2.5 px-3 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-list-check"></i> <span>3. แบบทดสอบ (3 ข้อ)</span>
+                    </button>
+                </div>
+
+                <!-- TAB 1: RICH VISUAL INFOGRAPHICS & CONCEPTS -->
+                <div v-if="unitTab === 'visual'" class="space-y-6">
+                    
+                    <!-- UNIT 1 VISUALS -->
+                    <div v-if="currentUnit.id === 1" class="space-y-6">
+                        <!-- Visual 1: IPO Cycle Diagram -->
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+                            <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-xs">1</span>
+                                วงจรการประมวลผลข้อมูล (IPO Cycle: Input - Process - Output)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">หลักการวิเคราะห์ระบบงานธุรกิจทุกประเภท ต้องแยกแยะข้อมูลนำเข้า ขั้นตอนประมวลผล และผลลัพธ์ให้ชัดเจน</p>
+                            
+                            <div class="bg-gradient-to-r from-sky-50 via-amber-50 to-emerald-50 p-4 rounded-2xl border border-slate-200 overflow-x-auto">
+                                <svg viewBox="0 0 760 210" class="w-full min-w-[600px] h-auto">
+                                    <!-- Input Box -->
+                                    <rect x="20" y="30" width="200" height="150" rx="18" fill="#0284c7" />
+                                    <circle cx="120" cy="68" r="22" fill="#e0f2fe"/>
+                                    <text x="120" y="74" font-size="18" text-anchor="middle">⌨️</text>
+                                    <text x="120" y="112" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">INPUT (นำเข้า)</text>
+                                    <text x="120" y="134" font-size="12" fill="#bae6fd" text-anchor="middle">• ราคาสินค้า (Price)</text>
+                                    <text x="120" y="154" font-size="12" fill="#bae6fd" text-anchor="middle">• จำนวนชิ้น (Qty)</text>
+
+                                    <!-- Arrow 1 -->
+                                    <path d="M225 105 L270 105" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+                                    <polygon points="278,105 264,96 264,114" fill="#64748b"/>
+
+                                    <!-- Process Box -->
+                                    <rect x="280" y="20" width="200" height="170" rx="18" fill="#d97706" />
+                                    <circle cx="380" cy="62" r="24" fill="#fef3c7"/>
+                                    <text x="380" y="69" font-size="20" text-anchor="middle">⚙️</text>
+                                    <text x="380" y="108" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">PROCESS (ประมวลผล)</text>
+                                    <text x="380" y="132" font-size="12" fill="#fef3c7" text-anchor="middle">Total = Price × Qty</text>
+                                    <text x="380" y="152" font-size="12" fill="#fef3c7" text-anchor="middle">VAT = Total × 7%</text>
+                                    <text x="380" y="172" font-size="12" fill="#fef3c7" text-anchor="middle">Net = Total + VAT</text>
+
+                                    <!-- Arrow 2 -->
+                                    <path d="M485 105 L530 105" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+                                    <polygon points="538,105 524,96 524,114" fill="#64748b"/>
+
+                                    <!-- Output Box -->
+                                    <rect x="540" y="30" width="200" height="150" rx="18" fill="#059669" />
+                                    <circle cx="640" cy="68" r="22" fill="#d1fae5"/>
+                                    <text x="640" y="74" font-size="18" text-anchor="middle">🧾</text>
+                                    <text x="640" y="112" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">OUTPUT (ผลลัพธ์)</text>
+                                    <text x="640" y="134" font-size="12" fill="#a7f3d0" text-anchor="middle">• แสดงใบเสร็จรับเงิน</text>
+                                    <text x="640" y="154" font-size="12" fill="#a7f3d0" text-anchor="middle">• ยอดเงินสุทธิที่ต้องชำระ</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Visual 2: ANSI/ISO Flowchart Symbols -->
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+                            <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-xs">2</span>
+                                สัญลักษณ์ผังงาน (Flowchart) มาตรฐาน ANSI / ISO
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">สัญลักษณ์พื้นฐานที่นักเขียนโปรแกรมต้องใช้สื่อสารขั้นตอนการทำงาน (Algorithm)</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Symbol 1: Terminator -->
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col items-center text-center">
+                                    <svg viewBox="0 0 180 70" class="w-40 h-16 mb-2">
+                                        <rect x="20" y="12" width="140" height="46" rx="23" fill="#ffe4e6" stroke="#e11d48" stroke-width="3"/>
+                                        <text x="90" y="40" font-size="13" font-weight="bold" fill="#9f1239" text-anchor="middle">START / END</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800">จุดเริ่มต้น / สิ้นสุด (Terminator)</h4>
+                                    <p class="text-xs text-slate-500 mt-1">แสดงจุดเริ่มต้นและจุดสิ้นสุดของผังงาน</p>
+                                </div>
+
+                                <!-- Symbol 2: Process -->
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col items-center text-center">
+                                    <svg viewBox="0 0 180 70" class="w-40 h-16 mb-2">
+                                        <rect x="20" y="12" width="140" height="46" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+                                        <text x="90" y="40" font-size="13" font-weight="bold" fill="#92400e" text-anchor="middle">Sum = A + B</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800">การประมวลผล (Process)</h4>
+                                    <p class="text-xs text-slate-500 mt-1">การคำนวณ การกำหนดค่าตัวแปร</p>
+                                </div>
+
+                                <!-- Symbol 3: Decision -->
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col items-center text-center">
+                                    <svg viewBox="0 0 180 70" class="w-40 h-16 mb-2">
+                                        <polygon points="90,6 160,35 90,64 20,35" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3"/>
+                                        <text x="90" y="39" font-size="12" font-weight="bold" fill="#3730a3" text-anchor="middle">เงื่อนไข?</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800">การตัดสินใจ (Decision)</h4>
+                                    <p class="text-xs text-slate-500 mt-1">ตรวจสอบเงื่อนไข จริง (True) / เท็จ (False)</p>
+                                </div>
+
+                                <!-- Symbol 4: Input/Output -->
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col items-center text-center">
+                                    <svg viewBox="0 0 180 70" class="w-40 h-16 mb-2">
+                                        <polygon points="35,12 165,12 145,58 15,58" fill="#d1fae5" stroke="#059669" stroke-width="3"/>
+                                        <text x="90" y="40" font-size="12" font-weight="bold" fill="#065f46" text-anchor="middle">INPUT / PRINT</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800">รับข้อมูล / แสดงผล (I/O)</h4>
+                                    <p class="text-xs text-slate-500 mt-1">รับค่าทางแป้นพิมพ์หรือแสดงผลหน้าจอ</p>
+                                </div>
+
+                                <!-- Symbol 5: Connector -->
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col items-center text-center">
+                                    <svg viewBox="0 0 180 70" class="w-40 h-16 mb-2">
+                                        <circle cx="90" cy="35" r="22" fill="#f3e8ff" stroke="#9333ea" stroke-width="3"/>
+                                        <text x="90" y="40" font-size="14" font-weight="bold" fill="#6b21a8" text-anchor="middle">A</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800">จุดเชื่อมต่อในหน้า (Connector)</h4>
+                                    <p class="text-xs text-slate-500 mt-1">เชื่อมเส้นผังงานในหน้ากระดาษเดียวกัน</p>
+                                </div>
+
+                                <!-- Symbol 6: Flowline -->
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col items-center text-center">
+                                    <svg viewBox="0 0 180 70" class="w-40 h-16 mb-2">
+                                        <line x1="25" y1="35" x2="145" y2="35" stroke="#334155" stroke-width="3.5"/>
+                                        <polygon points="158,35 140,26 140,44" fill="#334155"/>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800">เส้นทิศทาง (Flowline)</h4>
+                                    <p class="text-xs text-slate-500 mt-1">บอกทิศทางการไหลของลำดับการทำงาน</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pseudocode Comparison -->
+                        <div class="bg-slate-900 text-white rounded-2xl p-6">
+                            <h4 class="font-bold text-amber-400 text-sm mb-2"><i class="fa-solid fa-code mr-1"></i> ตัวอย่างรหัสเทียม (Pseudocode) มาตรฐานสากล</h4>
+                            <pre class="font-mono-code text-xs sm:text-sm text-emerald-300 bg-black/40 p-4 rounded-xl overflow-x-auto leading-relaxed">BEGIN
+    INPUT product_price, quantity
+    SET subtotal = product_price * quantity
+    SET vat = subtotal * 0.07
+    SET grand_total = subtotal + vat
+    PRINT "ยอดสุทธิที่ต้องชำระ = ", grand_total
+END</pre>
+                        </div>
+                    </div>
+
+                    <!-- UNIT 2 VISUALS -->
+                    <div v-if="currentUnit.id === 2" class="space-y-6">
+                        <!-- Data Types Visual Boxes -->
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+                            <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs">1</span>
+                                ตัวแปร (Variable) และชนิดข้อมูลพื้นฐาน (Data Types)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">ให้จินตนาการว่า "ตัวแปร" คือ "กล่องเก็บของในหน่วยความจำ" ที่ต้องติดป้ายชื่อและเลือกขนาดกล่องให้ตรงกับข้อมูล</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <!-- int -->
+                                <div class="rounded-2xl border-2 border-sky-300 bg-sky-50/70 p-4 text-center">
+                                    <div class="text-xs font-mono-code font-bold text-sky-700 bg-sky-200/70 inline-block px-2.5 py-0.5 rounded-full mb-2">Integer (int)</div>
+                                    <svg viewBox="0 0 120 80" class="w-28 h-20 mx-auto">
+                                        <rect x="20" y="20" width="80" height="50" rx="8" fill="#0284c7"/>
+                                        <rect x="15" y="12" width="90" height="14" rx="4" fill="#38bdf8"/>
+                                        <text x="60" y="53" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">15</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800 mt-1">จำนวนเต็ม</h4>
+                                    <p class="text-xs text-slate-600 mt-1">เช่น จำนวนสินค้า <code class="text-sky-700 font-bold">qty = 15</code></p>
+                                </div>
+
+                                <!-- float -->
+                                <div class="rounded-2xl border-2 border-amber-300 bg-amber-50/70 p-4 text-center">
+                                    <div class="text-xs font-mono-code font-bold text-amber-800 bg-amber-200/70 inline-block px-2.5 py-0.5 rounded-full mb-2">Float / Double</div>
+                                    <svg viewBox="0 0 120 80" class="w-28 h-20 mx-auto">
+                                        <rect x="20" y="20" width="80" height="50" rx="8" fill="#d97706"/>
+                                        <rect x="15" y="12" width="90" height="14" rx="4" fill="#fbbf24"/>
+                                        <text x="60" y="53" font-size="18" font-weight="bold" fill="#fff" text-anchor="middle">199.50</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800 mt-1">เลขทศนิยม</h4>
+                                    <p class="text-xs text-slate-600 mt-1">เช่น ราคา, ภาษี <code class="text-amber-700 font-bold">price = 199.50</code></p>
+                                </div>
+
+                                <!-- string -->
+                                <div class="rounded-2xl border-2 border-emerald-300 bg-emerald-50/70 p-4 text-center">
+                                    <div class="text-xs font-mono-code font-bold text-emerald-800 bg-emerald-200/70 inline-block px-2.5 py-0.5 rounded-full mb-2">String (str)</div>
+                                    <svg viewBox="0 0 120 80" class="w-28 h-20 mx-auto">
+                                        <rect x="20" y="20" width="80" height="50" rx="8" fill="#059669"/>
+                                        <rect x="15" y="12" width="90" height="14" rx="4" fill="#34d399"/>
+                                        <text x="60" y="52" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">"เมาส์ไร้สาย"</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800 mt-1">ข้อความตัวอักษร</h4>
+                                    <p class="text-xs text-slate-600 mt-1">อยู่ในเครื่องหมายคำพูด <code class="text-emerald-700 font-bold">"..."</code></p>
+                                </div>
+
+                                <!-- boolean -->
+                                <div class="rounded-2xl border-2 border-purple-300 bg-purple-50/70 p-4 text-center">
+                                    <div class="text-xs font-mono-code font-bold text-purple-800 bg-purple-200/70 inline-block px-2.5 py-0.5 rounded-full mb-2">Boolean (bool)</div>
+                                    <svg viewBox="0 0 120 80" class="w-28 h-20 mx-auto">
+                                        <rect x="20" y="20" width="80" height="50" rx="8" fill="#7c3aed"/>
+                                        <rect x="15" y="12" width="90" height="14" rx="4" fill="#a78bfa"/>
+                                        <text x="60" y="52" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">True</text>
+                                    </svg>
+                                    <h4 class="font-bold text-sm text-slate-800 mt-1">ค่าความจริง</h4>
+                                    <p class="text-xs text-slate-600 mt-1">มีแค่ 2 ค่าคือ <code class="text-purple-700 font-bold">True / False</code></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Compiler vs Interpreter & VAT Formula Visual -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-2xl p-5 border border-slate-200">
+                                <h4 class="font-bold text-sm text-slate-800 mb-3"><i class="fa-solid fa-gears text-sky-600 mr-1"></i> ตัวแปลภาษาคอมพิวเตอร์ (Translator)</h4>
+                                <svg viewBox="0 0 360 150" class="w-full h-auto">
+                                    <rect x="10" y="10" width="340" height="55" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+                                    <text x="25" y="33" font-size="13" font-weight="bold" fill="#1d4ed8">1. Compiler (คอมไพเลอร์)</text>
+                                    <text x="25" y="52" font-size="11" fill="#334155">แปลรหัสต้นฉบับ "ทั้งโปรแกรมรวดเดียว" (เช่น C, C++, Java)</text>
+
+                                    <rect x="10" y="80" width="340" height="55" rx="10" fill="#fefce8" stroke="#eab308" stroke-width="2"/>
+                                    <text x="25" y="103" font-size="13" font-weight="bold" fill="#a16207">2. Interpreter (อินเทอร์พรีเตอร์)</text>
+                                    <text x="25" y="122" font-size="11" fill="#334155">แปลและทำงาน "ทีละบรรทัด" (เช่น Python, JavaScript)</text>
+                                </svg>
+                            </div>
+
+                            <div class="bg-white rounded-2xl p-5 border border-slate-200">
+                                <h4 class="font-bold text-sm text-slate-800 mb-3"><i class="fa-solid fa-receipt text-emerald-600 mr-1"></i> โครงสร้างสูตรคำนวณใบเสร็จ & VAT 7%</h4>
+                                <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono-code text-xs space-y-2">
+                                    <div class="text-slate-400"># โครงสร้างการทำงานแบบลำดับ (Sequence)</div>
+                                    <div>subtotal = price * quantity</div>
+                                    <div>vat = subtotal * <span class="text-amber-400">0.07</span> <span class="text-slate-400"># ภาษีมูลค่าเพิ่ม 7%</span></div>
+                                    <div>net_total = subtotal + vat</div>
+                                    <div class="text-emerald-400">print(f"ยอดสุทธิ: {net_total:,.2f} บาท")</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UNIT 3 VISUALS -->
+                    <div v-if="currentUnit.id === 3" class="space-y-6">
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+                            <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs">1</span>
+                                แผนภาพผังงานโครงสร้างเงื่อนไขหลายทางเลือก (Nested If / Elif)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">ตัวอย่างตรรกะการคำนวณส่วนลดการค้าแบบขั้นบันไดตามนโยบายธุรกิจ</p>
+
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 overflow-x-auto">
+                                <svg viewBox="0 0 740 270" class="w-full min-w-[600px] h-auto">
+                                    <!-- Start -->
+                                    <rect x="20" y="110" width="95" height="40" rx="20" fill="#0f172a"/>
+                                    <text x="67" y="135" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">รับยอดซื้อ (X)</text>
+                                    <line x1="115" y1="130" x2="155" y2="130" stroke="#475569" stroke-width="2.5"/>
+                                    <polygon points="160,130 150,124 150,136" fill="#475569"/>
+
+                                    <!-- Decision 1 -->
+                                    <polygon points="240,85 320,130 240,175 160,130" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2.5"/>
+                                    <text x="240" y="134" font-size="12" font-weight="bold" fill="#312e81" text-anchor="middle">X >= 5,000?</text>
+
+                                    <!-- True Branch 1 -->
+                                    <line x1="240" y1="85" x2="240" y2="45" stroke="#059669" stroke-width="2.5"/>
+                                    <text x="262" y="68" font-size="11" font-weight="bold" fill="#059669">True (จริง)</text>
+                                    <rect x="175" y="10" width="130" height="35" rx="8" fill="#10b981"/>
+                                    <text x="240" y="32" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">ลดทันที 15%</text>
+
+                                    <!-- False Branch 1 -> Decision 2 -->
+                                    <line x1="320" y1="130" x2="375" y2="130" stroke="#e11d48" stroke-width="2.5"/>
+                                    <text x="347" y="122" font-size="11" font-weight="bold" fill="#e11d48" text-anchor="middle">False</text>
+
+                                    <!-- Decision 2 -->
+                                    <polygon points="455,85 535,130 455,175 375,130" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+                                    <text x="455" y="134" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">X >= 2,000?</text>
+
+                                    <!-- True Branch 2 -->
+                                    <line x1="455" y1="85" x2="455" y2="45" stroke="#059669" stroke-width="2.5"/>
+                                    <text x="477" y="68" font-size="11" font-weight="bold" fill="#059669">True (จริง)</text>
+                                    <rect x="390" y="10" width="130" height="35" rx="8" fill="#f59e0b"/>
+                                    <text x="455" y="32" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">ลดทันที 10%</text>
+
+                                    <!-- False Branch 2 -->
+                                    <line x1="535" y1="130" x2="585" y2="130" stroke="#e11d48" stroke-width="2.5"/>
+                                    <text x="560" y="122" font-size="11" font-weight="bold" fill="#e11d48" text-anchor="middle">False</text>
+                                    <rect x="585" y="110" width="135" height="40" rx="8" fill="#64748b"/>
+                                    <text x="652" y="134" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">ไม่ได้รับส่วนลด (0%)</text>
+
+                                    <!-- Logical Operators Legend -->
+                                    <rect x="20" y="200" width="700" height="55" rx="12" fill="#1e293b"/>
+                                    <text x="40" y="223" font-size="12" font-weight="bold" fill="#fbbf24">ตัวดำเนินการตรรกศาสตร์ (Logical Operators):</text>
+                                    <text x="40" y="242" font-size="11" fill="#e2e8f0">• AND (และ): จริงทั้งคู่ถึงจะจริง   |   • OR (หรือ): จริงอย่างน้อย 1 เงื่อนไขก็จริง   |   • NOT (ไม่): กลับค่าความจริงตรงกันข้าม</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Error Types Card -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl">
+                                <div class="font-bold text-rose-800 text-sm mb-1">1. Syntax Error</div>
+                                <p class="text-xs text-slate-600">เขียนผิดไวยากรณ์ภาษา เช่น ลืมใส่เครื่องหมาย <code class="bg-white px-1 rounded">:</code> หรือสะกดคำสั่ง <code class="bg-white px-1 rounded">pritn()</code> ผิด โปรแกรมจะรันไม่ได้</p>
+                            </div>
+                            <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl">
+                                <div class="font-bold text-amber-800 text-sm mb-1">2. Runtime Error</div>
+                                <p class="text-xs text-slate-600">โปรแกรมพังระหว่างทำงาน เช่น นำตัวเลขไปหารด้วยศูนย์ (<code class="bg-white px-1 rounded">10 / 0</code>) หรือกรอกตัวอักษรในช่องตัวเลข</p>
+                            </div>
+                            <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-2xl">
+                                <div class="font-bold text-indigo-800 text-sm mb-1">3. Logic Error</div>
+                                <p class="text-xs text-slate-600">โปรแกรมรันจบปกติแต่ <strong>คำตอบผิด!</strong> เช่น ใช้เครื่องหมาย <code class="bg-white px-1 rounded">&lt;</code> แทน <code class="bg-white px-1 rounded">&gt;</code> ต้องใช้ Debugger ตรวจสอบ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UNIT 4 VISUALS -->
+                    <div v-if="currentUnit.id === 4" class="space-y-6">
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+                            <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center text-xs">1</span>
+                                โครงสร้างการทำงานแบบวนซ้ำ (Looping) & ตัวแปรสะสมค่า (Accumulator)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">ใช้สำหรับงานบัญชีรับ-จ่ายต่อเนื่อง และระบบตรวจสอบสต็อกสินค้าคงคลังอัตโนมัติ</p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                                <!-- Loop SVG -->
+                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                                    <svg viewBox="0 0 360 220" class="w-full h-auto">
+                                        <rect x="115" y="10" width="130" height="32" rx="16" fill="#0f172a"/>
+                                        <text x="180" y="30" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">เริ่มต้น: total = 0</text>
+                                        <line x1="180" y1="42" x2="180" y2="62" stroke="#475569" stroke-width="2.5"/>
+
+                                        <!-- Condition Diamond -->
+                                        <polygon points="180,62 260,102 180,142 100,102" fill="#ccfbf1" stroke="#0d9488" stroke-width="2.5"/>
+                                        <text x="180" y="106" font-size="11" font-weight="bold" fill="#115e59" text-anchor="middle">ยังมีรายการ?</text>
+
+                                        <!-- True Loop -->
+                                        <line x1="180" y1="142" x2="180" y2="165" stroke="#059669" stroke-width="2.5"/>
+                                        <text x="200" y="157" font-size="10" font-weight="bold" fill="#059669">True</text>
+                                        <rect x="95" y="165" width="170" height="40" rx="8" fill="#0d9488"/>
+                                        <text x="180" y="183" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">total = total + amount</text>
+                                        <text x="180" y="198" font-size="10" fill="#ccfbf1" text-anchor="middle">(Accumulator สะสมยอด)</text>
+
+                                        <!-- Loop Back Arrow -->
+                                        <path d="M95 185 L45 185 L45 102 L95 102" fill="none" stroke="#0d9488" stroke-width="2.5"/>
+                                        <polygon points="100,102 90,96 90,108" fill="#0d9488"/>
+
+                                        <!-- False Exit -->
+                                        <line x1="260" y1="102" x2="295" y2="102" stroke="#e11d48" stroke-width="2.5"/>
+                                        <text x="276" y="94" font-size="10" font-weight="bold" fill="#e11d48">False</text>
+                                        <rect x="295" y="84" width="60" height="36" rx="8" fill="#e11d48"/>
+                                        <text x="325" y="106" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">หยุดลูป</text>
+                                    </svg>
+                                </div>
+
+                                <!-- Reorder Point Visual -->
+                                <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-200 space-y-3">
+                                    <h4 class="font-bold text-sm text-amber-900 flex items-center gap-2">
+                                        <i class="fa-solid fa-boxes-stacked text-amber-600"></i> แนวคิดจุดสั่งซื้อซ้ำ (Reorder Point)
+                                    </h4>
+                                    <p class="text-xs text-slate-700 leading-relaxed">
+                                        ในการเขียนโปรแกรมสต็อกสินค้า เราจะใช้คำสั่งวนซ้ำ (Loop) ตรวจสอบสินค้าทุกชิ้นในคลัง หากพบว่า <code class="bg-white px-1.5 py-0.5 rounded border border-amber-300 font-bold text-rose-700">stock &lt;= reorder_point</code> ระบบจะขึ้นแจ้งเตือนให้สั่งซื้อเพิ่มทันที!
+                                    </p>
+                                    <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-2 text-xs">
+                                        <div class="flex justify-between items-center">
+                                            <span>📦 ปากกาเจล (คงเหลือ 25 ด้าม)</span>
+                                            <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">ปกติ (เกณฑ์ 10)</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span>📦 กระดาษ A4 (คงเหลือ 4 รีม)</span>
+                                            <span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded font-bold animate-pulse">⚠️ ต้องสั่งซื้อด่วน!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UNIT 5 VISUALS -->
+                    <div v-if="currentUnit.id === 5" class="space-y-6">
+                        <!-- Array Index Visual -->
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+                            <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs">1</span>
+                                โครงสร้างแถวลำดับ (Array / List) และการอ้างอิงดัชนี (Index)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">ตัวแปรชุดที่เก็บข้อมูลชนิดเดียวกันเรียงต่อกัน โดยตำแหน่ง Index แรกในคอมพิวเตอร์จะเริ่มนับที่ <strong>0</strong> เสมอ!</p>
+
+                            <div class="bg-purple-50/70 p-4 rounded-2xl border border-purple-200 overflow-x-auto">
+                                <svg viewBox="0 0 680 140" class="w-full min-w-[540px] h-auto">
+                                    <text x="20" y="25" font-size="13" font-weight="bold" fill="#581c87">members = ["M001", "M002", "M003", "M004", "M005"]</text>
+                                    
+                                    <!-- Boxes -->
+                                    <g v-for="(code, idx) in ['M001', 'M002', 'M003', 'M004', 'M005']" :key="idx" :transform="`translate(${20 + idx * 130}, 40)`">
+                                        <rect x="0" y="0" width="115" height="52" rx="10" fill="#7c3aed" />
+                                        <text x="57" y="32" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">{{ code }}</text>
+                                        <rect x="18" y="60" width="79" height="24" rx="6" fill="#ede9fe" stroke="#8b5cf6"/>
+                                        <text x="57" y="76" font-size="12" font-weight="bold" fill="#5b21b6" text-anchor="middle">Index [{{ idx }}]</text>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Function Machine Visual -->
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+                            <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs">2</span>
+                                การทำงานของฟังก์ชันย่อย (Function, Parameter & Return)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">ฟังก์ชันเปรียบเสมือน "เครื่องจักรอัตโนมัติ" ที่รับวัตถุดิบ (Parameter) เข้าไปคำนวณ แล้วส่งผลลัพธ์ (Return) กลับออกมาใช้งานซ้ำได้</p>
+
+                            <div class="bg-slate-900 p-4 rounded-2xl overflow-x-auto">
+                                <svg viewBox="0 0 700 160" class="w-full min-w-[560px] h-auto">
+                                    <!-- Parameter Input -->
+                                    <rect x="15" y="55" width="165" height="50" rx="10" fill="#0284c7"/>
+                                    <text x="97" y="77" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Parameter (ส่งค่าเข้า)</text>
+                                    <text x="97" y="95" font-size="11" fill="#bae6fd" text-anchor="middle">purchase = 1,250 บาท</text>
+
+                                    <line x1="180" y1="80" x2="225" y2="80" stroke="#38bdf8" stroke-width="4"/>
+                                    <polygon points="233,80 220,72 220,88" fill="#38bdf8"/>
+
+                                    <!-- Function Box -->
+                                    <rect x="235" y="25" width="230" height="110" rx="16" fill="#7c3aed" stroke="#fbbf24" stroke-width="3"/>
+                                    <text x="350" y="55" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">def calc_points(purchase):</text>
+                                    <text x="350" y="82" font-size="12" fill="#fff" text-anchor="middle">points = purchase // 25</text>
+                                    <text x="350" y="106" font-size="12" fill="#ddd6fe" text-anchor="middle">(ซื้อทุก 25 บาท รับ 1 แต้ม)</text>
+
+                                    <line x1="465" y1="80" x2="510" y2="80" stroke="#34d399" stroke-width="4"/>
+                                    <polygon points="518,80 505,72 505,88" fill="#34d399"/>
+
+                                    <!-- Return Output -->
+                                    <rect x="520" y="55" width="165" height="50" rx="10" fill="#059669"/>
+                                    <text x="602" y="77" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Return (คืนค่าผลลัพธ์)</text>
+                                    <text x="602" y="95" font-size="12" font-weight="bold" fill="#a7f3d0" text-anchor="middle">50 คะแนน</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UNIT 6 VISUALS -->
+                    <div v-if="currentUnit.id === 6" class="space-y-6">
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+                            <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center text-xs">1</span>
+                                การจัดการแฟ้มข้อมูลถาวร (File Handling: CSV) & Exception Handling
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">ข้อมูลในตัวแปร RAM จะหายไปเมื่อปิดโปรแกรม จึงต้องบันทึกลงไฟล์ถาวร (.csv) พร้อมมีเกราะป้องกัน Error ด้วย Try-Catch</p>
+
+                            <div class="bg-cyan-50/60 p-4 rounded-2xl border border-cyan-200 overflow-x-auto">
+                                <svg viewBox="0 0 720 190" class="w-full min-w-[580px] h-auto">
+                                    <!-- Program Box -->
+                                    <rect x="20" y="35" width="180" height="120" rx="16" fill="#0f172a"/>
+                                    <text x="110" y="75" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">โปรแกรมคำสั่งซื้อ</text>
+                                    <text x="110" y="98" font-size="11" fill="#94a3b8" text-anchor="middle">RAM (หน่วยความจำชั่วคราว)</text>
+                                    <text x="110" y="122" font-size="11" fill="#fbbf24" text-anchor="middle">open("orders.csv", mode)</text>
+
+                                    <!-- Write / Append Arrow -->
+                                    <line x1="205" y1="68" x2="315" y2="68" stroke="#059669" stroke-width="3.5"/>
+                                    <polygon points="323,68 310,61 310,75" fill="#059669"/>
+                                    <text x="262" y="58" font-size="11" font-weight="bold" fill="#059669" text-anchor="middle">Write (w) / Append (a)</text>
+
+                                    <!-- Read Arrow -->
+                                    <line x1="323" y1="122" x2="213" y2="122" stroke="#0284c7" stroke-width="3.5"/>
+                                    <polygon points="205,122 218,115 218,129" fill="#0284c7"/>
+                                    <text x="262" y="142" font-size="11" font-weight="bold" fill="#0284c7" text-anchor="middle">Read (r) อ่านข้อมูล</text>
+
+                                    <!-- CSV File Box -->
+                                    <rect x="325" y="25" width="185" height="140" rx="14" fill="#ffffff" stroke="#0891b2" stroke-width="3"/>
+                                    <rect x="325" y="25" width="185" height="32" rx="10" fill="#0891b2"/>
+                                    <text x="417" y="46" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">📄 orders.csv (ไฟล์ถาวร)</text>
+                                    <text x="340" y="78" font-size="11" font-family="monospace" fill="#334155">ID,Product,Qty,Total</text>
+                                    <text x="340" y="98" font-size="11" font-family="monospace" fill="#0f172a">01,Keyboard,2,1180</text>
+                                    <text x="340" y="118" font-size="11" font-family="monospace" fill="#0f172a">02,Mouse,1,350</text>
+                                    <text x="340" y="145" font-size="10" fill="#0891b2">* คั่นข้อมูลด้วยเครื่องหมายจุลภาค (,)</text>
+
+                                    <!-- Try Catch Shield -->
+                                    <rect x="530" y="35" width="170" height="120" rx="16" fill="#fef2f2" stroke="#e11d48" stroke-width="2.5"/>
+                                    <text x="615" y="68" font-size="22" text-anchor="middle">🛡️</text>
+                                    <text x="615" y="95" font-size="13" font-weight="bold" fill="#9f1239" text-anchor="middle">Try - Except / Catch</text>
+                                    <text x="615" y="115" font-size="10" fill="#475569" text-anchor="middle">ดักจับ Error กรณีไม่พบไฟล์</text>
+                                    <text x="615" y="131" font-size="10" fill="#475569" text-anchor="middle">หรือไฟล์ถูกเปิดล็อกอยู่</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Next Step CTA -->
+                    <div class="flex justify-end">
+                        <button @click="unitTab = 'lab'" class="bg-[#7f111e] hover:bg-[#5c0a14] text-white font-bold px-6 py-3 rounded-xl shadow transition flex items-center gap-2 cursor-pointer">
+                            <span>ไปที่ห้องทดลองโต้ตอบ (Mini-Lab)</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 2: INTERACTIVE MINI-LABS -->
+                <div v-if="unitTab === 'lab'" class="space-y-6">
+                    
+                    <!-- LAB 1: Flowchart Symbol Matching -->
+                    <div v-if="currentUnit.id === 1" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-rose-600 uppercase">Interactive Lab 1</span>
+                                <h3 class="text-lg font-bold text-slate-800">เกมจับคู่สัญลักษณ์ผังงาน (Flowchart) ให้ถูกต้อง</h3>
+                            </div>
+                            <span class="bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-full">
+                                ถูกต้อง: {{ lab1CorrectCount }} / 4
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-500">เลือกหน้าที่การทำงานให้ตรงกับสัญลักษณ์ผังงานมาตรฐาน ANSI/ISO ทั้ง 4 ภาพด้านล่าง:</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div v-for="(item, idx) in lab1Items" :key="idx" class="p-4 rounded-xl border-2 transition"
+                                 :class="item.selected === item.answer ? 'border-emerald-400 bg-emerald-50/50' : 'border-slate-200 bg-slate-50'">
+                                <div class="flex items-center gap-4">
+                                    <!-- SVG Shape -->
+                                    <div class="w-24 h-16 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-200 p-1">
+                                        <svg v-if="item.type === 'terminator'" viewBox="0 0 120 50" class="w-full h-full">
+                                            <rect x="10" y="8" width="100" height="34" rx="17" fill="#ffe4e6" stroke="#e11d48" stroke-width="3"/>
+                                        </svg>
+                                        <svg v-if="item.type === 'decision'" viewBox="0 0 120 50" class="w-full h-full">
+                                            <polygon points="60,4 110,25 60,46 10,25" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3"/>
+                                        </svg>
+                                        <svg v-if="item.type === 'io'" viewBox="0 0 120 50" class="w-full h-full">
+                                            <polygon points="25,8 112,8 95,42 8,42" fill="#d1fae5" stroke="#059669" stroke-width="3"/>
+                                        </svg>
+                                        <svg v-if="item.type === 'process'" viewBox="0 0 120 50" class="w-full h-full">
+                                            <rect x="12" y="8" width="96" height="34" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <label class="text-xs font-semibold text-slate-600 block mb-1">สัญลักษณ์นี้ใช้ทำอะไร?</label>
+                                        <select v-model="item.selected" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-amber-400 outline-none">
+                                            <option value="">-- เลือกคำตอบ --</option>
+                                            <option value="terminator">จุดเริ่มต้น / สิ้นสุด (Start / End)</option>
+                                            <option value="process">การคำนวณ / ประมวลผล (Process)</option>
+                                            <option value="decision">การตรวจสอบเงื่อนไขตัดสินใจ (Decision)</option>
+                                            <option value="io">การรับข้อมูล / แสดงผล (Input / Output)</option>
+                                        </select>
+                                        <p v-if="item.selected" class="text-[11px] mt-1.5 font-semibold" :class="item.selected === item.answer ? 'text-emerald-600' : 'text-rose-600'">
+                                            {{ item.selected === item.answer ? '✅ ถูกต้องยอดเยี่ยม!' : '❌ ยังไม่ตรง ลองเลือกใหม่นะ' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LAB 2: Sales & VAT 7% Calculator Simulator -->
+                    <div v-if="currentUnit.id === 2" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-5">
+                        <div>
+                            <span class="text-xs font-bold text-amber-600 uppercase">Interactive Lab 2</span>
+                            <h3 class="text-lg font-bold text-slate-800">เครื่องจำลองโปรแกรมคำนวณยอดขายและออกใบเสร็จอย่างย่อ (VAT 7%)</h3>
+                            <p class="text-xs text-slate-500">ทดลองเปลี่ยนชื่อสินค้า ราคา และจำนวน แล้วสังเกตการกำหนดตัวแปรและผลลัพธ์ใบเสร็จแบบเรียลไทม์</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Input Controls -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">1. ส่วนรับข้อมูลนำเข้า (Input Variables)</h4>
+                                <div>
+                                    <label class="text-xs font-semibold text-slate-600">ชื่อสินค้า (String):</label>
+                                    <input v-model="lab2.productName" type="text" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-300 bg-white">
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="text-xs font-semibold text-slate-600">ราคาต่อหน่วย (Float):</label>
+                                        <input v-model.number="lab2.price" type="number" min="0" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-300 bg-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-semibold text-slate-600">จำนวนชิ้น (Int):</label>
+                                        <input v-model.number="lab2.qty" type="number" min="1" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-300 bg-white">
+                                    </div>
+                                </div>
+
+                                <!-- Live Code Preview -->
+                                <div class="pt-2">
+                                    <div class="text-[11px] font-bold text-slate-500 mb-1">โค้ดการทำงานแบบลำดับ (Sequence Code):</div>
+                                    <pre class="bg-slate-900 text-emerald-300 font-mono-code text-xs p-3 rounded-lg overflow-x-auto">item = "{{ lab2.productName }}"
+price = {{ Number(lab2.price || 0).toFixed(2) }}
+qty = {{ Number(lab2.qty || 0) }}
+subtotal = price * qty
+vat = subtotal * 0.07
+net_total = subtotal + vat</pre>
+                                </div>
+                            </div>
+
+                            <!-- Receipt Output -->
+                            <div class="bg-amber-50/40 p-5 rounded-xl border-2 border-dashed border-slate-300 font-mono-code text-xs flex flex-col justify-between">
+                                <div>
+                                    <div class="text-center border-b border-dashed border-slate-400 pb-3 mb-3">
+                                        <div class="font-bold text-sm text-slate-800">ร้านค้าสวัสดิการเทคโนโลยีดิจิทัล</div>
+                                        <div class="text-[11px] text-slate-500">ใบเสร็จรับเงินอย่างย่อ (ABB)</div>
+                                    </div>
+                                    <div class="space-y-2 text-slate-700">
+                                        <div class="flex justify-between">
+                                            <span>รายการ: {{ lab2.productName || 'สินค้าทั่วไป' }}</span>
+                                            <span>x{{ lab2.qty || 0 }}</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>ราคาต่อหน่วย:</span>
+                                            <span>{{ Number(lab2.price || 0).toLocaleString('th-TH', {minimumFractionDigits: 2}) }} ฿</span>
+                                        </div>
+                                        <div class="border-t border-slate-200 pt-2 flex justify-between">
+                                            <span>รวมเป็นเงิน (Subtotal):</span>
+                                            <span>{{ lab2Subtotal.toLocaleString('th-TH', {minimumFractionDigits: 2}) }} ฿</span>
+                                        </div>
+                                        <div class="flex justify-between text-amber-700">
+                                            <span>ภาษีมูลค่าเพิ่ม (VAT 7%):</span>
+                                            <span>{{ lab2Vat.toLocaleString('th-TH', {minimumFractionDigits: 2}) }} ฿</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border-t-2 border-slate-800 pt-3 mt-4 flex justify-between items-center text-sm font-bold text-slate-900">
+                                    <span>ยอดชำระสุทธิ:</span>
+                                    <span class="text-lg text-[#7f111e]">{{ lab2NetTotal.toLocaleString('th-TH', {minimumFractionDigits: 2}) }} บาท</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LAB 3: Tiered Discount If-Else Simulator -->
+                    <div v-if="currentUnit.id === 3" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-5">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-600 uppercase">Interactive Lab 3</span>
+                            <h3 class="text-lg font-bold text-slate-800">เครื่องจำลองโครงสร้างเงื่อนไข (If - Elif - Else) คำนวณส่วนลดการค้า</h3>
+                            <p class="text-xs text-slate-500">เลื่อนแถบยอดซื้อสินค้า หรือติ๊กสถานะสมาชิก VIP เพื่อดูว่าโปรแกรมเลือกทำงานในเงื่อนไขใด</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                            <div class="md:col-span-6 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>ยอดซื้อสินค้า (purchase):</span>
+                                        <span class="text-indigo-700 text-sm">{{ lab3.amount.toLocaleString() }} บาท</span>
+                                    </div>
+                                    <input v-model.number="lab3.amount" type="range" min="100" max="10000" step="100" class="w-full accent-indigo-600 cursor-pointer">
+                                    <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                                        <span>100 ฿</span>
+                                        <span>2,000 ฿</span>
+                                        <span>5,000 ฿</span>
+                                        <span>10,000 ฿</span>
+                                    </div>
+                                </div>
+
+                                <label class="flex items-center gap-2.5 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer">
+                                    <input v-model="lab3.isVip" type="checkbox" class="w-4 h-4 accent-indigo-600">
+                                    <span class="text-xs font-semibold text-slate-700">เป็นสมาชิก VIP (รับส่วนลดเพิ่มอีก +5% ด้วยตัวดำเนินการ AND)</span>
+                                </label>
+
+                                <div class="bg-indigo-950 text-white p-4 rounded-xl space-y-1">
+                                    <div class="text-xs text-indigo-300">สรุปผลการคำนวณส่วนลด:</div>
+                                    <div class="text-xl font-bold text-amber-400">ได้รับส่วนลดรวม {{ lab3Result.rate }}% (ลดไป {{ lab3Result.discount.toLocaleString() }} บาท)</div>
+                                    <div class="text-sm font-semibold text-emerald-400">ราคาสุทธิหลังหักส่วนลด: {{ lab3Result.net.toLocaleString() }} บาท</div>
+                                </div>
+                            </div>
+
+                            <!-- Highlighted Active Branch -->
+                            <div class="md:col-span-6 bg-slate-900 p-4 rounded-xl font-mono-code text-xs space-y-2">
+                                <div class="text-slate-400 mb-2"># เส้นทางเงื่อนไขที่โปรแกรมกำลังทำงาน (Active Path):</div>
+                                <div :class="lab3.amount >= 5000 ? 'bg-emerald-500/20 border-l-4 border-emerald-400 text-emerald-300 font-bold' : 'text-slate-500'" class="p-2 rounded">
+                                    if purchase >= 5000:<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;discount_rate = 15%
+                                </div>
+                                <div :class="lab3.amount >= 2000 && lab3.amount < 5000 ? 'bg-amber-500/20 border-l-4 border-amber-400 text-amber-300 font-bold' : 'text-slate-500'" class="p-2 rounded">
+                                    elif purchase >= 2000:<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;discount_rate = 10%
+                                </div>
+                                <div :class="lab3.amount < 2000 ? 'bg-rose-500/20 border-l-4 border-rose-400 text-rose-300 font-bold' : 'text-slate-500'" class="p-2 rounded">
+                                    else:<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;discount_rate = 0%
+                                </div>
+                                <div :class="lab3.isVip ? 'bg-sky-500/20 border-l-4 border-sky-400 text-sky-300 font-bold' : 'text-slate-500'" class="p-2 rounded">
+                                    if is_vip == True:<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;discount_rate += 5%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LAB 4: Loop Accumulator & Reorder Point Stock Lab -->
+                    <div v-if="currentUnit.id === 4" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-5">
+                        <div>
+                            <span class="text-xs font-bold text-teal-600 uppercase">Interactive Lab 4</span>
+                            <h3 class="text-lg font-bold text-slate-800">จำลองลูปสะสมยอดบัญชี (Accumulator) และแจ้งเตือนจุดสั่งซื้อซ้ำ (Reorder Point)</h3>
+                            <p class="text-xs text-slate-500">ทดลองบันทึกรายการรับ-จ่าย และกดเบิกสินค้าออกจากสต็อกเพื่อดูการแจ้งเตือนอัตโนมัติ</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Ledger Loop -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                <h4 class="text-xs font-bold text-slate-700">1. บันทึกรายรับ-รายจ่าย (While Loop + Accumulator)</h4>
+                                <div class="flex gap-2">
+                                    <select v-model="lab4.txType" class="text-xs p-2 rounded-lg border border-slate-300 bg-white">
+                                        <option value="in">รายรับ (+)</option>
+                                        <option value="out">รายจ่าย (-)</option>
+                                    </select>
+                                    <input v-model.number="lab4.txAmount" type="number" min="1" placeholder="จำนวนเงิน" class="w-full text-xs p-2 rounded-lg border border-slate-300 bg-white">
+                                    <button @click="addTransaction" class="bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold px-4 py-2 rounded-lg shrink-0 cursor-pointer">
+                                        เพิ่มรอบลูป
+                                    </button>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-slate-200 max-h-36 overflow-y-auto space-y-1 text-xs">
+                                    <div v-for="(t, i) in lab4.transactions" :key="i" class="flex justify-between border-b border-slate-100 pb-1">
+                                        <span>รอบที่ {{ i + 1 }} ({{ t.type === 'in' ? 'รายรับ' : 'รายจ่าย' }})</span>
+                                        <span :class="t.type === 'in' ? 'text-emerald-600 font-bold' : 'text-rose-600 font-bold'">
+                                            {{ t.type === 'in' ? '+' : '-' }}{{ t.amount.toLocaleString() }} ฿
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="bg-teal-900 text-white p-3 rounded-xl flex justify-between items-center text-xs">
+                                    <span>ยอดดุลสะสม (Accumulator):</span>
+                                    <span class="text-base font-bold text-amber-300">{{ lab4Balance.toLocaleString() }} บาท</span>
+                                </div>
+                            </div>
+
+                            <!-- Reorder Point Stock -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                <h4 class="text-xs font-bold text-slate-700">2. ตรวจสอบสต็อกสินค้า (For Loop เช็กเกณฑ์ขั้นต่ำ 5 ชิ้น)</h4>
+                                <div class="space-y-2">
+                                    <div v-for="prod in lab4.products" :key="prod.id"
+                                         :class="prod.stock <= 5 ? 'bg-rose-50 border-rose-300' : 'bg-white border-slate-200'"
+                                         class="p-3 rounded-xl border flex items-center justify-between gap-2">
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-800">{{ prod.name }}</div>
+                                            <div class="text-[11px]" :class="prod.stock <= 5 ? 'text-rose-600 font-bold' : 'text-slate-500'">
+                                                คงเหลือ: {{ prod.stock }} ชิ้น
+                                                <span v-if="prod.stock <= 5">⚠️ ต่ำกว่าจุดสั่งซื้อซ้ำ!</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex gap-1">
+                                            <button @click="prod.stock = Math.max(0, prod.stock - 1)" class="px-2.5 py-1 bg-rose-100 hover:bg-rose-200 text-rose-800 rounded-lg text-xs font-bold cursor-pointer">- เบิก</button>
+                                            <button @click="prod.stock += 5" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 rounded-lg text-xs font-bold cursor-pointer">+ เติม</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LAB 5: Linear Search Array & Function Lab -->
+                    <div v-if="currentUnit.id === 5" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-5">
+                        <div>
+                            <span class="text-xs font-bold text-purple-600 uppercase">Interactive Lab 5</span>
+                            <h3 class="text-lg font-bold text-slate-800">จำลองการค้นหาข้อมูลแบบเชิงเส้น (Linear Search) ใน Array และฟังก์ชันคำนวณแต้ม</h3>
+                            <p class="text-xs text-slate-500">เลือกรหัสสมาชิกที่ต้องการค้นหา แล้วกดปุ่มค้นหาเพื่อดูการทำงานทีละช่อง Index</p>
+                        </div>
+
+                        <div class="bg-purple-50/60 p-4 rounded-2xl border border-purple-200 space-y-4">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <span class="text-xs font-bold text-slate-700">เลือกรหัสสมาชิกเป้าหมาย:</span>
+                                <select v-model="lab5.target" class="text-xs p-2 rounded-lg border border-purple-300 bg-white font-bold">
+                                    <option value="M101">M101 (สมชาย)</option>
+                                    <option value="M102">M102 (วิภาดา)</option>
+                                    <option value="M103">M103 (กิตติพงศ์)</option>
+                                    <option value="M104">M104 (นภัสสร)</option>
+                                    <option value="M999">M999 (ไม่มีในระบบ)</option>
+                                </select>
+                                <button @click="runLinearSearch" :disabled="lab5.searching" class="bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">
+                                    <i class="fa-solid fa-magnifying-glass mr-1"></i> {{ lab5.searching ? 'กำลังค้นหาทีละช่อง...' : 'เริ่มค้นหา (Linear Search)' }}
+                                </button>
+                            </div>
+
+                            <!-- Array Visualization -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <div v-for="(m, idx) in lab5.members" :key="m.id"
+                                     :class="[
+                                         lab5.currentIndex === idx ? 'ring-4 ring-amber-400 scale-105 bg-amber-100 border-amber-500' :
+                                         lab5.foundIndex === idx ? 'bg-emerald-100 border-emerald-500 ring-2 ring-emerald-400' :
+                                         'bg-white border-purple-200'
+                                     ]"
+                                     class="p-3 rounded-xl border-2 text-center transition-all duration-300">
+                                    <div class="text-[10px] font-mono-code text-purple-600 font-bold">Index [{{ idx }}]</div>
+                                    <div class="text-sm font-bold text-slate-800 mt-1">{{ m.id }}</div>
+                                    <div class="text-xs text-slate-600">{{ m.name }}</div>
+                                    <div class="text-[11px] text-amber-700 font-semibold mt-1">ยอดซื้อ: {{ m.spend }} ฿</div>
+                                </div>
+                            </div>
+
+                            <!-- Search & Function Result -->
+                            <div v-if="lab5.message" class="p-3.5 rounded-xl text-xs font-semibold flex flex-wrap items-center justify-between gap-2"
+                                 :class="lab5.foundIndex !== -1 ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-rose-100 text-rose-900 border border-rose-300'">
+                                <span>{{ lab5.message }}</span>
+                                <span v-if="lab5.foundIndex !== -1" class="bg-emerald-700 text-white px-3 py-1 rounded-lg font-mono-code">
+                                    calc_points({{ lab5.members[lab5.foundIndex].spend }}) ➔ Return {{ Math.floor(lab5.members[lab5.foundIndex].spend / 25) }} แต้ม
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LAB 6: CSV File Handling & Exception Handling Lab -->
+                    <div v-if="currentUnit.id === 6" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-5">
+                        <div>
+                            <span class="text-xs font-bold text-cyan-600 uppercase">Interactive Lab 6</span>
+                            <h3 class="text-lg font-bold text-slate-800">จำลองการเขียน/อ่านแฟ้มข้อมูล CSV และการดักจับข้อผิดพลาด (Try-Catch)</h3>
+                            <p class="text-xs text-slate-500">ทดลองบันทึกคำสั่งซื้อต่อท้ายไฟล์ (Append) และทดสอบเปิดโหมดจำลองไฟล์เสียหายเพื่อดูการทำงานของ Try-Catch</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                <h4 class="text-xs font-bold text-slate-700">1. บันทึกรายการสั่งซื้อลงไฟล์ (Mode: Append "a")</h4>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <input v-model="lab6.newProduct" type="text" placeholder="ชื่อสินค้า" class="text-xs p-2 rounded-lg border border-slate-300 bg-white">
+                                    <input v-model.number="lab6.newTotal" type="number" placeholder="ราคารวม" class="text-xs p-2 rounded-lg border border-slate-300 bg-white">
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button @click="appendCsvRow" class="bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">
+                                        <i class="fa-solid fa-file-export mr-1"></i> บันทึกลง orders.csv
+                                    </button>
+                                    <button @click="simulateFileError" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer">
+                                        <i class="fa-solid fa-bug mr-1"></i> จำลองไฟล์หาย (Test Try-Catch)
+                                    </button>
+                                </div>
+
+                                <div v-if="lab6.errorAlert" class="p-3 bg-rose-100 border border-rose-300 rounded-xl text-xs text-rose-900">
+                                    <strong>🛡️ Exception Caught (ดักจับสำเร็จ!):</strong> พบข้อผิดพลาด <code>FileNotFoundError</code> แต่โปรแกรมไม่ค้าง เพราะระบบป้องกันด้วยคำสั่ง <code>try...except</code> เรียบร้อยแล้ว!
+                                </div>
+                            </div>
+
+                            <!-- Live CSV File Content -->
+                            <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono-code text-xs space-y-2">
+                                <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                                    <span class="text-cyan-400 font-bold"><i class="fa-solid fa-file-csv mr-1"></i> เนื้อหาในไฟล์ orders.csv</span>
+                                    <span class="text-[10px] text-slate-400">UTF-8 CSV Format</span>
+                                </div>
+                                <pre class="text-emerald-300 leading-relaxed overflow-x-auto">{{ lab6.csvLines.join('\n') }}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Next Step CTA -->
+                    <div class="flex justify-between">
+                        <button @click="unitTab = 'visual'" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition cursor-pointer">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> กลับไปดูภาพเนื้อหา
+                        </button>
+                        <button @click="unitTab = 'quiz'" class="bg-[#7f111e] hover:bg-[#5c0a14] text-white font-bold px-6 py-2.5 rounded-xl shadow text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
+                            <span>ทำแบบทดสอบท้ายหน่วย (3 ข้อ)</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 3: UNIT QUIZ (3 QUESTIONS PER UNIT) -->
+                <div v-if="unitTab === 'quiz'" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800">แบบทดสอบวัดความเข้าใจ หน่วยที่ {{ currentUnit.id }}</h3>
+                            <p class="text-xs text-slate-500">ต้องตอบถูกอย่างน้อย <strong>2 จาก 3 ข้อ</strong> เพื่อผ่านการประเมินหน่วยการเรียนรู้นี้</p>
+                        </div>
+                        <div v-if="unitProgress[currentUnit.id].submitted"
+                             :class="unitProgress[currentUnit.id].passed ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'"
+                             class="px-4 py-1.5 rounded-xl text-xs font-bold">
+                            คะแนนที่ได้: {{ unitProgress[currentUnit.id].score }} / 3 คะแนน
+                        </div>
+                    </div>
+
+                    <!-- Questions List -->
+                    <div class="space-y-6">
+                        <div v-for="(q, qIdx) in currentUnit.quiz" :key="qIdx" class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                            <p class="font-bold text-sm text-slate-800">ข้อที่ {{ qIdx + 1 }}. {{ q.question }}</p>
+                            <div class="space-y-2">
+                                <label v-for="(opt, oIdx) in q.options" :key="oIdx"
+                                       :class="[
+                                           unitProgress[currentUnit.id].submitted
+                                               ? (oIdx === q.correct ? 'bg-emerald-100 border-emerald-500 text-emerald-900 font-semibold'
+                                                  : (unitProgress[currentUnit.id].answers[qIdx] === oIdx ? 'bg-rose-100 border-rose-500 text-rose-900' : 'bg-white border-slate-200 opacity-70'))
+                                               : (unitProgress[currentUnit.id].answers[qIdx] === oIdx ? 'bg-amber-50 border-amber-500 ring-1 ring-amber-400' : 'bg-white border-slate-200 hover:bg-slate-100')
+                                       ]"
+                                       class="flex items-center gap-3 p-3 rounded-xl border text-xs sm:text-sm cursor-pointer transition">
+                                    <input type="radio"
+                                           :name="`unit_${currentUnit.id}_q_${qIdx}`"
+                                           :value="oIdx"
+                                           v-model="unitProgress[currentUnit.id].answers[qIdx]"
+                                           :disabled="unitProgress[currentUnit.id].submitted"
+                                           class="accent-[#7f111e]">
+                                    <span>{{ opt }}</span>
+                                </label>
+                            </div>
+                            <!-- Explanation after submit -->
+                            <div v-if="unitProgress[currentUnit.id].submitted" class="p-3 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900">
+                                <strong><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> คำอธิบาย:</strong> {{ q.explanation }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit / Retry Actions -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100">
+                        <button v-if="!unitProgress[currentUnit.id].submitted"
+                                @click="submitQuiz(currentUnit.id)"
+                                class="bg-gradient-to-r from-[#7f111e] to-[#5c0a14] hover:opacity-95 text-white font-bold px-8 py-3 rounded-xl shadow-md transition cursor-pointer">
+                            <i class="fa-solid fa-paper-plane mr-2"></i> ส่งคำตอบและตรวจคะแนน
+                        </button>
+
+                        <div v-else class="flex flex-wrap items-center gap-3 w-full justify-between">
+                            <button @click="retryQuiz(currentUnit.id)" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition cursor-pointer">
+                                <i class="fa-solid fa-rotate-right mr-1"></i> ทำแบบทดสอบอีกครั้ง
+                            </button>
+
+                            <button v-if="unitProgress[currentUnit.id].passed && currentUnit.id < 6"
+                                    @click="selectUnit(currentUnit.id + 1)"
+                                    class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow transition cursor-pointer">
+                                เรียนหน่วยที่ {{ currentUnit.id + 1 }} ต่อเลย <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+
+                            <button v-if="isAllCompleted"
+                                    @click="openCertificateModal"
+                                    class="bg-gradient-to-r from-amber-400 to-yellow-500 text-[#5c0a14] font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg pulse-gold transition cursor-pointer">
+                                <i class="fa-solid fa-award mr-1"></i> ยินดีด้วย! กรอกชื่อรับเกียรติบัตร
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Custom Toast / Alert Box (No browser alert()) -->
+    <div v-if="toastMessage" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-400/50 flex items-center gap-3 max-w-sm no-print">
+        <i class="fa-solid fa-circle-info text-amber-400 text-lg"></i>
+        <span class="text-xs sm:text-sm font-medium">{{ toastMessage }}</span>
+        <button @click="toastMessage = ''" class="text-slate-400 hover:text-white ml-2"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- CERTIFICATE MODAL & PRINTABLE A4 LANDSCAPE CERTIFICATE -->
+    <div v-if="showCertificateModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-5xl w-full shadow-2xl overflow-hidden my-auto">
+            
+            <!-- Modal Header (Hidden on Print) -->
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between no-print">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-award text-amber-400 text-xl"></i>
+                    <h3 class="font-bold text-base sm:text-lg">ระบบออกเกียรติบัตรออนไลน์ (Certificate of Completion)</h3>
+                </div>
+                <button @click="showCertificateModal = false" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 sm:p-6 space-y-5 max-h-[85vh] overflow-y-auto">
+                
+                <!-- Status Notice if not yet completed all 6 units -->
+                <div v-if="!isAllCompleted" class="bg-amber-50 border border-amber-300 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 no-print">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-lock text-amber-600 text-xl"></i>
+                        <div class="text-xs sm:text-sm text-amber-900">
+                            <strong>สถานะ:</strong> คุณเรียนผ่านแล้ว <strong>{{ completedCount }} / 6 หน่วย</strong> (ต้องผ่านครบทั้ง 6 หน่วยจึงจะปลดล็อกการพิมพ์เกียรติบัตรฉบับจริง)
+                        </div>
+                    </div>
+                    <button @click="unlockAllDemo" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer">
+                        ปลดล็อกตัวอย่างทันที
+                    </button>
+                </div>
+
+                <!-- Student Name Input Form -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 no-print">
+                    <div class="sm:col-span-2">
+                        <label class="text-xs font-bold text-slate-700 block mb-1">กรอกชื่อ - นามสกุล ผู้เรียน (ที่จะแสดงบนเกียรติบัตร):</label>
+                        <input v-model="studentName" type="text" placeholder="เช่น นายธนกฤต รักเรียน"
+                               class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-sm font-bold text-slate-900 focus:ring-2 focus:ring-amber-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-700 block mb-1">รหัสนักศึกษา / ระดับชั้น:</label>
+                        <input v-model="studentClass" type="text" placeholder="เช่น ปวส.1 เทคโนโลยีธุรกิจดิจิทัล"
+                               class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-800 focus:ring-2 focus:ring-amber-400 outline-none">
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE PREVIEW & PRINTABLE AREA -->
+                <div id="certificate-print-area" class="relative bg-white border-[12px] border-double border-[#7f111e] p-6 sm:p-10 rounded-xl shadow-xl text-center select-none overflow-hidden">
+                    <!-- Decorative Inner Gold Border -->
+                    <div class="border-2 border-amber-500 p-5 sm:p-8 rounded-lg relative bg-gradient-to-b from-amber-50/30 via-white to-amber-50/40">
+                        
+                        <!-- Corner Ornaments -->
+                        <div class="w-12 h-12 border-t-4 border-l-4 border-amber-500 absolute top-2 left-2"></div>
+                        <div class="w-12 h-12 border-t-4 border-r-4 border-amber-500 absolute top-2 right-2"></div>
+                        <div class="w-12 h-12 border-b-4 border-l-4 border-amber-500 absolute bottom-2 left-2"></div>
+                        <div class="w-12 h-12 border-b-4 border-r-4 border-amber-500 absolute bottom-2 right-2"></div>
+
+                        <!-- College Logo SVG -->
+                        <div class="w-20 h-20 mx-auto mb-3">
+                            <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow">
+                                <circle cx="50" cy="50" r="46" fill="#7f111e" stroke="#d97706" stroke-width="4"/>
+                                <circle cx="50" cy="50" r="37" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3 2"/>
+                                <path d="M50 16 L60 37 L83 39 L65 55 L70 77 L50 65 L30 77 L35 55 L17 39 L40 37 Z" fill="#fbbf24"/>
+                                <circle cx="50" cy="50" r="11" fill="#7f111e"/>
+                                <text x="50" y="54" font-size="10" font-weight="bold" fill="#fbbf24" text-anchor="middle">SBTVC</text>
+                            </svg>
+                        </div>
+
+                        <h4 class="text-base sm:text-xl font-bold text-[#7f111e] tracking-wide">
+                            วิทยาลัยอาชีวศึกษาเทคโนโลยีฐานวิทยาศาสตร์ (ชลบุรี)
+                        </h4>
+                        <p class="text-xs sm:text-sm text-slate-600 font-medium">
+                            สำนักงานคณะกรรมการการอาชีวศึกษา กระทรวงศึกษาธิการ
+                        </p>
+
+                        <div class="my-4">
+                            <span class="inline-block bg-amber-100 text-amber-900 border border-amber-300 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
+                                เกียรติบัตรฉบับนี้ให้ไว้เพื่อแสดงว่า
+                            </span>
+                        </div>
+
+                        <!-- Recipient Name -->
+                        <div class="my-3 py-2 border-b-2 border-dotted border-amber-500 max-w-xl mx-auto">
+                            <p class="text-2xl sm:text-4xl font-bold text-slate-900">
+                                {{ studentName.trim() || '........................................................' }}
+                            </p>
+                            <p v-if="studentClass" class="text-xs sm:text-sm text-slate-600 mt-1">{{ studentClass }}</p>
+                        </div>
+
+                        <p class="text-xs sm:text-base text-slate-700 max-w-2xl mx-auto leading-relaxed mt-4">
+                            ได้ผ่านการเรียนรู้และทดสอบวัดผลสัมฤทธิ์ทางการเรียนออนไลน์ครบทั้ง 6 หน่วยการเรียนรู้<br>
+                            ในรายวิชา <strong class="text-[#7f111e]">การเขียนโปรแกรมคอมพิวเตอร์ (รหัสวิชา 31910-0004)</strong><br>
+                            หลักสูตรประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.) พุทธศักราช 2567 สาขาวิชาเทคโนโลยีธุรกิจดิจิทัล<br>
+                            <span class="text-xs text-slate-500">ภาคเรียนที่ 2 ปีการศึกษา 2569 • ให้ไว้ ณ วันที่ {{ currentThaiDate }}</span>
+                        </p>
+
+                        <!-- Signature Block -->
+                        <div class="mt-8 pt-2 flex flex-col sm:flex-row items-center justify-around gap-6">
+                            <!-- Gold Seal -->
+                            <div class="flex items-center gap-3">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-amber-300 via-yellow-500 to-amber-600 p-1 shadow-md flex items-center justify-center">
+                                    <div class="w-full h-full rounded-full border-2 border-dashed border-white flex flex-col items-center justify-center text-[#5c0a14]">
+                                        <i class="fa-solid fa-check-double text-sm"></i>
+                                        <span class="text-[9px] font-bold">PASSED</span>
+                                        <span class="text-[8px]">6 UNITS</span>
+                                    </div>
+                                </div>
+                                <div class="text-left text-[11px] text-slate-500">
+                                    <div class="font-bold text-slate-700">ผลการประเมิน: ผ่านเกณฑ์</div>
+                                    <div>คะแนนรวม: {{ totalQuizScore }} / 18 คะแนน</div>
+                                </div>
+                            </div>
+
+                            <!-- Instructor Signature -->
+                            <div class="text-center">
+                                <div class="font-sarabun italic text-lg text-[#7f111e] font-bold tracking-wider mb-1">
+                                    อนุสรณ์ บุญเจริญปัญญา
+                                </div>
+                                <div class="w-56 border-t border-slate-400 mx-auto pt-1">
+                                    <p class="text-xs sm:text-sm font-bold text-slate-800">(นายอนุสรณ์ บุญเจริญปัญญา)</p>
+                                    <p class="text-[11px] text-slate-600">ครูผู้สอน แผนกวิชาเทคโนโลยีธุรกิจดิจิทัล</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Print & Close Buttons -->
+                <div class="flex flex-wrap items-center justify-end gap-3 pt-2 no-print">
+                    <button @click="showCertificateModal = false" class="px-5 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-sm font-semibold cursor-pointer">
+                        ปิดหน้าต่าง
+                    </button>
+                    <button @click="printCertificate"
+                            :disabled="!isAllCompleted"
+                            :class="isAllCompleted ? 'bg-gradient-to-r from-[#7f111e] to-[#5c0a14] hover:opacity-95 text-white shadow-lg cursor-pointer' : 'bg-slate-300 text-slate-500 cursor-not-allowed'"
+                            class="px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition">
+                        <i class="fa-solid fa-print"></i> พิมพ์เกียรติบัตร / บันทึกเป็น PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-5 mt-10 border-t border-slate-800 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>
+                <strong>รายวิชา การเขียนโปรแกรมคอมพิวเตอร์ (31910-0004)</strong> • แผนกวิชาเทคโนโลยีธุรกิจดิจิทัล
+            </div>
+            <div>
+                วิทยาลัยอาชีวศึกษาเทคโนโลยีฐานวิทยาศาสตร์ (ชลบุรี) • ครูอนุสรณ์ บุญเจริญปัญญา
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+const { createApp, ref, reactive, computed } = Vue;
+
+createApp({
+    setup() {
+        const activeView = ref('home');
+        const currentUnitId = ref(1);
+        const unitTab = ref('visual');
+        const toastMessage = ref('');
+        const showCertificateModal = ref(false);
+        const studentName = ref('');
+        const studentClass = ref('ระดับชั้น ปวส. สาขาวิชาเทคโนโลยีธุรกิจดิจิทัล');
+
+        const showToast = (msg) => {
+            toastMessage.value = msg;
+            setTimeout(() => {
+                if (toastMessage.value === msg) toastMessage.value = '';
+            }, 4000);
+        };
+
+        // 6 Units Curriculum Data from Document (31910-0004)
+        const units = [
+            {
+                id: 1,
+                shortTitle: 'ออกแบบขั้นตอนวิธีและผังงานธุรกิจ',
+                title: 'หน่วยที่ 1: ออกแบบขั้นตอนวิธีและผังงานประมวลผลงานธุรกิจ',
+                theory: 4, practice: 4, hours: 8,
+                badgeColor: 'bg-rose-100 text-rose-800',
+                summary: 'วิเคราะห์องค์ประกอบระบบงานธุรกิจตามวงจร IPO Cycle กำหนดขั้นตอนวิธี เขียนรหัสเทียม (Pseudocode) และวาดผังงาน (Flowchart) ด้วยสัญลักษณ์มาตรฐานสากล ANSI/ISO',
+                deliverable: 'แฟ้มเอกสารผังงานและรหัสเทียมประมวลผลระบบงานธุรกิจ',
+                quiz: [
+                    {
+                        question: 'หลักการวิเคราะห์ระบบงานธุรกิจตามวงจร IPO Cycle ประกอบด้วยขั้นตอนใดเรียงตามลำดับ?',
+                        options: [
+                            'Input (นำเข้า) -> Process (ประมวลผล) -> Output (ส่งออก)',
+                            'Process (ประมวลผล) -> Input (นำเข้า) -> Output (ส่งออก)',
+                            'Output (ส่งออก) -> Process (ประมวลผล) -> Input (นำเข้า)',
+                            'Input (นำเข้า) -> Output (ส่งออก) -> Process (ประมวลผล)'
+                        ],
+                        correct: 0,
+                        explanation: 'IPO Cycle ย่อมาจาก Input (ข้อมูลนำเข้า), Process (กระบวนการประมวลผล) และ Output (ผลลัพธ์ที่ได้)'
+                    },
+                    {
+                        question: 'สัญลักษณ์รูป "สี่เหลี่ยมขนมเปียกปูน (Diamond)" ในผังงาน Flowchart มาตรฐาน ANSI/ISO หมายถึงข้อใด?',
+                        options: [
+                            'จุดเริ่มต้นหรือสิ้นสุดโปรแกรม (Terminator)',
+                            'การคำนวณและกำหนดค่าตัวแปร (Process)',
+                            'การตรวจสอบเงื่อนไขเพื่อตัดสินใจ (Decision)',
+                            'การแสดงผลลัพธ์ทางหน้าจอ (Output)'
+                        ],
+                        correct: 2,
+                        explanation: 'รูปสี่เหลี่ยมขนมเปียกปูนใช้สำหรับการตรวจสอบเงื่อนไข (Decision) ซึ่งจะแยกทางออกเป็น จริง (True) หรือ เท็จ (False)'
+                    },
+                    {
+                        question: 'ข้อใดกล่าวถูกต้องเกี่ยวกับ "รหัสเทียม (Pseudocode)"?',
+                        options: [
+                            'เป็นภาษาเครื่องที่มีเฉพาะเลขฐานสอง 0 และ 1',
+                            'เป็นคำอธิบายขั้นตอนวิธีที่อ่านเข้าใจง่ายและไม่ขึ้นกับภาษาคอมพิวเตอร์ใดภาษาหนึ่ง',
+                            'ต้องใช้สัญลักษณ์รูปภาพในการวาดเท่านั้น',
+                            'ใช้สำหรับตกแต่งหน้าจอเว็บไซต์ให้สวยงาม'
+                        ],
+                        correct: 1,
+                        explanation: 'Pseudocode เป็นการเขียนบรรยายลำดับขั้นตอนการทำงานด้วยข้อความกึ่งภาษาคนกึ่งคำสั่งโปรแกรม เพื่อให้อ่านเข้าใจง่ายก่อนนำไปเขียนโค้ดจริง'
+                    }
+                ]
+            },
+            {
+                id: 2,
+                shortTitle: 'พัฒนาโปรแกรมคำนวณยอดขายและ VAT',
+                title: 'หน่วยที่ 2: พัฒนาโปรแกรมคำนวณยอดขายและภาษีมูลค่าเพิ่ม',
+                theory: 4, practice: 4, hours: 8,
+                badgeColor: 'bg-amber-100 text-amber-800',
+                summary: 'ติดตั้งและตั้งค่าสภาพแวดล้อมการพัฒนาโปรแกรม (IDE) ประกาศตัวแปร ชนิดข้อมูลพื้นฐาน และเขียนโปรแกรมคำนวณยอดขาย ภาษีมูลค่าเพิ่ม (VAT 7%) แบบโครงสร้างลำดับ',
+                deliverable: 'โปรแกรมคำนวณยอดขายและออกใบเสร็จรับเงินอย่างย่อ',
+                quiz: [
+                    {
+                        question: 'หากต้องการประกาศตัวแปรเก็บข้อมูล "ราคาสินค้าที่มีจุดทศนิยม" เช่น 199.50 บาท ควรเลือกใช้ชนิดข้อมูล (Data Type) ใด?',
+                        options: [
+                            'Integer (จำนวนเต็ม)',
+                            'Float / Double (เลขทศนิยม)',
+                            'Boolean (ค่าความจริง)',
+                            'Character (อักขระตัวเดียว)'
+                        ],
+                        correct: 1,
+                        explanation: 'Float หรือ Double เป็นชนิดข้อมูลสำหรับเก็บตัวเลขที่มีจุดทศนิยม เช่น ราคาสินค้า ยอดเงิน หรือค่าภาษี'
+                    },
+                    {
+                        question: 'ตัวแปลภาษาคอมพิวเตอร์ชนิดใดที่ทำหน้าที่แปลและทำงาน "ทีละบรรทัด" (เช่น ภาษา Python)?',
+                        options: [
+                            'Compiler (คอมไพเลอร์)',
+                            'Interpreter (อินเทอร์พรีเตอร์)',
+                            'Debugger (ดีบักเกอร์)',
+                            'Flowchart (ผังงาน)'
+                        ],
+                        correct: 1,
+                        explanation: 'Interpreter จะอ่านและแปลคำสั่งทีละบรรทัดในขณะรันโปรแกรม ส่วน Compiler จะแปลทั้งไฟล์รวดเดียว'
+                    },
+                    {
+                        question: 'หากยอดรวมค่าสินค้า (subtotal) เท่ากับ 1,000 บาท สูตรคำนวณภาษีมูลค่าเพิ่ม 7% ในภาษาโปรแกรมข้อใดถูกต้อง?',
+                        options: [
+                            'vat = subtotal + 7',
+                            'vat = subtotal * 0.07',
+                            'vat = subtotal / 7',
+                            'vat = subtotal - 0.07'
+                        ],
+                        correct: 1,
+                        explanation: 'ภาษีมูลค่าเพิ่ม 7% คิดจาก 7/100 หรือ 0.07 คูณกับยอดรวมสินค้า (subtotal * 0.07 = 70 บาท)'
+                    }
+                ]
+            },
+            {
+                id: 3,
+                shortTitle: 'โปรแกรมคำนวณส่วนลดตามเงื่อนไข',
+                title: 'หน่วยที่ 3: พัฒนาโปรแกรมคำนวณส่วนลดการค้าตามเงื่อนไขธุรกิจ',
+                theory: 6, practice: 6, hours: 12,
+                badgeColor: 'bg-indigo-100 text-indigo-800',
+                summary: 'กำหนดเงื่อนไขและตัวดำเนินการตรรกศาสตร์ (AND, OR, NOT) เขียนคำสั่งควบคุมการตัดสินใจ If-Else / Nested If คำนวณส่วนลดแบบขั้นบันได และตรวจสอบข้อผิดพลาดด้วย Debugger',
+                deliverable: 'โปรแกรมคำนวณส่วนลดการค้าตามระดับยอดซื้อ',
+                quiz: [
+                    {
+                        question: 'เงื่อนไข "ต้องมียอดซื้อตั้งแต่ 2,000 บาทขึ้นไป และ (AND) ต้องเป็นสมาชิก" จะเป็นจริงก็ต่อเมื่อใด?',
+                        options: [
+                            'ยอดซื้อถึง 2,000 บาท แต่ไม่ได้เป็นสมาชิก',
+                            'เป็นสมาชิก แต่มียอดซื้อเพียง 500 บาท',
+                            'เป็นจริงทั้ง 2 เงื่อนไขพร้อมกัน (ยอดซื้อ >= 2,000 และเป็นสมาชิก)',
+                            'ไม่เป็นจริงเลยสักเงื่อนไขเดียว'
+                        ],
+                        correct: 2,
+                        explanation: 'ตัวดำเนินการตรรกศาสตร์ AND (และ) จะให้ผลลัพธ์เป็นจริง (True) ก็ต่อเมื่อเงื่อนไขย่อยทั้งหมดเป็นจริงพร้อมกัน'
+                    },
+                    {
+                        question: 'ข้อผิดพลาดประเภทใดที่โปรแกรมสามารถรันทำงานได้จนจบโดยไม่แจ้ง Error แต่ "ได้ผลลัพธ์การคำนวณที่ผิดพลาด"?',
+                        options: [
+                            'Syntax Error',
+                            'Runtime Error',
+                            'Logic Error',
+                            'Hardware Error'
+                        ],
+                        correct: 2,
+                        explanation: 'Logic Error คือข้อผิดพลาดทางตรรกะของผู้เขียนโปรแกรม เช่น ใส่สูตรผิดหรือตั้งเงื่อนไขเครื่องหมายกลับด้าน'
+                    },
+                    {
+                        question: 'ในการคำนวณส่วนลดแบบขั้นบันไดหลายระดับ (เช่น 15%, 10%, 5%, 0%) ควรเลือกใช้โครงสร้างคำสั่งใด?',
+                        options: [
+                            'โครงสร้างลำดับ (Sequence) เพียงอย่างเดียว',
+                            'โครงสร้างเงื่อนไขหลายทางเลือก (If - Elif - Else / Nested If)',
+                            'คำสั่งแสดงผล (Print) อย่างเดียว',
+                            'คำสั่งปิดไฟล์ (Close File)'
+                        ],
+                        correct: 1,
+                        explanation: 'โครงสร้างเงื่อนไขหลายทางเลือก (If-Elif-Else) เหมาะสำหรับการตรวจสอบช่วงเงื่อนไขหลายระดับตามลำดับขั้นบันได'
+                    }
+                ]
+            },
+            {
+                id: 4,
+                shortTitle: 'โปรแกรมบัญชีรับ-จ่ายและสต็อกวนซ้ำ',
+                title: 'หน่วยที่ 4: พัฒนาโปรแกรมบัญชีรายรับรายจ่ายและตรวจสอบสินค้าคงคลังแบบวนซ้ำ',
+                theory: 6, practice: 6, hours: 12,
+                badgeColor: 'bg-teal-100 text-teal-800',
+                summary: 'เขียนคำสั่งวนซ้ำ While Loop / For Loop รับข้อมูลต่อเนื่อง ใช้ตัวแปรสะสมค่า (Accumulator) สรุปยอดดุลบัญชี และใช้ Nested Loop สร้างรายงานแจ้งเตือนสินค้าต่ำกว่าจุดสั่งซื้อซ้ำ',
+                deliverable: 'โปรแกรมสรุปบัญชีรายรับ-รายจ่ายและแจ้งเตือนสินค้าคงคลัง',
+                quiz: [
+                    {
+                        question: 'ตัวแปรที่ทำหน้าที่บวกสะสมผลรวมของตัวเลขไปเรื่อยๆ ในแต่ละรอบของการวนซ้ำ (เช่น total = total + amount) เรียกว่าอะไร?',
+                        options: [
+                            'Accumulator (ตัวแปรสะสมค่า)',
+                            'Sentinel Value (ค่าสิ้นสุด)',
+                            'Syntax Variable',
+                            'Boolean Flag'
+                        ],
+                        correct: 0,
+                        explanation: 'Accumulator คือตัวแปรที่กำหนดค่าเริ่มต้น (มักเป็น 0) แล้วนำค่าใหม่มาบวกสะสมเข้าไปในทุกรอบของลูป'
+                    },
+                    {
+                        question: 'ปัญหา "วงรอบไม่รู้จบ (Infinite Loop)" เกิดขึ้นจากสาเหตุใด?',
+                        options: [
+                            'ลืมเปิดเครื่องคอมพิวเตอร์',
+                            'เงื่อนไขของลูปเป็นจริง (True) ตลอดเวลา ไม่มีการปรับค่าให้หลุดออกจากลูปได้',
+                            'ตัวแปรมีชื่อยาวเกินไป',
+                            'คอมพิวเตอร์ไม่มีอินเทอร์เน็ต'
+                        ],
+                        correct: 1,
+                        explanation: 'หากเงื่อนไขการวนซ้ำเป็นจริงตลอดเวลาโดยไม่มีตัวแปรเปลี่ยนแปลงค่าเพื่อทำให้เงื่อนไขเป็นเท็จ โปรแกรมจะวนซ้ำไม่รู้จบ'
+                    },
+                    {
+                        question: 'เงื่อนไขใดที่โปรแกรมระบบคลังสินค้าใช้ตรวจสอบเพื่อแจ้งเตือน "สินค้าต่ำกว่าจุดสั่งซื้อซ้ำ (Reorder Point)"?',
+                        options: [
+                            'stock > reorder_point',
+                            'stock <= reorder_point',
+                            'stock == 1000',
+                            'reorder_point == 0'
+                        ],
+                        correct: 1,
+                        explanation: 'เมื่อจำนวนสินค้าคงเหลือ (stock) น้อยกว่าหรือเท่ากับเกณฑ์จุดสั่งซื้อซ้ำ (reorder_point) ระบบจะต้องแจ้งเตือนให้สั่งซื้อเพิ่ม'
+                    }
+                ]
+            },
+            {
+                id: 5,
+                shortTitle: 'จัดการข้อมูลสมาชิกด้วย Array & Function',
+                title: 'หน่วยที่ 5: พัฒนาโปรแกรมจัดการข้อมูลสมาชิกและคำนวณคะแนนสะสมด้วยแถวลำดับและฟังก์ชัน',
+                theory: 6, practice: 6, hours: 12,
+                badgeColor: 'bg-purple-100 text-purple-800',
+                summary: 'จัดเก็บกลุ่มข้อมูลด้วยโครงสร้างแถวลำดับ (Array / List) พัฒนาการค้นหาข้อมูลแบบเชิงเส้น (Linear Search) และสร้างฟังก์ชันย่อย (Function) ส่งผ่าน Parameter และคืนค่า Return',
+                deliverable: 'โปรแกรมสืบค้นข้อมูลสมาชิกและโมดูลคำนวณแต้มสะสม',
+                quiz: [
+                    {
+                        question: 'สมาชิกตัวแรกสุดในโครงสร้างแถวลำดับ (Array / List) มีตำแหน่งดัชนี (Index) เป็นเลขใด?',
+                        options: [
+                            'Index [1]',
+                            'Index [0]',
+                            'Index [-1]',
+                            'Index [10]'
+                        ],
+                        correct: 1,
+                        explanation: 'ในภาษาเขียนโปรแกรมส่วนใหญ่ ตำแหน่ง Index ของ Array / List จะเริ่มต้นนับที่ 0 เสมอ'
+                    },
+                    {
+                        question: 'หลักการค้นหาข้อมูลแบบเชิงเส้น (Linear Search) ทำงานอย่างไร?',
+                        options: [
+                            'สุ่มหยิบข้อมูลขึ้นมา 1 ตัวแล้วหยุดทันที',
+                            'วนซ้ำเปรียบเทียบข้อมูลเป้าหมายทีละตัวตั้งแต่ตำแหน่งแรกไปจนกว่าจะพบหรือครบทุกตัว',
+                            'ลบข้อมูลทั้งหมดทิ้งแล้วสร้างใหม่',
+                            'เรียงลำดับข้อมูลจากมากไปน้อยเท่านั้น'
+                        ],
+                        correct: 1,
+                        explanation: 'Linear Search จะตรวจสอบข้อมูลทีละช่องตามลำดับตั้งแต่ Index 0 ไปเรื่อยๆ จนกว่าจะเจอข้อมูลที่ตรงกัน'
+                    },
+                    {
+                        question: 'คำสั่งใดในฟังก์ชันย่อย (Function) ที่ทำหน้าที่ "ส่งคืนค่าผลลัพธ์" กลับไปยังโปรแกรมหลักที่เรียกใช้งาน?',
+                        options: [
+                            'input',
+                            'return',
+                            'break',
+                            'continue'
+                        ],
+                        correct: 1,
+                        explanation: 'คำสั่ง return ใช้สำหรับส่งค่าผลลัพธ์จากการประมวลผลภายในฟังก์ชันกลับคืนสู่จุดที่เรียกใช้ฟังก์ชัน'
+                    }
+                ]
+            },
+            {
+                id: 6,
+                shortTitle: 'โปรแกรมคำสั่งซื้อเชื่อมโยงแฟ้มข้อมูล CSV',
+                title: 'หน่วยที่ 6: พัฒนาโปรแกรมบันทึกรายการคำสั่งซื้อสินค้าเชื่อมโยงแฟ้มข้อมูล',
+                theory: 4, practice: 4, hours: 8,
+                badgeColor: 'bg-cyan-100 text-cyan-800',
+                summary: 'เขียนคำสั่งบันทึกและอ่านข้อมูลจากแฟ้มข้อมูลถาวรแบบ CSV (Read, Write, Append) ดักจับข้อผิดพลาดด้วย Exception Handling (Try-Catch) และทดสอบระบบแบบ Black-box Testing',
+                deliverable: 'โปรแกรมบันทึกรายการคำสั่งซื้อสินค้าเชื่อมโยงแฟ้มข้อมูลพร้อมคู่มือการใช้งาน',
+                quiz: [
+                    {
+                        question: 'หากต้องการ "เขียนข้อมูลคำสั่งซื้อใหม่ต่อท้ายไฟล์เดิม" โดยไม่ให้ข้อมูลเก่าในไฟล์หายไป ควรเปิดไฟล์ด้วยโหมดใด?',
+                        options: [
+                            'Read Mode ("r")',
+                            'Write Mode ("w")',
+                            'Append Mode ("a")',
+                            'Delete Mode ("d")'
+                        ],
+                        correct: 2,
+                        explanation: 'Append Mode ("a") จะเพิ่มข้อมูลใหม่ต่อท้ายไฟล์เดิม ส่วน Write Mode ("w") จะเขียนทับข้อมูลเดิมทั้งหมด'
+                    },
+                    {
+                        question: 'โครงสร้างไฟล์ข้อมูลแบบ CSV (Comma-Separated Values) ใช้สัญลักษณ์ใดในการคั่นข้อมูลแต่ละคอลัมน์?',
+                        options: [
+                            'เครื่องหมายจุลภาค ( , )',
+                            'เครื่องหมายคำถาม ( ? )',
+                            'เครื่องหมายตกใจ ( ! )',
+                            'เครื่องหมายดอกจัน ( * )'
+                        ],
+                        correct: 0,
+                        explanation: 'CSV ย่อมาจาก Comma-Separated Values คือไฟล์ข้อความที่ใช้เครื่องหมายจุลภาค (,) คั่นแบ่งข้อมูลแต่ละคอลัมน์'
+                    },
+                    {
+                        question: 'เหตุใดจึงต้องใช้คำสั่ง Try-Catch / Try-Except ในการเขียนโปรแกรมเปิด-ปิดแฟ้มข้อมูล?',
+                        options: [
+                            'เพื่อทำให้ไฟล์มีขนาดเล็กลง',
+                            'เพื่อดักจับข้อผิดพลาดกรณีไม่พบไฟล์หรือไฟล์ถูกเปิดล็อกอยู่ ไม่ให้โปรแกรมหยุดทำงานกะทันหัน',
+                            'เพื่อเปลี่ยนสีตัวอักษรในไฟล์ CSV',
+                            'เพื่อเพิ่มความเร็วอินเทอร์เน็ต'
+                        ],
+                        correct: 1,
+                        explanation: 'Exception Handling (Try-Catch) ช่วยดักจับข้อผิดพลาดระหว่างทำงาน (เช่น FileNotFoundError) และแสดงข้อความแจ้งเตือนอย่างเหมาะสม'
+                    }
+                ]
+            }
+        ];
+
+        // Track Progress for all 6 units
+        const unitProgress = reactive({
+            1: { answers: [null, null, null], submitted: false, score: 0, passed: false },
+            2: { answers: [null, null, null], submitted: false, score: 0, passed: false },
+            3: { answers: [null, null, null], submitted: false, score: 0, passed: false },
+            4: { answers: [null, null, null], submitted: false, score: 0, passed: false },
+            5: { answers: [null, null, null], submitted: false, score: 0, passed: false },
+            6: { answers: [null, null, null], submitted: false, score: 0, passed: false }
+        });
+
+        const currentUnit = computed(() => units.find(u => u.id === currentUnitId.value));
+
+        const completedCount = computed(() => {
+            return Object.values(unitProgress).filter(p => p.passed).length;
+        });
+
+        const progressPercent = computed(() => {
+            return Math.round((completedCount.value / 6) * 100);
+        });
+
+        const isAllCompleted = computed(() => completedCount.value === 6);
+
+        const totalQuizScore = computed(() => {
+            return Object.values(unitProgress).reduce((sum, p) => sum + p.score, 0);
+        });
+
+        const selectUnit = (id) => {
+            currentUnitId.value = id;
+            activeView.value = 'unit';
+            unitTab.value = 'visual';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Quiz Submission
+        const submitQuiz = (unitId) => {
+            const prog = unitProgress[unitId];
+            if (prog.answers.includes(null)) {
+                showToast('กรุณาเลือกคำตอบให้ครบทั้ง 3 ข้อก่อนส่งคำตอบครับ');
+                return;
+            }
+            const unitObj = units.find(u => u.id === unitId);
+            let score = 0;
+            unitObj.quiz.forEach((q, idx) => {
+                if (prog.answers[idx] === q.correct) score++;
+            });
+            prog.score = score;
+            prog.submitted = true;
+            prog.passed = score >= 2;
+
+            if (prog.passed) {
+                showToast(`ยอดเยี่ยม! คุณผ่านหน่วยที่ ${unitId} ด้วยคะแนน ${score}/3 คะแนน`);
+                if (isAllCompleted.value && typeof confetti === 'function') {
+                    confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+                }
+            } else {
+                showToast(`ได้ ${score}/3 คะแนน ยังไม่ผ่านเกณฑ์ (ต้องได้ 2 คะแนนขึ้นไป) ลองทบทวนแล้วทำใหม่นะ!`);
+            }
+        };
+
+        const retryQuiz = (unitId) => {
+            unitProgress[unitId].answers = [null, null, null];
+            unitProgress[unitId].submitted = false;
+            unitProgress[unitId].score = 0;
+            unitProgress[unitId].passed = false;
+        };
+
+        // Demo Helper Buttons
+        const unlockAllDemo = () => {
+            units.forEach(u => {
+                unitProgress[u.id].answers = u.quiz.map(q => q.correct);
+                unitProgress[u.id].submitted = true;
+                unitProgress[u.id].score = 3;
+                unitProgress[u.id].passed = true;
+            });
+            showToast('ปลดล็อกผ่านครบทั้ง 6 หน่วยแล้ว! สามารถกรอกชื่อรับเกียรติบัตรได้เลย');
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            }
+        };
+
+        const resetProgress = () => {
+            units.forEach(u => retryQuiz(u.id));
+            showToast('รีเซ็ตความก้าวหน้าการเรียนเรียบร้อยแล้ว');
+        };
+
+        // Interactive Lab 1 State
+        const lab1Items = reactive([
+            { type: 'terminator', answer: 'terminator', selected: '' },
+            { type: 'decision', answer: 'decision', selected: '' },
+            { type: 'io', answer: 'io', selected: '' },
+            { type: 'process', answer: 'process', selected: '' }
+        ]);
+        const lab1CorrectCount = computed(() => lab1Items.filter(i => i.selected === i.answer).length);
+
+        // Interactive Lab 2 State
+        const lab2 = reactive({
+            productName: 'คีย์บอร์ดเกมมิ่ง RGB',
+            price: 850,
+            qty: 2
+        });
+        const lab2Subtotal = computed(() => (Number(lab2.price) || 0) * (Number(lab2.qty) || 0));
+        const lab2Vat = computed(() => lab2Subtotal.value * 0.07);
+        const lab2NetTotal = computed(() => lab2Subtotal.value + lab2Vat.value);
+
+        // Interactive Lab 3 State
+        const lab3 = reactive({
+            amount: 2500,
+            isVip: false
+        });
+        const lab3Result = computed(() => {
+            let rate = 0;
+            if (lab3.amount >= 5000) rate = 15;
+            else if (lab3.amount >= 2000) rate = 10;
+            if (lab3.isVip) rate += 5;
+            const discount = Math.round(lab3.amount * (rate / 100));
+            return { rate, discount, net: lab3.amount - discount };
+        });
+
+        // Interactive Lab 4 State
+        const lab4 = reactive({
+            txType: 'in',
+            txAmount: 500,
+            transactions: [
+                { type: 'in', amount: 1500 },
+                { type: 'out', amount: 350 }
+            ],
+            products: [
+                { id: 1, name: 'แฟลชไดร์ฟ 64GB', stock: 8 },
+                { id: 2, name: 'สาย HDMI 2 เมตร', stock: 4 }
+            ]
+        });
+        const addTransaction = () => {
+            if (!lab4.txAmount || lab4.txAmount <= 0) return;
+            lab4.transactions.push({ type: lab4.txType, amount: Number(lab4.txAmount) });
+        };
+        const lab4Balance = computed(() => {
+            return lab4.transactions.reduce((acc, t) => t.type === 'in' ? acc + t.amount : acc - t.amount, 0);
+        });
+
+        // Interactive Lab 5 State
+        const lab5 = reactive({
+            target: 'M103',
+            searching: false,
+            currentIndex: -1,
+            foundIndex: -1,
+            message: '',
+            members: [
+                { id: 'M101', name: 'สมชาย', spend: 750 },
+                { id: 'M102', name: 'วิภาดา', spend: 1250 },
+                { id: 'M103', name: 'กิตติพงศ์', spend: 2500 },
+                { id: 'M104', name: 'นภัสสร', spend: 500 }
+            ]
+        });
+        const runLinearSearch = () => {
+            lab5.searching = true;
+            lab5.foundIndex = -1;
+            lab5.message = '';
+            let i = 0;
+            const interval = setInterval(() => {
+                lab5.currentIndex = i;
+                if (lab5.members[i].id === lab5.target) {
+                    clearInterval(interval);
+                    lab5.searching = false;
+                    lab5.foundIndex = i;
+                    lab5.currentIndex = -1;
+                    lab5.message = `✅ ค้นพบสมาชิก ${lab5.members[i].id} (${lab5.members[i].name}) ที่ตำแหน่ง Index [${i}]!`;
+                    return;
+                }
+                i++;
+                if (i >= lab5.members.length) {
+                    clearInterval(interval);
+                    lab5.searching = false;
+                    lab5.currentIndex = -1;
+                    lab5.message = `❌ ตรวจสอบครบทุกช่อง Index แล้ว ไม่พบรหัสสมาชิก ${lab5.target} ในระบบ`;
+                }
+            }, 550);
+        };
+
+        // Interactive Lab 6 State
+        const lab6 = reactive({
+            newProduct: 'เมาส์ไร้สาย',
+            newTotal: 490,
+            errorAlert: false,
+            csvLines: [
+                'OrderID,Product,Total',
+                'ORD-01,Keyboard RGB,1700',
+                'ORD-02,USB Hub 4-Port,320'
+            ]
+        });
+        const appendCsvRow = () => {
+            if (!lab6.newProduct.trim()) return;
+            lab6.errorAlert = false;
+            const nextId = String(lab6.csvLines.length).padStart(2, '0');
+            lab6.csvLines.push(`ORD-${nextId},${lab6.newProduct.trim()},${Number(lab6.newTotal) || 0}`);
+            showToast('บันทึกข้อมูลต่อท้ายไฟล์ orders.csv สำเร็จ!');
+        };
+        const simulateFileError = () => {
+            lab6.errorAlert = true;
+        };
+
+        // Certificate Modal & Thai Date
+        const openCertificateModal = () => {
+            showCertificateModal.value = true;
+            if (isAllCompleted.value && typeof confetti === 'function') {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            }
+        };
+
+        const currentThaiDate = computed(() => {
+            const months = [
+                'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+            ];
+            const d = new Date();
+            return `${d.getDate()} ${months[d.getMonth()]} พ.ศ. ${d.getFullYear() + 543}`;
+        });
+
+        const printCertificate = () => {
+            if (!studentName.value.trim()) {
+                showToast('กรุณากรอกชื่อ-นามสกุลของนักเรียนก่อนสั่งพิมพ์เกียรติบัตรครับ');
+                return;
+            }
+            window.print();
+        };
+
+        return {
+            activeView, currentUnitId, unitTab, toastMessage,
+            units, unitProgress, currentUnit, completedCount, progressPercent, isAllCompleted, totalQuizScore,
+            selectUnit, submitQuiz, retryQuiz, unlockAllDemo, resetProgress,
+            lab1Items, lab1CorrectCount,
+            lab2, lab2Subtotal, lab2Vat, lab2NetTotal,
+            lab3, lab3Result,
+            lab4, addTransaction, lab4Balance,
+            lab5, runLinearSearch,
+            lab6, appendCsvRow, simulateFileError,
+            showCertificateModal, studentName, studentClass, openCertificateModal, currentThaiDate, printCertificate
+        };
+    }
+}).mount('#app');
+</script>
+</body>
+</html>
