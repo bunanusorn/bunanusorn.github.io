@@ -1,0 +1,335 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>VLAN Subnet Mask Traffic</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: header, stage tabs, animated topology (SVG) with transport controls, live detail panel, benefit caption, recap cards */
+:root{
+  --bg:#f3f5f9; --surface:#ffffff; --surface2:#eaeef5; --text:#0f172a; --muted:#5b6b82; --line:#d5dce8;
+  --c10:#2563eb; --c20:#15803d; --c30:#c2410c; --c99:#7e22ce;
+  --yellow:#a16207; --red:#dc2626; --gray:#94a3b8; --on:#ffffff; --accent:#2563eb;
+  --sans:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1220; --surface:#131c2e; --surface2:#1a2540; --text:#e5ebf5; --muted:#93a1b8; --line:#26334a;
+    --c10:#60a5fa; --c20:#4ade80; --c30:#fb923c; --c99:#c084fc;
+    --yellow:#facc15; --red:#f87171; --gray:#64748b; --on:#0b1220; --accent:#60a5fa; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1220; --surface:#131c2e; --surface2:#1a2540; --text:#e5ebf5; --muted:#93a1b8; --line:#26334a;
+  --c10:#60a5fa; --c20:#4ade80; --c30:#fb923c; --c99:#c084fc;
+  --yellow:#facc15; --red:#f87171; --gray:#64748b; --on:#0b1220; --accent:#60a5fa; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.55;
+  padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font-size:clamp(22px,4vw,32px);line-height:1.2;margin:0;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+h1 .ar{color:var(--muted);font-weight:400;margin:0 .15em}
+.sub{margin:4px 0 0;color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{font:600 14px var(--sans);padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on)}
+.tab:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.scene-title{padding:14px 18px 0;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+.scene-title h2{margin:0;font-size:clamp(17px,2.6vw,21px);font-weight:700;text-wrap:balance}
+.scene-title .step{font:600 12px var(--mono);color:var(--muted)}
+.diagram{overflow-x:auto;padding:6px 8px 0}
+svg{display:block;width:100%;min-width:780px;height:auto}
+svg text{font-family:var(--sans);fill:var(--text)}
+svg .mono{font-family:var(--mono)}
+svg .mut{fill:var(--muted)}
+.node rect{fill:var(--surface2);stroke:var(--gray);stroke-width:2}
+.gbox{fill:color-mix(in srgb,var(--c) 10%,transparent);stroke:var(--c);stroke-width:2}
+.link{stroke:var(--c);stroke-width:3;opacity:.75}
+.hostline{stroke:var(--c);stroke-width:2;fill:none}
+.hostfill{fill:color-mix(in srgb,var(--c) 30%,transparent);stroke:var(--c);stroke-width:2}
+.ring{fill:none;stroke-width:3;opacity:0}
+.gname{fill:var(--c)!important;font-weight:700;font-size:16px}
+.pk rect{stroke:none}
+.pk text{fill:var(--on);font:700 11px var(--mono);text-anchor:middle;dominant-baseline:central}
+.mk circle{fill:var(--surface);stroke-width:3}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:10px 18px 14px;border-top:1px solid var(--line)}
+.btn{font:600 13px var(--sans);padding:7px 13px;border-radius:8px;border:1px solid var(--line);background:var(--surface2);color:var(--text);cursor:pointer;min-width:44px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on)}
+#scrub{flex:1 1 180px;min-width:120px;accent-color:var(--accent)}
+.auto{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+.panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.card h3{margin:0 0 8px;font-size:14px;color:var(--yellow);font-weight:700}
+.stat{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.stat span{color:var(--muted)}
+.stat b{font:600 20px var(--mono)}
+.bad{color:var(--red)} .good{color:var(--c20)} .idle{color:var(--muted)}
+.row{font:12.5px/1.35 var(--mono);margin:0 0 2px;word-break:break-all}
+.lab{font-size:12.5px;color:var(--muted);margin-top:6px}
+.lab.y{color:var(--yellow)}
+.bin{font:13px var(--mono);letter-spacing:.02em;white-space:nowrap;overflow-x:auto}
+.nb{color:var(--c10);font-weight:600} .hb{color:var(--muted)} .dot{color:var(--muted)}
+.verdict{margin-top:8px;font-weight:600}
+.hide{visibility:hidden}
+table{border-collapse:collapse;width:100%;font:13px var(--mono)}
+th{font:600 11.5px var(--sans);color:var(--muted);text-align:left;padding:2px 6px}
+td{padding:5px 6px}
+tr.t10 td:first-child,tr.t10 td:last-child{color:var(--c10)} tr.t20 td:first-child,tr.t20 td:last-child{color:var(--c20)}
+tr.t30 td:first-child,tr.t30 td:last-child{color:var(--c30)} tr.t99 td:first-child,tr.t99 td:last-child{color:var(--c99)}
+tbody tr{background:color-mix(in srgb,var(--surface2) 70%,transparent)}
+tbody tr.sel{background:color-mix(in srgb,var(--c10) 22%,transparent)}
+.acl{display:flex;flex-direction:column;gap:3px}
+.acl div{font:12.5px var(--mono);padding:5px 8px;border-radius:6px;border:1px solid transparent}
+.acl .p{color:var(--c20)} .acl .d{color:var(--red)} .acl .a{color:var(--muted)}
+.acl .on{background:color-mix(in srgb,currentColor 16%,transparent);border-color:currentColor;font-weight:600}
+.gw{display:flex;flex-direction:column;gap:5px}
+.gw div{display:flex;justify-content:space-between;gap:10px;font:13px var(--mono);padding:5px 8px;border-radius:6px;background:var(--surface2)}
+.gw b{font-family:var(--sans)}
+.benefit{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.benefit h3{margin:0 0 10px;font-size:13px;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.benefit ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.benefit li{display:flex;gap:10px;font-size:16px}
+.benefit li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:.6em}
+.recap{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.recap .card h4{margin:6px 0 2px;font-size:17px}
+.recap .card p{margin:0 0 8px;color:var(--muted);font-size:13.5px}
+.recap .card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.badge{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;font-weight:700;color:var(--on)}
+h2.sec{margin:8px 0 0;font-size:18px}
+.note{font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>VLAN<span class="ar">→</span>Subnet<span class="ar">→</span>Subnet Mask</h1>
+    <p class="sub">ดูว่า traffic เดินทางอย่างไรในแต่ละช่วง และแต่ละช่วงให้ประโยชน์อะไร</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="ช่วงของเนื้อหา" id="tabs"></div>
+
+  <section class="stage" aria-label="แอนิเมชัน traffic">
+    <div class="scene-title"><h2 id="stitle"></h2><span class="step" id="sstep"></span></div>
+    <div class="diagram"><svg id="svg" viewBox="0 0 1000 440" role="img" aria-label="แผนผังเครือข่าย Router, Switch และ 4 VLAN"></svg></div>
+    <div class="controls">
+      <button class="btn" id="prev" aria-label="ฉากก่อนหน้า">◀ ก่อนหน้า</button>
+      <button class="btn primary" id="play">หยุด</button>
+      <button class="btn" id="next" aria-label="ฉากถัดไป">ถัดไป ▶</button>
+      <button class="btn" id="replay">เล่นใหม่</button>
+      <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="เลื่อนดูเวลาในฉาก">
+      <label class="auto"><input type="checkbox" id="auto" checked> เล่นต่อเนื่อง</label>
+    </div>
+  </section>
+
+  <div class="panel" id="panel"></div>
+
+  <section class="benefit"><h3>ประโยชน์ในช่วงนี้</h3><ul id="bullets"></ul></section>
+
+  <h2 class="sec">สรุปประโยชน์แต่ละช่วง</h2>
+  <div class="recap" id="recap"></div>
+  <p class="note">ที่อยู่ IP ชื่อ VLAN และขนาด subnet เป็นตัวอย่างที่กำหนดขึ้นเพื่ออธิบาย ไม่ใช่ค่าของเครือข่ายจริง</p>
+</div>
+
+<script>
+(()=>{
+const NS='http://www.w3.org/2000/svg';
+const $=s=>document.querySelector(s);
+const el=(tag,attrs,parent)=>{const e=document.createElementNS(NS,tag);for(const k in (attrs||{}))e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;};
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=u=>{u=clamp(u);return u*u*(3-2*u)};
+const C={blue:'var(--c10)',green:'var(--c20)',orange:'var(--c30)',purple:'var(--c99)',yellow:'var(--yellow)',red:'var(--red)',gray:'var(--gray)'};
+const VL=[
+ {id:10,name:'Staff',net:'192.168.10.0',pre:24,hosts:[15,40,77],kind:'pc',c:'--c10',col:C.blue},
+ {id:20,name:'Server',net:'192.168.20.0',pre:27,hosts:[5,6,7],kind:'srv',c:'--c20',col:C.green},
+ {id:30,name:'Guest',net:'192.168.30.0',pre:25,hosts:[10,11,12],kind:'pc',c:'--c30',col:C.orange},
+ {id:99,name:'Mgmt',net:'192.168.99.0',pre:28,hosts:[2,3,4],kind:'pc',c:'--c99',col:C.purple}
+];
+const GX=[150,370,630,850],GY=290,HX=[-55,0,55],RT=[500,62],SWc=[500,160];
+const hostPos=(g,i)=>[GX[g]+HX[i],GY];
+const up=(g,i)=>[hostPos(g,i),[GX[g],250],[500,175]];
+const down=(g,i)=>up(g,i).slice().reverse();
+const TUP=[[500,145],[500,81]],TDN=TUP.slice().reverse();
+const seg=(a,b)=>Math.hypot(b[0]-a[0],b[1]-a[1]);
+const total=p=>{let s=0;for(let i=0;i<p.length-1;i++)s+=seg(p[i],p[i+1]);return s};
+function along(p,u){let d=clamp(u)*total(p);for(let i=0;i<p.length-1;i++){const L=seg(p[i],p[i+1]);if(d<=L||i===p.length-2){const f=L?Math.min(1,d/L):0;return[p[i][0]+(p[i+1][0]-p[i][0])*f,p[i][1]+(p[i+1][1]-p[i][1])*f];}d-=L;}}
+function fracAt(p,idx){let s=0;for(let i=0;i<idx;i++)s+=seg(p[i],p[i+1]);return s/total(p)}
+const maskInt=pre=>(0xFFFFFFFF<<(32-pre))>>>0;
+const intIp=n=>[24,16,8,0].map(s=>(n>>>s)&255).join('.');
+const ipInt=s=>{const a=s.split('.').map(Number);return(((a[0]<<24)|(a[1]<<16)|(a[2]<<8)|a[3])>>>0)};
+const maskStr=pre=>intIp(maskInt(pre));
+function binHtml(n,pre){let o='',bit=0;for(let b=3;b>=0;b--){const s=((n>>>(b*8))&255).toString(2).padStart(8,'0');for(const ch of s){o+=`<span class="${bit<pre?'nb':'hb'}">${ch}</span>`;bit++;}if(b)o+='<span class="dot">.</span>';}return o}
+
+/* ---------- build SVG ---------- */
+const svg=$('#svg');
+const gLinks=el('g',{},svg),gNodes=el('g',{},svg),gGroups=el('g',{},svg),gPk=el('g',{},svg),gMk=el('g',{},svg);
+const links=[0,1,2,3].map(g=>{const l=el('line',{class:'link',x1:500,y1:175,x2:GX[g],y2:250},gLinks);return l});
+const trunk=el('line',{x1:500,y1:145,x2:500,y2:81,'stroke-width':4,stroke:'var(--gray)'},gLinks);
+const trunkLbl=el('text',{x:540,y:118,'font-size':14,class:'mut'},gLinks);trunkLbl.textContent='Trunk 802.1Q';
+const rt=el('g',{class:'node'},gNodes);el('rect',{x:410,y:43,width:180,height:38,rx:9},rt);
+const rtT=el('text',{x:500,y:62,'text-anchor':'middle','dominant-baseline':'central','font-size':15,'font-weight':700},rt);rtT.textContent='Router / L3 Switch';
+const sw=el('g',{class:'node'},gNodes);el('rect',{x:425,y:145,width:150,height:30,rx:8},sw);
+const swT=el('text',{x:500,y:160,'text-anchor':'middle','dominant-baseline':'central','font-size':15,'font-weight':700},sw);swT.textContent='Switch L2';
+const rtBox=rt.firstChild;
+const groups=VL.map((v,g)=>{
+  const ge=el('g',{},gGroups);
+  el('rect',{class:'gbox',x:GX[g]-98,y:250,width:196,height:84,rx:12},ge);
+  const hosts=[0,1,2].map(i=>{
+    const [x,y]=hostPos(g,i);const he=el('g',{},ge);
+    const ring=el('rect',{class:'ring',x:x-24,y:y-21,width:48,height:42,rx:10},he);
+    if(v.kind==='pc'){
+      el('rect',{class:'hostfill',x:x-16,y:y-15,width:32,height:21,rx:3},he);
+      el('path',{class:'hostline',d:`M${x} ${y+6}V${y+11}M${x-10} ${y+12}H${x+10}`},he);
+    }else{
+      for(let k=0;k<2;k++){const yy=y-16+k*15;el('rect',{class:'hostfill',x:x-16,y:yy,width:32,height:12,rx:3},he);el('circle',{cx:x+10,cy:yy+6,r:1.8,fill:'var(--c)'},he);}
+    }
+    const ip=el('text',{x,y:y+30,'text-anchor':'middle','font-size':11,class:'mono mut'},he);ip.textContent='.'+v.hosts[i];
+    return{ring,ip};
+  });
+  const name=el('text',{class:'gname',x:GX[g],y:358,'text-anchor':'middle'},ge);name.textContent=`VLAN ${v.id} · ${v.name}`;
+  const sub=el('text',{class:'mono',x:GX[g],y:378,'text-anchor':'middle','font-size':14},ge);sub.textContent=`${v.net}/${v.pre}`;
+  const cnt=el('text',{class:'mut',x:GX[g],y:397,'text-anchor':'middle','font-size':14},ge);cnt.textContent=`ใช้ได้ ${2**(32-v.pre)-2} เครื่อง`;
+  const msk=el('text',{class:'mono',x:GX[g],y:416,'text-anchor':'middle','font-size':14,style:'fill:var(--yellow)'},ge);msk.textContent=`mask ${maskStr(v.pre)}`;
+  return{ge,hosts,name,sub,cnt,msk};
+});
+const pkPool=[...Array(12)].map(()=>{const g=el('g',{class:'pk'},gPk);const r=el('rect',{x:-26,y:-10,width:52,height:20,rx:6},g);const t=el('text',{},g);return{g,r,t}});
+const mkPool=[...Array(6)].map(()=>{const g=el('g',{class:'mk'},gMk);const c=el('circle',{r:12},g);const p=el('path',{fill:'none','stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'},g);const t=el('text',{x:20,y:0,'font-size':14,'font-weight':700,'dominant-baseline':'central'},g);return{g,c,p,t}});
+
+/* ---------- scene state helpers ---------- */
+const base=(o)=>Object.assign({colored:false,trunk:false,ip:{},sub:{},mask:{},rings:{},packets:[],marks:[],panel:''},o||{});
+function pk(st,pos,label,color){for(const p of st.packets){if(Math.abs(p.x-pos[0])<44&&Math.abs(p.y-pos[1])<16)return;}st.packets.push({x:pos[0],y:pos[1],label,color})}
+const allIp=()=>{const o={};for(let g=0;g<4;g++)for(let i=0;i<3;i++)o[g+','+i]=1;return o};
+const allV=()=>({0:1,1:1,2:1,3:1});
+
+const stat=(n,cls)=>`<div class="card"><div class="stat"><span>Broadcast ไปถึง</span><b class="${cls}">${n} / 11 เครื่อง</b></div></div>`;
+
+const scenes=[
+{tab:0,T:4,title:'ไม่มี VLAN: ทุกเครื่องอยู่ใน Broadcast Domain เดียวกัน',
+ bullets:['ปัญหา: ARP / Broadcast จากเครื่องเดียวถูกส่งไปถึงทุกเครื่อง (11 เครื่อง)','ยิ่งมีเครื่องมาก broadcast ยิ่งเยอะ ทำให้เครือข่ายช้าและไม่เสถียร','ทุกแผนกเห็นกันหมด ผู้เยี่ยมชม (Guest) เข้าถึง Server และ Mgmt ได้โดยตรง'],
+ update(t){const st=base();const u=clamp(t/3.1);let n=0;
+  if(u<.4)pk(st,along(up(0,0),ease(u/.4)),'BCAST',C.red);
+  else{const ud=ease((u-.4)/.6);for(let g=0;g<4;g++)for(let i=0;i<3;i++){if(!g&&!i)continue;pk(st,along(down(g,i),ud),'BCAST',C.red);if(ud>=.999){st.rings[g+','+i]=C.red;n++;}}}
+  st.rings['0,0']=C.yellow;st.panel=stat(n,n?'bad':'idle');return st;}},
+{tab:0,T:4.5,title:'แบ่ง VLAN: แยก Broadcast Domain ด้วย Switch (802.1Q)',
+ bullets:['Broadcast ไปถึงเฉพาะ VLAN เดียวกัน (2 เครื่อง) ลด traffic ที่ไม่จำเป็น','แยกกลุ่มงานและความปลอดภัย: Staff, Server, Guest, Mgmt ไม่ปนกัน','ย้ายเครื่องหรือคนได้ง่าย แค่เปลี่ยน VLAN ของพอร์ต ไม่ต้องเดินสายใหม่'],
+ update(t){const st=base({colored:true,trunk:true});const u=clamp(t/3.5);let n=0;
+  if(u<.4)pk(st,along(up(0,0),ease(u/.4)),'BCAST',C.blue);
+  else{const ud=ease((u-.4)/.6);
+   for(let i=1;i<3;i++){pk(st,along(down(0,i),ud),'BCAST',C.blue);if(ud>=.999){st.rings['0,'+i]=C.blue;n++;}}
+   for(let g=1;g<4;g++){const lk=[[500,175],[GX[g],250]];
+    if(ud<.55)pk(st,along(lk,Math.min(ud/.5,1)*.3),'BCAST',C.blue);
+    else{const m=along(lk,.3);st.marks.push({x:m[0],y:m[1],kind:'x'});}}}
+  st.rings['0,0']=C.yellow;st.panel=stat(n,n?'good':'idle');return st;}},
+{tab:1,T:6,title:'Subnet: 1 VLAN = 1 Subnet (ช่วง IP ของตัวเอง)',
+ bullets:['วางแผน IP เป็นระเบียบ เห็น 192.168.20.x ก็รู้ทันทีว่าเป็น Server','เลือกขนาดให้พอดีกับจำนวนเครื่อง ไม่เปลือง IP (/24, /25, /27, /28)','ตั้ง routing, firewall และ ACL เป็นราย subnet ได้ง่าย แก้ปัญหาเร็วขึ้น'],
+ update(t){const tf=t/6;const st=base({colored:true,trunk:true});
+  for(let g=0;g<4;g++){st.sub[g]=ease((tf-.04-g*.09)/.12);for(let i=0;i<3;i++)st.ip[g+','+i]=ease((tf-.1-g*.09-i*.025)/.1);}
+  let ping=tf>.55;
+  if(ping){const u=clamp((tf-.55)/.35);pk(st,along(up(1,0).concat(down(1,1)),ease(u)),'ICMP',C.green);st.rings['1,0']=C.yellow;if(u>=.999)st.rings['1,1']=C.green;}
+  st.panel=ping?`<div class="card"><h3>ทดสอบ ping ภายใน subnet</h3><p class="row">ping 192.168.20.5 → 192.168.20.6</p><p class="lab" style="color:var(--c20)">subnet เดียวกัน คุยกันได้ตรง ๆ ภายใน VLAN 20</p></div>`
+   :`<div class="card"><h3>ที่อยู่ของแต่ละ VLAN</h3><p class="lab" style="margin:0">แต่ละ VLAN ได้ช่วง IP ของตัวเอง พร้อมจำนวนเครื่องที่ใช้ได้ตามขนาด subnet</p></div>`;
+  return st;}},
+{tab:2,T:10,title:"Subnet Mask: ตัวตัดสินว่า 'ส่งตรง' หรือ 'ส่งผ่าน Gateway'",
+ bullets:['Mask แบ่ง IP เป็นส่วน Network (บิต 1 สีฟ้า) และส่วน Host (บิต 0 สีเทา)','เครื่องส่งทำ IP AND Mask แล้วเทียบ: Network เท่ากัน ส่งตรง ต่างกัน ส่งให้ Gateway','ความยาว Mask กำหนดจำนวนเครื่องของแต่ละ subnet (/24 = 254, /27 = 30)'],
+ update(t){const tf=t/10;const A=tf<.5;const pt=A?tf/.5:(tf-.5)/.5;
+  const st=base({colored:true,trunk:true,ip:allIp(),sub:allV()});
+  for(let g=0;g<4;g++)st.mask[g]=ease((tf-.02-g*.04)/.1);
+  const src=ipInt('192.168.10.15'),dst=ipInt(A?'192.168.10.40':'192.168.20.5'),mk=maskInt(24);
+  if(pt>.55){const u=ease((pt-.55)/.4);const path=A?up(0,0).concat(down(0,1)):up(0,0).concat(TUP);pk(st,along(path,u),'DATA',C.blue);if(A&&u>=.999)st.rings['0,1']=C.green;}
+  st.rings['0,0']=C.yellow;
+  const ns=(src&mk)>>>0,nd=(dst&mk)>>>0,same=ns===nd;
+  const vis=a=>pt>a?'':' hide';
+  st.panel=`<div class="card"><h3>คำนวณ IP AND Mask (ที่เครื่องส่ง)</h3>
+   <div class="${vis(.04)}"><div class="lab" style="margin-top:0">IP ต้นทาง ${intIp(src)}</div><div class="bin">${binHtml(src,24)}</div></div>
+   <div class="${vis(.16)}"><div class="lab">Mask /24 = ${maskStr(24)}</div><div class="bin">${binHtml(mk,24)}</div></div>
+   <div class="${vis(.3)}"><div class="lab y">IP ปลายทาง ${intIp(dst)}</div><div class="bin">${binHtml(dst,24)}</div></div>
+   <div class="lab${vis(.46)}">Network ต้นทาง ${intIp(ns)} | ปลายทาง ${intIp(nd)}</div>
+   <div class="verdict ${same?'good':'bad'}${vis(.6)}">${same?'Network เท่ากัน: ส่งตรงภายใน subnet ผ่าน Switch':'Network ต่างกัน: ส่งให้ Gateway 192.168.10.1'}</div></div>
+   <div class="card"><h3>ความยาว Mask กำหนดขนาด Subnet</h3><table><thead><tr><th>Prefix</th><th>Mask</th><th>Host ใช้ได้</th><th>VLAN</th></tr></thead><tbody>
+   ${[[24,10],[25,30],[27,20],[28,99]].map(([p,v])=>`<tr class="t${v}"><td>/${p}</td><td style="color:var(--text)">${maskStr(p)}</td><td style="color:var(--text)">${2**(32-p)-2}</td><td>VLAN ${v}</td></tr>`).join('')}</tbody></table></div>`;
+  return st;}},
+{tab:3,T:11,title:'Inter-VLAN Routing: ข้าม VLAN ได้ แต่ต้องผ่านจุดควบคุมเสมอ',
+ bullets:['Traffic ข้าม VLAN ต้องผ่าน Router / L3 Switch ทาง Trunk (802.1Q) เท่านั้น','ใช้ ACL อนุญาตเฉพาะที่ต้องการ: Staff เข้า Server ได้ แต่ Guest ถูกบล็อก','เป็นจุดเดียวที่ monitor, log และกำหนดนโยบายความปลอดภัยของทุก VLAN ได้'],
+ update(t){const tf=t/11;const A=tf<.5;const pt=A?tf/.5:(tf-.5)/.5;
+  const st=base({colored:true,trunk:true,ip:allIp(),sub:allV(),mask:allV()});let hi=null;
+  if(A){const path=up(0,0).concat(TUP,TDN,down(1,0));const fR=fracAt(path,4);const u=clamp((pt-.05)/.85);
+   if(pt>.05){
+    if(u<fR)pk(st,along(path,u/fR*fR),'V10',C.blue);
+    else if(u<fR+.12){pk(st,along(path,fR),'ACL',C.yellow);hi='p';}
+    else{const uu=fR+(u-fR-.12)/(1-fR-.12)*(1-fR);pk(st,along(path,Math.min(uu,1)),'V20',C.green);hi='p';if(uu>=.999)st.rings['1,0']=C.green;}}
+   st.rings['0,0']=C.yellow;if(hi==='p')st.marks.push({x:RT[0]+112,y:RT[1],kind:'ok'});}
+  else{const path=up(2,0).concat(TUP);const u=clamp((pt-.05)/.5);
+   if(pt>.05){if(u<1)pk(st,along(path,u),'V30',C.orange);else{hi='d';st.marks.push({x:RT[0]+112,y:RT[1],kind:'x',label:'DROP'});}}
+   st.rings['2,0']=C.yellow;}
+  const on=k=>hi===k?' on':'';
+  st.panel=`<div class="card"><h3>ACL บน Router / L3 Switch</h3><div class="acl">
+   <div class="p${on('p')}">permit VLAN10 → VLAN20 (Staff ไป Server)</div>
+   <div class="d${on('d')}">deny   VLAN30 → VLAN20 (Guest ไป Server)</div>
+   <div class="d">deny   VLAN30 → VLAN99 (Guest ไป Mgmt)</div>
+   <div class="a">deny   any → any</div></div></div>
+   <div class="card"><h3>Inter-VLAN Routing (Gateway ของแต่ละ VLAN)</h3><div class="gw">
+   ${VL.map(v=>`<div><b style="color:var(${v.c})">VLAN ${v.id}</b><span>gateway ${v.net.slice(0,-1)}1</span></div>`).join('')}</div></div>`;
+  return st;}}
+];
+const tabs=[['1','VLAN'],['2','Subnet'],['3','Mask'],['4','Routing']];
+const tabsEl=$('#tabs');
+tabs.forEach((tb,i)=>{const b=document.createElement('button');b.className='tab';b.setAttribute('role','tab');b.textContent=`${tb[0]}  ${tb[1]}`;b.onclick=()=>go(scenes.findIndex(s=>s.tab===i));tabsEl.appendChild(b);});
+
+/* ---------- render ---------- */
+let lastPanel='';
+function render(st){
+  VL.forEach((v,g)=>{const G=groups[g];
+    G.ge.style.setProperty('--c',st.colored?`var(${v.c})`:'var(--gray)');
+    links[g].style.setProperty('--c',st.colored?`var(${v.c})`:'var(--gray)');
+    G.name.style.opacity=st.colored?1:0;
+    G.sub.style.opacity=st.sub[g]||0;G.cnt.style.opacity=st.sub[g]||0;G.msk.style.opacity=st.mask[g]||0;
+    G.hosts.forEach((h,i)=>{const k=g+','+i;h.ip.style.opacity=st.ip[k]||0;const r=st.rings[k];
+      if(r){h.ring.style.stroke=r;h.ring.style.opacity=1;}else h.ring.style.opacity=0;});
+  });
+  trunk.style.stroke=st.trunk?'var(--yellow)':'var(--gray)';trunkLbl.style.opacity=st.trunk?1:0;
+  rtBox.style.stroke=st.trunk?'var(--yellow)':'var(--gray)';
+  pkPool.forEach((p,i)=>{const d=st.packets[i];if(!d){p.g.style.display='none';return;}
+    p.g.style.display='';p.g.setAttribute('transform',`translate(${d.x.toFixed(1)} ${d.y.toFixed(1)})`);p.r.style.fill=d.color;p.t.textContent=d.label;});
+  mkPool.forEach((m,i)=>{const d=st.marks[i];if(!d){m.g.style.display='none';return;}
+    m.g.style.display='';m.g.setAttribute('transform',`translate(${d.x.toFixed(1)} ${d.y.toFixed(1)})`);
+    const col=d.kind==='ok'?'var(--c20)':'var(--red)';m.c.style.stroke=col;m.p.style.stroke=col;
+    m.p.setAttribute('d',d.kind==='ok'?'M-6 0L-2 5L6 -5':'M-5 -5L5 5M-5 5L5 -5');
+    m.t.textContent=d.label||'';m.t.style.fill=col;});
+  if(st.panel!==lastPanel){$('#panel').innerHTML=st.panel;lastPanel=st.panel;}
+}
+
+/* ---------- transport ---------- */
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let sc=0,t=1.6,playing=!reduce,last=performance.now();
+function labels(){
+  const S=scenes[sc];$('#stitle').textContent=S.title;$('#sstep').textContent=`ฉาก ${sc+1} / ${scenes.length}`;
+  $('#bullets').innerHTML=S.bullets.map(b=>`<li>${b}</li>`).join('');
+  [...tabsEl.children].forEach((b,i)=>b.setAttribute('aria-selected',i===S.tab?'true':'false'));
+}
+function go(i,keep){sc=(i+scenes.length)%scenes.length;t=keep?t:0;lastPanel='';labels();draw();}
+function draw(){const S=scenes[sc];const tt=Math.min(t,S.T);render(S.update(tt));$('#scrub').value=Math.round(clamp(tt/S.T)*1000);}
+function setPlay(p){playing=p;$('#play').textContent=p?'หยุด':'เล่น';}
+function tick(now){const dt=Math.min(.1,(now-last)/1000);last=now;
+  if(playing){t+=dt;const S=scenes[sc];if(t>=S.T+1.2){if($('#auto').checked)go(sc+1);else t=0;}}
+  draw();requestAnimationFrame(tick);}
+$('#play').onclick=()=>setPlay(!playing);
+$('#next').onclick=()=>go(sc+1);$('#prev').onclick=()=>go(sc-1);
+$('#replay').onclick=()=>{t=0;setPlay(true);};
+$('#scrub').oninput=e=>{setPlay(false);t=e.target.value/1000*scenes[sc].T;draw();};
+if(reduce){t=scenes[0].T*.9;}
+setPlay(playing);labels();draw();requestAnimationFrame(tick);
+
+/* ---------- recap ---------- */
+const recap=[
+ ['1','VLAN','Layer 2','แยกกลุ่มเครื่อง',['ลด Broadcast','แยกความปลอดภัย','ย้ายเครื่องง่าย'],'--c10'],
+ ['2','Subnet','Layer 3','ช่วง IP ต่อ VLAN',['วางแผน IP เป็นระเบียบ','ไม่เปลือง IP','ตั้ง ACL เป็นราย subnet'],'--c20'],
+ ['3','Subnet Mask','/24 /25 /27 /28','ตัดสินเส้นทาง',['แยก Network กับ Host','ส่งตรง หรือส่งผ่าน Gateway','กำหนดขนาด subnet'],'--c30'],
+ ['4','Routing + ACL','Policy','ควบคุมการข้าม VLAN',['ข้าม VLAN ผ่าน Router','Allow / Deny ตามนโยบาย','Monitor ที่จุดเดียว'],'--c99']
+];
+$('#recap').innerHTML=recap.map(r=>`<div class="card"><span class="badge" style="background:var(${r[5]})">${r[0]}</span><h4>${r[1]}</h4><p>${r[2]} · ${r[3]}</p><ul>${r[4].map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
+})();
+</script>
+
+</body></html>
