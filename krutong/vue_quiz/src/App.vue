@@ -4,6 +4,11 @@ import lib from './data/library.json'
 import checklist from './data/checklist.json'
 import Item from './Item.vue'
 import Checklist from './Checklist.vue'
+import Gate from './Gate.vue'
+let saved = false
+try { saved = localStorage.getItem('cefr_unlocked') === '1' } catch (e) {}
+const unlocked = ref(saved)
+const logout = () => { try { localStorage.removeItem('cefr_unlocked') } catch (e) {} unlocked.value = false }
 
 const MONTHS = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']
 const tab = ref('lib'), q = ref(''), cur = ref(null), type = ref('All')
@@ -29,12 +34,14 @@ const label = t => t.replace(/^(?:\d+(?:[._]\d+)?_?\s*)?(?:TOEFL\s*|IELTS\s*|Rev
 </script>
 
 <template>
-  <div class="wrap">
+  <Gate v-if="!unlocked" @ok="unlocked = true" />
+  <div class="wrap" v-else>
     <Item v-if="cur" :item="cur" :all="lib" @back="cur = null" @open="open" />
     <template v-else>
       <h1>สื่อการสอน CEFR – Reading & Listening</h1>
       <p class="sub">เนื้อหา คำถาม และเฉลยทั้งหมดมาจากไฟล์ต้นฉบับเท่านั้น · จัดตามเดือนของไฟล์ ใหม่ → เก่า · ข้อที่สร้างเป็นแบบฝึกหัดไม่ได้จะแสดงข้อความดิบ</p>
       <div class="tabs">
+        <button @click="logout" style="margin-left:auto;order:3">ออกจากระบบ</button>
         <button :class="{on: tab==='lib'}" @click="tab='lib'">คลังข้อสอบ ({{ playable.length }})</button>
         <button :class="{on: tab==='chk'}" @click="tab='chk'">ตรวจเทียบรีวิว 31 ต.ค. 2569</button>
       </div>
