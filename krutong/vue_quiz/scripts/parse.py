@@ -41,7 +41,7 @@ def parse_qs(qa):
     blocks=[];cur=None
     for l in lines:
         s=l.strip()
-        if re.match(r'^(Question\s+\d+\b|\d+\.\s+[A-Za-z“"‘\'])',s) or re.match(r'^Q\d+[\.:]',s):
+        if re.match(r'^(Question\s+\d+\b|\d+(?:\s*[–-]\s*\d+)?\.\s+[A-Za-z“"‘\'])',s) or re.match(r'^Q\d+[\.:]',s):
             cur=[s];blocks.append(cur)
         elif cur is not None: cur.append(s)
     out=[]
@@ -78,7 +78,12 @@ def parse_qs(qa):
         ok=len(opts)>=2 and letter in [o[0] for o in opts]
         if not th: 
             thline=[]
-        kind='mcq' if ok else ('open' if (ans and not opts and q) else 'raw')
+        letters=[o[0] for o in opts]
+        seq=letters==list('ABCDEF'[:len(letters)])
+        multi=bool(re.match(r'^\(?[A-F]\s*(,|&|and\b|และ|\+)\s*\(?[A-F]\b',ans)) or bool(re.search(r'[A-F]\s*,\s*[A-F]\b',ans))
+        odd=bool(re.search(r'choose\s+(two|three|four|\d)|select\s+(two|three|four|\d)|\(choose|choose\s+\w+\s+(letters|answers|statements)|drag|matching|correct answers|✅\s*[A-F]\b|เลือก\s*\d',txt,re.I)) or multi or (opts and not seq)
+        if odd: ok=False
+        kind='raw' if odd else 'mcq' if ok else ('open' if (ans and not opts and q) else 'raw')
         out.append(dict(kind=kind,ok=ok,q='\n'.join(q),opts=opts,ans=letter,th='\n'.join(th).strip(),ans_text=ans if kind=='open' else None,raw=txt if kind=='raw' else None))
     return out
 toc.setdefault(25,dict(n=25,type='Reading',title='20_2Reading_Protecting Our Planet_The Importance of Environmental Conservation',date='2026-06-21',status='dup',dup=24))

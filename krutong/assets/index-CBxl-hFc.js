@@ -1,21 +1,21 @@
-(function(){const n=document.createElement("link").relList;if(n&&n.supports&&n.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))a(i);new MutationObserver(i=>{for(const o of i)if(o.type==="childList")for(const s of o.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&a(s)}).observe(document,{childList:!0,subtree:!0});function t(i){const o={};return i.integrity&&(o.integrity=i.integrity),i.referrerPolicy&&(o.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?o.credentials="include":i.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function a(i){if(i.ep)return;i.ep=!0;const o=t(i);fetch(i.href,o)}})();/**
+(function(){const n=document.createElement("link").relList;if(n&&n.supports&&n.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))a(i);new MutationObserver(i=>{for(const s of i)if(s.type==="childList")for(const o of s.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&a(o)}).observe(document,{childList:!0,subtree:!0});function t(i){const s={};return i.integrity&&(s.integrity=i.integrity),i.referrerPolicy&&(s.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?s.credentials="include":i.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function a(i){if(i.ep)return;i.ep=!0;const s=t(i);fetch(i.href,s)}})();/**
 * @vue/shared v3.5.46
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
-**/function Zt(e){const n=Object.create(null);for(const t of e.split(","))n[t]=1;return t=>t in n}const J={},dn=[],Re=()=>{},ai=()=>!1,yt=e=>e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&(e.charCodeAt(2)>122||e.charCodeAt(2)<97),wt=e=>e.startsWith("onUpdate:"),ne=Object.assign,ea=(e,n)=>{const t=e.indexOf(n);t>-1&&e.splice(t,1)},go=Object.prototype.hasOwnProperty,F=(e,n)=>go.call(e,n),S=Array.isArray,Xe=e=>An(e)==="[object Map]",bn=e=>An(e)==="[object Set]",Ba=e=>An(e)==="[object Date]",H=e=>typeof e=="function",X=e=>typeof e=="string",Pe=e=>typeof e=="symbol",U=e=>e!==null&&typeof e=="object",ii=e=>(U(e)||H(e))&&H(e.then)&&H(e.catch),oi=Object.prototype.toString,An=e=>oi.call(e),fo=e=>An(e).slice(8,-1),si=e=>An(e)==="[object Object]",na=e=>X(e)&&e!=="NaN"&&e[0]!=="-"&&""+parseInt(e,10)===e,_n=Zt(",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted"),yo=1e4,bt=e=>{let n=Object.create(null),t=0;return a=>{const i=n[a];return i!==void 0?i:(++t>yo&&(n=Object.create(null),t=1),n[a]=e(a))}},wo=/-\w/g,Ae=bt(e=>e.replace(wo,n=>n.slice(1).toUpperCase())),bo=/\B([A-Z])/g,nn=bt(e=>e.replace(bo,"-$1").toLowerCase()),ri=bt(e=>e.charAt(0).toUpperCase()+e.slice(1)),qt=bt(e=>e?`on${ri(e)}`:""),Se=(e,n)=>!Object.is(e,n),ot=(e,...n)=>{for(let t=0;t<e.length;t++)e[t](...n)},li=(e,n,t,a=!1)=>{Object.defineProperty(e,n,{configurable:!0,enumerable:!1,writable:a,value:t})},ta=e=>{const n=parseFloat(e);return isNaN(n)?e:n};let Ta;const vt=()=>Ta||(Ta=typeof globalThis<"u"?globalThis:typeof self<"u"?self:typeof window<"u"?window:typeof global<"u"?global:{});function aa(e){if(S(e)){const n={};for(let t=0;t<e.length;t++){const a=e[t],i=X(a)?Co(a):aa(a);if(i)for(const o in i)n[o]=i[o]}return n}else if(X(e)||U(e))return e}const vo=/;(?![^(]*\))/g,Ao=/:([^]+)/,ko=/"(?:[^"\\]|\\[^])*"|'(?:[^'\\]|\\[^])*'|\\[^]|\/\*[^]*?\*\//g;function Co(e){const n={};return e.replace(ko,t=>t.startsWith("/*")?"":t).split(vo).forEach(t=>{if(t){const a=t.split(Ao);a.length>1&&(n[a[0].trim()]=a[1].trim())}}),n}function ue(e){let n="";if(X(e))n=e;else if(S(e))for(let t=0;t<e.length;t++){const a=ue(e[t]);a&&(n+=a+" ")}else if(U(e))for(const t in e)e[t]&&(n+=t+" ");return n.trim()}const Bo="itemscope,allowfullscreen,disablepictureinpicture,disableremoteplayback,formnovalidate,ismap,nomodule,novalidate,playsinline,readonly",To=Zt(Bo);function ci(e){return!!e||e===""}function Do(e,n,t){if(e.length!==n.length)return!1;let a=!0;for(let i=0;a&&i<e.length;i++)a=kn(e[i],n[i],t);return a}function Da(e,n,t){if(e.size!==n.size)return!1;const a=Array.from(n),i=new Uint8Array(a.length);for(const o of e){let s=-1;for(let r=0;r<a.length;r++)if(!i[r]&&kn(o,a[r],t)){s=r;break}if(s<0)return!1;i[s]=1}return!0}function xo(e,n,t){let a=Xe(e),i=Xe(n);if(a||i||(a=bn(e),i=bn(n),a||i))return a&&i?Da(e,n,t):!1;const o=Object.keys(e).length,s=Object.keys(n).length;if(o!==s)return!1;for(const r in e){const l=F(e,r),u=F(n,r);if(l&&!u||!l&&u||!kn(e[r],n[r],t))return!1}return qa(e)===qa(n)}function xa(e,n,t,a){t||(t=[new Map,new Map]);const[i,o]=t;if(i.has(e)||o.has(n))return i.get(e)===n&&o.get(n)===e;i.set(e,n),o.set(n,e);const s=a(e,n,t);return i.delete(e),o.delete(n),s}function kn(e,n,t){if(e===n)return!0;let a=Ba(e),i=Ba(n);return a||i?a&&i?e.getTime()===n.getTime():!1:(a=Pe(e),i=Pe(n),a||i?e===n:(a=S(e),i=S(n),a||i?a&&i?xa(e,n,t,Do):!1:(a=U(e),i=U(n),a||i?!a||!i?!1:xa(e,n,t,xo):String(e)===String(n))))}function hi(e,n){return e.findIndex(t=>kn(t,n))}function qa(e){return Object.getPrototypeOf(e)===null&&e[Symbol.toPrimitive]==null&&typeof e.toString!="function"&&typeof e.valueOf!="function"?An(e):String(e)}const di=e=>!!(e&&e.__v_isRef===!0),O=e=>X(e)?e:e==null?"":S(e)||U(e)&&(e.toString===oi||!H(e.toString))?di(e)?O(e.value):JSON.stringify(e,ui,2):String(e),ui=(e,n)=>di(n)?ui(e,n.value):Xe(n)?{[`Map(${n.size})`]:[...n.entries()].reduce((t,[a,i],o)=>(t[It(a,o)+" =>"]=i,t),{})}:bn(n)?{[`Set(${n.size})`]:[...n.values()].map(t=>It(t))}:Pe(n)?It(n):U(n)&&!S(n)&&!si(n)?String(n):n,It=(e,n="")=>{var t;return Pe(e)?`Symbol(${(t=e.description)!=null?t:n})`:e};/**
+**/function Zt(e){const n=Object.create(null);for(const t of e.split(","))n[t]=1;return t=>t in n}const J={},dn=[],Re=()=>{},ai=()=>!1,yt=e=>e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&(e.charCodeAt(2)>122||e.charCodeAt(2)<97),wt=e=>e.startsWith("onUpdate:"),ne=Object.assign,ea=(e,n)=>{const t=e.indexOf(n);t>-1&&e.splice(t,1)},ms=Object.prototype.hasOwnProperty,z=(e,n)=>ms.call(e,n),S=Array.isArray,Xe=e=>An(e)==="[object Map]",bn=e=>An(e)==="[object Set]",Ba=e=>An(e)==="[object Date]",H=e=>typeof e=="function",X=e=>typeof e=="string",Pe=e=>typeof e=="symbol",U=e=>e!==null&&typeof e=="object",ii=e=>(U(e)||H(e))&&H(e.then)&&H(e.catch),si=Object.prototype.toString,An=e=>si.call(e),gs=e=>An(e).slice(8,-1),oi=e=>An(e)==="[object Object]",na=e=>X(e)&&e!=="NaN"&&e[0]!=="-"&&""+parseInt(e,10)===e,_n=Zt(",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted"),fs=1e4,bt=e=>{let n=Object.create(null),t=0;return a=>{const i=n[a];return i!==void 0?i:(++t>fs&&(n=Object.create(null),t=1),n[a]=e(a))}},ys=/-\w/g,Ae=bt(e=>e.replace(ys,n=>n.slice(1).toUpperCase())),ws=/\B([A-Z])/g,nn=bt(e=>e.replace(ws,"-$1").toLowerCase()),ri=bt(e=>e.charAt(0).toUpperCase()+e.slice(1)),qt=bt(e=>e?`on${ri(e)}`:""),Se=(e,n)=>!Object.is(e,n),st=(e,...n)=>{for(let t=0;t<e.length;t++)e[t](...n)},li=(e,n,t,a=!1)=>{Object.defineProperty(e,n,{configurable:!0,enumerable:!1,writable:a,value:t})},ta=e=>{const n=parseFloat(e);return isNaN(n)?e:n};let Ta;const vt=()=>Ta||(Ta=typeof globalThis<"u"?globalThis:typeof self<"u"?self:typeof window<"u"?window:typeof global<"u"?global:{});function aa(e){if(S(e)){const n={};for(let t=0;t<e.length;t++){const a=e[t],i=X(a)?ks(a):aa(a);if(i)for(const s in i)n[s]=i[s]}return n}else if(X(e)||U(e))return e}const bs=/;(?![^(]*\))/g,vs=/:([^]+)/,As=/"(?:[^"\\]|\\[^])*"|'(?:[^'\\]|\\[^])*'|\\[^]|\/\*[^]*?\*\//g;function ks(e){const n={};return e.replace(As,t=>t.startsWith("/*")?"":t).split(bs).forEach(t=>{if(t){const a=t.split(vs);a.length>1&&(n[a[0].trim()]=a[1].trim())}}),n}function ue(e){let n="";if(X(e))n=e;else if(S(e))for(let t=0;t<e.length;t++){const a=ue(e[t]);a&&(n+=a+" ")}else if(U(e))for(const t in e)e[t]&&(n+=t+" ");return n.trim()}const Cs="itemscope,allowfullscreen,disablepictureinpicture,disableremoteplayback,formnovalidate,ismap,nomodule,novalidate,playsinline,readonly",Bs=Zt(Cs);function ci(e){return!!e||e===""}function Ts(e,n,t){if(e.length!==n.length)return!1;let a=!0;for(let i=0;a&&i<e.length;i++)a=kn(e[i],n[i],t);return a}function Da(e,n,t){if(e.size!==n.size)return!1;const a=Array.from(n),i=new Uint8Array(a.length);for(const s of e){let o=-1;for(let r=0;r<a.length;r++)if(!i[r]&&kn(s,a[r],t)){o=r;break}if(o<0)return!1;i[o]=1}return!0}function Ds(e,n,t){let a=Xe(e),i=Xe(n);if(a||i||(a=bn(e),i=bn(n),a||i))return a&&i?Da(e,n,t):!1;const s=Object.keys(e).length,o=Object.keys(n).length;if(s!==o)return!1;for(const r in e){const l=z(e,r),u=z(n,r);if(l&&!u||!l&&u||!kn(e[r],n[r],t))return!1}return qa(e)===qa(n)}function xa(e,n,t,a){t||(t=[new Map,new Map]);const[i,s]=t;if(i.has(e)||s.has(n))return i.get(e)===n&&s.get(n)===e;i.set(e,n),s.set(n,e);const o=a(e,n,t);return i.delete(e),s.delete(n),o}function kn(e,n,t){if(e===n)return!0;let a=Ba(e),i=Ba(n);return a||i?a&&i?e.getTime()===n.getTime():!1:(a=Pe(e),i=Pe(n),a||i?e===n:(a=S(e),i=S(n),a||i?a&&i?xa(e,n,t,Ts):!1:(a=U(e),i=U(n),a||i?!a||!i?!1:xa(e,n,t,Ds):String(e)===String(n))))}function hi(e,n){return e.findIndex(t=>kn(t,n))}function qa(e){return Object.getPrototypeOf(e)===null&&e[Symbol.toPrimitive]==null&&typeof e.toString!="function"&&typeof e.valueOf!="function"?An(e):String(e)}const di=e=>!!(e&&e.__v_isRef===!0),G=e=>X(e)?e:e==null?"":S(e)||U(e)&&(e.toString===si||!H(e.toString))?di(e)?G(e.value):JSON.stringify(e,ui,2):String(e),ui=(e,n)=>di(n)?ui(e,n.value):Xe(n)?{[`Map(${n.size})`]:[...n.entries()].reduce((t,[a,i],s)=>(t[It(a,s)+" =>"]=i,t),{})}:bn(n)?{[`Set(${n.size})`]:[...n.values()].map(t=>It(t))}:Pe(n)?It(n):U(n)&&!S(n)&&!oi(n)?String(n):n,It=(e,n="")=>{var t;return Pe(e)?`Symbol(${(t=e.description)!=null?t:n})`:e};/**
 * @vue/reactivity v3.5.46
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
-**/let ae;class qo{constructor(n=!1){this.detached=n,this._active=!0,this._on=0,this.effects=[],this.cleanups=[],this._isPaused=!1,this._warnOnRun=!0,this.__v_skip=!0,!n&&ae&&(ae.active?(this.parent=ae,this.index=(ae.scopes||(ae.scopes=[])).push(this)-1):(this._active=!1,this._warnOnRun=!1))}get active(){return this._active}pause(){if(this._active){this._isPaused=!0;let n,t;if(this.scopes){const a=this.scopes.slice();for(n=0,t=a.length;n<t;n++)a[n].pause()}for(n=0,t=this.effects.length;n<t;n++)this.effects[n].pause()}}resume(){if(this._active&&this._isPaused){this._isPaused=!1;let n,t;if(this.scopes){const i=this.scopes.slice();for(n=0,t=i.length;n<t;n++)i[n].resume()}const a=this.effects.slice();for(n=0,t=a.length;n<t;n++)a[n].resume()}}run(n){if(this._active){const t=ae;try{return ae=this,n()}finally{ae=t}}}on(){++this._on===1&&(this.prevScope=ae,ae=this)}off(){if(this._on>0&&--this._on===0){if(ae===this)ae=this.prevScope;else{let n=ae;for(;n;){if(n.prevScope===this){n.prevScope=this.prevScope;break}n=n.prevScope}}this.prevScope=void 0}}stop(n){if(this._active){this._active=!1;let t,a;for(t=0,a=this.effects.length;t<a;t++)this.effects[t].stop();for(this.effects.length=0,t=0,a=this.cleanups.length;t<a;t++)this.cleanups[t]();if(this.cleanups.length=0,this.scopes){const i=this.scopes.slice();for(t=0,a=i.length;t<a;t++)i[t].stop(!0);this.scopes.length=0}if(!this.detached&&this.parent&&!n){const i=this.parent.scopes.pop();i&&i!==this&&(this.parent.scopes[this.index]=i,i.index=this.index)}this.parent=void 0}}}function Io(){return ae}let Y;const Wt=new WeakSet;class pi{constructor(n){this.fn=n,this.deps=void 0,this.depsTail=void 0,this.flags=5,this.next=void 0,this.cleanup=void 0,this.scheduler=void 0,ae&&(ae.active?ae.effects.push(this):this.flags&=-2)}pause(){this.flags|=64}resume(){this.flags&64&&(this.flags&=-65,Wt.has(this)&&(Wt.delete(this),this.trigger()))}notify(){this.flags&2&&!(this.flags&32)||this.flags&8||gi(this)}run(){if(!(this.flags&1))return this.fn();this.flags|=2,Ia(this),fi(this);const n=Y,t=ke;Y=this,ke=!0;try{return this.fn()}finally{yi(this),Y=n,ke=t,this.flags&=-3}}stop(){if(this.flags&1){for(let n=this.deps;n;n=n.nextDep)sa(n);this.deps=this.depsTail=void 0,Ia(this),this.onStop&&this.onStop(),this.flags&=-2}}trigger(){this.flags&64?Wt.add(this):this.scheduler?this.scheduler():this.runIfDirty()}runIfDirty(){Nt(this)&&this.run()}get dirty(){return Nt(this)}}let mi=0,Sn,En;function gi(e,n=!1){if(e.flags|=8,n){e.next=En,En=e;return}e.next=Sn,Sn=e}function ia(){mi++}function oa(){if(--mi>0)return;if(En){let n=En;for(En=void 0;n;){const t=n.next;n.next=void 0,n.flags&=-9,n=t}}let e;for(;Sn;){let n=Sn;for(Sn=void 0;n;){const t=n.next;if(n.next=void 0,n.flags&=-9,n.flags&1)try{n.trigger()}catch(a){e||(e=a)}n=t}}if(e)throw e}function fi(e){for(let n=e.deps;n;n=n.nextDep)n.version=-1,n.prevActiveLink=n.dep.activeLink,n.dep.activeLink=n}function yi(e){let n,t=e.depsTail,a=t;for(;a;){const i=a.prevDep;a.version===-1?(a===t&&(t=i),sa(a),Wo(a)):n=a,a.dep.activeLink=a.prevActiveLink,a.prevActiveLink=void 0,a=i}e.deps=n,e.depsTail=t}function Nt(e){for(let n=e.deps;n;n=n.nextDep)if(n.dep.version!==n.version||n.dep.computed&&(wi(n.dep.computed)||n.dep.version!==n.version))return!0;return!!e._dirty}function wi(e){if(e.flags&4&&!(e.flags&16)||(e.flags&=-17,e.globalVersion===Gn)||(e.globalVersion=Gn,!e.isSSR&&e.flags&128&&(!e.deps&&!e._dirty||!Nt(e))))return;e.flags|=2;const n=e.dep,t=Y,a=ke;Y=e,ke=!0;try{fi(e);const i=e.fn(e._value);(n.version===0||Se(i,e._value))&&(e.flags|=128,e._value=i,n.version++)}catch(i){throw n.version++,i}finally{Y=t,ke=a,yi(e),e.flags&=-3}}function sa(e,n=!1){const{dep:t,prevSub:a,nextSub:i}=e;if(a&&(a.nextSub=i,e.prevSub=void 0),i&&(i.prevSub=a,e.nextSub=void 0),t.subs===e&&(t.subs=a,!a&&t.computed)){t.computed.flags&=-5;for(let o=t.computed.deps;o;o=o.nextDep)sa(o,!0)}!n&&!--t.sc&&t.map&&t.map.delete(t.key)}function Wo(e){const{prevDep:n,nextDep:t}=e;n&&(n.nextDep=t,e.prevDep=void 0),t&&(t.prevDep=n,e.nextDep=void 0)}let ke=!0;const bi=[];function Me(){bi.push(ke),ke=!1}function He(){const e=bi.pop();ke=e===void 0?!0:e}function Ia(e){const{cleanup:n}=e;if(e.cleanup=void 0,n){const t=Y;Y=void 0;try{n()}finally{Y=t}}}let Gn=0;class _o{constructor(n,t){this.sub=n,this.dep=t,this.version=t.version,this.nextDep=this.prevDep=this.nextSub=this.prevSub=this.prevActiveLink=void 0}}class ra{constructor(n){this.computed=n,this.version=0,this.activeLink=void 0,this.subs=void 0,this.map=void 0,this.key=void 0,this.sc=0,this.__v_skip=!0}track(n){if(!Y||!ke||Y===this.computed)return;let t=this.activeLink;if(t===void 0||t.sub!==Y)t=this.activeLink=new _o(Y,this),Y.deps?(t.prevDep=Y.depsTail,Y.depsTail.nextDep=t,Y.depsTail=t):Y.deps=Y.depsTail=t,vi(t);else if(t.version===-1&&(t.version=this.version,t.nextDep)){const a=t.nextDep;a.prevDep=t.prevDep,t.prevDep&&(t.prevDep.nextDep=a),t.prevDep=Y.depsTail,t.nextDep=void 0,Y.depsTail.nextDep=t,Y.depsTail=t,Y.deps===t&&(Y.deps=a)}return t}trigger(n){this.version++,Gn++,this.notify(n)}notify(n){ia();try{for(let t=this.subs;t;t=t.prevSub)t.sub.notify()&&t.sub.dep.notify()}finally{oa()}}}function vi(e){if(e.dep.sc++,e.sub.flags&4){const n=e.dep.computed;if(n&&!e.dep.subs){n.flags|=20;for(let a=n.deps;a;a=a.nextDep)vi(a)}const t=e.dep.subs;t!==e&&(e.prevSub=t,t&&(t.nextSub=e)),e.dep.subs=e}}const Lt=new WeakMap,mn=Symbol(""),jt=Symbol(""),zn=Symbol("");function ie(e,n,t){if(ke&&Y){let a=Lt.get(e);a||Lt.set(e,a=new Map);let i=a.get(t);i||(a.set(t,i=new ra),i.map=a,i.key=t),i.track()}}function Le(e,n,t,a,i,o){const s=Lt.get(e);if(!s){Gn++;return}const r=l=>{l&&l.trigger()};if(ia(),n==="clear")s.forEach(r);else{const l=S(e),u=l&&na(t);if(l&&t==="length"){const d=Number(a);s.forEach((m,C)=>{(C==="length"||C===zn||!Pe(C)&&C>=d)&&r(m)})}else switch((t!==void 0||s.has(void 0))&&r(s.get(t)),u&&r(s.get(zn)),n){case"add":l?u&&r(s.get("length")):(r(s.get(mn)),Xe(e)&&r(s.get(jt)));break;case"delete":l||(r(s.get(mn)),Xe(e)&&r(s.get(jt)));break;case"set":Xe(e)&&r(s.get(mn));break}}oa()}function fn(e){const n=L(e);return n===e||(ie(n,"iterate",zn),fe(e))?n:Oe(e)?Ze(e)?n.map(t=>en(ye(t))):n.map(en):n.map(ye)}function At(e){return ie(e=L(e),"iterate",zn),e}function Ie(e,n){return Oe(e)?en(Ze(e)?ye(n):n):ye(n)}const So={__proto__:null,[Symbol.iterator](){return _t(this,Symbol.iterator,e=>Ie(this,e))},concat(...e){return fn(this).concat(...e.map(n=>S(n)?fn(n):n))},entries(){return _t(this,"entries",e=>(e[1]=Ie(this,e[1]),e))},every(e,n){return ze(this,"every",e,n,void 0,arguments)},filter(e,n){return ze(this,"filter",e,n,t=>t.map(a=>Ie(this,a)),arguments)},find(e,n){return ze(this,"find",e,n,t=>Ie(this,t),arguments)},findIndex(e,n){return ze(this,"findIndex",e,n,void 0,arguments)},findLast(e,n){return ze(this,"findLast",e,n,t=>Ie(this,t),arguments)},findLastIndex(e,n){return ze(this,"findLastIndex",e,n,void 0,arguments)},forEach(e,n){return ze(this,"forEach",e,n,void 0,arguments)},includes(...e){return St(this,"includes",e)},indexOf(...e){return St(this,"indexOf",e)},join(e){return fn(this).join(e)},lastIndexOf(...e){return St(this,"lastIndexOf",e)},map(e,n){return ze(this,"map",e,n,void 0,arguments)},pop(){return Dn(this,"pop")},push(...e){return Dn(this,"push",e)},reduce(e,...n){return _a(this,"reduce",e,n)},reduceRight(e,...n){return _a(this,"reduceRight",e,n)},shift(){return Dn(this,"shift")},some(e,n){return ze(this,"some",e,n,void 0,arguments)},splice(...e){return Dn(this,"splice",e)},toReversed(){return fn(this).toReversed()},toSorted(e){return fn(this).toSorted(e)},toSpliced(...e){return fn(this).toSpliced(...e)},unshift(...e){return Dn(this,"unshift",e)},values(){return _t(this,"values",e=>Ie(this,e))}};function _t(e,n,t){const a=At(e),i=a[n],o=i.call(a);if(a!==e&&!fe(e)){if(o[Symbol.toStringTag]==="Array Iterator"){const s=Object.create(Object.getPrototypeOf(o));return s.next=()=>Wa(o.next(),t),i!==Ai[n]&&Object.defineProperties(s,{return:{get(){const r=o.return;return typeof r=="function"?r.bind(o):r}},throw:{get(){const r=o.throw;return typeof r=="function"?r.bind(o):r}}}),s}o._next=o.next,o.next=()=>Wa(o._next(),t)}return o}function Wa(e,n){return e.done||(e.value=n(e.value)),e}const Ai=Array.prototype;function ze(e,n,t,a,i,o){const s=At(e),r=s!==e&&!fe(e),l=s[n];if(l!==Ai[n]){const m=l.apply(e,o);return r?ye(m):m}let u=t;s!==e&&(r?u=function(m,C){return t.call(this,Ie(e,m),C,e)}:t.length>2&&(u=function(m,C){return t.call(this,m,C,e)}));const d=l.call(s,u,a);return r&&i?i(d):d}function _a(e,n,t,a){const i=At(e),o=i!==e&&!fe(e);let s=t,r=!1;i!==e&&(o?(r=a.length===0,s=function(u,d,m){return r&&(r=!1,u=Ie(e,u)),t.call(this,u,Ie(e,d),m,e)}):t.length>3&&(s=function(u,d,m){return t.call(this,u,d,m,e)}));const l=i[n](s,...a);return r?Ie(e,l):l}function St(e,n,t){const a=L(e);ie(a,"iterate",zn);const i=a[n](...t);return(i===-1||i===!1)&&ha(t[0])?(t[0]=L(t[0]),a[n](...t)):i}function Dn(e,n,t=[]){Me(),ia();const a=L(e)[n].apply(e,t);return oa(),He(),a}const Eo=Zt("__proto__,__v_isRef,__isVue"),ki=new Set(Object.getOwnPropertyNames(Symbol).filter(e=>e!=="arguments"&&e!=="caller").map(e=>Symbol[e]).filter(Pe));function Ro(e){Pe(e)||(e=String(e));const n=L(this);return ie(n,"has",e),n.hasOwnProperty(e)}class Ci{constructor(n=!1,t=!1){this._isReadonly=n,this._isShallow=t}get(n,t,a){if(t==="__v_skip")return n.__v_skip;const i=this._isReadonly,o=this._isShallow;if(t==="__v_isReactive")return!i;if(t==="__v_isReadonly")return i;if(t==="__v_isShallow")return o;if(t==="__v_raw")return a===(i?o?jo:xi:o?Di:Ti).get(n)||Object.getPrototypeOf(n)===Object.getPrototypeOf(a)?n:void 0;const s=S(n);if(!i){let l;if(s&&(l=So[t]))return l;if(t==="hasOwnProperty")return Ro}const r=Reflect.get(n,t,oe(n)?n:a);if((Pe(t)?ki.has(t):Eo(t))||(i||ie(n,"get",t),o))return r;if(oe(r)){const l=s&&na(t)?r:r.value;return i&&U(l)?Ut(l):l}return U(r)?i?Ut(r):Fn(r):r}}class Bi extends Ci{constructor(n=!1){super(!1,n)}set(n,t,a,i){let o=n[t];const s=S(n)&&na(t);if(!this._isShallow){const u=Oe(o);if(!fe(a)&&!Oe(a)&&(o=L(o),a=L(a)),!s&&oe(o)&&!oe(a))return u||(o.value=a),!0}const r=s?Number(t)<n.length:F(n,t),l=Reflect.set(n,t,a,oe(n)?n:i);return n===L(i)&&l&&(r?Se(a,o)&&Le(n,"set",t,a):Le(n,"add",t,a)),l}deleteProperty(n,t){const a=F(n,t);n[t];const i=Reflect.deleteProperty(n,t);return i&&a&&Le(n,"delete",t,void 0),i}has(n,t){const a=Reflect.has(n,t);return(!Pe(t)||!ki.has(t))&&ie(n,"has",t),a}ownKeys(n){return ie(n,"iterate",S(n)?"length":mn),Reflect.ownKeys(n)}}class Po extends Ci{constructor(n=!1){super(!0,n)}set(n,t){return!0}deleteProperty(n,t){return!0}}const Mo=new Bi,Ho=new Po,Oo=new Bi(!0);const Qt=e=>e,et=e=>Reflect.getPrototypeOf(e);function Go(e,n,t){return function(...a){const i=this.__v_raw,o=L(i),s=Xe(o),r=e==="entries"||e===Symbol.iterator&&s,l=e==="keys"&&s,u=i[e](...a),d=t?Qt:n?en:ye;return!n&&ie(o,"iterate",l?jt:mn),ne(Object.create(u),{next(){const{value:m,done:C}=u.next();return C?{value:m,done:C}:{value:r?[d(m[0]),d(m[1])]:d(m),done:C}}})}}function nt(e){return function(...n){return e==="delete"?!1:e==="clear"?void 0:this}}function zo(e,n){const t={get(i){const o=this.__v_raw,s=L(o),r=L(i);e||(Se(i,r)&&ie(s,"get",i),ie(s,"get",r));const{has:l}=et(s),u=n?Qt:e?en:ye;if(l.call(s,i))return u(o.get(i));if(l.call(s,r))return u(o.get(r));o!==s&&o.get(i)},get size(){const i=this.__v_raw;return!e&&ie(L(i),"iterate",mn),i.size},has(i){const o=this.__v_raw,s=L(o),r=L(i);return e||(Se(i,r)&&ie(s,"has",i),ie(s,"has",r)),i===r?o.has(i):o.has(i)||o.has(r)},forEach(i,o){const s=this,r=s.__v_raw,l=L(r),u=n?Qt:e?en:ye;return!e&&ie(l,"iterate",mn),r.forEach((d,m)=>i.call(o,u(d),u(m),s))}};return ne(t,e?{add:nt("add"),set:nt("set"),delete:nt("delete"),clear:nt("clear")}:{add(i){const o=L(this),s=et(o),r=L(i),l=!n&&!fe(i)&&!Oe(i)?r:i;return s.has.call(o,l)||Se(i,l)&&s.has.call(o,i)||Se(r,l)&&s.has.call(o,r)||(o.add(l),Le(o,"add",l,l)),this},set(i,o){!n&&!fe(o)&&!Oe(o)&&(o=L(o));const s=L(this),{has:r,get:l}=et(s);let u=r.call(s,i);u||(i=L(i),u=r.call(s,i));const d=l.call(s,i);return s.set(i,o),u?Se(o,d)&&Le(s,"set",i,o):Le(s,"add",i,o),this},delete(i){const o=L(this),{has:s,get:r}=et(o);let l=s.call(o,i);l||(i=L(i),l=s.call(o,i)),r&&r.call(o,i);const u=o.delete(i);return l&&Le(o,"delete",i,void 0),u},clear(){const i=L(this),o=i.size!==0,s=i.clear();return o&&Le(i,"clear",void 0,void 0),s}}),["keys","values","entries",Symbol.iterator].forEach(i=>{t[i]=Go(i,e,n)}),t}function la(e,n){const t=zo(e,n);return(a,i,o)=>i==="__v_isReactive"?!e:i==="__v_isReadonly"?e:i==="__v_isShallow"?n:i==="__v_raw"?a:Reflect.get(F(t,i)&&i in a?t:a,i,o)}const Fo={get:la(!1,!1)},No={get:la(!1,!0)},Lo={get:la(!0,!1)};const Ti=new WeakMap,Di=new WeakMap,xi=new WeakMap,jo=new WeakMap;function Qo(e){switch(e){case"Object":case"Array":return 1;case"Map":case"Set":case"WeakMap":case"WeakSet":return 2;default:return 0}}function Fn(e){return Oe(e)?e:ca(e,!1,Mo,Fo,Ti)}function Uo(e){return ca(e,!1,Oo,No,Di)}function Ut(e){return ca(e,!0,Ho,Lo,xi)}function ca(e,n,t,a,i){if(!U(e)||e.__v_raw&&!(n&&e.__v_isReactive)||e.__v_skip||!Object.isExtensible(e))return e;const o=i.get(e);if(o)return o;const s=Qo(fo(e));if(s===0)return e;const r=new Proxy(e,s===2?a:t);return i.set(e,r),r}function Ze(e){return Oe(e)?Ze(e.__v_raw):!!(e&&e.__v_isReactive)}function Oe(e){return!!(e&&e.__v_isReadonly)}function fe(e){return!!(e&&e.__v_isShallow)}function ha(e){return e?!!e.__v_raw:!1}function L(e){const n=e&&e.__v_raw;return n?L(n):e}function Vo(e){return!F(e,"__v_skip")&&Object.isExtensible(e)&&li(e,"__v_skip",!0),e}const ye=e=>U(e)?Fn(e):e,en=e=>U(e)?Ut(e):e;function oe(e){return e?e.__v_isRef===!0:!1}function Ye(e){return Jo(e,!1)}function Jo(e,n){return oe(e)?e:new Ko(e,n)}class Ko{constructor(n,t){this.dep=new ra,this.__v_isRef=!0,this.__v_isShallow=!1,this._rawValue=t?n:L(n),this._value=t?n:ye(n),this.__v_isShallow=t}get value(){return this.dep.track(),this._value}set value(n){const t=this._rawValue,a=this.__v_isShallow||fe(n)||Oe(n);n=a?n:L(n),Se(n,t)&&(this._rawValue=n,this._value=a?n:ye(n),this.dep.trigger())}}function ln(e){return oe(e)?e.value:e}const Yo={get:(e,n,t)=>n==="__v_raw"?e:ln(Reflect.get(e,n,t)),set:(e,n,t,a)=>{const i=e[n];return oe(i)&&!oe(t)?(i.value=t,!0):Reflect.set(e,n,t,a)}};function qi(e){return Ze(e)?e:new Proxy(e,Yo)}class $o{constructor(n,t,a){this.fn=n,this.setter=t,this._value=void 0,this.dep=new ra(this),this.__v_isRef=!0,this.deps=void 0,this.depsTail=void 0,this.flags=16,this.globalVersion=Gn-1,this.next=void 0,this.effect=this,this.__v_isReadonly=!t,this.isSSR=a}notify(){if(this.flags|=16,!(this.flags&8)&&Y!==this)return gi(this,!0),!0}get value(){const n=this.dep.track();return wi(this),n&&(n.version=this.dep.version),this._value}set value(n){this.setter&&this.setter(n)}}function Xo(e,n,t=!1){let a,i;return H(e)?a=e:(a=e.get,i=e.set),new $o(a,i,t)}const tt={},ct=new WeakMap;let cn;function Zo(e,n=!1,t=cn){if(t){let a=ct.get(t);a||ct.set(t,a=[]),a.push(e)}}function es(e,n,t=J){const{immediate:a,deep:i,once:o,scheduler:s,augmentJob:r,call:l}=t,u=E=>i?E:fe(E)||i===!1||i===0?je(E,1):je(E);let d,m,C,x,B=!1,w=!1;if(oe(e)?(m=()=>e.value,B=fe(e)):Ze(e)?(m=()=>u(e),B=!0):S(e)?(w=!0,B=e.some(E=>Ze(E)||fe(E)),m=()=>e.map(E=>{if(oe(E))return E.value;if(Ze(E))return u(E);if(H(E))return l?l(E,2):E()})):H(e)?n?m=l?()=>l(e,2):e:m=()=>{if(C){Me();try{C()}finally{He()}}const E=cn;cn=d;try{return l?l(e,3,[x]):e(x)}finally{cn=E}}:m=Re,n&&i){const E=m,ee=i===!0?1/0:i;m=()=>je(E(),ee)}const D=Io(),_=()=>{d.stop(),D&&D.active&&ea(D.effects,d)};if(o&&n){const E=n;n=(...ee)=>{try{return E(...ee)}finally{_()}}}let G=w?new Array(e.length).fill(tt):tt;const j=E=>{if(!(!(d.flags&1)||!d.dirty&&!E))if(n){const ee=d.run();if(E||i||B||(w?ee.some((Ve,Te)=>Se(Ve,G[Te])):Se(ee,G))){const Ve=cn;Me();try{C&&C(),cn=d;const Te=[ee,G===tt?void 0:w&&G[0]===tt?[]:G,x];G=ee,l?l(n,3,Te):n(...Te)}finally{cn=Ve,He()}}}else d.run()};return r&&r(j),d=new pi(m),d.scheduler=s?()=>s(j,!1):j,x=E=>Zo(E,!1,d),C=d.onStop=()=>{const E=ct.get(d);if(E){if(l)l(E,4);else for(const ee of E)ee();ct.delete(d)}},n?a?j(!0):G=d.run():s?s(j.bind(null,!0),!0):d.run(),_.pause=d.pause.bind(d),_.resume=d.resume.bind(d),_.stop=_,_}function je(e,n=1/0,t){if(n<=0||!U(e)||e.__v_skip||(t=t||new Map,(t.get(e)||0)>=n))return e;if(t.set(e,n),n--,oe(e))je(e.value,n,t);else if(S(e))for(let a=0;a<e.length;a++)je(e[a],n,t);else if(bn(e)||Xe(e))e.forEach(a=>{je(a,n,t)});else if(si(e)){for(const a in e)je(e[a],n,t);for(const a of Object.getOwnPropertySymbols(e))Object.prototype.propertyIsEnumerable.call(e,a)&&je(e[a],n,t)}return e}/**
+**/let ae;class xs{constructor(n=!1){this.detached=n,this._active=!0,this._on=0,this.effects=[],this.cleanups=[],this._isPaused=!1,this._warnOnRun=!0,this.__v_skip=!0,!n&&ae&&(ae.active?(this.parent=ae,this.index=(ae.scopes||(ae.scopes=[])).push(this)-1):(this._active=!1,this._warnOnRun=!1))}get active(){return this._active}pause(){if(this._active){this._isPaused=!0;let n,t;if(this.scopes){const a=this.scopes.slice();for(n=0,t=a.length;n<t;n++)a[n].pause()}for(n=0,t=this.effects.length;n<t;n++)this.effects[n].pause()}}resume(){if(this._active&&this._isPaused){this._isPaused=!1;let n,t;if(this.scopes){const i=this.scopes.slice();for(n=0,t=i.length;n<t;n++)i[n].resume()}const a=this.effects.slice();for(n=0,t=a.length;n<t;n++)a[n].resume()}}run(n){if(this._active){const t=ae;try{return ae=this,n()}finally{ae=t}}}on(){++this._on===1&&(this.prevScope=ae,ae=this)}off(){if(this._on>0&&--this._on===0){if(ae===this)ae=this.prevScope;else{let n=ae;for(;n;){if(n.prevScope===this){n.prevScope=this.prevScope;break}n=n.prevScope}}this.prevScope=void 0}}stop(n){if(this._active){this._active=!1;let t,a;for(t=0,a=this.effects.length;t<a;t++)this.effects[t].stop();for(this.effects.length=0,t=0,a=this.cleanups.length;t<a;t++)this.cleanups[t]();if(this.cleanups.length=0,this.scopes){const i=this.scopes.slice();for(t=0,a=i.length;t<a;t++)i[t].stop(!0);this.scopes.length=0}if(!this.detached&&this.parent&&!n){const i=this.parent.scopes.pop();i&&i!==this&&(this.parent.scopes[this.index]=i,i.index=this.index)}this.parent=void 0}}}function qs(){return ae}let Y;const Wt=new WeakSet;class pi{constructor(n){this.fn=n,this.deps=void 0,this.depsTail=void 0,this.flags=5,this.next=void 0,this.cleanup=void 0,this.scheduler=void 0,ae&&(ae.active?ae.effects.push(this):this.flags&=-2)}pause(){this.flags|=64}resume(){this.flags&64&&(this.flags&=-65,Wt.has(this)&&(Wt.delete(this),this.trigger()))}notify(){this.flags&2&&!(this.flags&32)||this.flags&8||gi(this)}run(){if(!(this.flags&1))return this.fn();this.flags|=2,Ia(this),fi(this);const n=Y,t=ke;Y=this,ke=!0;try{return this.fn()}finally{yi(this),Y=n,ke=t,this.flags&=-3}}stop(){if(this.flags&1){for(let n=this.deps;n;n=n.nextDep)oa(n);this.deps=this.depsTail=void 0,Ia(this),this.onStop&&this.onStop(),this.flags&=-2}}trigger(){this.flags&64?Wt.add(this):this.scheduler?this.scheduler():this.runIfDirty()}runIfDirty(){Nt(this)&&this.run()}get dirty(){return Nt(this)}}let mi=0,Sn,En;function gi(e,n=!1){if(e.flags|=8,n){e.next=En,En=e;return}e.next=Sn,Sn=e}function ia(){mi++}function sa(){if(--mi>0)return;if(En){let n=En;for(En=void 0;n;){const t=n.next;n.next=void 0,n.flags&=-9,n=t}}let e;for(;Sn;){let n=Sn;for(Sn=void 0;n;){const t=n.next;if(n.next=void 0,n.flags&=-9,n.flags&1)try{n.trigger()}catch(a){e||(e=a)}n=t}}if(e)throw e}function fi(e){for(let n=e.deps;n;n=n.nextDep)n.version=-1,n.prevActiveLink=n.dep.activeLink,n.dep.activeLink=n}function yi(e){let n,t=e.depsTail,a=t;for(;a;){const i=a.prevDep;a.version===-1?(a===t&&(t=i),oa(a),Is(a)):n=a,a.dep.activeLink=a.prevActiveLink,a.prevActiveLink=void 0,a=i}e.deps=n,e.depsTail=t}function Nt(e){for(let n=e.deps;n;n=n.nextDep)if(n.dep.version!==n.version||n.dep.computed&&(wi(n.dep.computed)||n.dep.version!==n.version))return!0;return!!e._dirty}function wi(e){if(e.flags&4&&!(e.flags&16)||(e.flags&=-17,e.globalVersion===On)||(e.globalVersion=On,!e.isSSR&&e.flags&128&&(!e.deps&&!e._dirty||!Nt(e))))return;e.flags|=2;const n=e.dep,t=Y,a=ke;Y=e,ke=!0;try{fi(e);const i=e.fn(e._value);(n.version===0||Se(i,e._value))&&(e.flags|=128,e._value=i,n.version++)}catch(i){throw n.version++,i}finally{Y=t,ke=a,yi(e),e.flags&=-3}}function oa(e,n=!1){const{dep:t,prevSub:a,nextSub:i}=e;if(a&&(a.nextSub=i,e.prevSub=void 0),i&&(i.prevSub=a,e.nextSub=void 0),t.subs===e&&(t.subs=a,!a&&t.computed)){t.computed.flags&=-5;for(let s=t.computed.deps;s;s=s.nextDep)oa(s,!0)}!n&&!--t.sc&&t.map&&t.map.delete(t.key)}function Is(e){const{prevDep:n,nextDep:t}=e;n&&(n.nextDep=t,e.prevDep=void 0),t&&(t.prevDep=n,e.nextDep=void 0)}let ke=!0;const bi=[];function Me(){bi.push(ke),ke=!1}function He(){const e=bi.pop();ke=e===void 0?!0:e}function Ia(e){const{cleanup:n}=e;if(e.cleanup=void 0,n){const t=Y;Y=void 0;try{n()}finally{Y=t}}}let On=0;class Ws{constructor(n,t){this.sub=n,this.dep=t,this.version=t.version,this.nextDep=this.prevDep=this.nextSub=this.prevSub=this.prevActiveLink=void 0}}class ra{constructor(n){this.computed=n,this.version=0,this.activeLink=void 0,this.subs=void 0,this.map=void 0,this.key=void 0,this.sc=0,this.__v_skip=!0}track(n){if(!Y||!ke||Y===this.computed)return;let t=this.activeLink;if(t===void 0||t.sub!==Y)t=this.activeLink=new Ws(Y,this),Y.deps?(t.prevDep=Y.depsTail,Y.depsTail.nextDep=t,Y.depsTail=t):Y.deps=Y.depsTail=t,vi(t);else if(t.version===-1&&(t.version=this.version,t.nextDep)){const a=t.nextDep;a.prevDep=t.prevDep,t.prevDep&&(t.prevDep.nextDep=a),t.prevDep=Y.depsTail,t.nextDep=void 0,Y.depsTail.nextDep=t,Y.depsTail=t,Y.deps===t&&(Y.deps=a)}return t}trigger(n){this.version++,On++,this.notify(n)}notify(n){ia();try{for(let t=this.subs;t;t=t.prevSub)t.sub.notify()&&t.sub.dep.notify()}finally{sa()}}}function vi(e){if(e.dep.sc++,e.sub.flags&4){const n=e.dep.computed;if(n&&!e.dep.subs){n.flags|=20;for(let a=n.deps;a;a=a.nextDep)vi(a)}const t=e.dep.subs;t!==e&&(e.prevSub=t,t&&(t.nextSub=e)),e.dep.subs=e}}const Lt=new WeakMap,mn=Symbol(""),jt=Symbol(""),Fn=Symbol("");function ie(e,n,t){if(ke&&Y){let a=Lt.get(e);a||Lt.set(e,a=new Map);let i=a.get(t);i||(a.set(t,i=new ra),i.map=a,i.key=t),i.track()}}function Le(e,n,t,a,i,s){const o=Lt.get(e);if(!o){On++;return}const r=l=>{l&&l.trigger()};if(ia(),n==="clear")o.forEach(r);else{const l=S(e),u=l&&na(t);if(l&&t==="length"){const d=Number(a);o.forEach((m,C)=>{(C==="length"||C===Fn||!Pe(C)&&C>=d)&&r(m)})}else switch((t!==void 0||o.has(void 0))&&r(o.get(t)),u&&r(o.get(Fn)),n){case"add":l?u&&r(o.get("length")):(r(o.get(mn)),Xe(e)&&r(o.get(jt)));break;case"delete":l||(r(o.get(mn)),Xe(e)&&r(o.get(jt)));break;case"set":Xe(e)&&r(o.get(mn));break}}sa()}function fn(e){const n=L(e);return n===e||(ie(n,"iterate",Fn),fe(e))?n:Ge(e)?Ze(e)?n.map(t=>en(ye(t))):n.map(en):n.map(ye)}function At(e){return ie(e=L(e),"iterate",Fn),e}function Ie(e,n){return Ge(e)?en(Ze(e)?ye(n):n):ye(n)}const _s={__proto__:null,[Symbol.iterator](){return _t(this,Symbol.iterator,e=>Ie(this,e))},concat(...e){return fn(this).concat(...e.map(n=>S(n)?fn(n):n))},entries(){return _t(this,"entries",e=>(e[1]=Ie(this,e[1]),e))},every(e,n){return Fe(this,"every",e,n,void 0,arguments)},filter(e,n){return Fe(this,"filter",e,n,t=>t.map(a=>Ie(this,a)),arguments)},find(e,n){return Fe(this,"find",e,n,t=>Ie(this,t),arguments)},findIndex(e,n){return Fe(this,"findIndex",e,n,void 0,arguments)},findLast(e,n){return Fe(this,"findLast",e,n,t=>Ie(this,t),arguments)},findLastIndex(e,n){return Fe(this,"findLastIndex",e,n,void 0,arguments)},forEach(e,n){return Fe(this,"forEach",e,n,void 0,arguments)},includes(...e){return St(this,"includes",e)},indexOf(...e){return St(this,"indexOf",e)},join(e){return fn(this).join(e)},lastIndexOf(...e){return St(this,"lastIndexOf",e)},map(e,n){return Fe(this,"map",e,n,void 0,arguments)},pop(){return Dn(this,"pop")},push(...e){return Dn(this,"push",e)},reduce(e,...n){return _a(this,"reduce",e,n)},reduceRight(e,...n){return _a(this,"reduceRight",e,n)},shift(){return Dn(this,"shift")},some(e,n){return Fe(this,"some",e,n,void 0,arguments)},splice(...e){return Dn(this,"splice",e)},toReversed(){return fn(this).toReversed()},toSorted(e){return fn(this).toSorted(e)},toSpliced(...e){return fn(this).toSpliced(...e)},unshift(...e){return Dn(this,"unshift",e)},values(){return _t(this,"values",e=>Ie(this,e))}};function _t(e,n,t){const a=At(e),i=a[n],s=i.call(a);if(a!==e&&!fe(e)){if(s[Symbol.toStringTag]==="Array Iterator"){const o=Object.create(Object.getPrototypeOf(s));return o.next=()=>Wa(s.next(),t),i!==Ai[n]&&Object.defineProperties(o,{return:{get(){const r=s.return;return typeof r=="function"?r.bind(s):r}},throw:{get(){const r=s.throw;return typeof r=="function"?r.bind(s):r}}}),o}s._next=s.next,s.next=()=>Wa(s._next(),t)}return s}function Wa(e,n){return e.done||(e.value=n(e.value)),e}const Ai=Array.prototype;function Fe(e,n,t,a,i,s){const o=At(e),r=o!==e&&!fe(e),l=o[n];if(l!==Ai[n]){const m=l.apply(e,s);return r?ye(m):m}let u=t;o!==e&&(r?u=function(m,C){return t.call(this,Ie(e,m),C,e)}:t.length>2&&(u=function(m,C){return t.call(this,m,C,e)}));const d=l.call(o,u,a);return r&&i?i(d):d}function _a(e,n,t,a){const i=At(e),s=i!==e&&!fe(e);let o=t,r=!1;i!==e&&(s?(r=a.length===0,o=function(u,d,m){return r&&(r=!1,u=Ie(e,u)),t.call(this,u,Ie(e,d),m,e)}):t.length>3&&(o=function(u,d,m){return t.call(this,u,d,m,e)}));const l=i[n](o,...a);return r?Ie(e,l):l}function St(e,n,t){const a=L(e);ie(a,"iterate",Fn);const i=a[n](...t);return(i===-1||i===!1)&&ha(t[0])?(t[0]=L(t[0]),a[n](...t)):i}function Dn(e,n,t=[]){Me(),ia();const a=L(e)[n].apply(e,t);return sa(),He(),a}const Ss=Zt("__proto__,__v_isRef,__isVue"),ki=new Set(Object.getOwnPropertyNames(Symbol).filter(e=>e!=="arguments"&&e!=="caller").map(e=>Symbol[e]).filter(Pe));function Es(e){Pe(e)||(e=String(e));const n=L(this);return ie(n,"has",e),n.hasOwnProperty(e)}class Ci{constructor(n=!1,t=!1){this._isReadonly=n,this._isShallow=t}get(n,t,a){if(t==="__v_skip")return n.__v_skip;const i=this._isReadonly,s=this._isShallow;if(t==="__v_isReactive")return!i;if(t==="__v_isReadonly")return i;if(t==="__v_isShallow")return s;if(t==="__v_raw")return a===(i?s?Ls:xi:s?Di:Ti).get(n)||Object.getPrototypeOf(n)===Object.getPrototypeOf(a)?n:void 0;const o=S(n);if(!i){let l;if(o&&(l=_s[t]))return l;if(t==="hasOwnProperty")return Es}const r=Reflect.get(n,t,se(n)?n:a);if((Pe(t)?ki.has(t):Ss(t))||(i||ie(n,"get",t),s))return r;if(se(r)){const l=o&&na(t)?r:r.value;return i&&U(l)?Ut(l):l}return U(r)?i?Ut(r):zn(r):r}}class Bi extends Ci{constructor(n=!1){super(!1,n)}set(n,t,a,i){let s=n[t];const o=S(n)&&na(t);if(!this._isShallow){const u=Ge(s);if(!fe(a)&&!Ge(a)&&(s=L(s),a=L(a)),!o&&se(s)&&!se(a))return u||(s.value=a),!0}const r=o?Number(t)<n.length:z(n,t),l=Reflect.set(n,t,a,se(n)?n:i);return n===L(i)&&l&&(r?Se(a,s)&&Le(n,"set",t,a):Le(n,"add",t,a)),l}deleteProperty(n,t){const a=z(n,t);n[t];const i=Reflect.deleteProperty(n,t);return i&&a&&Le(n,"delete",t,void 0),i}has(n,t){const a=Reflect.has(n,t);return(!Pe(t)||!ki.has(t))&&ie(n,"has",t),a}ownKeys(n){return ie(n,"iterate",S(n)?"length":mn),Reflect.ownKeys(n)}}class Rs extends Ci{constructor(n=!1){super(!0,n)}set(n,t){return!0}deleteProperty(n,t){return!0}}const Ps=new Bi,Ms=new Rs,Hs=new Bi(!0);const Qt=e=>e,et=e=>Reflect.getPrototypeOf(e);function Gs(e,n,t){return function(...a){const i=this.__v_raw,s=L(i),o=Xe(s),r=e==="entries"||e===Symbol.iterator&&o,l=e==="keys"&&o,u=i[e](...a),d=t?Qt:n?en:ye;return!n&&ie(s,"iterate",l?jt:mn),ne(Object.create(u),{next(){const{value:m,done:C}=u.next();return C?{value:m,done:C}:{value:r?[d(m[0]),d(m[1])]:d(m),done:C}}})}}function nt(e){return function(...n){return e==="delete"?!1:e==="clear"?void 0:this}}function Os(e,n){const t={get(i){const s=this.__v_raw,o=L(s),r=L(i);e||(Se(i,r)&&ie(o,"get",i),ie(o,"get",r));const{has:l}=et(o),u=n?Qt:e?en:ye;if(l.call(o,i))return u(s.get(i));if(l.call(o,r))return u(s.get(r));s!==o&&s.get(i)},get size(){const i=this.__v_raw;return!e&&ie(L(i),"iterate",mn),i.size},has(i){const s=this.__v_raw,o=L(s),r=L(i);return e||(Se(i,r)&&ie(o,"has",i),ie(o,"has",r)),i===r?s.has(i):s.has(i)||s.has(r)},forEach(i,s){const o=this,r=o.__v_raw,l=L(r),u=n?Qt:e?en:ye;return!e&&ie(l,"iterate",mn),r.forEach((d,m)=>i.call(s,u(d),u(m),o))}};return ne(t,e?{add:nt("add"),set:nt("set"),delete:nt("delete"),clear:nt("clear")}:{add(i){const s=L(this),o=et(s),r=L(i),l=!n&&!fe(i)&&!Ge(i)?r:i;return o.has.call(s,l)||Se(i,l)&&o.has.call(s,i)||Se(r,l)&&o.has.call(s,r)||(s.add(l),Le(s,"add",l,l)),this},set(i,s){!n&&!fe(s)&&!Ge(s)&&(s=L(s));const o=L(this),{has:r,get:l}=et(o);let u=r.call(o,i);u||(i=L(i),u=r.call(o,i));const d=l.call(o,i);return o.set(i,s),u?Se(s,d)&&Le(o,"set",i,s):Le(o,"add",i,s),this},delete(i){const s=L(this),{has:o,get:r}=et(s);let l=o.call(s,i);l||(i=L(i),l=o.call(s,i)),r&&r.call(s,i);const u=s.delete(i);return l&&Le(s,"delete",i,void 0),u},clear(){const i=L(this),s=i.size!==0,o=i.clear();return s&&Le(i,"clear",void 0,void 0),o}}),["keys","values","entries",Symbol.iterator].forEach(i=>{t[i]=Gs(i,e,n)}),t}function la(e,n){const t=Os(e,n);return(a,i,s)=>i==="__v_isReactive"?!e:i==="__v_isReadonly"?e:i==="__v_isShallow"?n:i==="__v_raw"?a:Reflect.get(z(t,i)&&i in a?t:a,i,s)}const Fs={get:la(!1,!1)},zs={get:la(!1,!0)},Ns={get:la(!0,!1)};const Ti=new WeakMap,Di=new WeakMap,xi=new WeakMap,Ls=new WeakMap;function js(e){switch(e){case"Object":case"Array":return 1;case"Map":case"Set":case"WeakMap":case"WeakSet":return 2;default:return 0}}function zn(e){return Ge(e)?e:ca(e,!1,Ps,Fs,Ti)}function Qs(e){return ca(e,!1,Hs,zs,Di)}function Ut(e){return ca(e,!0,Ms,Ns,xi)}function ca(e,n,t,a,i){if(!U(e)||e.__v_raw&&!(n&&e.__v_isReactive)||e.__v_skip||!Object.isExtensible(e))return e;const s=i.get(e);if(s)return s;const o=js(gs(e));if(o===0)return e;const r=new Proxy(e,o===2?a:t);return i.set(e,r),r}function Ze(e){return Ge(e)?Ze(e.__v_raw):!!(e&&e.__v_isReactive)}function Ge(e){return!!(e&&e.__v_isReadonly)}function fe(e){return!!(e&&e.__v_isShallow)}function ha(e){return e?!!e.__v_raw:!1}function L(e){const n=e&&e.__v_raw;return n?L(n):e}function Us(e){return!z(e,"__v_skip")&&Object.isExtensible(e)&&li(e,"__v_skip",!0),e}const ye=e=>U(e)?zn(e):e,en=e=>U(e)?Ut(e):e;function se(e){return e?e.__v_isRef===!0:!1}function Ye(e){return Vs(e,!1)}function Vs(e,n){return se(e)?e:new Js(e,n)}class Js{constructor(n,t){this.dep=new ra,this.__v_isRef=!0,this.__v_isShallow=!1,this._rawValue=t?n:L(n),this._value=t?n:ye(n),this.__v_isShallow=t}get value(){return this.dep.track(),this._value}set value(n){const t=this._rawValue,a=this.__v_isShallow||fe(n)||Ge(n);n=a?n:L(n),Se(n,t)&&(this._rawValue=n,this._value=a?n:ye(n),this.dep.trigger())}}function ln(e){return se(e)?e.value:e}const Ks={get:(e,n,t)=>n==="__v_raw"?e:ln(Reflect.get(e,n,t)),set:(e,n,t,a)=>{const i=e[n];return se(i)&&!se(t)?(i.value=t,!0):Reflect.set(e,n,t,a)}};function qi(e){return Ze(e)?e:new Proxy(e,Ks)}class Ys{constructor(n,t,a){this.fn=n,this.setter=t,this._value=void 0,this.dep=new ra(this),this.__v_isRef=!0,this.deps=void 0,this.depsTail=void 0,this.flags=16,this.globalVersion=On-1,this.next=void 0,this.effect=this,this.__v_isReadonly=!t,this.isSSR=a}notify(){if(this.flags|=16,!(this.flags&8)&&Y!==this)return gi(this,!0),!0}get value(){const n=this.dep.track();return wi(this),n&&(n.version=this.dep.version),this._value}set value(n){this.setter&&this.setter(n)}}function $s(e,n,t=!1){let a,i;return H(e)?a=e:(a=e.get,i=e.set),new Ys(a,i,t)}const tt={},ct=new WeakMap;let cn;function Xs(e,n=!1,t=cn){if(t){let a=ct.get(t);a||ct.set(t,a=[]),a.push(e)}}function Zs(e,n,t=J){const{immediate:a,deep:i,once:s,scheduler:o,augmentJob:r,call:l}=t,u=E=>i?E:fe(E)||i===!1||i===0?je(E,1):je(E);let d,m,C,x,B=!1,w=!1;if(se(e)?(m=()=>e.value,B=fe(e)):Ze(e)?(m=()=>u(e),B=!0):S(e)?(w=!0,B=e.some(E=>Ze(E)||fe(E)),m=()=>e.map(E=>{if(se(E))return E.value;if(Ze(E))return u(E);if(H(E))return l?l(E,2):E()})):H(e)?n?m=l?()=>l(e,2):e:m=()=>{if(C){Me();try{C()}finally{He()}}const E=cn;cn=d;try{return l?l(e,3,[x]):e(x)}finally{cn=E}}:m=Re,n&&i){const E=m,ee=i===!0?1/0:i;m=()=>je(E(),ee)}const D=qs(),_=()=>{d.stop(),D&&D.active&&ea(D.effects,d)};if(s&&n){const E=n;n=(...ee)=>{try{return E(...ee)}finally{_()}}}let O=w?new Array(e.length).fill(tt):tt;const j=E=>{if(!(!(d.flags&1)||!d.dirty&&!E))if(n){const ee=d.run();if(E||i||B||(w?ee.some((Ve,Te)=>Se(Ve,O[Te])):Se(ee,O))){const Ve=cn;Me();try{C&&C(),cn=d;const Te=[ee,O===tt?void 0:w&&O[0]===tt?[]:O,x];O=ee,l?l(n,3,Te):n(...Te)}finally{cn=Ve,He()}}}else d.run()};return r&&r(j),d=new pi(m),d.scheduler=o?()=>o(j,!1):j,x=E=>Xs(E,!1,d),C=d.onStop=()=>{const E=ct.get(d);if(E){if(l)l(E,4);else for(const ee of E)ee();ct.delete(d)}},n?a?j(!0):O=d.run():o?o(j.bind(null,!0),!0):d.run(),_.pause=d.pause.bind(d),_.resume=d.resume.bind(d),_.stop=_,_}function je(e,n=1/0,t){if(n<=0||!U(e)||e.__v_skip||(t=t||new Map,(t.get(e)||0)>=n))return e;if(t.set(e,n),n--,se(e))je(e.value,n,t);else if(S(e))for(let a=0;a<e.length;a++)je(e[a],n,t);else if(bn(e)||Xe(e))e.forEach(a=>{je(a,n,t)});else if(oi(e)){for(const a in e)je(e[a],n,t);for(const a of Object.getOwnPropertySymbols(e))Object.prototype.propertyIsEnumerable.call(e,a)&&je(e[a],n,t)}return e}/**
 * @vue/runtime-core v3.5.46
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
-**/function Vn(e,n,t,a){try{return a?e(...a):e()}catch(i){kt(i,n,t)}}function Ce(e,n,t,a){if(H(e)){const i=Vn(e,n,t,a);return i&&ii(i)&&i.catch(o=>{kt(o,n,t,void 0,!0)}),i}if(S(e)){const i=[];for(let o=0;o<e.length;o++)i.push(Ce(e[o],n,t,a));return i}}function kt(e,n,t,a=!0,i=!1){const o=n?n.vnode:null,{errorHandler:s,throwUnhandledErrorInProduction:r}=n&&n.appContext.config||J;if(n){let l=n.parent;const u=n.proxy,d=`https://vuejs.org/error-reference/#runtime-${t}`;for(;l;){const m=l.ec;if(m&&!l.isUnmounted&&(!i||l.scope.active)){for(let C=0;C<m.length;C++)if(m[C](e,u,d)===!1)return}l=l.parent}if(s){Me(),Vn(s,null,10,[e,u,d]),He();return}}ns(e,t,o,a,r)}function ns(e,n,t,a=!0,i=!1){if(i)throw e;console.error(e)}const ce=[];let ve=-1;const We=[];let Ke=null,yn=0;const Ii=Promise.resolve();let ht=null;function ts(e){const n=ht||Ii;return e?n.then(this?e.bind(this):e):n}function as(e){let n=ve+1,t=ce.length;for(;n<t;){const a=n+t>>>1,i=ce[a],o=Nn(i);o<e||o===e&&i.flags&2?n=a+1:t=a}return n}function da(e){if(!(e.flags&1)){const n=Nn(e),t=ce[ce.length-1];!t||!(e.flags&2)&&n>=Nn(t)?ce.push(e):ce.splice(as(n),0,e),e.flags|=1,Wi()}}function Wi(){ht||(ht=Ii.then(Ei))}function is(e){if(!S(e))Ke&&e.id===-1?Ke.splice(yn+1,0,e):e.flags&1||(We.push(e),e.flags|=1);else for(let n=0;n<e.length;n++)We.push(e[n]);Wi()}function _i(e,n,t,a=ve+1){for(;a<ce.length;a++){const i=ce[a];if(i&&i.flags&2){if(e&&i.id!==e.uid||n!==void 0&&!(i.id>=n))continue;ce.splice(a,1),a=e?a-1:ve,i.flags&4&&(i.flags&=-2),i(),i.flags&4||(i.flags&=-2)}}}function Si(e,n,t=0){if(We.length){let a=We,i=0;if(n){a=[];for(let s=0;s<We.length;s++){const r=We[s];(r.i!==void 0?!r.i||r.i.uid<t:n.has(r))?We[i++]=r:a.push(r)}}const o=[...new Set(a)].sort((s,r)=>Nn(s)-Nn(r));if(We.length=i,Ke){for(let s=0;s<o.length;s++)Ke.push(o[s]);return}for(Ke=o,yn=0;yn<Ke.length;yn++){const s=Ke[yn];s.flags&4&&(s.flags&=-2),s.flags&8||s(),s.flags&=-2}Ke=null,yn=0}}let Et=!1;function os(e,n){if(Et){e();return}const t=n===void 0?void 0:new Set(We);e(),Et=!0;try{_i(void 0,n),Si(void 0,t,n)}finally{Et=!1}}const Nn=e=>e.id==null?e.flags&2?-1:1/0:e.id;function Ei(e){try{for(ve=0;ve<ce.length;ve++){const n=ce[ve];n&&!(n.flags&8)&&(n.flags&4&&(n.flags&=-2),Vn(n,n.i,n.i?15:14),n.flags&4||(n.flags&=-2))}}finally{for(;ve<ce.length;ve++){const n=ce[ve];n&&(n.flags&=-2)}ve=-1,ce.length=0,Si(),ht=null,(ce.length||We.length)&&Ei()}}let ge=null,Ri=null;function dt(e){const n=ge;return ge=e,Ri=e&&e.type.__scopeId||null,n}function ss(e,n=ge,t){if(!n||e._n)return e;const a=(...i)=>{a._d&&Na(-1);const o=dt(n),s=gn.length;let r;try{r=e(...i)}finally{for(let l=gn.length;l>s;l--)ao();dt(o),a._d&&Na(1)}return r};return a._n=!0,a._c=!0,a._d=!0,a}function ua(e,n){if(ge===null)return e;const t=Dt(ge),a=e.dirs||(e.dirs=[]);for(let i=0;i<n.length;i++){let[o,s,r,l=J]=n[i];o&&(H(o)&&(o={mounted:o,updated:o}),o.deep&&je(s),a.push({dir:o,instance:t,value:s,oldValue:void 0,arg:r,modifiers:l}))}return e}function sn(e,n,t,a){let i=e;if(a==="beforeMount")e._mount=e;else if(a==="beforeUpdate"){const r=n&&n._mount;r&&(r._latest=e,e._mount=r)}else if(a==="mounted"){const r=e._latest;e._mount=e._latest=void 0,r&&(i=r,r._mount=void 0)}const o=i.dirs,s=n&&n.dirs;for(let r=0;r<o.length;r++){let l=o[r];s?l.oldValue=s[r].value:a==="mounted"&&l.oldValue!==void 0&&(l=ne({},l,{oldValue:void 0}));let u=l.dir[a];u&&(Me(),Ce(u,t,8,[e.el,l,i,n]),He())}}function rs(e,n){if(he){let t=he.provides;const a=he.parent&&he.parent.provides;a===t&&(t=he.provides=Object.create(a)),t[e]=n}}function st(e,n,t=!1){const a=sr();if(a||wn){let i=wn?wn._context.provides:a?a.parent==null||a.ce?a.vnode.appContext&&a.vnode.appContext.provides:a.parent.provides:void 0;if(i&&e in i)return i[e];if(arguments.length>1)return t&&H(n)?n.call(a&&a.proxy):n}}const ls=Symbol.for("v-scx"),cs=()=>st(ls);function Rt(e,n,t){return Pi(e,n,t)}function Pi(e,n,t=J){const{immediate:a,deep:i,flush:o,once:s}=t,r=ne({},t),l=n&&a||!n&&o!=="post";let u;if(Un){if(o==="sync"){const x=cs();u=x.__watcherHandles||(x.__watcherHandles=[])}else if(!l){const x=()=>{};return x.stop=Re,x.resume=Re,x.pause=Re,x}}const d=he;r.call=(x,B,w)=>Ce(x,d,B,w);let m=!1;o==="post"?r.scheduler=x=>{x.i=d,le(x,d&&d.suspense)}:o!=="sync"&&(m=!0,r.scheduler=(x,B)=>{B?x():da(x)}),r.augmentJob=x=>{n&&(x.flags|=4),m&&(x.flags|=2,d&&(x.id=d.uid,x.i=d))};const C=es(e,n,r);return Un&&(u?u.push(C):l&&C()),C}function hs(e,n,t){const a=this.proxy,i=X(e)?e.includes(".")?Mi(a,e):()=>a[e]:e.bind(a,a);let o;H(n)?o=n:(o=n.handler,t=n);const s=Jn(this),r=Pi(i,o.bind(a),t);return s(),r}function Mi(e,n){const t=n.split(".");return()=>{let a=e;for(let i=0;i<t.length&&a;i++)a=a[t[i]];return a}}const ds=Symbol("_vte"),Ct=e=>e.__isTeleport,Pt=Symbol("_leaveCb");function us(e){let n=e[0];if(e.length>1){for(const t of e)if(t.type!==Be){n=t;break}}return n}function Hi(e){if(!pa(e))return Ct(e.type)&&e.children?us(e.children):e;if(e.component)return e.component.subTree;const{shapeFlag:n,children:t}=e;if(t){if(n&16)return t[0];if(n&32&&H(t.default))return t.default()}}function Rn(e,n){if(e.shapeFlag&6&&e.component){e.transition=n;const t=e.component.subTree;Rn(Ct(t.type)&&Hi(t)||t,n)}else if(e.shapeFlag&128){const t=e.suspense;if(t){const a=t.isHydrating?t.pendingBranch:t.activeBranch;a&&Rn(a,n.clone(a))}else e.ssContent.transition=n.clone(e.ssContent),e.ssFallback.transition=n.clone(e.ssFallback)}else if(e.transition=n,e.type===N&&S(e.children)){const t=ji(e.children,!1);t&&Rn(t,n)}}function Vt(e){if(e.component)return Vt(e.component.subTree);if(e.type===N){const n=S(e.children)&&ji(e.children,!1);return n?Vt(n):void 0}if(e.type!==Be)return e}function Oi(e){e.ids=[e.ids[0]+e.ids[2]+++"-",0,0]}function Sa(e,n){let t;return!!((t=Object.getOwnPropertyDescriptor(e,n))&&!t.configurable)}const ut=new WeakMap;function Pn(e,n,t,a,i=!1){if(S(e)){e.forEach((w,D)=>Pn(w,n&&(S(n)?n[D]:n),t,a,i));return}if(Mn(a)&&!i){a.shapeFlag&512&&a.type.__asyncResolved&&a.component.subTree.component&&Pn(e,n,t,a.component.subTree);return}const o=a.shapeFlag&4?Dt(a.component):a.el,s=i?null:o,{i:r,r:l}=e,u=n&&n.r,d=r.refs===J?r.refs={}:r.refs,m=r.setupState,C=L(m),x=m===J?ai:w=>Sa(d,w)?!1:F(C,w),B=(w,D)=>!(D&&Sa(d,D));if(u!=null&&u!==l){if(Ea(n),X(u))d[u]=null,x(u)&&(m[u]=null);else if(oe(u)){const w=n;B(u,w.k)&&(u.value=null),w.k&&(d[w.k]=null)}}if(H(l))Vn(l,r,12,[s,d]);else{const w=X(l),D=oe(l);if(w||D){const _=()=>{if(e.f){const G=w?x(l)?m[l]:d[l]:B()||!e.k?l.value:d[e.k];if(i)S(G)&&ea(G,o);else if(S(G))G.includes(o)||G.push(o);else if(w)d[l]=[o],x(l)&&(m[l]=d[l]);else{const j=[o];B(l,e.k)&&(l.value=j),e.k&&(d[e.k]=j)}}else w?(d[l]=s,x(l)&&(m[l]=s)):D&&(B(l,e.k)&&(l.value=s),e.k&&(d[e.k]=s))};if(s){const G=()=>{_(),ut.delete(e)};G.id=-1,ut.set(e,G),le(G,t)}else Ea(e),_()}}}function Ea(e){const n=ut.get(e);n&&(n.flags|=8,ut.delete(e))}vt().requestIdleCallback;vt().cancelIdleCallback;const Mn=e=>!!e.type.__asyncLoader,pa=e=>e.type.__isKeepAlive;function ps(e,n){Gi(e,"a",n)}function ms(e,n){Gi(e,"da",n)}function Gi(e,n,t=he){const a=e.__wdc||(e.__wdc=()=>{let i=t;for(;i;){if(i.isDeactivated)return;i=i.parent}return e()});if(Ln(n,a,t),t){let i=t.parent;for(;i&&i.parent;)pa(i.parent.vnode)&&gs(a,n,t,i),i=i.parent}}function gs(e,n,t,a){const i=Ln(n,e,a,!0),o=Ln("um",()=>ea(a[n],i),t);o.flags=16}function Ln(e,n,t=he,a=!1){if(t){const i=t[e]||(t[e]=[]),o=n.__weh||(n.__weh=(...s)=>{Me();const r=Jn(t),l=Ce(n,t,e,s);return r(),He(),l});return a?i.unshift(o):i.push(o),o}}const Ue=e=>(n,t=he)=>{(!Un||e==="sp")&&Ln(e,(...a)=>n(...a),t)},fs=Ue("bm"),ys=Ue("m"),ws=Ue("bu"),bs=Ue("u"),vs=Ue("bum"),As=Ue("um"),ks=Ue("sp"),Cs=Ue("rtg"),Bs=Ue("rtc");function Ts(e,n=he){Ln("ec",e,n)}const Ds=Symbol.for("v-ndc");function Ee(e,n,t,a){let i;const o=t,s=S(e);if(s||X(e)){const r=s&&Ze(e);let l=!1,u=!1;r&&(l=!fe(e),u=Oe(e),e=At(e)),i=new Array(e.length);for(let d=0,m=e.length;d<m;d++)i[d]=n(l?u?en(ye(e[d])):ye(e[d]):e[d],d,void 0,o)}else if(typeof e=="number")if(!Number.isInteger(e)||e<0)i=[];else{i=new Array(e);for(let r=0;r<e;r++)i[r]=n(r+1,r,void 0,o)}else if(U(e))if(e[Symbol.iterator])i=Array.from(e,(r,l)=>n(r,l,void 0,o));else{const r=Object.keys(e);i=new Array(r.length);for(let l=0,u=r.length;l<u;l++){const d=r[l];i[l]=n(e[d],d,l,o)}}else i=[];return i}const Jt=e=>e?ro(e)?Dt(e):Jt(e.parent):null,Hn=ne(Object.create(null),{$:e=>e,$el:e=>e.vnode.el,$data:e=>e.data,$props:e=>e.props,$attrs:e=>e.attrs,$slots:e=>e.slots,$refs:e=>e.refs,$parent:e=>Jt(e.parent),$root:e=>Jt(e.root),$host:e=>e.ce,$emit:e=>e.emit,$options:e=>Fi(e),$forceUpdate:e=>e.f||(e.f=()=>{da(e.update)}),$nextTick:e=>e.n||(e.n=ts.bind(e.proxy)),$watch:e=>hs.bind(e)}),Mt=(e,n)=>e!==J&&!e.__isScriptSetup&&F(e,n),xs={get({_:e},n){if(n==="__v_skip")return!0;const{ctx:t,setupState:a,data:i,props:o,accessCache:s,type:r,appContext:l}=e;if(n[0]!=="$"){const C=s[n];if(C!==void 0)switch(C){case 1:return a[n];case 2:return i[n];case 4:return t[n];case 3:return o[n]}else{if(Mt(a,n))return s[n]=1,a[n];if(i!==J&&F(i,n))return s[n]=2,i[n];if(F(o,n))return s[n]=3,o[n];if(t!==J&&F(t,n))return s[n]=4,t[n];Kt&&(s[n]=0)}}const u=Hn[n];let d,m;if(u)return n==="$attrs"&&ie(e.attrs,"get",""),u(e);if((d=r.__cssModules)&&(d=d[n]))return d;if(t!==J&&F(t,n))return s[n]=4,t[n];if(m=l.config.globalProperties,F(m,n))return m[n]},set({_:e},n,t){const{data:a,setupState:i,ctx:o}=e;return Mt(i,n)?(i[n]=t,!0):a!==J&&F(a,n)?(a[n]=t,!0):F(e.props,n)||n[0]==="$"&&n.slice(1)in e?!1:(o[n]=t,!0)},has({_:{data:e,setupState:n,accessCache:t,ctx:a,appContext:i,props:o,type:s}},r){let l;return!!(t[r]||e!==J&&r[0]!=="$"&&F(e,r)||Mt(n,r)||F(o,r)||F(a,r)||F(Hn,r)||F(i.config.globalProperties,r)||(l=s.__cssModules)&&l[r])},defineProperty(e,n,t){return t.get!=null?e._.accessCache[n]=0:F(t,"value")&&this.set(e,n,t.value,null),Reflect.defineProperty(e,n,t)}};function Ra(e){return S(e)?e.reduce((n,t)=>(n[t]=null,n),{}):e}let Kt=!0;function qs(e){const n=Fi(e),t=e.proxy,a=e.ctx;Kt=!1,n.beforeCreate&&Pa(n.beforeCreate,e,"bc");const{data:i,computed:o,methods:s,watch:r,provide:l,inject:u,created:d,beforeMount:m,mounted:C,beforeUpdate:x,updated:B,activated:w,deactivated:D,beforeDestroy:_,beforeUnmount:G,destroyed:j,unmounted:E,render:ee,renderTracked:Ve,renderTriggered:Te,errorCaptured:Je,serverPrefetch:Kn,expose:tn,inheritAttrs:Cn,components:Yn,directives:$n,filters:xt}=n;if(u&&Is(u,a,null),s)for(const $ in s){const K=s[$];H(K)&&(a[$]=K.bind(t))}if(i){const $=i.call(t,t);U($)&&(e.data=Fn($))}if(Kt=!0,o)for(const $ in o){const K=o[$],an=H(K)?K.bind(t,t):H(K.get)?K.get.bind(t,t):Re,Xn=!H(K)&&H(K.set)?K.set.bind(t):Re,on=un({get:an,set:Xn});Object.defineProperty(a,$,{enumerable:!0,configurable:!0,get:()=>on.value,set:we=>on.value=we})}if(r)for(const $ in r)zi(r[$],a,t,$);if(l){const $=H(l)?l.call(t):l;Reflect.ownKeys($).forEach(K=>{rs(K,$[K])})}d&&Pa(d,e,"c");function se($,K){S(K)?K.forEach(an=>$(an.bind(t))):K&&$(K.bind(t))}if(se(fs,m),se(ys,C),se(ws,x),se(bs,B),se(ps,w),se(ms,D),se(Ts,Je),se(Bs,Ve),se(Cs,Te),se(vs,G),se(As,E),se(ks,Kn),S(tn))if(tn.length){const $=e.exposed||(e.exposed={});tn.forEach(K=>{Object.defineProperty($,K,{get:()=>t[K],set:an=>t[K]=an,enumerable:!0})})}else e.exposed||(e.exposed={});ee&&e.render===Re&&(e.render=ee),Cn!=null&&(e.inheritAttrs=Cn),Yn&&(e.components=Yn),$n&&(e.directives=$n),Kn&&Oi(e)}function Is(e,n,t=Re){S(e)&&(e=Yt(e));for(const a in e){const i=e[a];let o;U(i)?"default"in i?o=st(i.from||a,i.default,!0):o=st(i.from||a):o=st(i),oe(o)?Object.defineProperty(n,a,{enumerable:!0,configurable:!0,get:()=>o.value,set:s=>o.value=s}):n[a]=o}}function Pa(e,n,t){Ce(S(e)?e.map(a=>a.bind(n.proxy)):e.bind(n.proxy),n,t)}function zi(e,n,t,a){let i=a.includes(".")?Mi(t,a):()=>t[a];if(X(e)){const o=n[e];H(o)&&Rt(i,o)}else if(H(e))Rt(i,e.bind(t));else if(U(e))if(S(e))e.forEach(o=>zi(o,n,t,a));else{const o=H(e.handler)?e.handler.bind(t):n[e.handler];H(o)&&Rt(i,o,e)}}function Fi(e){const n=e.type,{mixins:t,extends:a}=n,{mixins:i,optionsCache:o,config:{optionMergeStrategies:s}}=e.appContext,r=o.get(n);let l;return r?l=r:!i.length&&!t&&!a?l=n:(l={},i.length&&i.forEach(u=>pt(l,u,s,!0)),pt(l,n,s)),U(n)&&o.set(n,l),l}function pt(e,n,t,a=!1){const{mixins:i,extends:o}=n;o&&pt(e,o,t,!0),i&&i.forEach(s=>pt(e,s,t,!0));for(const s in n)if(!(a&&s==="expose")){const r=Ws[s]||t&&t[s];e[s]=r?r(e[s],n[s]):n[s]}return e}const Ws={data:Ma,props:Ha,emits:Ha,methods:In,computed:In,beforeCreate:re,created:re,beforeMount:re,mounted:re,beforeUpdate:re,updated:re,beforeDestroy:re,beforeUnmount:re,destroyed:re,unmounted:re,activated:re,deactivated:re,errorCaptured:re,serverPrefetch:re,components:In,directives:In,watch:Ss,provide:Ma,inject:_s};function Ma(e,n){return n?e?function(){return ne(H(e)?e.call(this,this):e,H(n)?n.call(this,this):n)}:n:e}function _s(e,n){return In(Yt(e),Yt(n))}function Yt(e){if(S(e)){const n={};for(let t=0;t<e.length;t++)n[e[t]]=e[t];return n}return e}function re(e,n){return e?[...new Set([].concat(e,n))]:n}function In(e,n){return e?ne(Object.create(null),e,n):n}function Ha(e,n){return e?S(e)&&S(n)?[...new Set([...e,...n])]:ne(Object.create(null),Ra(e),Ra(n??{})):n}function Ss(e,n){if(!e)return n;if(!n)return e;const t=ne(Object.create(null),e);for(const a in n)t[a]=re(e[a],n[a]);return t}function Ni(){return{app:null,config:{isNativeTag:ai,performance:!1,globalProperties:{},optionMergeStrategies:{},errorHandler:void 0,warnHandler:void 0,compilerOptions:{}},mixins:[],components:{},directives:{},provides:Object.create(null),optionsCache:new WeakMap,propsCache:new WeakMap,emitsCache:new WeakMap}}let Es=0;function Rs(e,n){return function(a,i=null){H(a)||(a=ne({},a)),i!=null&&!U(i)&&(i=null);const o=Ni(),s=new WeakSet,r=[];let l=!1;const u=o.app={_uid:Es++,_component:a,_props:i,_container:null,_context:o,_instance:null,version:ur,get config(){return o.config},set config(d){},use(d,...m){return s.has(d)||(d&&H(d.install)?(s.add(d),d.install(u,...m)):H(d)&&(s.add(d),d(u,...m))),u},mixin(d){return o.mixins.includes(d)||o.mixins.push(d),u},component(d,m){return m?(o.components[d]=m,u):o.components[d]},directive(d,m){return m?(o.directives[d]=m,u):o.directives[d]},mount(d,m,C){if(!l){const x=u._ceVNode||Qe(a,i);return x.appContext=o,C===!0?C="svg":C===!1&&(C=void 0),e(x,d,C),l=!0,u._container=d,d.__vue_app__=u,Dt(x.component)}},onUnmount(d){r.push(d)},unmount(){l&&(Ce(r,u._instance,16),e(null,u._container),delete u._container.__vue_app__)},provide(d,m){return o.provides[d]=m,u},runWithContext(d){const m=wn;wn=u;try{return d()}finally{wn=m}}};return u}}let wn=null;const Ps=(e,n)=>n==="modelValue"||n==="model-value"?e.modelModifiers:e[`${n}Modifiers`]||e[`${Ae(n)}Modifiers`]||e[`${nn(n)}Modifiers`];function Ms(e,n,...t){if(e.isUnmounted)return;const a=e.vnode.props||J;let i=t;const o=n.startsWith("update:"),s=o&&Ps(a,n.slice(7));s&&(s.trim&&(i=t.map(d=>X(d)?d.trim():d)),s.number&&(i=i.map(ta)));let r,l=a[r=qt(n)]||a[r=qt(Ae(n))];!l&&o&&(l=a[r=qt(nn(n))]),l&&Ce(l,e,6,i);const u=a[r+"Once"];if(u){if(!e.emitted)e.emitted={};else if(e.emitted[r])return;e.emitted[r]=!0,Ce(u,e,6,i)}}const Hs=new WeakMap;function Li(e,n,t=!1){const a=t?Hs:n.emitsCache,i=a.get(e);if(i!==void 0)return i;const o=e.emits;let s={},r=!1;if(!H(e)){const l=u=>{const d=Li(u,n,!0);d&&(r=!0,ne(s,d))};!t&&n.mixins.length&&n.mixins.forEach(l),e.extends&&l(e.extends),e.mixins&&e.mixins.forEach(l)}return!o&&!r?(U(e)&&a.set(e,null),null):(S(o)?o.forEach(l=>s[l]=null):ne(s,o),U(e)&&a.set(e,s),s)}function Bt(e,n){return!e||!yt(n)?!1:(n=n.slice(2),n=n==="Once"?n:n.replace(/Once$/,""),F(e,n[0].toLowerCase()+n.slice(1))||F(e,nn(n))||F(e,n))}function Oa(e){const{type:n,vnode:t,proxy:a,withProxy:i,propsOptions:[o],slots:s,attrs:r,emit:l,render:u,renderCache:d,props:m,data:C,setupState:x,ctx:B,inheritAttrs:w}=e,D=dt(e);let _,G;try{if(t.shapeFlag&4){const E=i||a,ee=E;_=_e(u.call(ee,E,d,m,x,C,B)),G=r}else{const E=n;_=_e(E.length>1?E(m,{attrs:r,slots:s,emit:l}):E(m,null)),G=n.props?r:Os(r)}}catch(E){gn.length=0,kt(E,e,1),_=Qe(Be)}let j=_;if(G&&w!==!1){const E=Object.keys(G),{shapeFlag:ee}=j;E.length&&ee&7&&(o&&E.some(wt)&&(G=Gs(G,o)),j=vn(j,G,!1,!0))}if(t.dirs&&(j=vn(j,null,!1,!0),j.dirs=j.dirs?j.dirs.concat(t.dirs):t.dirs),t.transition){const E=Ct(j.type)&&Hi(j)||j;Rn(E,t.transition)}return _=j,dt(D),_}function ji(e,n=!0){let t;for(let a=0;a<e.length;a++){const i=e[a];if(fa(i)){if(i.type!==Be||i.children==="v-if"){if(t)return;t=i}}else return}return t}const Os=e=>{let n;for(const t in e)(t==="class"||t==="style"||yt(t))&&((n||(n={}))[t]=e[t]);return n},Gs=(e,n)=>{const t={};for(const a in e)(!wt(a)||!(a.slice(9)in n))&&(t[a]=e[a]);return t};function zs(e,n,t){const{props:a,children:i,component:o}=e,{props:s,children:r,patchFlag:l}=n,u=o.emitsOptions;if(n.dirs||n.transition)return!0;if(t&&l>=0){if(l&1024)return!0;if(l&16)return a?Ga(a,s,u):!!s;if(l&8){const d=n.dynamicProps;for(let m=0;m<d.length;m++){const C=d[m];if(Qi(s,a,C)&&!Bt(u,C))return!0}}}else return(i||r)&&(!r||!r.$stable)?!0:a===s?!1:a?s?Ga(a,s,u):!0:!!s;return!1}function Ga(e,n,t){const a=Object.keys(n);if(a.length!==Object.keys(e).length)return!0;for(let i=0;i<a.length;i++){const o=a[i];if(!F(e,o)||Qi(n,e,o)&&!Bt(t,o))return!0}return!1}function Qi(e,n,t){const a=e[t],i=n[t];return t==="style"&&U(a)&&U(i)?!kn(a,i):a!==i}function Fs({vnode:e,parent:n,suspense:t},a){for(;n;){const i=n.subTree;if(i.suspense&&i.suspense.activeBranch===e&&(i.suspense.vnode.el=i.el=a,e=i),i===e)(e=n.vnode).el=a,n=n.parent;else break}t&&t.activeBranch===e&&(t.vnode.el=a)}const Ui={},Vi=()=>Object.create(Ui),Ji=e=>Object.getPrototypeOf(e)===Ui;function Ns(e,n,t,a=!1){const i={},o=Vi();e.propsDefaults=Object.create(null),Ki(e,n,i,o);for(const s in e.propsOptions[0])s in i||(i[s]=void 0);t?e.props=a?i:Uo(i):e.type.props?e.props=i:e.props=o,e.attrs=o}function Ls(e,n,t,a){const{props:i,attrs:o,vnode:{patchFlag:s}}=e,r=L(i),[l]=e.propsOptions;let u=!1;if((a||s>0)&&!(s&16)){if(s&8){const d=e.vnode.dynamicProps;for(let m=0;m<d.length;m++){let C=d[m];if(Bt(e.emitsOptions,C))continue;const x=n[C];if(l)if(F(o,C))x!==o[C]&&(o[C]=x,u=!0);else{const B=Ae(C);i[B]=$t(l,r,B,x,e,!1)}else x!==o[C]&&(o[C]=x,u=!0)}}}else{Ki(e,n,i,o)&&(u=!0);let d;for(const m in r)(!n||!F(n,m)&&((d=nn(m))===m||!F(n,d)))&&(l?t&&(t[m]!==void 0||t[d]!==void 0)&&(i[m]=$t(l,r,m,void 0,e,!0)):delete i[m]);if(o!==r)for(const m in o)(!n||!F(n,m))&&(delete o[m],u=!0)}u&&Le(e.attrs,"set","")}function Ki(e,n,t,a){const[i,o]=e.propsOptions;let s=!1,r;if(n)for(let l in n){if(_n(l))continue;const u=n[l];let d;i&&F(i,d=Ae(l))?!o||!o.includes(d)?t[d]=u:(r||(r={}))[d]=u:Bt(e.emitsOptions,l)||(!(l in a)||u!==a[l])&&(a[l]=u,s=!0)}if(o){const l=L(t),u=r||J;for(let d=0;d<o.length;d++){const m=o[d];t[m]=$t(i,l,m,u[m],e,!F(u,m))}}return s}function $t(e,n,t,a,i,o){const s=e[t];if(s!=null){const r=F(s,"default");if(r&&a===void 0){const l=s.default;if(s.type!==Function&&!s.skipFactory&&H(l)){const{propsDefaults:u}=i;if(t in u)a=u[t];else{const d=Jn(i);a=u[t]=l.call(null,n),d()}}else a=l;i.ce&&i.ce._setProp(t,a)}s[0]&&(o&&!r?a=!1:s[1]&&(a===""||a===nn(t))&&(a=!0))}return a}const js=new WeakMap;function Yi(e,n,t=!1){const a=t?js:n.propsCache,i=a.get(e);if(i)return i;const o=e.props,s={},r=[];let l=!1;if(!H(e)){const d=m=>{l=!0;const[C,x]=Yi(m,n,!0);ne(s,C),x&&r.push(...x)};!t&&n.mixins.length&&n.mixins.forEach(d),e.extends&&d(e.extends),e.mixins&&e.mixins.forEach(d)}if(!o&&!l)return U(e)&&a.set(e,dn),dn;if(S(o))for(let d=0;d<o.length;d++){const m=Ae(o[d]);za(m)&&(s[m]=J)}else if(o)for(const d in o){const m=Ae(d);if(za(m)){const C=o[d],x=s[m]=S(C)||H(C)?{type:C}:ne({},C),B=x.type;let w=!1,D=!0;if(S(B))for(let _=0;_<B.length;++_){const G=B[_],j=H(G)&&G.name;if(j==="Boolean"){w=!0;break}else j==="String"&&(D=!1)}else w=H(B)&&B.name==="Boolean";x[0]=w,x[1]=D,(w||F(x,"default"))&&r.push(m)}}const u=[s,r];return U(e)&&a.set(e,u),u}function za(e){return e[0]!=="$"&&!_n(e)}const ma=e=>e==="_"||e==="_ctx"||e==="$stable",ga=e=>S(e)?e.map(_e):[_e(e)],Qs=(e,n,t)=>{if(n._n)return n;const a=ss((...i)=>ga(n(...i)),t);return a._c=!1,a},$i=(e,n,t)=>{const a=e._ctx;for(const i in e){if(ma(i))continue;const o=e[i];if(H(o))n[i]=Qs(i,o,a);else if(o!=null){const s=ga(o);n[i]=()=>s}}},Xi=(e,n)=>{const t=ga(n);e.slots.default=()=>t},Zi=(e,n,t)=>{for(const a in n)(t||!ma(a))&&(e[a]=n[a])},Us=(e,n,t)=>{const a=e.slots=Vi();if(e.vnode.shapeFlag&32){const i=n._;i?(Zi(a,n,t),t&&li(a,"_",i,!0)):$i(n,a)}else n&&Xi(e,n)},Vs=(e,n,t)=>{const{vnode:a,slots:i}=e;let o=!0,s=J;if(a.shapeFlag&32){const r=n._;r?t&&r===1?o=!1:Zi(i,n,t):(o=!n.$stable,$i(n,i)),s=n}else n&&(Xi(e,n),s={default:1});if(o)for(const r in i)!ma(r)&&s[r]==null&&delete i[r]},le=Zs;function Js(e){return Ks(e)}function Ks(e,n){const t=vt();t.__VUE__=!0;const{insert:a,remove:i,patchProp:o,createElement:s,createText:r,createComment:l,setText:u,setElementText:d,parentNode:m,nextSibling:C,setScopeId:x=Re,insertStaticContent:B}=e,w=(c,h,p,b=null,g=null,y=null,k=void 0,A=null,v=!!h.dynamicChildren)=>{if(c===h)return;c&&!xn(c,h)&&(b=Zn(c),we(c,g,y,!0),c=null),h.patchFlag===-2&&(v=!1,h.dynamicChildren=null),h.dynamicChildren&&c&&c.dynamicChildren&&c.dynamicChildren.hasOnce&&(h.dynamicChildren===dn&&(h.dynamicChildren=[]),h.dynamicChildren.hasOnce=!0);const{type:f,ref:I,shapeFlag:T}=h;switch(f){case Tt:D(c,h,p,b);break;case Be:_(c,h,p,b);break;case Ot:c==null&&G(h,p,b,k);break;case N:Yn(c,h,p,b,g,y,k,A,v);break;default:T&1?ee(c,h,p,b,g,y,k,A,v):T&6?$n(c,h,p,b,g,y,k,A,v):(T&64||T&128)&&f.process(c,h,p,b,g,y,k,A,v,Tn)}I!=null&&g?Pn(I,c&&c.ref,y,h||c,!h):I==null&&c&&c.ref!=null&&Pn(c.ref,null,y,c,!0)},D=(c,h,p,b)=>{if(c==null)a(h.el=r(h.children),p,b);else{const g=h.el=c.el;h.children!==c.children&&u(g,h.children)}},_=(c,h,p,b)=>{c==null?a(h.el=l(h.children||""),p,b):h.el=c.el},G=(c,h,p,b)=>{[c.el,c.anchor]=B(c.children,h,p,b,c.el,c.anchor)},j=({el:c,anchor:h},p,b)=>{let g;for(;c&&c!==h;)g=C(c),a(c,p,b),c=g;a(h,p,b)},E=({el:c,anchor:h})=>{let p;for(;c&&c!==h;)p=C(c),i(c),c=p;i(h)},ee=(c,h,p,b,g,y,k,A,v)=>{if(h.type==="svg"?k="svg":h.type==="math"&&(k="mathml"),c==null)Ve(h,p,b,g,y,k,A,v);else{const f=c.el&&c.el._isVueCE?c.el:null;try{f&&f._beginPatch(),Kn(c,h,g,y,k,A,v)}finally{f&&f._endPatch()}}},Ve=(c,h,p,b,g,y,k,A)=>{let v,f;const{props:I,shapeFlag:T,transition:W,dirs:R}=c;if(v=c.el=s(c.type,y,I&&I.is,I),T&8?d(v,c.children):T&16&&Je(c.children,v,null,b,g,Ht(c,y),k,A),R&&sn(c,null,b,"created"),Te(v,c,c.scopeId,k,b),I){for(const V in I)V!=="value"&&!_n(V)&&o(v,V,null,I[V],y,b);"value"in I&&o(v,"value",null,I.value,y),(f=I.onVnodeBeforeMount)&&qe(f,b,c)}R&&sn(c,null,b,"beforeMount");const z=Ys(g,W);z?W.beforeEnter(v):W&&!W.persisted&&(v[Xs]=!0),a(v,h,p),((f=I&&I.onVnodeMounted)||z||R)&&le(()=>{try{f&&qe(f,b,c),z&&W.enter(v),R&&sn(c,null,b,"mounted")}finally{}},g)},Te=(c,h,p,b,g)=>{if(p&&x(c,p),b)for(let y=0;y<b.length;y++)x(c,b[y]);if(g){let y=g.subTree;if(h===y||to(y.type)&&(y.ssContent===h||y.ssFallback===h)){const k=g.vnode;Te(c,k,k.scopeId,k.slotScopeIds,g.parent)}}},Je=(c,h,p,b,g,y,k,A,v=0)=>{for(let f=v;f<c.length;f++){const I=c[f]=A?Ne(c[f]):_e(c[f]);w(null,I,h,p,b,g,y,k,A)}},Kn=(c,h,p,b,g,y,k)=>{const A=h.el=c.el;let{patchFlag:v,dynamicChildren:f,dirs:I}=h;v|=c.patchFlag&16;const T=c.props||J,W=h.props||J;let R;if(p&&rn(p,!1),(R=W.onVnodeBeforeUpdate)&&qe(R,p,h,c),I&&sn(h,c,p,"beforeUpdate"),p&&rn(p,!0),f&&(!c.dynamicChildren||c.dynamicChildren.length!==f.length)&&(v=0,k=!1,f=null),(T.innerHTML&&W.innerHTML==null||T.textContent&&W.textContent==null)&&d(A,""),f?tn(c.dynamicChildren,f,A,p,b,Ht(h,g),y):k||K(c,h,A,null,p,b,Ht(h,g),y,!1),v>0){if(v&16)Cn(A,T,W,p,g);else if(v&2&&T.class!==W.class&&o(A,"class",null,W.class,g),v&4&&o(A,"style",T.style,W.style,g),v&8){const z=h.dynamicProps;for(let V=0;V<z.length;V++){const Q=z[V],Z=T[Q],te=W[Q];(te!==Z||Q==="value")&&o(A,Q,Z,te,g,p)}}v&1&&c.children!==h.children&&d(A,h.children)}else!k&&f==null&&Cn(A,T,W,p,g);((R=W.onVnodeUpdated)||I)&&le(()=>{R&&qe(R,p,h,c),I&&sn(h,c,p,"updated")},b)},tn=(c,h,p,b,g,y,k)=>{for(let A=0;A<h.length;A++){const v=c[A],f=h[A],I=v.el||On(v),T=I&&(v.type===N||!xn(v,f)||v.shapeFlag&198)?m(I):p;w(v,f,T,null,b,g,y,k,!0)}},Cn=(c,h,p,b,g)=>{if(h!==p){if(h!==J)for(const y in h)!_n(y)&&!(y in p)&&o(c,y,h[y],null,g,b);for(const y in p){if(_n(y))continue;const k=p[y],A=h[y];k!==A&&y!=="value"&&o(c,y,A,k,g,b)}"value"in p&&o(c,"value",h.value,p.value,g)}},Yn=(c,h,p,b,g,y,k,A,v)=>{const f=h.el=c?c.el:r(""),I=h.anchor=c?c.anchor:r("");let{patchFlag:T,dynamicChildren:W,slotScopeIds:R}=h;R&&(A=A?A.concat(R):R),c==null?(a(f,p,b),a(I,p,b),Je(h.children||[],p,I,g,y,k,A,v)):T>0&&T&64&&W&&c.dynamicChildren&&c.dynamicChildren.length===W.length?(tn(c.dynamicChildren,W,p,g,y,k,A),(h.key!=null||g&&h===g.subTree)&&eo(c,h,!0)):K(c,h,p,I,g,y,k,A,v)},$n=(c,h,p,b,g,y,k,A,v)=>{h.slotScopeIds=A,c==null?h.shapeFlag&512?g.ctx.activate(h,p,b,k,v):xt(h,p,b,g,y,k,v):ya(c,h,v)},xt=(c,h,p,b,g,y,k)=>{const A=c.component=or(c,b,g);if(pa(c)&&(A.ctx.renderer=Tn),rr(A,!1,k),A.asyncDep){if(g&&g.registerDep(A,se,k,y),!c.el){const v=A.subTree=Qe(Be);_(null,v,h,p),c.placeholder=v.el}}else se(A,c,h,p,g,y,k)},ya=(c,h,p)=>{const b=h.component=c.component;if(zs(c,h,p))if(b.asyncDep&&!b.asyncResolved){h.el=c.el,h.placeholder=c.placeholder,$(b,h,p);return}else b.next=h,b.update();else h.el=c.el,h.placeholder=c.placeholder,b.vnode=h},se=(c,h,p,b,g,y,k)=>{const A=()=>{if(c.isMounted){let{next:T,bu:W,u:R,parent:z,vnode:V}=c;{const De=no(c);if(De){T&&(T.el=V.el,$(c,T,k)),De.asyncDep.then(()=>{const Ge=()=>{c.job.flags&8||(g&&g.pendingBranch?le(Ge,g):f())};Ge.flags=48,le(Ge,g)});return}}let Q=T,Z;rn(c,!1),T?(T.el=V.el,$(c,T,k)):T=V,W&&ot(W),(Z=T.props&&T.props.onVnodeBeforeUpdate)&&qe(Z,z,T,V),rn(c,!0);const te=Oa(c),be=c.subTree;c.subTree=te,w(be,te,m(be.el||On(be)),Zn(be),c,g,y),T.el=te.el,Q===null&&Fs(c,te.el),R&&le(R,g),(Z=T.props&&T.props.onVnodeUpdated)&&le(()=>qe(Z,z,T,V),g)}else{let T;const{el:W,props:R}=h,{bm:z,m:V,parent:Q,root:Z,type:te}=c,be=Mn(h);rn(c,!1),z&&ot(z),!be&&(T=R&&R.onVnodeBeforeMount)&&qe(T,Q,h),rn(c,!0);{Z.ce&&Z.ce._hasShadowRoot()&&Z.ce._injectChildStyle(te,c.parent?c.parent.type:void 0);const De=c.subTree=Oa(c);w(null,De,p,b,c,g,y),h.el=De.el}if(V&&le(V,g),!be&&(T=R&&R.onVnodeMounted)){const De=h;le(()=>qe(T,Q,De),g)}(h.shapeFlag&256||Q&&Mn(Q.vnode)&&Q.vnode.shapeFlag&256)&&c.a&&le(c.a,g),c.isMounted=!0,h=p=b=null}};c.scope.on();const v=c.effect=new pi(A);c.scope.off();const f=c.update=v.run.bind(v),I=c.job=v.runIfDirty.bind(v);I.i=c,I.id=c.uid,v.scheduler=()=>da(I),rn(c,!0),f()},$=(c,h,p)=>{h.component=c;const b=c.vnode.props;c.vnode=h,c.next=null,Ls(c,h.props,b,p),Vs(c,h.children,p),Me(),_i(c),He()},K=(c,h,p,b,g,y,k,A,v=!1)=>{const f=c&&c.children,I=c?c.shapeFlag:0,T=h.children,{patchFlag:W,shapeFlag:R}=h;if(W>0){if(W&128){Xn(f,T,p,b,g,y,k,A,v);return}else if(W&256){an(f,T,p,b,g,y,k,A,v);return}}R&8?(I&16&&Bn(f,g,y),T!==f&&d(p,T)):I&16?R&16?Xn(f,T,p,b,g,y,k,A,v):Bn(f,g,y,!0):(I&8&&d(p,""),R&16&&Je(T,p,b,g,y,k,A,v))},an=(c,h,p,b,g,y,k,A,v)=>{c=c||dn,h=h||dn;const f=c.length,I=h.length,T=Math.min(f,I);let W;for(W=0;W<T;W++){const R=h[W]=v?Ne(h[W]):_e(h[W]);w(c[W],R,p,null,g,y,k,A,v)}f>I?Bn(c,g,y,!0,!1,T):Je(h,p,b,g,y,k,A,v,T)},Xn=(c,h,p,b,g,y,k,A,v)=>{let f=0;const I=h.length;let T=c.length-1,W=I-1;for(;f<=T&&f<=W;){const R=c[f],z=h[f]=v?Ne(h[f]):_e(h[f]);if(xn(R,z))w(R,z,p,null,g,y,k,A,v);else break;f++}for(;f<=T&&f<=W;){const R=c[T],z=h[W]=v?Ne(h[W]):_e(h[W]);if(xn(R,z))w(R,z,p,null,g,y,k,A,v);else break;T--,W--}if(f>T){if(f<=W){const R=W+1,z=R<I?h[R].el:b;for(;f<=W;)w(null,h[f]=v?Ne(h[f]):_e(h[f]),p,z,g,y,k,A,v),f++}}else if(f>W)for(;f<=T;)we(c[f],g,y,!0),f++;else{const R=f,z=f,V=new Map;for(f=z;f<=W;f++){const de=h[f]=v?Ne(h[f]):_e(h[f]);de.key!=null&&V.set(de.key,f)}let Q,Z=0;const te=W-z+1;let be=!1,De=0;const Ge=new Array(te);for(f=0;f<te;f++)Ge[f]=0;for(f=R;f<=T;f++){const de=c[f];if(Z>=te){we(de,g,y,!0);continue}let xe;if(de.key!=null)xe=V.get(de.key);else for(Q=z;Q<=W;Q++)if(Ge[Q-z]===0&&xn(de,h[Q])){xe=Q;break}xe===void 0?we(de,g,y,!0):(Ge[xe-z]=f+1,xe>=De?De=xe:be=!0,w(de,h[xe],p,null,g,y,k,A,v),Z++)}const Aa=be?$s(Ge):dn;for(Q=Aa.length-1,f=te-1;f>=0;f--){const de=z+f,xe=h[de],ka=h[de+1],Ca=de+1<I?ka.el||On(ka):b;Ge[f]===0?w(null,xe,p,Ca,g,y,k,A,v):be&&(Q<0||f!==Aa[Q]?on(xe,p,Ca,2):Q--)}}},on=(c,h,p,b,g=null)=>{const{el:y,type:k,transition:A,children:v,shapeFlag:f}=c;if(f&6){on(c.component.subTree,h,p,b);return}if(f&128){c.suspense.move(h,p,b);return}if(f&64){k.move(c,h,p,Tn);return}if(k===N){a(y,h,p);for(let T=0;T<v.length;T++)on(v[T],h,p,b);a(c.anchor,h,p);return}if(k===Ot){j(c,h,p);return}if(b!==2&&f&1&&A)if(b===0)A.persisted&&!y[Pt]?a(y,h,p):(A.beforeEnter(y),a(y,h,p),le(()=>A.enter(y),g));else{const{leave:T,delayLeave:W,afterLeave:R}=A,z=()=>{c.ctx.isUnmounted?i(y):a(y,h,p)},V=()=>{const Q=y._isLeaving||!!y[Pt];y._isLeaving&&y[Pt](!0),A.persisted&&!Q?z():T(y,()=>{z(),R&&R()})};W?W(y,z,V):V()}else a(y,h,p)},we=(c,h,p,b=!1,g=!1)=>{const{type:y,props:k,ref:A,children:v,dynamicChildren:f,shapeFlag:I,patchFlag:T,dirs:W,cacheIndex:R,memo:z}=c;if((T===-2||f&&f.hasOnce)&&(g=!1),A!=null&&(Me(),Pn(A,null,p,c,!0),He()),R!=null&&(!c.ctx||c.ctx===h)&&(h.renderCache[R]=void 0),I&256&&h.ctx.deactivate(c))return;const V=I&1&&W,Q=!Mn(c);let Z;if(Q&&(Z=k&&k.onVnodeBeforeUnmount)&&qe(Z,h,c),I&6)mo(c.component,p,b);else{if(I&128){c.suspense.unmount(p,b);return}V&&sn(c,null,h,"beforeUnmount"),I&64?c.type.remove(c,h,p,Tn,b):f&&!f.hasOnce&&(y!==N||T>0&&T&64)?Bn(f,h,p,!1,!0):(y===N&&T&384||!g&&I&16)&&Bn(v,h,p),b&&wa(c)}const te=z!=null&&R==null;(Q&&(Z=k&&k.onVnodeUnmounted)||V||te)&&le(()=>{Z&&qe(Z,h,c),V&&sn(c,null,h,"unmounted"),te&&(c.el=null)},p)},wa=c=>{const{type:h,el:p,anchor:b,transition:g}=c,y=h===N;if(y&&!g){ba(p,b);return}if(h===Ot){E(c),g&&!g.persisted&&g.afterLeave&&g.afterLeave();return}const k=y?Vt(c):c,A=()=>{y?m(p)&&ba(p,b):i(p),g&&!g.persisted&&g.afterLeave&&g.afterLeave()};if(k&&k.shapeFlag&1&&g&&!g.persisted){const{leave:v,delayLeave:f}=g,I=k.el,T=()=>v(I,A);f?f(I,A,T):T()}else A()},ba=(c,h)=>{let p;for(;c!==h;)p=C(c),i(c),c=p;i(h)},mo=(c,h,p)=>{const{bum:b,scope:g,job:y,subTree:k,um:A,m:v,a:f}=c;Fa(v),Fa(f),b&&ot(b),g.stop(),y?(y.flags|=8,we(k,c,h,p)):k&&(k.transition=c.vnode.transition,we(k,c,h,p)),A&&le(A,h);const I=()=>{c.isUnmounted=!0};I.flags=16,le(I,h)},Bn=(c,h,p,b=!1,g=!1,y=0)=>{for(let k=y;k<c.length;k++)we(c[k],h,p,b,g)},Zn=c=>{if(c.shapeFlag&6)return Zn(c.component.subTree);if(c.shapeFlag&128)return c.suspense.next();const h=C(c.anchor||c.el),p=h&&h[ds];return p?C(p):h},va=(c,h,p)=>{const b=c&&h._vnode?void 0:c&&c.component?c.component.uid:ir();os(()=>{c==null?h._vnode&&we(h._vnode,null,null,!0):w(h._vnode||null,c,h,null,null,null,p),h._vnode=c},b)},Tn={p:w,um:we,m:on,r:wa,mt:xt,mc:Je,pc:K,pbc:tn,n:Zn,o:e};return{render:va,hydrate:void 0,createApp:Rs(va)}}function Ht({type:e,props:n},t){return t==="svg"&&e==="foreignObject"||t==="mathml"&&e==="annotation-xml"&&n&&n.encoding&&n.encoding.includes("html")?void 0:t}function rn({effect:e,job:n},t){t?(e.flags|=32,n.flags|=4):(e.flags&=-33,n.flags&=-5)}function Ys(e,n){return(!e||e&&!e.pendingBranch)&&n&&!n.persisted}function eo(e,n,t=!1){const a=e.children,i=n.children;if(S(a)&&S(i))for(let o=0;o<a.length;o++){const s=a[o];let r=i[o];r.shapeFlag&1&&!r.dynamicChildren&&((r.patchFlag<=0||r.patchFlag===32)&&(r=i[o]=Ne(i[o]),r.el=s.el),!t&&r.patchFlag!==-2&&eo(s,r)),r.type===Tt&&(r.patchFlag===-1&&(r=i[o]=Ne(r)),r.el=s.el),r.type===Be&&!r.el&&(r.el=s.el)}}function $s(e){const n=e.slice(),t=[0];let a,i,o,s,r;const l=e.length;for(a=0;a<l;a++){const u=e[a];if(u!==0){if(i=t[t.length-1],e[i]<u){n[a]=i,t.push(a);continue}for(o=0,s=t.length-1;o<s;)r=o+s>>1,e[t[r]]<u?o=r+1:s=r;u<e[t[o]]&&(o>0&&(n[a]=t[o-1]),t[o]=a)}}for(o=t.length,s=t[o-1];o-- >0;)t[o]=s,s=n[s];return t}function no(e){const n=e.subTree.component;if(n)return n.asyncDep&&!n.asyncResolved?n:no(n)}function Fa(e){if(e)for(let n=0;n<e.length;n++)e[n].flags|=8}function On(e){if(e.placeholder)return e.placeholder;const n=e.component;if(n)return On(n.subTree);const t=e.suspense;return t&&t.activeBranch?On(t.activeBranch):null}const to=e=>e.__isSuspense,Xs=Symbol("_deferredEnter");function Zs(e,n){n&&n.pendingBranch?S(e)?n.effects.push(...e):n.effects.push(e):is(e)}const N=Symbol.for("v-fgt"),Tt=Symbol.for("v-txt"),Be=Symbol.for("v-cmt"),Ot=Symbol.for("v-stc"),gn=[];let pe=null;function P(e=!1){gn.push(pe=e?null:[])}function ao(){gn.pop(),pe=gn[gn.length-1]||null}let jn=1;function Na(e,n=!1){jn+=e,e<0&&pe&&n&&(pe.hasOnce=!0)}function io(e){return e.dynamicChildren=jn>0?pe||dn:null,ao(),jn>0&&pe&&pe.push(e),e}function M(e,n,t,a,i,o){return io(q(e,n,t,a,i,o,!0))}function rt(e,n,t,a,i){return io(Qe(e,n,t,a,i,!0))}function fa(e){return e?e.__v_isVNode===!0:!1}function xn(e,n){return e.type===n.type&&e.key===n.key}const oo=({key:e})=>e??null,lt=({ref:e,ref_key:n,ref_for:t})=>(typeof e=="number"&&(e=""+e),e!=null?X(e)||oe(e)||H(e)?{i:ge,r:e,k:n,f:!!t}:e:null);function q(e,n=null,t=null,a=0,i=null,o=e===N?0:1,s=!1,r=!1){const l={__v_isVNode:!0,__v_skip:!0,type:e,props:n,key:n&&oo(n),ref:n&&lt(n),scopeId:Ri,slotScopeIds:null,children:t,component:null,suspense:null,ssContent:null,ssFallback:null,dirs:null,transition:null,el:null,anchor:null,target:null,targetStart:null,targetAnchor:null,staticCount:0,shapeFlag:o,patchFlag:a,dynamicProps:i,dynamicChildren:null,appContext:null,ctx:ge};return r?(mt(l,t),o&128&&e.normalize(l)):t&&(l.shapeFlag|=X(t)?8:16),jn>0&&!s&&pe&&(l.patchFlag>0||o&6)&&l.patchFlag!==32&&pe.push(l),l}const Qe=er;function er(e,n=null,t=null,a=0,i=null,o=!1){if((!e||e===Ds)&&(e=Be),fa(e)){const r=vn(e,n,!0);return t&&mt(r,t),jn>0&&!o&&pe&&(r.shapeFlag&6?pe[pe.indexOf(e)]=r:pe.push(r)),r.patchFlag=-2,r}if(dr(e)&&(e=e.__vccOpts),n){n=nr(n);let{class:r,style:l}=n;r&&!X(r)&&(n.class=ue(r)),U(l)&&(ha(l)&&!S(l)&&(l=ne({},l)),n.style=aa(l))}const s=X(e)?1:to(e)?128:Ct(e)?64:U(e)?4:H(e)?2:0;return q(e,n,t,a,i,s,o,!0)}function nr(e){return e?ha(e)?ne({},e):Ji(e)?ne({},e[co]||e):e:null}function vn(e,n,t=!1,a=!1){const{props:i,ref:o,patchFlag:s,children:r,transition:l}=e,u=n?tr(i||{},n):i,d={__v_isVNode:!0,__v_skip:!0,type:e.type,props:u,key:u&&oo(u),ref:n&&n.ref?t&&o?S(o)?o.concat(lt(n)):[o,lt(n)]:lt(n):o,scopeId:e.scopeId,slotScopeIds:e.slotScopeIds,children:r,target:e.target,targetStart:e.targetStart,targetAnchor:e.targetAnchor,staticCount:e.staticCount,shapeFlag:e.shapeFlag,patchFlag:n&&e.type!==N?s===-1?16:s|16:s,dynamicProps:e.dynamicProps,dynamicChildren:e.dynamicChildren,appContext:e.appContext,dirs:e.dirs,transition:l,component:e.component,suspense:e.suspense,ssContent:e.ssContent&&vn(e.ssContent),ssFallback:e.ssFallback&&vn(e.ssFallback),placeholder:e.placeholder,el:e.el,anchor:e.anchor,ctx:e.ctx,ce:e.ce,cacheIndex:e.cacheIndex};return l&&a&&Rn(d,l.clone(d)),d}function $e(e=" ",n=0){return Qe(Tt,null,e,n)}function me(e="",n=!1){return n?(P(),rt(Be,null,e)):Qe(Be,null,e)}function _e(e){return e==null||typeof e=="boolean"?Qe(Be):S(e)?Qe(N,null,e.slice()):fa(e)?Ne(e):Qe(Tt,null,String(e))}function Ne(e){return e.el===null&&e.patchFlag!==-1||e.memo?e:vn(e)}function mt(e,n){let t=0;const{shapeFlag:a}=e;if(n==null)n=null;else if(S(n))t=16;else if(typeof n=="object")if(a&65){const i=n.default;i&&(i._c&&(i._d=!1),mt(e,i()),i._c&&(i._d=!0));return}else{t=32;const i=n._;!i&&!Ji(n)?n._ctx=ge:i===3&&ge&&(ge.slots._===1?n._=1:(n._=2,e.patchFlag|=1024))}else if(H(n)){if(a&65){mt(e,{default:n});return}n={default:n,_ctx:ge},t=32}else n=String(n),a&64?(t=16,n=[$e(n)]):t=8;e.children=n,e.shapeFlag|=t}function tr(...e){const n={};for(let t=0;t<e.length;t++){const a=e[t];for(const i in a)if(i==="class")n.class!==a.class&&(n.class=ue([n.class,a.class]));else if(i==="style")n.style=aa([n.style,a.style]);else if(yt(i)){const o=n[i],s=a[i];s&&o!==s&&!(S(o)&&o.includes(s))?n[i]=o?[].concat(o,s):s:s==null&&o==null&&!wt(i)&&(n[i]=s)}else i!==""&&(n[i]=a[i])}return n}function qe(e,n,t,a=null){Ce(e,n,7,[t,a])}const ar=Ni();let so=0;function ir(){return so}function or(e,n,t){const a=e.type,i=(n?n.appContext:e.appContext)||ar,o={uid:so++,vnode:e,type:a,parent:n,appContext:i,root:null,next:null,subTree:null,effect:null,update:null,job:null,scope:new qo(!0),render:null,proxy:null,exposed:null,exposeProxy:null,withProxy:null,provides:n?n.provides:Object.create(i.provides),ids:n?n.ids:["",0,0],accessCache:null,renderCache:[],components:null,directives:null,propsOptions:Yi(a,i),emitsOptions:Li(a,i),emit:null,emitted:null,propsDefaults:J,inheritAttrs:a.inheritAttrs,ctx:J,data:J,props:J,attrs:J,slots:J,refs:J,setupState:J,setupContext:null,suspense:t,suspenseId:t?t.pendingId:0,asyncDep:null,asyncResolved:!1,isMounted:!1,isUnmounted:!1,isDeactivated:!1,bc:null,c:null,bm:null,m:null,bu:null,u:null,um:null,bum:null,da:null,a:null,rtg:null,rtc:null,ec:null,sp:null};return o.ctx={_:o},o.root=n?n.root:o,o.emit=Ms.bind(null,o),e.ce&&e.ce(o),o}let he=null;const sr=()=>he||ge;let gt,Qn;{const e=vt(),n=(t,a)=>{let i;return(i=e[t])||(i=e[t]=[]),i.push(a),o=>{i.length>1?i.forEach(s=>s(o)):i[0](o)}};gt=n("__VUE_INSTANCE_SETTERS__",t=>he=t),Qn=n("__VUE_SSR_SETTERS__",t=>Un=t)}const Jn=e=>{const n=he;return gt(e),e.scope.on(),()=>{e.scope.off(),gt(n)}},La=()=>{he&&he.scope.off(),gt(null)};function ro(e){return e.vnode.shapeFlag&4}let Un=!1;function rr(e,n=!1,t=!1){n&&Qn(n);const{props:a,children:i}=e.vnode,o=ro(e);Ns(e,a,o,n),Us(e,i,t||n);const s=o?lr(e,n):void 0;return n&&Qn(!1),s}function lr(e,n){const t=e.type;e.accessCache=Object.create(null),e.proxy=new Proxy(e.ctx,xs);const{setup:a}=t;if(a){Me();const i=e.setupContext=a.length>1?hr(e):null,o=Jn(e),s=Vn(a,e,0,[e.props,i]),r=ii(s);if(He(),o(),(r||e.sp)&&!Mn(e)&&Oi(e),r){if(s.then(La,La),n)return s.then(l=>{Qn(!0);try{ja(e,l,n)}finally{Qn(!1)}}).catch(l=>{kt(l,e,0,void 0,!0),e.ssrRender=(u,d)=>d("<!---->")});e.asyncDep=s}else ja(e,s)}else lo(e)}function ja(e,n,t){H(n)?e.type.__ssrInlineRender?e.ssrRender=n:e.render=n:U(n)&&(e.setupState=qi(n)),lo(e)}function lo(e,n,t){const a=e.type;e.render||(e.render=a.render||Re);{const i=Jn(e);Me();try{qs(e)}finally{He(),i()}}}const co=Symbol(),cr={get(e,n){return ie(e,"get",""),n===co?e:e[n]}};function hr(e){const n=t=>{e.exposed=t||{}};return{attrs:new Proxy(e.attrs,cr),slots:e.slots,emit:e.emit,expose:n}}function Dt(e){return e.exposed?e.exposeProxy||(e.exposeProxy=new Proxy(qi(Vo(e.exposed)),{get(n,t){if(t in n)return n[t];if(t in Hn)return Hn[t](e)},has(n,t){return t in n||t in Hn}})):e.proxy}function dr(e){return H(e)&&"__vccOpts"in e}const un=(e,n)=>Xo(e,n,Un),ur="3.5.46";/**
+**/function Vn(e,n,t,a){try{return a?e(...a):e()}catch(i){kt(i,n,t)}}function Ce(e,n,t,a){if(H(e)){const i=Vn(e,n,t,a);return i&&ii(i)&&i.catch(s=>{kt(s,n,t,void 0,!0)}),i}if(S(e)){const i=[];for(let s=0;s<e.length;s++)i.push(Ce(e[s],n,t,a));return i}}function kt(e,n,t,a=!0,i=!1){const s=n?n.vnode:null,{errorHandler:o,throwUnhandledErrorInProduction:r}=n&&n.appContext.config||J;if(n){let l=n.parent;const u=n.proxy,d=`https://vuejs.org/error-reference/#runtime-${t}`;for(;l;){const m=l.ec;if(m&&!l.isUnmounted&&(!i||l.scope.active)){for(let C=0;C<m.length;C++)if(m[C](e,u,d)===!1)return}l=l.parent}if(o){Me(),Vn(o,null,10,[e,u,d]),He();return}}eo(e,t,s,a,r)}function eo(e,n,t,a=!0,i=!1){if(i)throw e;console.error(e)}const ce=[];let ve=-1;const We=[];let Ke=null,yn=0;const Ii=Promise.resolve();let ht=null;function no(e){const n=ht||Ii;return e?n.then(this?e.bind(this):e):n}function to(e){let n=ve+1,t=ce.length;for(;n<t;){const a=n+t>>>1,i=ce[a],s=Nn(i);s<e||s===e&&i.flags&2?n=a+1:t=a}return n}function da(e){if(!(e.flags&1)){const n=Nn(e),t=ce[ce.length-1];!t||!(e.flags&2)&&n>=Nn(t)?ce.push(e):ce.splice(to(n),0,e),e.flags|=1,Wi()}}function Wi(){ht||(ht=Ii.then(Ei))}function ao(e){if(!S(e))Ke&&e.id===-1?Ke.splice(yn+1,0,e):e.flags&1||(We.push(e),e.flags|=1);else for(let n=0;n<e.length;n++)We.push(e[n]);Wi()}function _i(e,n,t,a=ve+1){for(;a<ce.length;a++){const i=ce[a];if(i&&i.flags&2){if(e&&i.id!==e.uid||n!==void 0&&!(i.id>=n))continue;ce.splice(a,1),a=e?a-1:ve,i.flags&4&&(i.flags&=-2),i(),i.flags&4||(i.flags&=-2)}}}function Si(e,n,t=0){if(We.length){let a=We,i=0;if(n){a=[];for(let o=0;o<We.length;o++){const r=We[o];(r.i!==void 0?!r.i||r.i.uid<t:n.has(r))?We[i++]=r:a.push(r)}}const s=[...new Set(a)].sort((o,r)=>Nn(o)-Nn(r));if(We.length=i,Ke){for(let o=0;o<s.length;o++)Ke.push(s[o]);return}for(Ke=s,yn=0;yn<Ke.length;yn++){const o=Ke[yn];o.flags&4&&(o.flags&=-2),o.flags&8||o(),o.flags&=-2}Ke=null,yn=0}}let Et=!1;function io(e,n){if(Et){e();return}const t=n===void 0?void 0:new Set(We);e(),Et=!0;try{_i(void 0,n),Si(void 0,t,n)}finally{Et=!1}}const Nn=e=>e.id==null?e.flags&2?-1:1/0:e.id;function Ei(e){try{for(ve=0;ve<ce.length;ve++){const n=ce[ve];n&&!(n.flags&8)&&(n.flags&4&&(n.flags&=-2),Vn(n,n.i,n.i?15:14),n.flags&4||(n.flags&=-2))}}finally{for(;ve<ce.length;ve++){const n=ce[ve];n&&(n.flags&=-2)}ve=-1,ce.length=0,Si(),ht=null,(ce.length||We.length)&&Ei()}}let ge=null,Ri=null;function dt(e){const n=ge;return ge=e,Ri=e&&e.type.__scopeId||null,n}function so(e,n=ge,t){if(!n||e._n)return e;const a=(...i)=>{a._d&&Na(-1);const s=dt(n),o=gn.length;let r;try{r=e(...i)}finally{for(let l=gn.length;l>o;l--)as();dt(s),a._d&&Na(1)}return r};return a._n=!0,a._c=!0,a._d=!0,a}function ua(e,n){if(ge===null)return e;const t=Dt(ge),a=e.dirs||(e.dirs=[]);for(let i=0;i<n.length;i++){let[s,o,r,l=J]=n[i];s&&(H(s)&&(s={mounted:s,updated:s}),s.deep&&je(o),a.push({dir:s,instance:t,value:o,oldValue:void 0,arg:r,modifiers:l}))}return e}function on(e,n,t,a){let i=e;if(a==="beforeMount")e._mount=e;else if(a==="beforeUpdate"){const r=n&&n._mount;r&&(r._latest=e,e._mount=r)}else if(a==="mounted"){const r=e._latest;e._mount=e._latest=void 0,r&&(i=r,r._mount=void 0)}const s=i.dirs,o=n&&n.dirs;for(let r=0;r<s.length;r++){let l=s[r];o?l.oldValue=o[r].value:a==="mounted"&&l.oldValue!==void 0&&(l=ne({},l,{oldValue:void 0}));let u=l.dir[a];u&&(Me(),Ce(u,t,8,[e.el,l,i,n]),He())}}function oo(e,n){if(he){let t=he.provides;const a=he.parent&&he.parent.provides;a===t&&(t=he.provides=Object.create(a)),t[e]=n}}function ot(e,n,t=!1){const a=or();if(a||wn){let i=wn?wn._context.provides:a?a.parent==null||a.ce?a.vnode.appContext&&a.vnode.appContext.provides:a.parent.provides:void 0;if(i&&e in i)return i[e];if(arguments.length>1)return t&&H(n)?n.call(a&&a.proxy):n}}const ro=Symbol.for("v-scx"),lo=()=>ot(ro);function Rt(e,n,t){return Pi(e,n,t)}function Pi(e,n,t=J){const{immediate:a,deep:i,flush:s,once:o}=t,r=ne({},t),l=n&&a||!n&&s!=="post";let u;if(Un){if(s==="sync"){const x=lo();u=x.__watcherHandles||(x.__watcherHandles=[])}else if(!l){const x=()=>{};return x.stop=Re,x.resume=Re,x.pause=Re,x}}const d=he;r.call=(x,B,w)=>Ce(x,d,B,w);let m=!1;s==="post"?r.scheduler=x=>{x.i=d,le(x,d&&d.suspense)}:s!=="sync"&&(m=!0,r.scheduler=(x,B)=>{B?x():da(x)}),r.augmentJob=x=>{n&&(x.flags|=4),m&&(x.flags|=2,d&&(x.id=d.uid,x.i=d))};const C=Zs(e,n,r);return Un&&(u?u.push(C):l&&C()),C}function co(e,n,t){const a=this.proxy,i=X(e)?e.includes(".")?Mi(a,e):()=>a[e]:e.bind(a,a);let s;H(n)?s=n:(s=n.handler,t=n);const o=Jn(this),r=Pi(i,s.bind(a),t);return o(),r}function Mi(e,n){const t=n.split(".");return()=>{let a=e;for(let i=0;i<t.length&&a;i++)a=a[t[i]];return a}}const ho=Symbol("_vte"),Ct=e=>e.__isTeleport,Pt=Symbol("_leaveCb");function uo(e){let n=e[0];if(e.length>1){for(const t of e)if(t.type!==Be){n=t;break}}return n}function Hi(e){if(!pa(e))return Ct(e.type)&&e.children?uo(e.children):e;if(e.component)return e.component.subTree;const{shapeFlag:n,children:t}=e;if(t){if(n&16)return t[0];if(n&32&&H(t.default))return t.default()}}function Rn(e,n){if(e.shapeFlag&6&&e.component){e.transition=n;const t=e.component.subTree;Rn(Ct(t.type)&&Hi(t)||t,n)}else if(e.shapeFlag&128){const t=e.suspense;if(t){const a=t.isHydrating?t.pendingBranch:t.activeBranch;a&&Rn(a,n.clone(a))}else e.ssContent.transition=n.clone(e.ssContent),e.ssFallback.transition=n.clone(e.ssFallback)}else if(e.transition=n,e.type===N&&S(e.children)){const t=ji(e.children,!1);t&&Rn(t,n)}}function Vt(e){if(e.component)return Vt(e.component.subTree);if(e.type===N){const n=S(e.children)&&ji(e.children,!1);return n?Vt(n):void 0}if(e.type!==Be)return e}function Gi(e){e.ids=[e.ids[0]+e.ids[2]+++"-",0,0]}function Sa(e,n){let t;return!!((t=Object.getOwnPropertyDescriptor(e,n))&&!t.configurable)}const ut=new WeakMap;function Pn(e,n,t,a,i=!1){if(S(e)){e.forEach((w,D)=>Pn(w,n&&(S(n)?n[D]:n),t,a,i));return}if(Mn(a)&&!i){a.shapeFlag&512&&a.type.__asyncResolved&&a.component.subTree.component&&Pn(e,n,t,a.component.subTree);return}const s=a.shapeFlag&4?Dt(a.component):a.el,o=i?null:s,{i:r,r:l}=e,u=n&&n.r,d=r.refs===J?r.refs={}:r.refs,m=r.setupState,C=L(m),x=m===J?ai:w=>Sa(d,w)?!1:z(C,w),B=(w,D)=>!(D&&Sa(d,D));if(u!=null&&u!==l){if(Ea(n),X(u))d[u]=null,x(u)&&(m[u]=null);else if(se(u)){const w=n;B(u,w.k)&&(u.value=null),w.k&&(d[w.k]=null)}}if(H(l))Vn(l,r,12,[o,d]);else{const w=X(l),D=se(l);if(w||D){const _=()=>{if(e.f){const O=w?x(l)?m[l]:d[l]:B()||!e.k?l.value:d[e.k];if(i)S(O)&&ea(O,s);else if(S(O))O.includes(s)||O.push(s);else if(w)d[l]=[s],x(l)&&(m[l]=d[l]);else{const j=[s];B(l,e.k)&&(l.value=j),e.k&&(d[e.k]=j)}}else w?(d[l]=o,x(l)&&(m[l]=o)):D&&(B(l,e.k)&&(l.value=o),e.k&&(d[e.k]=o))};if(o){const O=()=>{_(),ut.delete(e)};O.id=-1,ut.set(e,O),le(O,t)}else Ea(e),_()}}}function Ea(e){const n=ut.get(e);n&&(n.flags|=8,ut.delete(e))}vt().requestIdleCallback;vt().cancelIdleCallback;const Mn=e=>!!e.type.__asyncLoader,pa=e=>e.type.__isKeepAlive;function po(e,n){Oi(e,"a",n)}function mo(e,n){Oi(e,"da",n)}function Oi(e,n,t=he){const a=e.__wdc||(e.__wdc=()=>{let i=t;for(;i;){if(i.isDeactivated)return;i=i.parent}return e()});if(Ln(n,a,t),t){let i=t.parent;for(;i&&i.parent;)pa(i.parent.vnode)&&go(a,n,t,i),i=i.parent}}function go(e,n,t,a){const i=Ln(n,e,a,!0),s=Ln("um",()=>ea(a[n],i),t);s.flags=16}function Ln(e,n,t=he,a=!1){if(t){const i=t[e]||(t[e]=[]),s=n.__weh||(n.__weh=(...o)=>{Me();const r=Jn(t),l=Ce(n,t,e,o);return r(),He(),l});return a?i.unshift(s):i.push(s),s}}const Ue=e=>(n,t=he)=>{(!Un||e==="sp")&&Ln(e,(...a)=>n(...a),t)},fo=Ue("bm"),yo=Ue("m"),wo=Ue("bu"),bo=Ue("u"),vo=Ue("bum"),Ao=Ue("um"),ko=Ue("sp"),Co=Ue("rtg"),Bo=Ue("rtc");function To(e,n=he){Ln("ec",e,n)}const Do=Symbol.for("v-ndc");function Ee(e,n,t,a){let i;const s=t,o=S(e);if(o||X(e)){const r=o&&Ze(e);let l=!1,u=!1;r&&(l=!fe(e),u=Ge(e),e=At(e)),i=new Array(e.length);for(let d=0,m=e.length;d<m;d++)i[d]=n(l?u?en(ye(e[d])):ye(e[d]):e[d],d,void 0,s)}else if(typeof e=="number")if(!Number.isInteger(e)||e<0)i=[];else{i=new Array(e);for(let r=0;r<e;r++)i[r]=n(r+1,r,void 0,s)}else if(U(e))if(e[Symbol.iterator])i=Array.from(e,(r,l)=>n(r,l,void 0,s));else{const r=Object.keys(e);i=new Array(r.length);for(let l=0,u=r.length;l<u;l++){const d=r[l];i[l]=n(e[d],d,l,s)}}else i=[];return i}const Jt=e=>e?rs(e)?Dt(e):Jt(e.parent):null,Hn=ne(Object.create(null),{$:e=>e,$el:e=>e.vnode.el,$data:e=>e.data,$props:e=>e.props,$attrs:e=>e.attrs,$slots:e=>e.slots,$refs:e=>e.refs,$parent:e=>Jt(e.parent),$root:e=>Jt(e.root),$host:e=>e.ce,$emit:e=>e.emit,$options:e=>zi(e),$forceUpdate:e=>e.f||(e.f=()=>{da(e.update)}),$nextTick:e=>e.n||(e.n=no.bind(e.proxy)),$watch:e=>co.bind(e)}),Mt=(e,n)=>e!==J&&!e.__isScriptSetup&&z(e,n),xo={get({_:e},n){if(n==="__v_skip")return!0;const{ctx:t,setupState:a,data:i,props:s,accessCache:o,type:r,appContext:l}=e;if(n[0]!=="$"){const C=o[n];if(C!==void 0)switch(C){case 1:return a[n];case 2:return i[n];case 4:return t[n];case 3:return s[n]}else{if(Mt(a,n))return o[n]=1,a[n];if(i!==J&&z(i,n))return o[n]=2,i[n];if(z(s,n))return o[n]=3,s[n];if(t!==J&&z(t,n))return o[n]=4,t[n];Kt&&(o[n]=0)}}const u=Hn[n];let d,m;if(u)return n==="$attrs"&&ie(e.attrs,"get",""),u(e);if((d=r.__cssModules)&&(d=d[n]))return d;if(t!==J&&z(t,n))return o[n]=4,t[n];if(m=l.config.globalProperties,z(m,n))return m[n]},set({_:e},n,t){const{data:a,setupState:i,ctx:s}=e;return Mt(i,n)?(i[n]=t,!0):a!==J&&z(a,n)?(a[n]=t,!0):z(e.props,n)||n[0]==="$"&&n.slice(1)in e?!1:(s[n]=t,!0)},has({_:{data:e,setupState:n,accessCache:t,ctx:a,appContext:i,props:s,type:o}},r){let l;return!!(t[r]||e!==J&&r[0]!=="$"&&z(e,r)||Mt(n,r)||z(s,r)||z(a,r)||z(Hn,r)||z(i.config.globalProperties,r)||(l=o.__cssModules)&&l[r])},defineProperty(e,n,t){return t.get!=null?e._.accessCache[n]=0:z(t,"value")&&this.set(e,n,t.value,null),Reflect.defineProperty(e,n,t)}};function Ra(e){return S(e)?e.reduce((n,t)=>(n[t]=null,n),{}):e}let Kt=!0;function qo(e){const n=zi(e),t=e.proxy,a=e.ctx;Kt=!1,n.beforeCreate&&Pa(n.beforeCreate,e,"bc");const{data:i,computed:s,methods:o,watch:r,provide:l,inject:u,created:d,beforeMount:m,mounted:C,beforeUpdate:x,updated:B,activated:w,deactivated:D,beforeDestroy:_,beforeUnmount:O,destroyed:j,unmounted:E,render:ee,renderTracked:Ve,renderTriggered:Te,errorCaptured:Je,serverPrefetch:Kn,expose:tn,inheritAttrs:Cn,components:Yn,directives:$n,filters:xt}=n;if(u&&Io(u,a,null),o)for(const $ in o){const K=o[$];H(K)&&(a[$]=K.bind(t))}if(i){const $=i.call(t,t);U($)&&(e.data=zn($))}if(Kt=!0,s)for(const $ in s){const K=s[$],an=H(K)?K.bind(t,t):H(K.get)?K.get.bind(t,t):Re,Xn=!H(K)&&H(K.set)?K.set.bind(t):Re,sn=un({get:an,set:Xn});Object.defineProperty(a,$,{enumerable:!0,configurable:!0,get:()=>sn.value,set:we=>sn.value=we})}if(r)for(const $ in r)Fi(r[$],a,t,$);if(l){const $=H(l)?l.call(t):l;Reflect.ownKeys($).forEach(K=>{oo(K,$[K])})}d&&Pa(d,e,"c");function oe($,K){S(K)?K.forEach(an=>$(an.bind(t))):K&&$(K.bind(t))}if(oe(fo,m),oe(yo,C),oe(wo,x),oe(bo,B),oe(po,w),oe(mo,D),oe(To,Je),oe(Bo,Ve),oe(Co,Te),oe(vo,O),oe(Ao,E),oe(ko,Kn),S(tn))if(tn.length){const $=e.exposed||(e.exposed={});tn.forEach(K=>{Object.defineProperty($,K,{get:()=>t[K],set:an=>t[K]=an,enumerable:!0})})}else e.exposed||(e.exposed={});ee&&e.render===Re&&(e.render=ee),Cn!=null&&(e.inheritAttrs=Cn),Yn&&(e.components=Yn),$n&&(e.directives=$n),Kn&&Gi(e)}function Io(e,n,t=Re){S(e)&&(e=Yt(e));for(const a in e){const i=e[a];let s;U(i)?"default"in i?s=ot(i.from||a,i.default,!0):s=ot(i.from||a):s=ot(i),se(s)?Object.defineProperty(n,a,{enumerable:!0,configurable:!0,get:()=>s.value,set:o=>s.value=o}):n[a]=s}}function Pa(e,n,t){Ce(S(e)?e.map(a=>a.bind(n.proxy)):e.bind(n.proxy),n,t)}function Fi(e,n,t,a){let i=a.includes(".")?Mi(t,a):()=>t[a];if(X(e)){const s=n[e];H(s)&&Rt(i,s)}else if(H(e))Rt(i,e.bind(t));else if(U(e))if(S(e))e.forEach(s=>Fi(s,n,t,a));else{const s=H(e.handler)?e.handler.bind(t):n[e.handler];H(s)&&Rt(i,s,e)}}function zi(e){const n=e.type,{mixins:t,extends:a}=n,{mixins:i,optionsCache:s,config:{optionMergeStrategies:o}}=e.appContext,r=s.get(n);let l;return r?l=r:!i.length&&!t&&!a?l=n:(l={},i.length&&i.forEach(u=>pt(l,u,o,!0)),pt(l,n,o)),U(n)&&s.set(n,l),l}function pt(e,n,t,a=!1){const{mixins:i,extends:s}=n;s&&pt(e,s,t,!0),i&&i.forEach(o=>pt(e,o,t,!0));for(const o in n)if(!(a&&o==="expose")){const r=Wo[o]||t&&t[o];e[o]=r?r(e[o],n[o]):n[o]}return e}const Wo={data:Ma,props:Ha,emits:Ha,methods:In,computed:In,beforeCreate:re,created:re,beforeMount:re,mounted:re,beforeUpdate:re,updated:re,beforeDestroy:re,beforeUnmount:re,destroyed:re,unmounted:re,activated:re,deactivated:re,errorCaptured:re,serverPrefetch:re,components:In,directives:In,watch:So,provide:Ma,inject:_o};function Ma(e,n){return n?e?function(){return ne(H(e)?e.call(this,this):e,H(n)?n.call(this,this):n)}:n:e}function _o(e,n){return In(Yt(e),Yt(n))}function Yt(e){if(S(e)){const n={};for(let t=0;t<e.length;t++)n[e[t]]=e[t];return n}return e}function re(e,n){return e?[...new Set([].concat(e,n))]:n}function In(e,n){return e?ne(Object.create(null),e,n):n}function Ha(e,n){return e?S(e)&&S(n)?[...new Set([...e,...n])]:ne(Object.create(null),Ra(e),Ra(n??{})):n}function So(e,n){if(!e)return n;if(!n)return e;const t=ne(Object.create(null),e);for(const a in n)t[a]=re(e[a],n[a]);return t}function Ni(){return{app:null,config:{isNativeTag:ai,performance:!1,globalProperties:{},optionMergeStrategies:{},errorHandler:void 0,warnHandler:void 0,compilerOptions:{}},mixins:[],components:{},directives:{},provides:Object.create(null),optionsCache:new WeakMap,propsCache:new WeakMap,emitsCache:new WeakMap}}let Eo=0;function Ro(e,n){return function(a,i=null){H(a)||(a=ne({},a)),i!=null&&!U(i)&&(i=null);const s=Ni(),o=new WeakSet,r=[];let l=!1;const u=s.app={_uid:Eo++,_component:a,_props:i,_container:null,_context:s,_instance:null,version:ur,get config(){return s.config},set config(d){},use(d,...m){return o.has(d)||(d&&H(d.install)?(o.add(d),d.install(u,...m)):H(d)&&(o.add(d),d(u,...m))),u},mixin(d){return s.mixins.includes(d)||s.mixins.push(d),u},component(d,m){return m?(s.components[d]=m,u):s.components[d]},directive(d,m){return m?(s.directives[d]=m,u):s.directives[d]},mount(d,m,C){if(!l){const x=u._ceVNode||Qe(a,i);return x.appContext=s,C===!0?C="svg":C===!1&&(C=void 0),e(x,d,C),l=!0,u._container=d,d.__vue_app__=u,Dt(x.component)}},onUnmount(d){r.push(d)},unmount(){l&&(Ce(r,u._instance,16),e(null,u._container),delete u._container.__vue_app__)},provide(d,m){return s.provides[d]=m,u},runWithContext(d){const m=wn;wn=u;try{return d()}finally{wn=m}}};return u}}let wn=null;const Po=(e,n)=>n==="modelValue"||n==="model-value"?e.modelModifiers:e[`${n}Modifiers`]||e[`${Ae(n)}Modifiers`]||e[`${nn(n)}Modifiers`];function Mo(e,n,...t){if(e.isUnmounted)return;const a=e.vnode.props||J;let i=t;const s=n.startsWith("update:"),o=s&&Po(a,n.slice(7));o&&(o.trim&&(i=t.map(d=>X(d)?d.trim():d)),o.number&&(i=i.map(ta)));let r,l=a[r=qt(n)]||a[r=qt(Ae(n))];!l&&s&&(l=a[r=qt(nn(n))]),l&&Ce(l,e,6,i);const u=a[r+"Once"];if(u){if(!e.emitted)e.emitted={};else if(e.emitted[r])return;e.emitted[r]=!0,Ce(u,e,6,i)}}const Ho=new WeakMap;function Li(e,n,t=!1){const a=t?Ho:n.emitsCache,i=a.get(e);if(i!==void 0)return i;const s=e.emits;let o={},r=!1;if(!H(e)){const l=u=>{const d=Li(u,n,!0);d&&(r=!0,ne(o,d))};!t&&n.mixins.length&&n.mixins.forEach(l),e.extends&&l(e.extends),e.mixins&&e.mixins.forEach(l)}return!s&&!r?(U(e)&&a.set(e,null),null):(S(s)?s.forEach(l=>o[l]=null):ne(o,s),U(e)&&a.set(e,o),o)}function Bt(e,n){return!e||!yt(n)?!1:(n=n.slice(2),n=n==="Once"?n:n.replace(/Once$/,""),z(e,n[0].toLowerCase()+n.slice(1))||z(e,nn(n))||z(e,n))}function Ga(e){const{type:n,vnode:t,proxy:a,withProxy:i,propsOptions:[s],slots:o,attrs:r,emit:l,render:u,renderCache:d,props:m,data:C,setupState:x,ctx:B,inheritAttrs:w}=e,D=dt(e);let _,O;try{if(t.shapeFlag&4){const E=i||a,ee=E;_=_e(u.call(ee,E,d,m,x,C,B)),O=r}else{const E=n;_=_e(E.length>1?E(m,{attrs:r,slots:o,emit:l}):E(m,null)),O=n.props?r:Go(r)}}catch(E){gn.length=0,kt(E,e,1),_=Qe(Be)}let j=_;if(O&&w!==!1){const E=Object.keys(O),{shapeFlag:ee}=j;E.length&&ee&7&&(s&&E.some(wt)&&(O=Oo(O,s)),j=vn(j,O,!1,!0))}if(t.dirs&&(j=vn(j,null,!1,!0),j.dirs=j.dirs?j.dirs.concat(t.dirs):t.dirs),t.transition){const E=Ct(j.type)&&Hi(j)||j;Rn(E,t.transition)}return _=j,dt(D),_}function ji(e,n=!0){let t;for(let a=0;a<e.length;a++){const i=e[a];if(fa(i)){if(i.type!==Be||i.children==="v-if"){if(t)return;t=i}}else return}return t}const Go=e=>{let n;for(const t in e)(t==="class"||t==="style"||yt(t))&&((n||(n={}))[t]=e[t]);return n},Oo=(e,n)=>{const t={};for(const a in e)(!wt(a)||!(a.slice(9)in n))&&(t[a]=e[a]);return t};function Fo(e,n,t){const{props:a,children:i,component:s}=e,{props:o,children:r,patchFlag:l}=n,u=s.emitsOptions;if(n.dirs||n.transition)return!0;if(t&&l>=0){if(l&1024)return!0;if(l&16)return a?Oa(a,o,u):!!o;if(l&8){const d=n.dynamicProps;for(let m=0;m<d.length;m++){const C=d[m];if(Qi(o,a,C)&&!Bt(u,C))return!0}}}else return(i||r)&&(!r||!r.$stable)?!0:a===o?!1:a?o?Oa(a,o,u):!0:!!o;return!1}function Oa(e,n,t){const a=Object.keys(n);if(a.length!==Object.keys(e).length)return!0;for(let i=0;i<a.length;i++){const s=a[i];if(!z(e,s)||Qi(n,e,s)&&!Bt(t,s))return!0}return!1}function Qi(e,n,t){const a=e[t],i=n[t];return t==="style"&&U(a)&&U(i)?!kn(a,i):a!==i}function zo({vnode:e,parent:n,suspense:t},a){for(;n;){const i=n.subTree;if(i.suspense&&i.suspense.activeBranch===e&&(i.suspense.vnode.el=i.el=a,e=i),i===e)(e=n.vnode).el=a,n=n.parent;else break}t&&t.activeBranch===e&&(t.vnode.el=a)}const Ui={},Vi=()=>Object.create(Ui),Ji=e=>Object.getPrototypeOf(e)===Ui;function No(e,n,t,a=!1){const i={},s=Vi();e.propsDefaults=Object.create(null),Ki(e,n,i,s);for(const o in e.propsOptions[0])o in i||(i[o]=void 0);t?e.props=a?i:Qs(i):e.type.props?e.props=i:e.props=s,e.attrs=s}function Lo(e,n,t,a){const{props:i,attrs:s,vnode:{patchFlag:o}}=e,r=L(i),[l]=e.propsOptions;let u=!1;if((a||o>0)&&!(o&16)){if(o&8){const d=e.vnode.dynamicProps;for(let m=0;m<d.length;m++){let C=d[m];if(Bt(e.emitsOptions,C))continue;const x=n[C];if(l)if(z(s,C))x!==s[C]&&(s[C]=x,u=!0);else{const B=Ae(C);i[B]=$t(l,r,B,x,e,!1)}else x!==s[C]&&(s[C]=x,u=!0)}}}else{Ki(e,n,i,s)&&(u=!0);let d;for(const m in r)(!n||!z(n,m)&&((d=nn(m))===m||!z(n,d)))&&(l?t&&(t[m]!==void 0||t[d]!==void 0)&&(i[m]=$t(l,r,m,void 0,e,!0)):delete i[m]);if(s!==r)for(const m in s)(!n||!z(n,m))&&(delete s[m],u=!0)}u&&Le(e.attrs,"set","")}function Ki(e,n,t,a){const[i,s]=e.propsOptions;let o=!1,r;if(n)for(let l in n){if(_n(l))continue;const u=n[l];let d;i&&z(i,d=Ae(l))?!s||!s.includes(d)?t[d]=u:(r||(r={}))[d]=u:Bt(e.emitsOptions,l)||(!(l in a)||u!==a[l])&&(a[l]=u,o=!0)}if(s){const l=L(t),u=r||J;for(let d=0;d<s.length;d++){const m=s[d];t[m]=$t(i,l,m,u[m],e,!z(u,m))}}return o}function $t(e,n,t,a,i,s){const o=e[t];if(o!=null){const r=z(o,"default");if(r&&a===void 0){const l=o.default;if(o.type!==Function&&!o.skipFactory&&H(l)){const{propsDefaults:u}=i;if(t in u)a=u[t];else{const d=Jn(i);a=u[t]=l.call(null,n),d()}}else a=l;i.ce&&i.ce._setProp(t,a)}o[0]&&(s&&!r?a=!1:o[1]&&(a===""||a===nn(t))&&(a=!0))}return a}const jo=new WeakMap;function Yi(e,n,t=!1){const a=t?jo:n.propsCache,i=a.get(e);if(i)return i;const s=e.props,o={},r=[];let l=!1;if(!H(e)){const d=m=>{l=!0;const[C,x]=Yi(m,n,!0);ne(o,C),x&&r.push(...x)};!t&&n.mixins.length&&n.mixins.forEach(d),e.extends&&d(e.extends),e.mixins&&e.mixins.forEach(d)}if(!s&&!l)return U(e)&&a.set(e,dn),dn;if(S(s))for(let d=0;d<s.length;d++){const m=Ae(s[d]);Fa(m)&&(o[m]=J)}else if(s)for(const d in s){const m=Ae(d);if(Fa(m)){const C=s[d],x=o[m]=S(C)||H(C)?{type:C}:ne({},C),B=x.type;let w=!1,D=!0;if(S(B))for(let _=0;_<B.length;++_){const O=B[_],j=H(O)&&O.name;if(j==="Boolean"){w=!0;break}else j==="String"&&(D=!1)}else w=H(B)&&B.name==="Boolean";x[0]=w,x[1]=D,(w||z(x,"default"))&&r.push(m)}}const u=[o,r];return U(e)&&a.set(e,u),u}function Fa(e){return e[0]!=="$"&&!_n(e)}const ma=e=>e==="_"||e==="_ctx"||e==="$stable",ga=e=>S(e)?e.map(_e):[_e(e)],Qo=(e,n,t)=>{if(n._n)return n;const a=so((...i)=>ga(n(...i)),t);return a._c=!1,a},$i=(e,n,t)=>{const a=e._ctx;for(const i in e){if(ma(i))continue;const s=e[i];if(H(s))n[i]=Qo(i,s,a);else if(s!=null){const o=ga(s);n[i]=()=>o}}},Xi=(e,n)=>{const t=ga(n);e.slots.default=()=>t},Zi=(e,n,t)=>{for(const a in n)(t||!ma(a))&&(e[a]=n[a])},Uo=(e,n,t)=>{const a=e.slots=Vi();if(e.vnode.shapeFlag&32){const i=n._;i?(Zi(a,n,t),t&&li(a,"_",i,!0)):$i(n,a)}else n&&Xi(e,n)},Vo=(e,n,t)=>{const{vnode:a,slots:i}=e;let s=!0,o=J;if(a.shapeFlag&32){const r=n._;r?t&&r===1?s=!1:Zi(i,n,t):(s=!n.$stable,$i(n,i)),o=n}else n&&(Xi(e,n),o={default:1});if(s)for(const r in i)!ma(r)&&o[r]==null&&delete i[r]},le=Zo;function Jo(e){return Ko(e)}function Ko(e,n){const t=vt();t.__VUE__=!0;const{insert:a,remove:i,patchProp:s,createElement:o,createText:r,createComment:l,setText:u,setElementText:d,parentNode:m,nextSibling:C,setScopeId:x=Re,insertStaticContent:B}=e,w=(c,h,p,b=null,g=null,y=null,k=void 0,A=null,v=!!h.dynamicChildren)=>{if(c===h)return;c&&!xn(c,h)&&(b=Zn(c),we(c,g,y,!0),c=null),h.patchFlag===-2&&(v=!1,h.dynamicChildren=null),h.dynamicChildren&&c&&c.dynamicChildren&&c.dynamicChildren.hasOnce&&(h.dynamicChildren===dn&&(h.dynamicChildren=[]),h.dynamicChildren.hasOnce=!0);const{type:f,ref:I,shapeFlag:T}=h;switch(f){case Tt:D(c,h,p,b);break;case Be:_(c,h,p,b);break;case Gt:c==null&&O(h,p,b,k);break;case N:Yn(c,h,p,b,g,y,k,A,v);break;default:T&1?ee(c,h,p,b,g,y,k,A,v):T&6?$n(c,h,p,b,g,y,k,A,v):(T&64||T&128)&&f.process(c,h,p,b,g,y,k,A,v,Tn)}I!=null&&g?Pn(I,c&&c.ref,y,h||c,!h):I==null&&c&&c.ref!=null&&Pn(c.ref,null,y,c,!0)},D=(c,h,p,b)=>{if(c==null)a(h.el=r(h.children),p,b);else{const g=h.el=c.el;h.children!==c.children&&u(g,h.children)}},_=(c,h,p,b)=>{c==null?a(h.el=l(h.children||""),p,b):h.el=c.el},O=(c,h,p,b)=>{[c.el,c.anchor]=B(c.children,h,p,b,c.el,c.anchor)},j=({el:c,anchor:h},p,b)=>{let g;for(;c&&c!==h;)g=C(c),a(c,p,b),c=g;a(h,p,b)},E=({el:c,anchor:h})=>{let p;for(;c&&c!==h;)p=C(c),i(c),c=p;i(h)},ee=(c,h,p,b,g,y,k,A,v)=>{if(h.type==="svg"?k="svg":h.type==="math"&&(k="mathml"),c==null)Ve(h,p,b,g,y,k,A,v);else{const f=c.el&&c.el._isVueCE?c.el:null;try{f&&f._beginPatch(),Kn(c,h,g,y,k,A,v)}finally{f&&f._endPatch()}}},Ve=(c,h,p,b,g,y,k,A)=>{let v,f;const{props:I,shapeFlag:T,transition:W,dirs:R}=c;if(v=c.el=o(c.type,y,I&&I.is,I),T&8?d(v,c.children):T&16&&Je(c.children,v,null,b,g,Ht(c,y),k,A),R&&on(c,null,b,"created"),Te(v,c,c.scopeId,k,b),I){for(const V in I)V!=="value"&&!_n(V)&&s(v,V,null,I[V],y,b);"value"in I&&s(v,"value",null,I.value,y),(f=I.onVnodeBeforeMount)&&qe(f,b,c)}R&&on(c,null,b,"beforeMount");const F=Yo(g,W);F?W.beforeEnter(v):W&&!W.persisted&&(v[Xo]=!0),a(v,h,p),((f=I&&I.onVnodeMounted)||F||R)&&le(()=>{try{f&&qe(f,b,c),F&&W.enter(v),R&&on(c,null,b,"mounted")}finally{}},g)},Te=(c,h,p,b,g)=>{if(p&&x(c,p),b)for(let y=0;y<b.length;y++)x(c,b[y]);if(g){let y=g.subTree;if(h===y||ts(y.type)&&(y.ssContent===h||y.ssFallback===h)){const k=g.vnode;Te(c,k,k.scopeId,k.slotScopeIds,g.parent)}}},Je=(c,h,p,b,g,y,k,A,v=0)=>{for(let f=v;f<c.length;f++){const I=c[f]=A?Ne(c[f]):_e(c[f]);w(null,I,h,p,b,g,y,k,A)}},Kn=(c,h,p,b,g,y,k)=>{const A=h.el=c.el;let{patchFlag:v,dynamicChildren:f,dirs:I}=h;v|=c.patchFlag&16;const T=c.props||J,W=h.props||J;let R;if(p&&rn(p,!1),(R=W.onVnodeBeforeUpdate)&&qe(R,p,h,c),I&&on(h,c,p,"beforeUpdate"),p&&rn(p,!0),f&&(!c.dynamicChildren||c.dynamicChildren.length!==f.length)&&(v=0,k=!1,f=null),(T.innerHTML&&W.innerHTML==null||T.textContent&&W.textContent==null)&&d(A,""),f?tn(c.dynamicChildren,f,A,p,b,Ht(h,g),y):k||K(c,h,A,null,p,b,Ht(h,g),y,!1),v>0){if(v&16)Cn(A,T,W,p,g);else if(v&2&&T.class!==W.class&&s(A,"class",null,W.class,g),v&4&&s(A,"style",T.style,W.style,g),v&8){const F=h.dynamicProps;for(let V=0;V<F.length;V++){const Q=F[V],Z=T[Q],te=W[Q];(te!==Z||Q==="value")&&s(A,Q,Z,te,g,p)}}v&1&&c.children!==h.children&&d(A,h.children)}else!k&&f==null&&Cn(A,T,W,p,g);((R=W.onVnodeUpdated)||I)&&le(()=>{R&&qe(R,p,h,c),I&&on(h,c,p,"updated")},b)},tn=(c,h,p,b,g,y,k)=>{for(let A=0;A<h.length;A++){const v=c[A],f=h[A],I=v.el||Gn(v),T=I&&(v.type===N||!xn(v,f)||v.shapeFlag&198)?m(I):p;w(v,f,T,null,b,g,y,k,!0)}},Cn=(c,h,p,b,g)=>{if(h!==p){if(h!==J)for(const y in h)!_n(y)&&!(y in p)&&s(c,y,h[y],null,g,b);for(const y in p){if(_n(y))continue;const k=p[y],A=h[y];k!==A&&y!=="value"&&s(c,y,A,k,g,b)}"value"in p&&s(c,"value",h.value,p.value,g)}},Yn=(c,h,p,b,g,y,k,A,v)=>{const f=h.el=c?c.el:r(""),I=h.anchor=c?c.anchor:r("");let{patchFlag:T,dynamicChildren:W,slotScopeIds:R}=h;R&&(A=A?A.concat(R):R),c==null?(a(f,p,b),a(I,p,b),Je(h.children||[],p,I,g,y,k,A,v)):T>0&&T&64&&W&&c.dynamicChildren&&c.dynamicChildren.length===W.length?(tn(c.dynamicChildren,W,p,g,y,k,A),(h.key!=null||g&&h===g.subTree)&&es(c,h,!0)):K(c,h,p,I,g,y,k,A,v)},$n=(c,h,p,b,g,y,k,A,v)=>{h.slotScopeIds=A,c==null?h.shapeFlag&512?g.ctx.activate(h,p,b,k,v):xt(h,p,b,g,y,k,v):ya(c,h,v)},xt=(c,h,p,b,g,y,k)=>{const A=c.component=sr(c,b,g);if(pa(c)&&(A.ctx.renderer=Tn),rr(A,!1,k),A.asyncDep){if(g&&g.registerDep(A,oe,k,y),!c.el){const v=A.subTree=Qe(Be);_(null,v,h,p),c.placeholder=v.el}}else oe(A,c,h,p,g,y,k)},ya=(c,h,p)=>{const b=h.component=c.component;if(Fo(c,h,p))if(b.asyncDep&&!b.asyncResolved){h.el=c.el,h.placeholder=c.placeholder,$(b,h,p);return}else b.next=h,b.update();else h.el=c.el,h.placeholder=c.placeholder,b.vnode=h},oe=(c,h,p,b,g,y,k)=>{const A=()=>{if(c.isMounted){let{next:T,bu:W,u:R,parent:F,vnode:V}=c;{const De=ns(c);if(De){T&&(T.el=V.el,$(c,T,k)),De.asyncDep.then(()=>{const Oe=()=>{c.job.flags&8||(g&&g.pendingBranch?le(Oe,g):f())};Oe.flags=48,le(Oe,g)});return}}let Q=T,Z;rn(c,!1),T?(T.el=V.el,$(c,T,k)):T=V,W&&st(W),(Z=T.props&&T.props.onVnodeBeforeUpdate)&&qe(Z,F,T,V),rn(c,!0);const te=Ga(c),be=c.subTree;c.subTree=te,w(be,te,m(be.el||Gn(be)),Zn(be),c,g,y),T.el=te.el,Q===null&&zo(c,te.el),R&&le(R,g),(Z=T.props&&T.props.onVnodeUpdated)&&le(()=>qe(Z,F,T,V),g)}else{let T;const{el:W,props:R}=h,{bm:F,m:V,parent:Q,root:Z,type:te}=c,be=Mn(h);rn(c,!1),F&&st(F),!be&&(T=R&&R.onVnodeBeforeMount)&&qe(T,Q,h),rn(c,!0);{Z.ce&&Z.ce._hasShadowRoot()&&Z.ce._injectChildStyle(te,c.parent?c.parent.type:void 0);const De=c.subTree=Ga(c);w(null,De,p,b,c,g,y),h.el=De.el}if(V&&le(V,g),!be&&(T=R&&R.onVnodeMounted)){const De=h;le(()=>qe(T,Q,De),g)}(h.shapeFlag&256||Q&&Mn(Q.vnode)&&Q.vnode.shapeFlag&256)&&c.a&&le(c.a,g),c.isMounted=!0,h=p=b=null}};c.scope.on();const v=c.effect=new pi(A);c.scope.off();const f=c.update=v.run.bind(v),I=c.job=v.runIfDirty.bind(v);I.i=c,I.id=c.uid,v.scheduler=()=>da(I),rn(c,!0),f()},$=(c,h,p)=>{h.component=c;const b=c.vnode.props;c.vnode=h,c.next=null,Lo(c,h.props,b,p),Vo(c,h.children,p),Me(),_i(c),He()},K=(c,h,p,b,g,y,k,A,v=!1)=>{const f=c&&c.children,I=c?c.shapeFlag:0,T=h.children,{patchFlag:W,shapeFlag:R}=h;if(W>0){if(W&128){Xn(f,T,p,b,g,y,k,A,v);return}else if(W&256){an(f,T,p,b,g,y,k,A,v);return}}R&8?(I&16&&Bn(f,g,y),T!==f&&d(p,T)):I&16?R&16?Xn(f,T,p,b,g,y,k,A,v):Bn(f,g,y,!0):(I&8&&d(p,""),R&16&&Je(T,p,b,g,y,k,A,v))},an=(c,h,p,b,g,y,k,A,v)=>{c=c||dn,h=h||dn;const f=c.length,I=h.length,T=Math.min(f,I);let W;for(W=0;W<T;W++){const R=h[W]=v?Ne(h[W]):_e(h[W]);w(c[W],R,p,null,g,y,k,A,v)}f>I?Bn(c,g,y,!0,!1,T):Je(h,p,b,g,y,k,A,v,T)},Xn=(c,h,p,b,g,y,k,A,v)=>{let f=0;const I=h.length;let T=c.length-1,W=I-1;for(;f<=T&&f<=W;){const R=c[f],F=h[f]=v?Ne(h[f]):_e(h[f]);if(xn(R,F))w(R,F,p,null,g,y,k,A,v);else break;f++}for(;f<=T&&f<=W;){const R=c[T],F=h[W]=v?Ne(h[W]):_e(h[W]);if(xn(R,F))w(R,F,p,null,g,y,k,A,v);else break;T--,W--}if(f>T){if(f<=W){const R=W+1,F=R<I?h[R].el:b;for(;f<=W;)w(null,h[f]=v?Ne(h[f]):_e(h[f]),p,F,g,y,k,A,v),f++}}else if(f>W)for(;f<=T;)we(c[f],g,y,!0),f++;else{const R=f,F=f,V=new Map;for(f=F;f<=W;f++){const de=h[f]=v?Ne(h[f]):_e(h[f]);de.key!=null&&V.set(de.key,f)}let Q,Z=0;const te=W-F+1;let be=!1,De=0;const Oe=new Array(te);for(f=0;f<te;f++)Oe[f]=0;for(f=R;f<=T;f++){const de=c[f];if(Z>=te){we(de,g,y,!0);continue}let xe;if(de.key!=null)xe=V.get(de.key);else for(Q=F;Q<=W;Q++)if(Oe[Q-F]===0&&xn(de,h[Q])){xe=Q;break}xe===void 0?we(de,g,y,!0):(Oe[xe-F]=f+1,xe>=De?De=xe:be=!0,w(de,h[xe],p,null,g,y,k,A,v),Z++)}const Aa=be?$o(Oe):dn;for(Q=Aa.length-1,f=te-1;f>=0;f--){const de=F+f,xe=h[de],ka=h[de+1],Ca=de+1<I?ka.el||Gn(ka):b;Oe[f]===0?w(null,xe,p,Ca,g,y,k,A,v):be&&(Q<0||f!==Aa[Q]?sn(xe,p,Ca,2):Q--)}}},sn=(c,h,p,b,g=null)=>{const{el:y,type:k,transition:A,children:v,shapeFlag:f}=c;if(f&6){sn(c.component.subTree,h,p,b);return}if(f&128){c.suspense.move(h,p,b);return}if(f&64){k.move(c,h,p,Tn);return}if(k===N){a(y,h,p);for(let T=0;T<v.length;T++)sn(v[T],h,p,b);a(c.anchor,h,p);return}if(k===Gt){j(c,h,p);return}if(b!==2&&f&1&&A)if(b===0)A.persisted&&!y[Pt]?a(y,h,p):(A.beforeEnter(y),a(y,h,p),le(()=>A.enter(y),g));else{const{leave:T,delayLeave:W,afterLeave:R}=A,F=()=>{c.ctx.isUnmounted?i(y):a(y,h,p)},V=()=>{const Q=y._isLeaving||!!y[Pt];y._isLeaving&&y[Pt](!0),A.persisted&&!Q?F():T(y,()=>{F(),R&&R()})};W?W(y,F,V):V()}else a(y,h,p)},we=(c,h,p,b=!1,g=!1)=>{const{type:y,props:k,ref:A,children:v,dynamicChildren:f,shapeFlag:I,patchFlag:T,dirs:W,cacheIndex:R,memo:F}=c;if((T===-2||f&&f.hasOnce)&&(g=!1),A!=null&&(Me(),Pn(A,null,p,c,!0),He()),R!=null&&(!c.ctx||c.ctx===h)&&(h.renderCache[R]=void 0),I&256&&h.ctx.deactivate(c))return;const V=I&1&&W,Q=!Mn(c);let Z;if(Q&&(Z=k&&k.onVnodeBeforeUnmount)&&qe(Z,h,c),I&6)ps(c.component,p,b);else{if(I&128){c.suspense.unmount(p,b);return}V&&on(c,null,h,"beforeUnmount"),I&64?c.type.remove(c,h,p,Tn,b):f&&!f.hasOnce&&(y!==N||T>0&&T&64)?Bn(f,h,p,!1,!0):(y===N&&T&384||!g&&I&16)&&Bn(v,h,p),b&&wa(c)}const te=F!=null&&R==null;(Q&&(Z=k&&k.onVnodeUnmounted)||V||te)&&le(()=>{Z&&qe(Z,h,c),V&&on(c,null,h,"unmounted"),te&&(c.el=null)},p)},wa=c=>{const{type:h,el:p,anchor:b,transition:g}=c,y=h===N;if(y&&!g){ba(p,b);return}if(h===Gt){E(c),g&&!g.persisted&&g.afterLeave&&g.afterLeave();return}const k=y?Vt(c):c,A=()=>{y?m(p)&&ba(p,b):i(p),g&&!g.persisted&&g.afterLeave&&g.afterLeave()};if(k&&k.shapeFlag&1&&g&&!g.persisted){const{leave:v,delayLeave:f}=g,I=k.el,T=()=>v(I,A);f?f(I,A,T):T()}else A()},ba=(c,h)=>{let p;for(;c!==h;)p=C(c),i(c),c=p;i(h)},ps=(c,h,p)=>{const{bum:b,scope:g,job:y,subTree:k,um:A,m:v,a:f}=c;za(v),za(f),b&&st(b),g.stop(),y?(y.flags|=8,we(k,c,h,p)):k&&(k.transition=c.vnode.transition,we(k,c,h,p)),A&&le(A,h);const I=()=>{c.isUnmounted=!0};I.flags=16,le(I,h)},Bn=(c,h,p,b=!1,g=!1,y=0)=>{for(let k=y;k<c.length;k++)we(c[k],h,p,b,g)},Zn=c=>{if(c.shapeFlag&6)return Zn(c.component.subTree);if(c.shapeFlag&128)return c.suspense.next();const h=C(c.anchor||c.el),p=h&&h[ho];return p?C(p):h},va=(c,h,p)=>{const b=c&&h._vnode?void 0:c&&c.component?c.component.uid:ir();io(()=>{c==null?h._vnode&&we(h._vnode,null,null,!0):w(h._vnode||null,c,h,null,null,null,p),h._vnode=c},b)},Tn={p:w,um:we,m:sn,r:wa,mt:xt,mc:Je,pc:K,pbc:tn,n:Zn,o:e};return{render:va,hydrate:void 0,createApp:Ro(va)}}function Ht({type:e,props:n},t){return t==="svg"&&e==="foreignObject"||t==="mathml"&&e==="annotation-xml"&&n&&n.encoding&&n.encoding.includes("html")?void 0:t}function rn({effect:e,job:n},t){t?(e.flags|=32,n.flags|=4):(e.flags&=-33,n.flags&=-5)}function Yo(e,n){return(!e||e&&!e.pendingBranch)&&n&&!n.persisted}function es(e,n,t=!1){const a=e.children,i=n.children;if(S(a)&&S(i))for(let s=0;s<a.length;s++){const o=a[s];let r=i[s];r.shapeFlag&1&&!r.dynamicChildren&&((r.patchFlag<=0||r.patchFlag===32)&&(r=i[s]=Ne(i[s]),r.el=o.el),!t&&r.patchFlag!==-2&&es(o,r)),r.type===Tt&&(r.patchFlag===-1&&(r=i[s]=Ne(r)),r.el=o.el),r.type===Be&&!r.el&&(r.el=o.el)}}function $o(e){const n=e.slice(),t=[0];let a,i,s,o,r;const l=e.length;for(a=0;a<l;a++){const u=e[a];if(u!==0){if(i=t[t.length-1],e[i]<u){n[a]=i,t.push(a);continue}for(s=0,o=t.length-1;s<o;)r=s+o>>1,e[t[r]]<u?s=r+1:o=r;u<e[t[s]]&&(s>0&&(n[a]=t[s-1]),t[s]=a)}}for(s=t.length,o=t[s-1];s-- >0;)t[s]=o,o=n[o];return t}function ns(e){const n=e.subTree.component;if(n)return n.asyncDep&&!n.asyncResolved?n:ns(n)}function za(e){if(e)for(let n=0;n<e.length;n++)e[n].flags|=8}function Gn(e){if(e.placeholder)return e.placeholder;const n=e.component;if(n)return Gn(n.subTree);const t=e.suspense;return t&&t.activeBranch?Gn(t.activeBranch):null}const ts=e=>e.__isSuspense,Xo=Symbol("_deferredEnter");function Zo(e,n){n&&n.pendingBranch?S(e)?n.effects.push(...e):n.effects.push(e):ao(e)}const N=Symbol.for("v-fgt"),Tt=Symbol.for("v-txt"),Be=Symbol.for("v-cmt"),Gt=Symbol.for("v-stc"),gn=[];let pe=null;function P(e=!1){gn.push(pe=e?null:[])}function as(){gn.pop(),pe=gn[gn.length-1]||null}let jn=1;function Na(e,n=!1){jn+=e,e<0&&pe&&n&&(pe.hasOnce=!0)}function is(e){return e.dynamicChildren=jn>0?pe||dn:null,as(),jn>0&&pe&&pe.push(e),e}function M(e,n,t,a,i,s){return is(q(e,n,t,a,i,s,!0))}function rt(e,n,t,a,i){return is(Qe(e,n,t,a,i,!0))}function fa(e){return e?e.__v_isVNode===!0:!1}function xn(e,n){return e.type===n.type&&e.key===n.key}const ss=({key:e})=>e??null,lt=({ref:e,ref_key:n,ref_for:t})=>(typeof e=="number"&&(e=""+e),e!=null?X(e)||se(e)||H(e)?{i:ge,r:e,k:n,f:!!t}:e:null);function q(e,n=null,t=null,a=0,i=null,s=e===N?0:1,o=!1,r=!1){const l={__v_isVNode:!0,__v_skip:!0,type:e,props:n,key:n&&ss(n),ref:n&&lt(n),scopeId:Ri,slotScopeIds:null,children:t,component:null,suspense:null,ssContent:null,ssFallback:null,dirs:null,transition:null,el:null,anchor:null,target:null,targetStart:null,targetAnchor:null,staticCount:0,shapeFlag:s,patchFlag:a,dynamicProps:i,dynamicChildren:null,appContext:null,ctx:ge};return r?(mt(l,t),s&128&&e.normalize(l)):t&&(l.shapeFlag|=X(t)?8:16),jn>0&&!o&&pe&&(l.patchFlag>0||s&6)&&l.patchFlag!==32&&pe.push(l),l}const Qe=er;function er(e,n=null,t=null,a=0,i=null,s=!1){if((!e||e===Do)&&(e=Be),fa(e)){const r=vn(e,n,!0);return t&&mt(r,t),jn>0&&!s&&pe&&(r.shapeFlag&6?pe[pe.indexOf(e)]=r:pe.push(r)),r.patchFlag=-2,r}if(dr(e)&&(e=e.__vccOpts),n){n=nr(n);let{class:r,style:l}=n;r&&!X(r)&&(n.class=ue(r)),U(l)&&(ha(l)&&!S(l)&&(l=ne({},l)),n.style=aa(l))}const o=X(e)?1:ts(e)?128:Ct(e)?64:U(e)?4:H(e)?2:0;return q(e,n,t,a,i,o,s,!0)}function nr(e){return e?ha(e)?ne({},e):Ji(e)?ne({},e[cs]||e):e:null}function vn(e,n,t=!1,a=!1){const{props:i,ref:s,patchFlag:o,children:r,transition:l}=e,u=n?tr(i||{},n):i,d={__v_isVNode:!0,__v_skip:!0,type:e.type,props:u,key:u&&ss(u),ref:n&&n.ref?t&&s?S(s)?s.concat(lt(n)):[s,lt(n)]:lt(n):s,scopeId:e.scopeId,slotScopeIds:e.slotScopeIds,children:r,target:e.target,targetStart:e.targetStart,targetAnchor:e.targetAnchor,staticCount:e.staticCount,shapeFlag:e.shapeFlag,patchFlag:n&&e.type!==N?o===-1?16:o|16:o,dynamicProps:e.dynamicProps,dynamicChildren:e.dynamicChildren,appContext:e.appContext,dirs:e.dirs,transition:l,component:e.component,suspense:e.suspense,ssContent:e.ssContent&&vn(e.ssContent),ssFallback:e.ssFallback&&vn(e.ssFallback),placeholder:e.placeholder,el:e.el,anchor:e.anchor,ctx:e.ctx,ce:e.ce,cacheIndex:e.cacheIndex};return l&&a&&Rn(d,l.clone(d)),d}function $e(e=" ",n=0){return Qe(Tt,null,e,n)}function me(e="",n=!1){return n?(P(),rt(Be,null,e)):Qe(Be,null,e)}function _e(e){return e==null||typeof e=="boolean"?Qe(Be):S(e)?Qe(N,null,e.slice()):fa(e)?Ne(e):Qe(Tt,null,String(e))}function Ne(e){return e.el===null&&e.patchFlag!==-1||e.memo?e:vn(e)}function mt(e,n){let t=0;const{shapeFlag:a}=e;if(n==null)n=null;else if(S(n))t=16;else if(typeof n=="object")if(a&65){const i=n.default;i&&(i._c&&(i._d=!1),mt(e,i()),i._c&&(i._d=!0));return}else{t=32;const i=n._;!i&&!Ji(n)?n._ctx=ge:i===3&&ge&&(ge.slots._===1?n._=1:(n._=2,e.patchFlag|=1024))}else if(H(n)){if(a&65){mt(e,{default:n});return}n={default:n,_ctx:ge},t=32}else n=String(n),a&64?(t=16,n=[$e(n)]):t=8;e.children=n,e.shapeFlag|=t}function tr(...e){const n={};for(let t=0;t<e.length;t++){const a=e[t];for(const i in a)if(i==="class")n.class!==a.class&&(n.class=ue([n.class,a.class]));else if(i==="style")n.style=aa([n.style,a.style]);else if(yt(i)){const s=n[i],o=a[i];o&&s!==o&&!(S(s)&&s.includes(o))?n[i]=s?[].concat(s,o):o:o==null&&s==null&&!wt(i)&&(n[i]=o)}else i!==""&&(n[i]=a[i])}return n}function qe(e,n,t,a=null){Ce(e,n,7,[t,a])}const ar=Ni();let os=0;function ir(){return os}function sr(e,n,t){const a=e.type,i=(n?n.appContext:e.appContext)||ar,s={uid:os++,vnode:e,type:a,parent:n,appContext:i,root:null,next:null,subTree:null,effect:null,update:null,job:null,scope:new xs(!0),render:null,proxy:null,exposed:null,exposeProxy:null,withProxy:null,provides:n?n.provides:Object.create(i.provides),ids:n?n.ids:["",0,0],accessCache:null,renderCache:[],components:null,directives:null,propsOptions:Yi(a,i),emitsOptions:Li(a,i),emit:null,emitted:null,propsDefaults:J,inheritAttrs:a.inheritAttrs,ctx:J,data:J,props:J,attrs:J,slots:J,refs:J,setupState:J,setupContext:null,suspense:t,suspenseId:t?t.pendingId:0,asyncDep:null,asyncResolved:!1,isMounted:!1,isUnmounted:!1,isDeactivated:!1,bc:null,c:null,bm:null,m:null,bu:null,u:null,um:null,bum:null,da:null,a:null,rtg:null,rtc:null,ec:null,sp:null};return s.ctx={_:s},s.root=n?n.root:s,s.emit=Mo.bind(null,s),e.ce&&e.ce(s),s}let he=null;const or=()=>he||ge;let gt,Qn;{const e=vt(),n=(t,a)=>{let i;return(i=e[t])||(i=e[t]=[]),i.push(a),s=>{i.length>1?i.forEach(o=>o(s)):i[0](s)}};gt=n("__VUE_INSTANCE_SETTERS__",t=>he=t),Qn=n("__VUE_SSR_SETTERS__",t=>Un=t)}const Jn=e=>{const n=he;return gt(e),e.scope.on(),()=>{e.scope.off(),gt(n)}},La=()=>{he&&he.scope.off(),gt(null)};function rs(e){return e.vnode.shapeFlag&4}let Un=!1;function rr(e,n=!1,t=!1){n&&Qn(n);const{props:a,children:i}=e.vnode,s=rs(e);No(e,a,s,n),Uo(e,i,t||n);const o=s?lr(e,n):void 0;return n&&Qn(!1),o}function lr(e,n){const t=e.type;e.accessCache=Object.create(null),e.proxy=new Proxy(e.ctx,xo);const{setup:a}=t;if(a){Me();const i=e.setupContext=a.length>1?hr(e):null,s=Jn(e),o=Vn(a,e,0,[e.props,i]),r=ii(o);if(He(),s(),(r||e.sp)&&!Mn(e)&&Gi(e),r){if(o.then(La,La),n)return o.then(l=>{Qn(!0);try{ja(e,l,n)}finally{Qn(!1)}}).catch(l=>{kt(l,e,0,void 0,!0),e.ssrRender=(u,d)=>d("<!---->")});e.asyncDep=o}else ja(e,o)}else ls(e)}function ja(e,n,t){H(n)?e.type.__ssrInlineRender?e.ssrRender=n:e.render=n:U(n)&&(e.setupState=qi(n)),ls(e)}function ls(e,n,t){const a=e.type;e.render||(e.render=a.render||Re);{const i=Jn(e);Me();try{qo(e)}finally{He(),i()}}}const cs=Symbol(),cr={get(e,n){return ie(e,"get",""),n===cs?e:e[n]}};function hr(e){const n=t=>{e.exposed=t||{}};return{attrs:new Proxy(e.attrs,cr),slots:e.slots,emit:e.emit,expose:n}}function Dt(e){return e.exposed?e.exposeProxy||(e.exposeProxy=new Proxy(qi(Us(e.exposed)),{get(n,t){if(t in n)return n[t];if(t in Hn)return Hn[t](e)},has(n,t){return t in n||t in Hn}})):e.proxy}function dr(e){return H(e)&&"__vccOpts"in e}const un=(e,n)=>$s(e,n,Un),ur="3.5.46";/**
 * @vue/runtime-dom v3.5.46
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
-**/let Xt;const Qa=typeof window<"u"&&window.trustedTypes;if(Qa)try{Xt=Qa.createPolicy("vue",{createHTML:e=>e})}catch{}const ho=Xt?e=>Xt.createHTML(e):e=>e,pr="http://www.w3.org/2000/svg",mr="http://www.w3.org/1998/Math/MathML",Fe=typeof document<"u"?document:null,Ua=Fe&&Fe.createElement("template"),gr={insert:(e,n,t)=>{n.insertBefore(e,t||null)},remove:e=>{const n=e.parentNode;n&&n.removeChild(e)},createElement:(e,n,t,a)=>{const i=n==="svg"?Fe.createElementNS(pr,e):n==="mathml"?Fe.createElementNS(mr,e):t?Fe.createElement(e,{is:t}):Fe.createElement(e);return e==="select"&&a&&a.multiple!=null&&i.setAttribute("multiple",a.multiple),i},createText:e=>Fe.createTextNode(e),createComment:e=>Fe.createComment(e),setText:(e,n)=>{e.nodeValue=n},setElementText:(e,n)=>{e.textContent=n},parentNode:e=>e.parentNode,nextSibling:e=>e.nextSibling,querySelector:e=>Fe.querySelector(e),setScopeId(e,n){e.setAttribute(n,"")},insertStaticContent(e,n,t,a,i,o){const s=t?t.previousSibling:n.lastChild;if(i&&(i===o||i.nextSibling))for(;n.insertBefore(i.cloneNode(!0),t),!(i===o||!(i=i.nextSibling)););else{Ua.innerHTML=ho(a==="svg"?`<svg>${e}</svg>`:a==="mathml"?`<math>${e}</math>`:e);const r=Ua.content;if(a==="svg"||a==="mathml"){const l=r.firstChild;for(;l.firstChild;)r.appendChild(l.firstChild);r.removeChild(l)}n.insertBefore(r,t)}return[s?s.nextSibling:n.firstChild,t?t.previousSibling:n.lastChild]}},fr=Symbol("_vtc");function yr(e,n,t){const a=e[fr];a&&(n=(n?[n,...a]:[...a]).join(" ")),n==null?e.removeAttribute("class"):t?e.setAttribute("class",n):e.className=n}const Va=Symbol("_vod"),wr=Symbol("_vsh"),br=Symbol(""),vr=/(?:^|;)\s*display\s*:/;function Ar(e,n,t){const a=e.style,i=X(t);let o=!1;if(t&&!i){if(n)if(X(n))for(const s of n.split(";")){const r=s.slice(0,s.indexOf(":")).trim();t[r]==null&&Wn(a,r,"")}else for(const s in n)t[s]==null&&Wn(a,s,"");for(const s in t){s==="display"&&(o=!0);const r=t[s];r!=null?Cr(e,s,!X(n)&&n?n[s]:void 0,r)||Wn(a,s,r):Wn(a,s,"")}}else if(i){if(n!==t){const s=a[br];s&&(t+=";"+s),a.cssText=t,o=vr.test(t)}}else n&&e.removeAttribute("style");Va in e&&((!i||n!==t)&&(e[Va]=o?a.display:""),e[wr]&&(a.display="none"))}const at=/\s*!important$/;function Wn(e,n,t){if(S(t))t.forEach(a=>Wn(e,n,a));else if(t==null&&(t=""),n.startsWith("--"))at.test(t)?e.setProperty(n,t.replace(at,""),"important"):e.setProperty(n,t);else{const a=kr(e,n);at.test(t)?e.setProperty(nn(a),t.replace(at,""),"important"):e[a]=t}}const Ja=["Webkit","Moz","ms"],Gt={};function kr(e,n){const t=Gt[n];if(t)return t;let a=Ae(n);if(a!=="filter"&&a in e)return Gt[n]=a;a=ri(a);for(let i=0;i<Ja.length;i++){const o=Ja[i]+a;if(o in e)return Gt[n]=o}return n}function Cr(e,n,t,a){return e.tagName==="TEXTAREA"&&(n==="width"||n==="height")&&X(a)&&t===a}const Ka="http://www.w3.org/1999/xlink";function Ya(e,n,t,a,i,o=To(n)){a&&n.startsWith("xlink:")?t==null?e.removeAttributeNS(Ka,n.slice(6,n.length)):e.setAttributeNS(Ka,n,t):t==null||o&&!ci(t)?e.removeAttribute(n):e.setAttribute(n,o?"":Pe(t)?String(t):t)}function $a(e,n,t,a,i){if(n==="innerHTML"||n==="textContent"){t!=null&&(e[n]=n==="innerHTML"?ho(t):t);return}const o=e.tagName;if(n==="value"&&o!=="PROGRESS"&&!o.includes("-")){const r=o==="OPTION"?e.getAttribute("value")||"":e.value,l=t==null?e.type==="checkbox"?"on":"":String(t);(r!==l||!("_value"in e))&&(e.value=l),t==null&&e.removeAttribute(n),e._value=t;return}let s=!1;if(t===""||t==null){const r=typeof e[n];r==="boolean"?t=ci(t):t==null&&r==="string"?(t="",s=!0):r==="number"&&(t=0,s=!0)}try{e[n]=t}catch{}s&&e.removeAttribute(i||n)}function hn(e,n,t,a){e.addEventListener(n,t,a)}function Br(e,n,t,a){e.removeEventListener(n,t,a)}const Xa=Symbol("_vei");function Tr(e,n,t,a,i=null){const o=e[Xa]||(e[Xa]={}),s=o[n];if(a&&s)s.value=a;else{const[r,l]=qr(n);if(a){const u=o[n]=_r(a,i);hn(e,r,u,l)}else s&&(Br(e,r,s,l),o[n]=void 0)}}const Dr=/(Once|Passive|Capture)$/,xr=/^on:?(?:Once|Passive|Capture)$/;function qr(e){let n,t;for(;(t=e.match(Dr))&&!xr.test(e);)n||(n={}),e=e.slice(0,e.length-t[1].length),n[t[1].toLowerCase()]=!0;return[e[2]===":"?e.slice(3):nn(e.slice(2)),n]}let zt=0;const Ir=Promise.resolve(),Wr=()=>zt||(Ir.then(()=>zt=0),zt=Date.now());function _r(e,n){const t=a=>{if(!a._vts)a._vts=Date.now();else if(a._vts<=t.attached)return;const i=t.value;if(S(i)){const o=a.stopImmediatePropagation;a.stopImmediatePropagation=()=>{o.call(a),a._stopped=!0};const s=i.slice(),r=[a];for(let l=0;l<s.length&&!a._stopped;l++){const u=s[l];u&&Ce(u,n,5,r)}}else Ce(i,n,5,[a])};return t.value=e,t.attached=Wr(),t}const Za=e=>e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&e.charCodeAt(2)>96&&e.charCodeAt(2)<123,Sr=(e,n,t,a,i,o)=>{const s=i==="svg";n==="class"?yr(e,a,s):n==="style"?Ar(e,t,a):yt(n)?wt(n)||Tr(e,n,t,a,o):(n[0]==="."?(n=n.slice(1),!0):n[0]==="^"?(n=n.slice(1),!1):Er(e,n,a,s))?($a(e,n,a),!e.tagName.includes("-")&&(n==="value"||n==="checked"||n==="selected")&&Ya(e,n,a,s,o,n!=="value")):e._isVueCE&&(Rr(e,n)||e._def.__asyncLoader&&(/[A-Z]/.test(n)||!X(a)))?$a(e,Ae(n),a,o,n):(n==="true-value"?e._trueValue=a:n==="false-value"&&(e._falseValue=a),Ya(e,n,a,s))};function Er(e,n,t,a){if(a)return!!(n==="innerHTML"||n==="textContent"||n in e&&Za(n)&&H(t));if(n==="spellcheck"||n==="draggable"||n==="translate"||n==="autocorrect"||n==="sandbox"&&e.tagName==="IFRAME"||n==="form"||n==="list"&&e.tagName==="INPUT"||n==="type"&&e.tagName==="TEXTAREA")return!1;if(n==="width"||n==="height"){const i=e.tagName;if(i==="IMG"||i==="VIDEO"||i==="CANVAS"||i==="SOURCE")return!1}return Za(n)&&X(t)?!1:n in e}function Rr(e,n){const t=e._def.props;if(!t)return!1;const a=Ae(n);return Array.isArray(t)?t.some(i=>Ae(i)===a):Object.keys(t).some(i=>Ae(i)===a)}const ft=e=>{const n=e.props["onUpdate:modelValue"]||!1;return S(n)?t=>ot(n,t):n};function Pr(e){e.target.composing=!0}function ei(e){const n=e.target;n.composing&&(n.composing=!1,n.dispatchEvent(new Event("input")))}const pn=Symbol("_assign"),it=Symbol("_initialValue");function Ft(e,n,t){return n&&(e=e.trim()),t&&(e=ta(e)),e}const uo={created(e,{modifiers:{lazy:n,trim:t,number:a}},i){e.parentNode&&(e.type==="text"?e[it]=e.defaultValue.replace(/[\r\n]/g,""):e.type==="textarea"&&(e[it]=e.defaultValue.replace(/\r\n?/g,`
-`))),e[pn]=ft(i);const o=a||i.props&&i.props.type==="number";hn(e,n?"change":"input",s=>{s.target.composing||e[pn](Ft(e.value,t,o))}),(t||o)&&hn(e,"change",()=>{e.value=Ft(e.value,t,o)}),n||(hn(e,"compositionstart",Pr),hn(e,"compositionend",ei),hn(e,"change",ei))},mounted(e,{value:n,modifiers:{trim:t,number:a}}){const i=n??"",o=e[it];delete e[it],o!==void 0&&(e.type==="text"||e.type==="textarea")&&e.value!==o?e[pn](Ft(e.value,t,a)):e.value=i},beforeUpdate(e,{value:n,oldValue:t,modifiers:{lazy:a,trim:i,number:o}},s){if(e[pn]=ft(s),e.composing)return;const r=(o||e.type==="number")&&!/^0\d/.test(e.value)?ta(e.value):e.value,l=n??"";if(r===l)return;const u=e.getRootNode();(u instanceof Document||u instanceof ShadowRoot)&&u.activeElement===e&&e.type!=="range"&&(a&&n===t||i&&e.value.trim()===l)||(e.value=l)}},Mr={deep:!0,created(e,n,t){e[pn]=ft(t),hn(e,"change",()=>{const a=e._modelValue,i=Hr(e),o=e.checked,s=e[pn];if(S(a)){const r=hi(a,i),l=r!==-1;if(o&&!l)s(a.concat(i));else if(!o&&l){const u=[...a];u.splice(r,1),s(u)}}else if(bn(a)){const r=new Set(a);o?r.add(i):r.delete(i),s(r)}else s(po(e,o))})},mounted:ni,beforeUpdate(e,n,t){e[pn]=ft(t),ni(e,n,t)}};function ni(e,{value:n,oldValue:t},a){e._modelValue=n;let i;if(S(n))i=hi(n,a.props.value)>-1;else if(bn(n))i=n.has(a.props.value);else{if(n===t)return;i=kn(n,po(e,!0))}e.checked!==i&&(e.checked=i)}function Hr(e){return"_value"in e?e._value:e.value}function po(e,n){const t=n?"_trueValue":"_falseValue";return t in e?e[t]:n}const Or={esc:"escape",space:" ",up:"arrow-up",left:"arrow-left",right:"arrow-right",down:"arrow-down",delete:"backspace"},Gr=(e,n)=>{const t=e._withKeys||(e._withKeys={}),a=n.join(".");return t[a]||(t[a]=i=>{if(!("key"in i))return;const o=nn(i.key);if(n.some(s=>s===o||Or[s]===o))return e(i)})},zr=ne({patchProp:Sr},gr);let ti;function Fr(){return ti||(ti=Js(zr))}const Nr=(...e)=>{const n=Fr().createApp(...e),{mount:t}=n;return n.mount=a=>{const i=jr(a);if(!i)return;const o=n._component;!H(o)&&!o.render&&!o.template&&(o.template=i.innerHTML),i.nodeType===1&&(i.textContent="");const s=t(i,!1,Lr(i));return i instanceof Element&&(i.removeAttribute("v-cloak"),i.setAttribute("data-v-app","")),s},n};function Lr(e){if(e instanceof SVGElement)return"svg";if(typeof MathMLElement=="function"&&e instanceof MathMLElement)return"mathml"}function jr(e){return X(e)?document.querySelector(e):e}const qn=[{n:1,type:"Reading",title:"14_Reading_Theater and Drama",date:"2026-11-07",status:"ok",dup:null,body:`เนื้อหา (Passage)
+**/let Xt;const Qa=typeof window<"u"&&window.trustedTypes;if(Qa)try{Xt=Qa.createPolicy("vue",{createHTML:e=>e})}catch{}const hs=Xt?e=>Xt.createHTML(e):e=>e,pr="http://www.w3.org/2000/svg",mr="http://www.w3.org/1998/Math/MathML",ze=typeof document<"u"?document:null,Ua=ze&&ze.createElement("template"),gr={insert:(e,n,t)=>{n.insertBefore(e,t||null)},remove:e=>{const n=e.parentNode;n&&n.removeChild(e)},createElement:(e,n,t,a)=>{const i=n==="svg"?ze.createElementNS(pr,e):n==="mathml"?ze.createElementNS(mr,e):t?ze.createElement(e,{is:t}):ze.createElement(e);return e==="select"&&a&&a.multiple!=null&&i.setAttribute("multiple",a.multiple),i},createText:e=>ze.createTextNode(e),createComment:e=>ze.createComment(e),setText:(e,n)=>{e.nodeValue=n},setElementText:(e,n)=>{e.textContent=n},parentNode:e=>e.parentNode,nextSibling:e=>e.nextSibling,querySelector:e=>ze.querySelector(e),setScopeId(e,n){e.setAttribute(n,"")},insertStaticContent(e,n,t,a,i,s){const o=t?t.previousSibling:n.lastChild;if(i&&(i===s||i.nextSibling))for(;n.insertBefore(i.cloneNode(!0),t),!(i===s||!(i=i.nextSibling)););else{Ua.innerHTML=hs(a==="svg"?`<svg>${e}</svg>`:a==="mathml"?`<math>${e}</math>`:e);const r=Ua.content;if(a==="svg"||a==="mathml"){const l=r.firstChild;for(;l.firstChild;)r.appendChild(l.firstChild);r.removeChild(l)}n.insertBefore(r,t)}return[o?o.nextSibling:n.firstChild,t?t.previousSibling:n.lastChild]}},fr=Symbol("_vtc");function yr(e,n,t){const a=e[fr];a&&(n=(n?[n,...a]:[...a]).join(" ")),n==null?e.removeAttribute("class"):t?e.setAttribute("class",n):e.className=n}const Va=Symbol("_vod"),wr=Symbol("_vsh"),br=Symbol(""),vr=/(?:^|;)\s*display\s*:/;function Ar(e,n,t){const a=e.style,i=X(t);let s=!1;if(t&&!i){if(n)if(X(n))for(const o of n.split(";")){const r=o.slice(0,o.indexOf(":")).trim();t[r]==null&&Wn(a,r,"")}else for(const o in n)t[o]==null&&Wn(a,o,"");for(const o in t){o==="display"&&(s=!0);const r=t[o];r!=null?Cr(e,o,!X(n)&&n?n[o]:void 0,r)||Wn(a,o,r):Wn(a,o,"")}}else if(i){if(n!==t){const o=a[br];o&&(t+=";"+o),a.cssText=t,s=vr.test(t)}}else n&&e.removeAttribute("style");Va in e&&((!i||n!==t)&&(e[Va]=s?a.display:""),e[wr]&&(a.display="none"))}const at=/\s*!important$/;function Wn(e,n,t){if(S(t))t.forEach(a=>Wn(e,n,a));else if(t==null&&(t=""),n.startsWith("--"))at.test(t)?e.setProperty(n,t.replace(at,""),"important"):e.setProperty(n,t);else{const a=kr(e,n);at.test(t)?e.setProperty(nn(a),t.replace(at,""),"important"):e[a]=t}}const Ja=["Webkit","Moz","ms"],Ot={};function kr(e,n){const t=Ot[n];if(t)return t;let a=Ae(n);if(a!=="filter"&&a in e)return Ot[n]=a;a=ri(a);for(let i=0;i<Ja.length;i++){const s=Ja[i]+a;if(s in e)return Ot[n]=s}return n}function Cr(e,n,t,a){return e.tagName==="TEXTAREA"&&(n==="width"||n==="height")&&X(a)&&t===a}const Ka="http://www.w3.org/1999/xlink";function Ya(e,n,t,a,i,s=Bs(n)){a&&n.startsWith("xlink:")?t==null?e.removeAttributeNS(Ka,n.slice(6,n.length)):e.setAttributeNS(Ka,n,t):t==null||s&&!ci(t)?e.removeAttribute(n):e.setAttribute(n,s?"":Pe(t)?String(t):t)}function $a(e,n,t,a,i){if(n==="innerHTML"||n==="textContent"){t!=null&&(e[n]=n==="innerHTML"?hs(t):t);return}const s=e.tagName;if(n==="value"&&s!=="PROGRESS"&&!s.includes("-")){const r=s==="OPTION"?e.getAttribute("value")||"":e.value,l=t==null?e.type==="checkbox"?"on":"":String(t);(r!==l||!("_value"in e))&&(e.value=l),t==null&&e.removeAttribute(n),e._value=t;return}let o=!1;if(t===""||t==null){const r=typeof e[n];r==="boolean"?t=ci(t):t==null&&r==="string"?(t="",o=!0):r==="number"&&(t=0,o=!0)}try{e[n]=t}catch{}o&&e.removeAttribute(i||n)}function hn(e,n,t,a){e.addEventListener(n,t,a)}function Br(e,n,t,a){e.removeEventListener(n,t,a)}const Xa=Symbol("_vei");function Tr(e,n,t,a,i=null){const s=e[Xa]||(e[Xa]={}),o=s[n];if(a&&o)o.value=a;else{const[r,l]=qr(n);if(a){const u=s[n]=_r(a,i);hn(e,r,u,l)}else o&&(Br(e,r,o,l),s[n]=void 0)}}const Dr=/(Once|Passive|Capture)$/,xr=/^on:?(?:Once|Passive|Capture)$/;function qr(e){let n,t;for(;(t=e.match(Dr))&&!xr.test(e);)n||(n={}),e=e.slice(0,e.length-t[1].length),n[t[1].toLowerCase()]=!0;return[e[2]===":"?e.slice(3):nn(e.slice(2)),n]}let Ft=0;const Ir=Promise.resolve(),Wr=()=>Ft||(Ir.then(()=>Ft=0),Ft=Date.now());function _r(e,n){const t=a=>{if(!a._vts)a._vts=Date.now();else if(a._vts<=t.attached)return;const i=t.value;if(S(i)){const s=a.stopImmediatePropagation;a.stopImmediatePropagation=()=>{s.call(a),a._stopped=!0};const o=i.slice(),r=[a];for(let l=0;l<o.length&&!a._stopped;l++){const u=o[l];u&&Ce(u,n,5,r)}}else Ce(i,n,5,[a])};return t.value=e,t.attached=Wr(),t}const Za=e=>e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&e.charCodeAt(2)>96&&e.charCodeAt(2)<123,Sr=(e,n,t,a,i,s)=>{const o=i==="svg";n==="class"?yr(e,a,o):n==="style"?Ar(e,t,a):yt(n)?wt(n)||Tr(e,n,t,a,s):(n[0]==="."?(n=n.slice(1),!0):n[0]==="^"?(n=n.slice(1),!1):Er(e,n,a,o))?($a(e,n,a),!e.tagName.includes("-")&&(n==="value"||n==="checked"||n==="selected")&&Ya(e,n,a,o,s,n!=="value")):e._isVueCE&&(Rr(e,n)||e._def.__asyncLoader&&(/[A-Z]/.test(n)||!X(a)))?$a(e,Ae(n),a,s,n):(n==="true-value"?e._trueValue=a:n==="false-value"&&(e._falseValue=a),Ya(e,n,a,o))};function Er(e,n,t,a){if(a)return!!(n==="innerHTML"||n==="textContent"||n in e&&Za(n)&&H(t));if(n==="spellcheck"||n==="draggable"||n==="translate"||n==="autocorrect"||n==="sandbox"&&e.tagName==="IFRAME"||n==="form"||n==="list"&&e.tagName==="INPUT"||n==="type"&&e.tagName==="TEXTAREA")return!1;if(n==="width"||n==="height"){const i=e.tagName;if(i==="IMG"||i==="VIDEO"||i==="CANVAS"||i==="SOURCE")return!1}return Za(n)&&X(t)?!1:n in e}function Rr(e,n){const t=e._def.props;if(!t)return!1;const a=Ae(n);return Array.isArray(t)?t.some(i=>Ae(i)===a):Object.keys(t).some(i=>Ae(i)===a)}const ft=e=>{const n=e.props["onUpdate:modelValue"]||!1;return S(n)?t=>st(n,t):n};function Pr(e){e.target.composing=!0}function ei(e){const n=e.target;n.composing&&(n.composing=!1,n.dispatchEvent(new Event("input")))}const pn=Symbol("_assign"),it=Symbol("_initialValue");function zt(e,n,t){return n&&(e=e.trim()),t&&(e=ta(e)),e}const ds={created(e,{modifiers:{lazy:n,trim:t,number:a}},i){e.parentNode&&(e.type==="text"?e[it]=e.defaultValue.replace(/[\r\n]/g,""):e.type==="textarea"&&(e[it]=e.defaultValue.replace(/\r\n?/g,`
+`))),e[pn]=ft(i);const s=a||i.props&&i.props.type==="number";hn(e,n?"change":"input",o=>{o.target.composing||e[pn](zt(e.value,t,s))}),(t||s)&&hn(e,"change",()=>{e.value=zt(e.value,t,s)}),n||(hn(e,"compositionstart",Pr),hn(e,"compositionend",ei),hn(e,"change",ei))},mounted(e,{value:n,modifiers:{trim:t,number:a}}){const i=n??"",s=e[it];delete e[it],s!==void 0&&(e.type==="text"||e.type==="textarea")&&e.value!==s?e[pn](zt(e.value,t,a)):e.value=i},beforeUpdate(e,{value:n,oldValue:t,modifiers:{lazy:a,trim:i,number:s}},o){if(e[pn]=ft(o),e.composing)return;const r=(s||e.type==="number")&&!/^0\d/.test(e.value)?ta(e.value):e.value,l=n??"";if(r===l)return;const u=e.getRootNode();(u instanceof Document||u instanceof ShadowRoot)&&u.activeElement===e&&e.type!=="range"&&(a&&n===t||i&&e.value.trim()===l)||(e.value=l)}},Mr={deep:!0,created(e,n,t){e[pn]=ft(t),hn(e,"change",()=>{const a=e._modelValue,i=Hr(e),s=e.checked,o=e[pn];if(S(a)){const r=hi(a,i),l=r!==-1;if(s&&!l)o(a.concat(i));else if(!s&&l){const u=[...a];u.splice(r,1),o(u)}}else if(bn(a)){const r=new Set(a);s?r.add(i):r.delete(i),o(r)}else o(us(e,s))})},mounted:ni,beforeUpdate(e,n,t){e[pn]=ft(t),ni(e,n,t)}};function ni(e,{value:n,oldValue:t},a){e._modelValue=n;let i;if(S(n))i=hi(n,a.props.value)>-1;else if(bn(n))i=n.has(a.props.value);else{if(n===t)return;i=kn(n,us(e,!0))}e.checked!==i&&(e.checked=i)}function Hr(e){return"_value"in e?e._value:e.value}function us(e,n){const t=n?"_trueValue":"_falseValue";return t in e?e[t]:n}const Gr={esc:"escape",space:" ",up:"arrow-up",left:"arrow-left",right:"arrow-right",down:"arrow-down",delete:"backspace"},Or=(e,n)=>{const t=e._withKeys||(e._withKeys={}),a=n.join(".");return t[a]||(t[a]=i=>{if(!("key"in i))return;const s=nn(i.key);if(n.some(o=>o===s||Gr[o]===s))return e(i)})},Fr=ne({patchProp:Sr},gr);let ti;function zr(){return ti||(ti=Jo(Fr))}const Nr=(...e)=>{const n=zr().createApp(...e),{mount:t}=n;return n.mount=a=>{const i=jr(a);if(!i)return;const s=n._component;!H(s)&&!s.render&&!s.template&&(s.template=i.innerHTML),i.nodeType===1&&(i.textContent="");const o=t(i,!1,Lr(i));return i instanceof Element&&(i.removeAttribute("v-cloak"),i.setAttribute("data-v-app","")),o},n};function Lr(e){if(e instanceof SVGElement)return"svg";if(typeof MathMLElement=="function"&&e instanceof MathMLElement)return"mathml"}function jr(e){return X(e)?document.querySelector(e):e}const qn=[{n:1,type:"Reading",title:"14_Reading_Theater and Drama",date:"2026-11-07",status:"ok",dup:null,body:`เนื้อหา (Passage)
 Theater and drama have existed for thousands of years and were first developed in ancient civilizations
 such as Greece. Early Greek plays were performed during religious festivals to honor the gods and were
 usually held in large outdoor theaters. These performances included music, dancing, and storytelling.
@@ -798,8 +798,16 @@ D. การรีไซเคิลสำคัญกว่าการศึ�
 "These habits are easy to adopt and can save money as well."`,opts:[["A","Before the first sentence of paragraph 3"],["B","After the second sentence of paragraph 3"],["C","At the beginning of paragraph 5"],["D","At the end of paragraph 8"]],ans:"B",th:`ส่วนที่ 4: การแทรกประโยค (1 ข้อ)
 10. ประโยคต่อไปนี้เหมาะกับตำแหน่งใด “นิสัยเหล่านี้ปรับใช้ได้ง่ายและยังช่วยประหยัดเงินด้วย”
 A. ก่อนประโยคแรกของย่อหน้า 3 B. หลังประโยคที่สองของย่อหน้า 3 C. ต้นย่อหน้า 5 D. ท้ายย่อหน้า 8
-เฉลย: B. หลังประโยคที่สองของย่อหน้า 3
-11–13. Choose THREE statements that best summarize
+เฉลย: B. หลังประโยคที่สองของย่อหน้า 3`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`11–13. Choose THREE statements that best summarize
+the passage.`,opts:[["A","Small individual actions can help protect the environment."],["B","Governments, businesses, and communities all have important roles."],["C","Only scientists are responsible for solving environmental problems."],["D","Renewable energy supports a sustainable future."],["E","Plastic pollution has no effect on oceans."],["F","Environmental education encourages responsible behavior. Correct Answers ✅A ✅B ✅F"]],ans:null,th:`ส่วนที่ 5: สรุป (3 ข้อ)
+11–13. เลือก 3 ข้อที่สรุปบทความได้ดีที่สุด
+A. การกระทำเล็กๆ ของแต่ละคนช่วยปกป้องสิ่งแวดล้อมได้
+B. รัฐบาล ธุรกิจ และชุมชนล้วนมีบทบาทสำคัญ
+C. มีแต่นักวิทยาศาสตร์ที่รับผิดชอบแก้ปัญหาสิ่งแวดล้อม
+D. พลังงานหมุนเวียนสนับสนุนอนาคตที่ยั่งยืน
+E. มลพิษพลาสติกไม่มีผลต่อมหาสมุทร
+F. การศึกษาด้านสิ่งแวดล้อมส่งเสริมพฤติกรรมที่รับผิดชอบ
+เฉลย: A, B และ F`,ans_text:null,raw:`11–13. Choose THREE statements that best summarize
 the passage.
 A. Small individual actions can help protect the environment.
 B. Governments, businesses, and communities all have
@@ -823,7 +831,9 @@ C. มีแต่นักวิทยาศาสตร์ที่รับ�
 D. พลังงานหมุนเวียนสนับสนุนอนาคตที่ยั่งยืน
 E. มลพิษพลาสติกไม่มีผลต่อมหาสมุทร
 F. การศึกษาด้านสิ่งแวดล้อมส่งเสริมพฤติกรรมที่รับผิดชอบ
-เฉลย: A, B และ F`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"14. Which statement can be inferred from the passage?",opts:[["A","Individual actions alone can completely solve climate change."],["B","Environmental protection requires cooperation at multiple levels."],["C","Renewable energy will replace fossil fuels next year."],["D","Recycling completely eliminates pollution."]],ans:"B",th:`ส่วนที่ 6: การอนุมาน (1 ข้อ)
+เฉลย: A, B และ F
+
+`},{kind:"mcq",ok:!0,q:"14. Which statement can be inferred from the passage?",opts:[["A","Individual actions alone can completely solve climate change."],["B","Environmental protection requires cooperation at multiple levels."],["C","Renewable energy will replace fossil fuels next year."],["D","Recycling completely eliminates pollution."]],ans:"B",th:`ส่วนที่ 6: การอนุมาน (1 ข้อ)
 14. อนุมานข้อใดได้จากบทความ
 A. การกระทำของบุคคลเพียงอย่างเดียวแก้โลกร้อนได้สมบูรณ์
 B. การปกป้องสิ่งแวดล้อมต้องอาศัยความร่วมมือหลายระดับ
@@ -1721,7 +1731,7 @@ Where would the sentence best fit?`,opts:[["A","First square"],["B","Second squa
 เคยเป็นไปได้มาก” (ในย่อหน้า 4 เรื่องโดมแพนธีออน)
 ประโยคนี้เหมาะที่ช่องใด
 A. ช่องแรก B. ช่องที่สอง C. ช่องที่สาม D. ช่องที่สี่
-เฉลย: B`,ans_text:null,raw:null},{kind:"open",ok:!1,q:`10. Which THREE of the following statements express
+เฉลย: B`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Which THREE of the following statements express
 the main ideas of the passage?
 Select THREE answers.
 □ Roman engineering contributed to the success of the empire.
@@ -1740,7 +1750,31 @@ engineers.`,opts:[],ans:null,th:`10. ข้อใดสามข้อที่�
 □ นวัตกรรมโรมันอย่างโดมมีอิทธิพลต่อสถาปัตยกรรมรุ่นหลัง
 □ อาคารโรมันส่วนใหญ่หายไปไม่นานหลังจักรวรรดิล่ม
 □ เทคนิควิศวกรรมโรมันยังน่าสนใจสำหรับวิศวกรสมัยใหม่
-เฉลย: ข้อ 1, 2, 4 (ตามไฟล์ต้นฉบับ)`,ans_text:"1, 2, 4",raw:null},{kind:"open",ok:!1,q:`11. Complete the summary by selecting the THREE
+เฉลย: ข้อ 1, 2, 4 (ตามไฟล์ต้นฉบับ)`,ans_text:null,raw:`10. Which THREE of the following statements express
+the main ideas of the passage?
+Select THREE answers.
+□ Roman engineering contributed to the success of the empire.
+□ Roman roads and aqueducts improved transportation and
+public life.
+□ The Roman Empire expanded mainly because of its navy.
+□ Roman innovations such as domes influenced later
+architecture.
+□ Most Roman buildings disappeared shortly after the empire
+fell.
+□ Roman engineering techniques continue to interest modern
+engineers.
+Answer: 1, 2, 4
+
+10. ข้อใดสามข้อที่สื่อใจความสำคัญของบทความ (เลือก 3)
+□ วิศวกรรมโรมันมีส่วนต่อความสำเร็จของจักรวรรดิ
+□ ถนนและท่อส่งน้ำโรมันพัฒนาการคมนาคมและชีวิตสาธารณะ
+□ จักรวรรดิโรมันขยายตัวเพราะกองทัพเรือเป็นหลัก
+□ นวัตกรรมโรมันอย่างโดมมีอิทธิพลต่อสถาปัตยกรรมรุ่นหลัง
+□ อาคารโรมันส่วนใหญ่หายไปไม่นานหลังจักรวรรดิล่ม
+□ เทคนิควิศวกรรมโรมันยังน่าสนใจสำหรับวิศวกรสมัยใหม่
+เฉลย: ข้อ 1, 2, 4 (ตามไฟล์ต้นฉบับ)
+
+`},{kind:"raw",ok:!1,q:`11. Complete the summary by selecting the THREE
 answer choices that express the most important ideas.
 Summary
 Ancient Roman engineering produced structures that supported
@@ -1752,7 +1786,37 @@ C. ศิลปินโรมันชอบการวาดภาพมา�
 D. ท่อส่งน้ำจ่ายน้ำและถนนเชื่อมภูมิภาคไกลกัน
 E. วิศวกรโรมันปฏิเสธการทดลองเทคนิคก่อสร้างใหม่
 F. สถาปนิกสมัยใหม่ยังเรียนรู้จากความสำเร็จด้านวิศวกรรมโรมัน
-เฉลย: A, D และ F`,ans_text:"A, D, F",raw:null}],qa_raw:`1. What is the main purpose of the passage?
+เฉลย: A, D และ F`,ans_text:null,raw:`11. Complete the summary by selecting the THREE
+answer choices that express the most important ideas.
+Summary
+Ancient Roman engineering produced structures that supported
+both the empire and later civilizations.
+Answer Choices
+A. Roman engineers developed infrastructure that strengthened
+transportation and urban life.
+B. The Colosseum demonstrated advanced construction
+methods and durable materials.
+C. Roman artists preferred painting to architecture.
+D. Aqueducts supplied water while roads connected distant
+regions.
+E. Roman engineers refused to experiment with new building
+techniques.
+F. Modern architects continue to learn from Roman engineering
+achievements.
+■
+Answer: A, D, F
+
+11. เติมสรุปให้สมบูรณ์โดยเลือก 3 ข้อ
+สรุป: วิศวกรรมโรมันโบราณสร้างโครงสร้างที่สนับสนุนทั้งจักรวรรดิและอารยธรรมรุ่นหลัง
+A. วิศวกรโรมันพัฒนาโครงสร้างพื้นฐานที่เสริมการคมนาคมและชีวิตเมือง
+B. โคลอสเซียมแสดงวิธีก่อสร้างขั้นสูงและวัสดุทนทาน
+C. ศิลปินโรมันชอบการวาดภาพมากกว่าสถาปัตยกรรม
+D. ท่อส่งน้ำจ่ายน้ำและถนนเชื่อมภูมิภาคไกลกัน
+E. วิศวกรโรมันปฏิเสธการทดลองเทคนิคก่อสร้างใหม่
+F. สถาปนิกสมัยใหม่ยังเรียนรู้จากความสำเร็จด้านวิศวกรรมโรมัน
+เฉลย: A, D และ F
+
+`}],qa_raw:`1. What is the main purpose of the passage?
 A. To explain why the Roman Empire eventually declined
 B. To describe several important engineering achievements of
 Ancient Rome
@@ -2085,7 +2149,7 @@ principles discovered through historical research.
 E. Contemporary venues use advanced technologies to meet
 the different acoustic requirements of performances.
 F. Ancient theaters were designed specifically to accommodate
-modern orchestral concerts.`},{kind:"open",ok:!1,q:"Question 12: A, C, E",opts:[],ans:"A",th:`ข้อ 12 — สรุปเรื่อง
+modern orchestral concerts.`},{kind:"raw",ok:!1,q:"Question 12: A, C, E",opts:[],ans:"A",th:`ข้อ 12 — สรุปเรื่อง
 เลือก 3 ข้อที่สรุปแนวคิดหลักของบทความได้ดีที่สุด
 A. สถาปนิกโบราณสร้างสภาพเสียงที่ดีจากการสังเกตและทดลองจริง
 B. ที่นั่งหินปูนเป็นปัจจัยเดียวที่ทำให้โรงละครโบราณเสียงดี
@@ -2093,7 +2157,21 @@ C. การออกแบบและวัสดุของโรงละ�
 D. อะคูสติกสถาปัตยกรรมสมัยใหม่ไม่พึ่งหลักการที่ค้นพบจากงานวิจัยประวัติศาสตร์อีกต่อไป
 E. สถานที่สมัยใหม่ใช้เทคโนโลยีขั้นสูงตอบโจทย์เสียงที่ต่างกันของการแสดง
 F. โรงละครโบราณออกแบบมาเพื่อรองรับคอนเสิร์ตออร์เคสตราสมัยใหม่โดยเฉพาะ
-เฉลย: A, C, E`,ans_text:"A, C, E",raw:null}],qa_raw:`Question 1 Main Idea
+เฉลย: A, C, E`,ans_text:null,raw:`Question 12: A, C, E
+Answer: A, C, E
+
+ข้อ 12 — สรุปเรื่อง
+เลือก 3 ข้อที่สรุปแนวคิดหลักของบทความได้ดีที่สุด
+A. สถาปนิกโบราณสร้างสภาพเสียงที่ดีจากการสังเกตและทดลองจริง
+B. ที่นั่งหินปูนเป็นปัจจัยเดียวที่ทำให้โรงละครโบราณเสียงดี
+C. การออกแบบและวัสดุของโรงละครโบราณช่วยกระจายเสียงและความชัดของคำพูด
+D. อะคูสติกสถาปัตยกรรมสมัยใหม่ไม่พึ่งหลักการที่ค้นพบจากงานวิจัยประวัติศาสตร์อีกต่อไป
+E. สถานที่สมัยใหม่ใช้เทคโนโลยีขั้นสูงตอบโจทย์เสียงที่ต่างกันของการแสดง
+F. โรงละครโบราณออกแบบมาเพื่อรองรับคอนเสิร์ตออร์เคสตราสมัยใหม่โดยเฉพาะ
+เฉลย: A, C, E
+
+
+`}],qa_raw:`Question 1 Main Idea
 What is the main purpose of the passage?
 A. To compare the construction costs of ancient and modern
 theaters
@@ -5047,7 +5125,7 @@ information in paragraph 4?`,opts:[["A","Cultural changes caused by gentrificati
 A. การเปลี่ยนแปลงทางวัฒนธรรมจากเจนทริฟิเคชันเป็นบวกเสมอ B. เจนทริฟิเคชันเปลี่ยนวัฒนธรรม บางครั้ง
 ยกระดับชีวิตแต่ก็คุกคามอัตลักษณ์ท้องถิ่น C. ผู้อยู่อาศัยที่ร่ำรวยไม่กระทบธุรกิจท้องถิ่น D. อัตลักษณ์วัฒนธรรม
 ไม่ได้รับผลจากการเปลี่ยนแปลงทางเศรษฐกิจ
-เฉลย: B`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`7. Insert Sentence Question
+เฉลย: B`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`7. Insert Sentence Question
 Sentence to insert:
 This often creates tension between new residents and longstanding community members.
 Where would the sentence best fit?
@@ -5094,7 +5172,68 @@ Negative Effects
 
 9. ผลกระทบเชิงลบ (เลือก 3)
 A. ค่าเช่าสูงขึ้น B. ชุมชนถูกบังคับย้าย C. บริการสาธารณะดีขึ้น D. สูญเสียวัฒนธรรม E. การลงทุนเพิ่มขึ้น
-เฉลย: A, B, D`,ans_text:null,raw:null},{kind:"open",ok:!1,q:`10. Summary Question
+เฉลย: A, B, D`,ans_text:null,raw:`7. Insert Sentence Question
+Sentence to insert:
+This often creates tension between new residents and longstanding community members.
+Where would the sentence best fit?
+Paragraph 4:
+In addition to economic displacement, gentrification can lead to
+cultural changes within neighborhoods.
+(A) New businesses and services may cater primarily to
+wealthier residents, gradually replacing local shops and
+traditions.
+(B) While some argue that this transformation enhances the
+overall quality of life, others believe it erodes the unique
+cultural identity of the community.
+(C) This tension highlights the complex relationship between
+economic development and social preservation.
+(D) The effects of gentrification continue to be debated among
+urban planners and policymakers.
+Answer: B
+Explanation:
+
+7. แทรกประโยค
+ประโยคที่แทรก: “สิ่งนี้มักสร้างความตึงเครียดระหว่างผู้อยู่อาศัยใหม่กับสมาชิกชุมชนเดิม”
+เหมาะกับตำแหน่งใดในย่อหน้า 4 (A–D)
+เฉลย: B
+
+
+Directions: Select TWO answers that describe benefits of
+gentrification
+Category Options
+Benefits of Gentrification
+
+⬜ A. Increased tax revenue
+
+⬜ B. Displacement of residents
+⬜ C. Improved infrastructure
+⬜ D. Loss of cultural identity
+✅ Answers:
+✔ A. Increased tax revenue
+
+✔ C. Improved infrastructure
+
+8. คำสั่ง: เลือก 2 ข้อที่เป็นประโยชน์ของเจนทริฟิเคชัน
+A. รายได้ภาษีเพิ่ม B. ผู้อยู่อาศัยถูกบังคับย้าย C. โครงสร้างพื้นฐานดีขึ้น D. สูญเสียอัตลักษณ์วัฒนธรรม
+เฉลย: A และ C
+Category Options
+Negative Effects
+
+⬜ A. Rising rent
+
+⬜ B. Community displacement
+⬜ C. Improved public services
+⬜ D. Cultural loss
+⬜ E. Increased investment
+✅ Answers:
+✔ A. Rising rent
+
+✔ B. Community displacement
+✔ D. Cultural loss
+
+9. ผลกระทบเชิงลบ (เลือก 3)
+A. ค่าเช่าสูงขึ้น B. ชุมชนถูกบังคับย้าย C. บริการสาธารณะดีขึ้น D. สูญเสียวัฒนธรรม E. การลงทุนเพิ่มขึ้น
+เฉลย: A, B, D`},{kind:"raw",ok:!1,q:`10. Summary Question
 Directions: Select THREE answers that best summarize the
 passage
 Options
@@ -5108,7 +5247,32 @@ areas
 A. เจนทริฟิเคชันนำการปรับปรุงทางเศรษฐกิจมาสู่พื้นที่เมือง B. ช่วยผู้อยู่อาศัยรายได้ต่ำเสมอ C. อาจบังคับให้ผู้
 อยู่อาศัยเดิมย้ายออก D. ไม่มีผลต่อวัฒนธรรม E. อาจเปลี่ยนอัตลักษณ์วัฒนธรรมของย่าน F. เกิดเฉพาะใน
 ชนบท
-เฉลย: A, C, E`,ans_text:"s: ✔A ✔C ✔E",raw:null}],qa_raw:`1. What is the main idea of the passage?
+เฉลย: A, C, E`,ans_text:null,raw:`10. Summary Question
+Directions: Select THREE answers that best summarize the
+passage
+Options
+
+⬜ A. Gentrification brings economic improvements to urban
+areas
+⬜ B. It always benefits low-income residents
+⬜ C. It can force existing residents to move out
+⬜ D. It has no cultural impact
+⬜ E. It may change the cultural identity of neighborhoods
+⬜ F. It only occurs in rural areas
+✅ Answers:
+✔A
+
+✔C
+✔E
+
+10. คำถามสรุป: เลือก 3 ข้อที่สรุปบทความได้ดีที่สุด
+A. เจนทริฟิเคชันนำการปรับปรุงทางเศรษฐกิจมาสู่พื้นที่เมือง B. ช่วยผู้อยู่อาศัยรายได้ต่ำเสมอ C. อาจบังคับให้ผู้
+อยู่อาศัยเดิมย้ายออก D. ไม่มีผลต่อวัฒนธรรม E. อาจเปลี่ยนอัตลักษณ์วัฒนธรรมของย่าน F. เกิดเฉพาะใน
+ชนบท
+เฉลย: A, C, E
+
+
+`}],qa_raw:`1. What is the main idea of the passage?
 A. Gentrification only benefits governments
 B. Gentrification is a complex process with both positive and
 negative effects
@@ -5561,7 +5725,7 @@ sustainability and food security) Answer: (D)
 ทางอาหาร)
 เฉลย: (D)
 
-`},{kind:"open",ok:!1,q:`9. Summary (Select 3)
+`},{kind:"raw",ok:!1,q:`9. Summary (Select 3)
 Which statements best summarize the article?
 • Bees play a vital role in agricultural productivity
 through pollination.
@@ -5573,7 +5737,29 @@ food security and ecosystems.`,opts:[],ans:"C",th:`9. สรุป (เลือ
 • ผึ้งมีบทบาทสำคัญต่อผลผลิตเกษตรผ่านการผสมเกสร
 • การลดลงของประชากรผึ้งเกิดจากกิจกรรมมนุษย์ เช่น การใช้ยาฆ่าแมลง
 • การปกป้องผึ้งจำเป็นต่อความมั่นคงทางอาหารและระบบนิเวศโลก
-(สามข้อนี้คือเฉลยตามต้นฉบับ)`,ans_text:"(C)",raw:null}],qa_raw:`1. Vocabulary (Synonym)
+(สามข้อนี้คือเฉลยตามต้นฉบับ)`,ans_text:null,raw:`9. Summary (Select 3)
+Which statements best summarize the article?
+• Bees play a vital role in agricultural productivity
+through pollination.
+• The decline of bee populations is driven by human
+activities like pesticide use.
+• Protecting bees is essential for maintaining global
+food security and ecosystems.
+Answer: (B)
+Answer: (B)
+Answer: (A)
+Answer: (B)
+Answer: (C)
+Answer: (C)
+
+9. สรุป (เลือก 3)
+ข้อใดสรุปบทความได้ดีที่สุด
+• ผึ้งมีบทบาทสำคัญต่อผลผลิตเกษตรผ่านการผสมเกสร
+• การลดลงของประชากรผึ้งเกิดจากกิจกรรมมนุษย์ เช่น การใช้ยาฆ่าแมลง
+• การปกป้องผึ้งจำเป็นต่อความมั่นคงทางอาหารและระบบนิเวศโลก
+(สามข้อนี้คือเฉลยตามต้นฉบับ)
+
+`}],qa_raw:`1. Vocabulary (Synonym)
 What does the word "ensure" mean in Paragraph 2?
 (A) Predict
 (B) Make certain
@@ -6204,7 +6390,7 @@ theaters happened somewhat slowly, which meant that many European
 filmmakers created two versions of each movie: one with sound, one without.`,opts:[],ans:null,th:`9. ประโยคที่ไฮไลต์ข้อใดสื่อสาระสำคัญได้ดีที่สุด “ไม่ใช่เฉพาะสตูดิโอที่ตามหลัง การปรับโรงภาพยนตร์ก็ช้า ผู้
 สร้างภาพยนตร์ยุโรปจึงทำสองเวอร์ชัน คือมีเสียงและไม่มีเสียง”
 เฉลย: ผู้สร้างภาพยนตร์ยุโรปต้องทำเวอร์ชันไม่มีเสียงของภาพยนตร์เสียงที่ทำในสหรัฐฯ ต่อไป เพราะโรง
-ภาพยนตร์ยุโรปปรับเข้าสู่เทคโนโลยีเสียงช้า`,ans_text:"Filmmakers in Europe had to continue creating a non-sound version of the sound movies they made in the U.S. because European theaters were slow to convert to sound technology.",raw:null},{kind:"open",ok:!1,q:`10. Directions: An introductory sentence for a brief summary of the passage is
+ภาพยนตร์ยุโรปปรับเข้าสู่เทคโนโลยีเสียงช้า`,ans_text:"Filmmakers in Europe had to continue creating a non-sound version of the sound movies they made in the U.S. because European theaters were slow to convert to sound technology.",raw:null},{kind:"raw",ok:!1,q:`10. Directions: An introductory sentence for a brief summary of the passage is
 provided below. Complete the summary by selecting the THREE answer choices
 that express the most important ideas in the passage. Some sentences do not
 belong in the summary because they express ideas that are not presented in the
@@ -6219,7 +6405,36 @@ B. ก่อนยุค talkies ภาพยนตร์ใช้เสีย�
 C. วอร์เนอร์ บราเธอร์สเป็นสตูดิโอแรกที่ออกภาพยนตร์เสียงเรื่องยาว
 D. ผู้สร้างภาพยนตร์พัฒนาเสียงอย่างต่อเนื่อง ได้ประโยชน์จากเทคโนโลยีเสียงด้านอื่น
 E. ปลายทศวรรษ 1920 ภาพยนตร์เสียงเป็นที่ยอมรับกว้างขวางในสหรัฐฯ และยุโรปเกือบทั้งหมด
-เฉลย: B, D, E`,ans_text:"B, D, E A. Growing American companies such as AT&T and GE helped to popularize sound movies throughout the United States. B. Before the “talkies,” movies incorporated sound through live music and narration. C. Warner Bros. was the first studio to release a feature-length sound movie. D. Filmmakers persistently improved sound in film, benefitting from advances in other areas of sound technology. E. By the end of the 1920s, sound films had become widely accepted in the United States and most of Europe.",raw:null}],qa_raw:`1. What can be inferred about the showing of The Battleship Potemkin
+เฉลย: B, D, E`,ans_text:null,raw:`10. Directions: An introductory sentence for a brief summary of the passage is
+provided below. Complete the summary by selecting the THREE answer choices
+that express the most important ideas in the passage. Some sentences do not
+belong in the summary because they express ideas that are not presented in the
+passage or are minor ideas in the passage. This question is worth 2 points.
+Drag your answer choices to the spaces where they belong. To remove an answer
+choice, drag it back. To review the passage, click VIEW TEXT.
+A major change in the film industry came in the early 20th century when sound
+was added to movies.
+Answer: B, D, E
+A. Growing American companies such as AT&T and GE helped to popularize sound
+movies throughout the United States.
+B. Before the “talkies,” movies incorporated sound through live music and
+narration.
+C. Warner Bros. was the first studio to release a feature-length sound movie.
+D. Filmmakers persistently improved sound in film, benefitting from advances in
+other areas of sound technology.
+E. By the end of the 1920s, sound films had become widely accepted in the
+United States and most of Europe.
+
+10. คำถามสรุป: ประโยคนำ “การเปลี่ยนแปลงใหญ่ในอุตสาหกรรมภาพยนตร์เกิดขึ้นในต้นศตวรรษที่ 20 เมื่อมี
+การเพิ่มเสียงให้ภาพยนตร์” เลือก 3 ข้อที่แสดงใจความสำคัญ (2 คะแนน)
+A. บริษัทอเมริกันที่เติบโต เช่น AT&T และ GE ช่วยให้ภาพยนตร์เสียงเป็นที่นิยมทั่วสหรัฐฯ
+B. ก่อนยุค talkies ภาพยนตร์ใช้เสียงผ่านดนตรีสดและการเล่าเรื่อง
+C. วอร์เนอร์ บราเธอร์สเป็นสตูดิโอแรกที่ออกภาพยนตร์เสียงเรื่องยาว
+D. ผู้สร้างภาพยนตร์พัฒนาเสียงอย่างต่อเนื่อง ได้ประโยชน์จากเทคโนโลยีเสียงด้านอื่น
+E. ปลายทศวรรษ 1920 ภาพยนตร์เสียงเป็นที่ยอมรับกว้างขวางในสหรัฐฯ และยุโรปเกือบทั้งหมด
+เฉลย: B, D, E
+
+`}],qa_raw:`1. What can be inferred about the showing of The Battleship Potemkin
 in Germany?
 Answer: It features the premier of an original piece of music.
 
@@ -6627,13 +6842,32 @@ Coral bleaching, Pollution
 reef conservation?`,opts:[["A","Marine education"],["B","Sustainable tourism"],["C","Expanding industrial fishing"],["D","Protected areas"]],ans:"C",th:`8. ข้อใดไม่ได้กล่าวถึงว่าเป็นส่วนหนึ่งของการอนุรักษ์แนวปะการัง
 (A) การให้ความรู้ทางทะเล (B) การท่องเที่ยวอย่างยั่งยืน (C) การขยายการประมงเชิงอุตสาหกรรม (D) พื้นที่
 คุ้มครอง
-[ตรวจจากเนื้อหา: C]`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`9. Which of the following best summarizes the passage?
+[ตรวจจากเนื้อหา: C]`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`9. Which of the following best summarizes the passage?
 (Choose 3 answers)`,opts:[["A","Coral reefs are highly diverse ecosystems essential to marine life."],["B","They provide benefits for humans, including tourism and medicine."],["C","Climate change and human activity threaten their survival, but conservation offers hope."],["D","Coral reefs are expanding rapidly across the ocean floor."]],ans:"A",th:`9. ข้อใดสรุปบทความได้ดีที่สุด (เลือก 3)
 (A) แนวปะการังเป็นระบบนิเวศที่หลากหลายและจำเป็นต่อชีวิตในทะเล
 (B) ให้ประโยชน์แก่มนุษย์ รวมถึงการท่องเที่ยวและการแพทย์
 (C) การเปลี่ยนแปลงสภาพภูมิอากาศและกิจกรรมมนุษย์คุกคามการอยู่รอด แต่การอนุรักษ์ให้ความหวัง
 (D) แนวปะการังขยายตัวอย่างรวดเร็วบนพื้นมหาสมุทร
-[ตรวจจากเนื้อหา: A, B, C]`,ans_text:null,raw:null}],qa_raw:`1. The word 'shelter' in paragraph 2 is closest in meaning to:
+[ตรวจจากเนื้อหา: A, B, C]`,ans_text:null,raw:`9. Which of the following best summarizes the passage?
+(Choose 3 answers)
+(A) Coral reefs are highly diverse ecosystems essential to
+marine life.
+(B) They provide benefits for humans, including tourism and
+medicine.
+(C) Climate change and human activity threaten their survival,
+but conservation offers hope.
+(D) Coral reefs are expanding rapidly across the ocean floor.
+Answer: (A), (B), (C).
+Answer: (A), (B), (C)
+
+9. ข้อใดสรุปบทความได้ดีที่สุด (เลือก 3)
+(A) แนวปะการังเป็นระบบนิเวศที่หลากหลายและจำเป็นต่อชีวิตในทะเล
+(B) ให้ประโยชน์แก่มนุษย์ รวมถึงการท่องเที่ยวและการแพทย์
+(C) การเปลี่ยนแปลงสภาพภูมิอากาศและกิจกรรมมนุษย์คุกคามการอยู่รอด แต่การอนุรักษ์ให้ความหวัง
+(D) แนวปะการังขยายตัวอย่างรวดเร็วบนพื้นมหาสมุทร
+[ตรวจจากเนื้อหา: A, B, C]
+
+`}],qa_raw:`1. The word 'shelter' in paragraph 2 is closest in meaning to:
 (A) Danger
 (B) Protection
 (C) Pollution
@@ -7860,13 +8094,37 @@ Directions:You will find an introductory sentence for a summary of the passage
 provided below. Your task is to complete the summary by selecting the THREE
 answer choices that best represent the key ideas in the passage. Be mindful that some
 sentences may not align with the main ideas or may have minor ideas in the
-passage. This question carries a weight of 2 points.`,ans_text:"B. , (C), and (D) denote where the subsequent sentence could be incorporated. They hold symbols of Roman authority, like the colossal Colosseum, in high regard.",raw:null},{kind:"open",ok:!1,q:"10. The strength of the Roman world emanated from several significant sources.",opts:[],ans:"A",th:`10. คำถามสรุป (เลือก 3 — 2 คะแนน): ประโยคนำ “ความแข็งแกร่งของโลกโรมันมาจากหลายแหล่งสำคัญ”
+passage. This question carries a weight of 2 points.`,ans_text:"B. , (C), and (D) denote where the subsequent sentence could be incorporated. They hold symbols of Roman authority, like the colossal Colosseum, in high regard.",raw:null},{kind:"raw",ok:!1,q:"10. The strength of the Roman world emanated from several significant sources.",opts:[],ans:"A",th:`10. คำถามสรุป (เลือก 3 — 2 คะแนน): ประโยคนำ “ความแข็งแกร่งของโลกโรมันมาจากหลายแหล่งสำคัญ”
 (A) ผู้ปกครองโรมันใช้การควบคุมหลายอย่างเพื่อรักษาความสามัคคีในดินแดน (B) กองทัพโรมันมีโครงสร้าง
 องค์กรโดดเด่นต่างจากกองทัพแบบดั้งเดิม (C) เหมือนชาวลาติน ชาวโรมันยกย่องอำนาจทางทะเล (D) ความ
 ผูกพันลึกซึ้งกับที่ดินและความมั่นคงของชีวิตชนบทเป็นพื้นฐานค่านิยมโรมัน (E) โรมผสมองค์ประกอบของ
 อารยธรรมกรีกโบราณกับนวัตกรรมของตนในด้านใหม่ (F) ชาวโรมันที่มีการศึกษาสร้างวรรณกรรมและปรัชญา
 ตามแบบกรีกโบราณ
-เฉลย: A, D, E`,ans_text:"A, D, E",raw:null}],qa_raw:`1. Based on the information provided in the first paragraph,
+เฉลย: A, D, E`,ans_text:null,raw:`10. The strength of the Roman world emanated from several significant sources.
+Answer Choices
+(A) Roman rulers enforced multiple controls to maintain cohesion within their
+territories.
+(B) The Roman military exhibited distinctive organizational structures compared to
+traditional military formations.
+(C) Like the Latins, the original inhabitants of Rome, Romans esteemed sea power.
+(D) A profound connection to the land and the stability of rural life formed the basis
+of Roman values.
+(E) Rome amalgamated elements from ancient Greek civilization with its own
+innovations in novel domains.
+(F) Well-educated Romans fashioned their literature and philosophy after the ancient
+Greeks.
+Answer: A, D, E
+Answer: A, D, E
+
+10. คำถามสรุป (เลือก 3 — 2 คะแนน): ประโยคนำ “ความแข็งแกร่งของโลกโรมันมาจากหลายแหล่งสำคัญ”
+(A) ผู้ปกครองโรมันใช้การควบคุมหลายอย่างเพื่อรักษาความสามัคคีในดินแดน (B) กองทัพโรมันมีโครงสร้าง
+องค์กรโดดเด่นต่างจากกองทัพแบบดั้งเดิม (C) เหมือนชาวลาติน ชาวโรมันยกย่องอำนาจทางทะเล (D) ความ
+ผูกพันลึกซึ้งกับที่ดินและความมั่นคงของชีวิตชนบทเป็นพื้นฐานค่านิยมโรมัน (E) โรมผสมองค์ประกอบของ
+อารยธรรมกรีกโบราณกับนวัตกรรมของตนในด้านใหม่ (F) ชาวโรมันที่มีการศึกษาสร้างวรรณกรรมและปรัชญา
+ตามแบบกรีกโบราณ
+เฉลย: A, D, E
+
+`}],qa_raw:`1. Based on the information provided in the first paragraph,
 which of the following was NOT identified as a control mechanism that unified
 the Roman world?
 1.Administrative and legal systems
@@ -8648,7 +8906,7 @@ understand the connections between urban environments and wildlife."`,opts:[["A"
 7.What is the main purpose of paragraph 6?`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:"1. To summarise the negative effects of urban growth on wildlife",opts:[],ans:null,th:"",ans_text:null,raw:"1. To summarise the negative effects of urban growth on wildlife"},{kind:"raw",ok:!1,q:`2. To highlight the importance of urban planning for wildlife
 conservation`,opts:[],ans:null,th:"",ans_text:null,raw:`2. To highlight the importance of urban planning for wildlife
 conservation`},{kind:"raw",ok:!1,q:"3. To discuss the future of urban environments",opts:[],ans:null,th:"",ans_text:null,raw:"3. To discuss the future of urban environments"},{kind:"open",ok:!1,q:"4. To emphasise the need for more research on urban wildlife",opts:[],ans:"B",th:`7. จุดประสงค์หลักของย่อหน้า 6 คืออะไร
-เฉลย: B. เพื่อเน้นความสำคัญของการวางผังเมืองเพื่อการอนุรักษ์สัตว์ป่า`,ans_text:"B.",raw:null},{kind:"open",ok:!1,q:`8. In paragraph 6, there is a missing sentence. The paragraph is repeated below
+เฉลย: B. เพื่อเน้นความสำคัญของการวางผังเมืองเพื่อการอนุรักษ์สัตว์ป่า`,ans_text:"B.",raw:null},{kind:"raw",ok:!1,q:`8. In paragraph 6, there is a missing sentence. The paragraph is repeated below
 and shows four letters (A, B, C, and D) that indicate where the following
 sentence could be added.
 "Effective collaboration can lead to sustainable solutions."
@@ -8691,7 +8949,53 @@ Answer: A, B, D
 A. การขยายเมืองทำให้ถิ่นอาศัยสูญหายและเพิ่มแรงกดดันต่อสัตว์ป่า B. เมืองเป็นที่หลบภัยที่ไม่คาดคิดของบาง
 สปีชีส์ C. แนวคิดนิเวศวิทยาเมืองไม่เกี่ยวข้องกับการอนุรักษ์ D. กลยุทธ์อนุรักษ์เชิงนวัตกรรมช่วยสร้างสมดุล
 ระหว่างการเติบโตของเมืองกับความหลากหลายทางชีวภาพ E. การมีส่วนร่วมของชุมชนไม่จำเป็น
-เฉลย: A, B, D`,ans_text:"B.",raw:null},{kind:"raw",ok:!1,q:`10. What is the main takeaway from the passage regarding urban growth and
+เฉลย: A, B, D`,ans_text:null,raw:`8. In paragraph 6, there is a missing sentence. The paragraph is repeated below
+and shows four letters (A, B, C, and D) that indicate where the following
+sentence could be added.
+"Effective collaboration can lead to sustainable solutions."
+Where would the sentence best fit?
+To sum up, the relationship between city growth and wildlife is varied, characterised
+by both challenges and opportunities. (A) While urban expansion poses significant
+threats to biodiversity through habitat loss and increased human-caused pressures, it
+also presents avenues for innovative conservation strategies. (B) As urban areas
+continue to grow, it is vital that planners, decision-makers, and communities work
+together to create sustainable urban environments that accommodate both human
+populations and wildlife. (C) By fostering a harmonious coexistence, we can ensure
+that city growth does not come at the expense of our planet's rich variety of
+life. (D) Future research should explore unanswered questions regarding the longterm effects of city growth on specific species and environments, preparing the way
+for a future where both humans and wildlife can thrive.
+Answer: B.
+
+8. ประโยค “ความร่วมมืออย่างมีประสิทธิภาพนำไปสู่ทางออกที่ยั่งยืนได้” เหมาะกับตำแหน่งใดในย่อหน้า 6 (A–
+D)
+เฉลย: B
+
+
+9.Directions: An introductory sentence for a brief summary of the passage is
+provided below. Complete the summary by selecting the THREE answer
+choices that express the most important ideas in the passage. Some sentences do
+not belong in the summary because they express ideas that are not presented in
+the passage or are minor ideas in the passage. This question is worth 2 points.
+Urban growth presents both challenges and opportunities for wildlife.
+Answer Choices
+A. Urban expansion leads to habitat loss and increased pressures on
+wildlife.
+B. Urban areas can serve as unexpected sanctuaries for certain
+species.
+C. The concept of urban ecology is irrelevant to wildlife
+conservation.
+D. Innovative conservation strategies can help balance urban growth
+and biodiversity.
+E. Community engagement is unnecessary for wildlife conservation
+efforts.
+Answer: A, B, D
+
+9. คำถามสรุป (เลือก 3 — 2 คะแนน): ประโยคนำ “การเติบโตของเมืองนำทั้งความท้าทายและโอกาสสำหรับ
+สัตว์ป่า”
+A. การขยายเมืองทำให้ถิ่นอาศัยสูญหายและเพิ่มแรงกดดันต่อสัตว์ป่า B. เมืองเป็นที่หลบภัยที่ไม่คาดคิดของบาง
+สปีชีส์ C. แนวคิดนิเวศวิทยาเมืองไม่เกี่ยวข้องกับการอนุรักษ์ D. กลยุทธ์อนุรักษ์เชิงนวัตกรรมช่วยสร้างสมดุล
+ระหว่างการเติบโตของเมืองกับความหลากหลายทางชีวภาพ E. การมีส่วนร่วมของชุมชนไม่จำเป็น
+เฉลย: A, B, D`},{kind:"raw",ok:!1,q:`10. What is the main takeaway from the passage regarding urban growth and
 wildlife?`,opts:[],ans:null,th:"",ans_text:null,raw:`10. What is the main takeaway from the passage regarding urban growth and
 wildlife?`},{kind:"raw",ok:!1,q:"1. Urban growth is solely detrimental to wildlife.",opts:[],ans:null,th:"",ans_text:null,raw:"1. Urban growth is solely detrimental to wildlife."},{kind:"raw",ok:!1,q:`2. Urban areas can coexist with wildlife through thoughtful planning
 and conservation.`,opts:[],ans:null,th:"",ans_text:null,raw:`2. Urban areas can coexist with wildlife through thoughtful planning
@@ -8989,8 +9293,26 @@ c) A travel blog.
 d) A platform for selling products.
 
 10. ข้อใดเป็นตัวอย่างชุมชนสนับสนุนที่กล่าวถึงในบทความ
-[ตรวจจากเนื้อหา: a กลุ่มที่ช่วยผู้เผชิญปัญหาสุขภาพจิต]
-11-12. Select the best sentence to insert into the passage:
+[ตรวจจากเนื้อหา: a กลุ่มที่ช่วยผู้เผชิญปัญหาสุขภาพจิต]`,ans_text:null,raw:`9. Why does the author discuss time management in relation to social media
+use?
+a) To suggest that using social media more can improve productivity.
+b) To highlight that excessive use can lead to stress.
+c) To emphasize that social media saves time.
+d) To explain why people prefer online interactions.
+
+9. เหตุใดผู้เขียนจึงพูดถึงการจัดการเวลาเกี่ยวกับโซเชียลมีเดีย
+[ตรวจจากเนื้อหา: b เพื่อเน้นว่าการใช้มากเกินไปนำไปสู่ความเครียด]
+
+
+10.Which of the following is an example of a support community mentioned in
+the passage?
+a) A group helping people with mental health challenges.
+b) A business advertisement page.
+c) A travel blog.
+d) A platform for selling products.
+
+10. ข้อใดเป็นตัวอย่างชุมชนสนับสนุนที่กล่าวถึงในบทความ
+[ตรวจจากเนื้อหา: a กลุ่มที่ช่วยผู้เผชิญปัญหาสุขภาพจิต]`},{kind:"raw",ok:!1,q:`11-12. Select the best sentence to insert into the passage:
 • Where would the following sentence best fit?*
 "Many individuals feel pressure to present an idealized version of their lives
 online."
@@ -8998,16 +9320,7 @@ online."
 • Where would the following sentence best fit?*
 "By setting limits on social media use, people can maintain a better balance
 between their digital and real lives."
-(Insert sentence selection question)
-Answer:
-• "Many individuals feel pressure to present an idealized version of their lives
-online." → Best fits after paragraph 5 (after discussing unrealistic social
-media portrayals).
-• "By setting limits on social media use, people can maintain a better balance
-between their digital and real lives." → Best fits after paragraph 7 (after
-discussing time management and well-being
-
-11–12. เลือกประโยคที่เหมาะจะแทรกในบทความ
+(Insert sentence selection question)`,opts:[],ans:null,th:`11–12. เลือกประโยคที่เหมาะจะแทรกในบทความ
 • “หลายคนรู้สึกกดดันที่ต้องนำเสนอภาพชีวิตในอุดมคติออนไลน์” → เหมาะที่สุดหลังย่อหน้า 5 (หลังพูดถึง
 การนำเสนอที่ไม่สมจริงบนโซเชียลมีเดีย)
 • “การกำหนดขีดจำกัดการใช้โซเชียลมีเดียช่วยให้คนรักษาสมดุลระหว่างชีวิตดิจิทัลกับชีวิตจริง” → เหมาะที่สุด
@@ -9034,27 +9347,7 @@ Negative Effects:
 เฉลย (ตามต้นฉบับ)
 ผลบวก: a) ช่วยให้เชื่อมต่อกันข้ามระยะทาง c) ให้เข้าถึงเนื้อหาการศึกษา e) ช่วยสร้างความตระหนักเรื่อง
 ประเด็นสังคมสำคัญ
-ผลลบ: b) ส่งเสริมการเปรียบเทียบที่ไม่สมจริง d) เพิ่มความเครียดจากการจัดการเวลาที่แย่`,ans_text:null,raw:`9. Why does the author discuss time management in relation to social media
-use?
-a) To suggest that using social media more can improve productivity.
-b) To highlight that excessive use can lead to stress.
-c) To emphasize that social media saves time.
-d) To explain why people prefer online interactions.
-
-9. เหตุใดผู้เขียนจึงพูดถึงการจัดการเวลาเกี่ยวกับโซเชียลมีเดีย
-[ตรวจจากเนื้อหา: b เพื่อเน้นว่าการใช้มากเกินไปนำไปสู่ความเครียด]
-
-
-10.Which of the following is an example of a support community mentioned in
-the passage?
-a) A group helping people with mental health challenges.
-b) A business advertisement page.
-c) A travel blog.
-d) A platform for selling products.
-
-10. ข้อใดเป็นตัวอย่างชุมชนสนับสนุนที่กล่าวถึงในบทความ
-[ตรวจจากเนื้อหา: a กลุ่มที่ช่วยผู้เผชิญปัญหาสุขภาพจิต]
-11-12. Select the best sentence to insert into the passage:
+ผลลบ: b) ส่งเสริมการเปรียบเทียบที่ไม่สมจริง d) เพิ่มความเครียดจากการจัดการเวลาที่แย่`,ans_text:null,raw:`11-12. Select the best sentence to insert into the passage:
 • Where would the following sentence best fit?*
 "Many individuals feel pressure to present an idealized version of their lives
 online."
@@ -10576,7 +10869,7 @@ D. Paragraph C provides historical evidence for
 paragraph B.
 
 11. ย่อหน้า B กับ C สัมพันธ์กันอย่างไร
-เฉลย: A. ย่อหน้า B อธิบายผลของภูเขาไฟ ส่วนย่อหน้า C พูดถึงความยากในการศึกษา`},{kind:"mcq",ok:!0,q:`12. Which of the following best describes the author’s
+เฉลย: A. ย่อหน้า B อธิบายผลของภูเขาไฟ ส่วนย่อหน้า C พูดถึงความยากในการศึกษา`},{kind:"raw",ok:!1,q:`12. Which of the following best describes the author’s
 tone?`,opts:[["A","Emotional and persuasive"],["B","Scientific and informative"],["C","Critical and doubtful"],["D","Optimistic and humorous"]],ans:"B",th:`12. น้ำเสียงของผู้เขียนเป็นแบบใด
 เฉลย: B. เชิงวิทยาศาสตร์และให้ข้อมูล
 
@@ -10637,7 +10930,76 @@ friction
 
 คำศัพท์เน้น: คำพ้องความหมาย
 obstacle (อุปสรรค) — barrier, challenge, hindrance
-lubricate (หล่อลื่น) — make smooth, reduce friction`,ans_text:null,raw:null}],qa_raw:`1. According to paragraph A, what recent discovery surprised
+lubricate (หล่อลื่น) — make smooth, reduce friction`,ans_text:null,raw:`12. Which of the following best describes the author’s
+tone?
+A. Emotional and persuasive
+B. Scientific and informative ✔
+C. Critical and doubtful
+D. Optimistic and humorous
+
+12. น้ำเสียงของผู้เขียนเป็นแบบใด
+เฉลย: B. เชิงวิทยาศาสตร์และให้ข้อมูล
+
+
+Drag & Drop :Obstacle vs Research Outcome
+Category Sentences
+Obstacle
+(a) The thick ice makes direct observation
+nearly impossible.
+(b) Instruments often fail in extreme cold.
+(c) Researchers have limited access to remote
+Research
+Outcome
+(d) Scientists improved models predicting ice
+melt and sea level rise.
+(e) The study provided new evidence of hidden
+volcanoes beneath glaciers.
+
+ลากและวาง: อุปสรรคกับผลการวิจัย
+อุปสรรค: (a) น้ำแข็งหนาทำให้สังเกตโดยตรงแทบเป็นไปไม่ได้ (b) เครื่องมือมักเสียในที่หนาวจัด (c) นักวิจัยเข้า
+ถึงพื้นที่ห่างไกลได้จำกัด
+ผลการวิจัย: (d) นักวิทยาศาสตร์ปรับปรุงแบบจำลองทำนายการละลายของน้ำแข็งและระดับน้ำทะเล (e) งาน
+ศึกษาให้หลักฐานใหม่ของภูเขาไฟที่ซ่อนอยู่ใต้ธารน้ำแข็ง
+Insert Sentence Practice
+Sentence to insert:
+“This hidden activity could be more widespread than scientists
+previously believed.”
+Insert into Paragraph A after the sentence:
+“These subglacial volcanoes, some still active, generate heat
+that slowly melts the ice above them.”
+
+✅ Correct placement (makes logical sense and maintains flow):
+These subglacial volcanoes, some still active, generate heat
+that slowly melts the ice above them.
+This hidden activity could be more widespread than
+scientists previously believed.
+This hidden geothermal activity has drawn attention because it
+may influence how quickly Antarctica’s massive ice sheet melts.
+
+ฝึกแทรกประโยค
+ประโยคที่แทรก: “กิจกรรมที่ซ่อนอยู่นี้อาจแพร่หลายกว่าที่นักวิทยาศาสตร์เคยเชื่อ”
+แทรกในย่อหน้า A หลังประโยค “ภูเขาไฟใต้ธารน้ำแข็งเหล่านี้ บางลูกยังคุกรุ่น ผลิตความร้อนที่ค่อยๆ ละลายน้ำ
+แข็งด้านบน”
+ตำแหน่งที่ถูก: แทรกต่อจากประโยคนั้นและก่อนประโยค “กิจกรรมความร้อนใต้พิภพที่ซ่อนอยู่นี้ได้รับความ
+สนใจ…” จึงสมเหตุสมผลและลื่นไหล
+
+✅
+
+
+Vocabulary Focus: Synonyms
+Word Synonym Thai Meaning
+obstacle
+barrier, challenge,
+hindrance
+lubricate
+make smooth, reduce
+friction
+
+คำศัพท์เน้น: คำพ้องความหมาย
+obstacle (อุปสรรค) — barrier, challenge, hindrance
+lubricate (หล่อลื่น) — make smooth, reduce friction
+
+`}],qa_raw:`1. According to paragraph A, what recent discovery surprised
 scientists?
 A. The disappearance of several glaciers
 B. The existence of volcanoes beneath Antarctica’s ice ✔
@@ -13048,7 +13410,7 @@ Answer: It also has a high level of plant species diversity.
 
 7. อนุมานอะไรได้จากย่อหน้า 4 เกี่ยวกับภูมิภาคที่มีความหลากหลายของสัตว์สูง
 เฉลย: มีความหลากหลายของพืชสูงด้วย`,ans_text:"To give an example of the complex architecture vegetation displays in a dense area",raw:null},{kind:"open",ok:!1,q:"8. The word “consequently” in the passage is closest in meaning to",opts:[],ans:null,th:`8. คำว่า “consequently” ใกล้เคียงที่สุดกับ
-เฉลย: therefore (ดังนั้น)`,ans_text:"therefore",raw:null},{kind:"open",ok:!1,q:`9. Look at the four squares [■] that indicate where the following sentence could
+เฉลย: therefore (ดังนั้น)`,ans_text:"therefore",raw:null},{kind:"raw",ok:!1,q:`9. Look at the four squares [■] that indicate where the following sentence could
 be added to the passage.
 One example of such tropical abundance is found in Panama, which has 667
 species of breeding birds—three times the number found in Alaska.
@@ -13079,7 +13441,48 @@ species it is able to support.
 ทางชีวภาพระหว่างละติจูดต่ำและสูง”
 เฉลย: A. แม้พื้นที่แผ่นดินอาจสัมพันธ์กับความหลากหลาย แต่ไม่ใช่ปัจจัยหลัก B. ภูมิภาคที่มีเงื่อนไขเหมาะต่อ
 การเติบโตของพืชมักมีพืชพรรณหนาแน่นหลากหลายที่รองรับสปีชีส์จำนวนมาก E. ยิ่งโครงสร้างพืชพรรณซับ
-ซ้อน ก็ยิ่งรองรับสปีชีส์ได้มาก`,ans_text:"When we look at the way in which biodiversity (biological diversity) is distributed over the land surface of the planet, we find that it is far from even. The tropics contain many more species overall than an equivalent area at the higher latitudes. This seems to be true for many different groups of animals and plants. One example of such tropical abundance is found in Panama, which has 667 species of breeding birds—three times the number found in Alaska.",raw:null}],qa_raw:`1. The word “distributed” in the passage is closest in meaning to
+ซ้อน ก็ยิ่งรองรับสปีชีส์ได้มาก`,ans_text:null,raw:`9. Look at the four squares [■] that indicate where the following sentence could
+be added to the passage.
+One example of such tropical abundance is found in Panama, which has 667
+species of breeding birds—three times the number found in Alaska.
+Where would the sentence best fit? Click on a square [■] to add the sentence to
+the passage.
+Answer: When we look at the way in which biodiversity (biological diversity) is
+distributed over the land surface of the planet, we find that it is far from even.
+The tropics contain many more species overall than an equivalent area at the
+higher latitudes. This seems to be true for many different groups of animals and
+plants. One example of such tropical abundance is found in Panama, which has
+667 species of breeding birds—three times the number found in Alaska.
+
+9. การแทรกประโยค “ตัวอย่างของความอุดมสมบูรณ์ในเขตร้อนคือปานามา ที่มีนกทำรัง 667 ชนิด ซึ่งมากกว่า
+อลาสกาสามเท่า” เหมาะที่ตำแหน่งใด
+เฉลย: ท้ายย่อหน้า 1 (หลังประโยค “ซึ่งดูเป็นจริงกับกลุ่มสัตว์และพืชหลายกลุ่ม”)
+
+
+10.
+Directions: An introductory sentence for a brief summary of the passage is
+provided below. Complete the summary by selecting the THREE answer
+choices that express the most important ideas in the passage.
+Some sentences do not belong in the summary because they express ideas that
+are not presented in the passage or are minor ideas in the passage.
+This question is worth 2 points.
+A number of factors may help account for the difference in biodiversity between
+low and high latitudes.
+A. Though land area may be related to a region’s biodiversity, it is not a
+primary determining factor.
+B. Regions possessing conditions that are favorable for plant growth tend to
+have abundant and diverse vegetation that supports a large number of
+species.
+E. The more complex the structure of the vegetation of a region, the more
+species it is able to support.
+
+10. คำถามสรุป (เลือก 3 — 2 คะแนน): ประโยคนำ “หลายปัจจัยอาจช่วยอธิบายความต่างด้านความหลากหลาย
+ทางชีวภาพระหว่างละติจูดต่ำและสูง”
+เฉลย: A. แม้พื้นที่แผ่นดินอาจสัมพันธ์กับความหลากหลาย แต่ไม่ใช่ปัจจัยหลัก B. ภูมิภาคที่มีเงื่อนไขเหมาะต่อ
+การเติบโตของพืชมักมีพืชพรรณหนาแน่นหลากหลายที่รองรับสปีชีส์จำนวนมาก E. ยิ่งโครงสร้างพืชพรรณซับ
+ซ้อน ก็ยิ่งรองรับสปีชีส์ได้มาก
+
+`}],qa_raw:`1. The word “distributed” in the passage is closest in meaning to
 Answer: spread
 
 1. คำว่า “distributed” ในบทความใกล้เคียงที่สุดกับ
@@ -14356,7 +14759,7 @@ unusual island animals.
 endangered. █ [B] Extinction is on the increase. █ [C] As an example,
 90 percent of bird species that are now extinct were island-dwellers.
 █ [D] .`,opts:[],ans:null,th:`9. แทรกประโยค “สิ่งนี้ได้รับการพิสูจน์จากการศึกษาที่ชี้ว่าสัตว์เกาะที่ไม่ธรรมดาลดลงอย่างมาก” ที่บล็อกใด
-เฉลย: [C]`,ans_text:"[C]",raw:null},{kind:"open",ok:!1,q:`10. Directions: An introductory sentence for a brief summary of the passage is
+เฉลย: [C]`,ans_text:"[C]",raw:null},{kind:"raw",ok:!1,q:`10. Directions: An introductory sentence for a brief summary of the passage is
 provided below. Complete the summary by selecting the THREE answer choices
 that express the most important ideas in the passage. Some sentences do not
 belong in the summary because they express ideas that are not presented in the
@@ -14368,7 +14771,24 @@ materials as well and cultural resources for economies and lifestyles.`,opts:[],
 ทรัพยากรทางวัฒนธรรมต่อเศรษฐกิจและวิถีชีวิต”
 เฉลย: A, B, D (A: สปีชีส์เฉพาะถิ่นพบเฉพาะที่นั่น • B: ภัยคุกคาม เช่น การท่องเที่ยว สปีชีส์รุกราน การ
 เปลี่ยนแปลงสภาพภูมิอากาศ ภัยธรรมชาติ และมลพิษ • D: มีการจัดทำแผนงานเพื่อรับมือความท้าทาย เช่น
-วาระ 21)`,ans_text:"A, B, D",raw:null}],qa_raw:`1. Which of the following can be inferred from paragraph 2 about islands?
+วาระ 21)`,ans_text:null,raw:`10. Directions: An introductory sentence for a brief summary of the passage is
+provided below. Complete the summary by selecting the THREE answer choices
+that express the most important ideas in the passage. Some sentences do not
+belong in the summary because they express ideas that are not presented in the
+passage or are minor ideas in the passage. This question is worth 2 points.
+Drag your answer choices to the spaces where they belong. To remove an answer
+choice, drag it back. To review the passage, click VIEW TEXT.
+The ecosystems of islands provide fresh water, wood, fibre, food and raw
+materials as well and cultural resources for economies and lifestyles.
+Answer: A, B, D
+
+10. คำถามสรุป (เลือก 3) ประโยคนำ: “ระบบนิเวศของเกาะให้น้ำจืด ไม้ เส้นใย อาหาร และวัตถุดิบ รวมถึง
+ทรัพยากรทางวัฒนธรรมต่อเศรษฐกิจและวิถีชีวิต”
+เฉลย: A, B, D (A: สปีชีส์เฉพาะถิ่นพบเฉพาะที่นั่น • B: ภัยคุกคาม เช่น การท่องเที่ยว สปีชีส์รุกราน การ
+เปลี่ยนแปลงสภาพภูมิอากาศ ภัยธรรมชาติ และมลพิษ • D: มีการจัดทำแผนงานเพื่อรับมือความท้าทาย เช่น
+วาระ 21)
+
+`}],qa_raw:`1. Which of the following can be inferred from paragraph 2 about islands?
 Answer: Unique biodiversity on oceanic islands are at risk.
 
 1. อนุมานอะไรได้จากย่อหน้า 2 เกี่ยวกับเกาะ
@@ -15901,7 +16321,7 @@ Click on an option (A, B, C, or D) to add the sentence to the passage.`,opts:[],
 the Roman were influenced by the Greeks?`,opts:[],ans:null,th:`12. ในย่อหน้า ข้อใดไม่ได้กล่าวถึงเป็นด้านที่ชาวโรมันได้รับอิทธิพลจากกรีก
 เฉลย: โครงสร้างทหาร`,ans_text:": Military Organization",raw:null},{kind:"open",ok:!1,q:`13. According to the information in the paragraph, what is true of Roman
 innovation?`,opts:[],ans:null,th:`13. ตามข้อมูลในย่อหน้า ข้อใดจริงเกี่ยวกับนวัตกรรมของโรมัน
-เฉลย: ปรากฏในด้านอื่นนอกเหนือจากที่กรีกสร้างนวัตกรรม`,ans_text:": It was seen in area other than those of Greek innovation.",raw:null},{kind:"open",ok:!1,q:`14. Direction : An introductory sentence for a brief summary of the passage is
+เฉลย: ปรากฏในด้านอื่นนอกเหนือจากที่กรีกสร้างนวัตกรรม`,ans_text:": It was seen in area other than those of Greek innovation.",raw:null},{kind:"raw",ok:!1,q:`14. Direction : An introductory sentence for a brief summary of the passage is
 provided below. Complete the summary by selecting the THREE answer choices that
 express the most important ideas in the passage. Some sentences do not belong in the
 summary they express ideas that are not presented in the passage or are minor ideas
@@ -15911,7 +16331,30 @@ choice, click on it. To review the passage, click VIEW TEXT.`,opts:[],ans:null,t
 เฉลย: A. แม้โรมได้รับอิทธิพลจากกรีกด้านปรัชญา ศาสนา และศิลปะ แต่ก็ก้าวหน้าสำคัญด้านโครงสร้างทหาร
 วิศวกรรม และกฎหมาย • C. วัฒนธรรมโรมันถูกครอบงำด้วยแนวคิดเรื่องความเป็นหนึ่งเดียวและความเหนียว
 แน่นซึ่งแทรกซึมทุกส่วนของชีวิตในจักรวรรดิ • D. ต่างจากกรีซที่เป็นมหาอำนาจทางทะเลเป็นหลัก การครอง
-อำนาจของโรมตั้งอยู่บนการควบคุมดินแดน ความต่างนี้ส่งผลลึกซึ้งต่อทัศนคติและค่านิยมของโรมัน`,ans_text:": A. While Rome was greatly influenced by the Greeks in the areas of philosophy, religion, and the arts, it made significant advances in military organization, engineering, and law. C. Roman culture was dominated by the ideas of unity and cohesion, and these ideas permeated every part of life in the empire. D. Unlike Greece, which was primarily a sea power, Roman dominance was based on controlling territory, and this difference profoundly affected Roman attitudes and values.",raw:null}],qa_raw:`1. The word pervaded in the paragraph is closest in meaning to:
+อำนาจของโรมตั้งอยู่บนการควบคุมดินแดน ความต่างนี้ส่งผลลึกซึ้งต่อทัศนคติและค่านิยมของโรมัน`,ans_text:null,raw:`14. Direction : An introductory sentence for a brief summary of the passage is
+provided below. Complete the summary by selecting the THREE answer choices that
+express the most important ideas in the passage. Some sentences do not belong in the
+summary they express ideas that are not presented in the passage or are minor ideas
+in the passage. This question is worth 2 points.
+Drag your answers choices to the spaces where they belong. To remove an answer
+choice, click on it. To review the passage, click VIEW TEXT.
+Answer :
+A. While Rome was greatly influenced by the Greeks in the areas of philosophy,
+religion, and the arts, it made significant advances in military organization,
+engineering, and law.
+C. Roman culture was dominated by the ideas of unity and cohesion, and these ideas
+permeated every part of life in the empire.
+D. Unlike Greece, which was primarily a sea power, Roman dominance was based
+on controlling territory, and this difference profoundly affected Roman attitudes and
+values.
+
+14. คำถามสรุป (เลือก 3 — 2 คะแนน)
+เฉลย: A. แม้โรมได้รับอิทธิพลจากกรีกด้านปรัชญา ศาสนา และศิลปะ แต่ก็ก้าวหน้าสำคัญด้านโครงสร้างทหาร
+วิศวกรรม และกฎหมาย • C. วัฒนธรรมโรมันถูกครอบงำด้วยแนวคิดเรื่องความเป็นหนึ่งเดียวและความเหนียว
+แน่นซึ่งแทรกซึมทุกส่วนของชีวิตในจักรวรรดิ • D. ต่างจากกรีซที่เป็นมหาอำนาจทางทะเลเป็นหลัก การครอง
+อำนาจของโรมตั้งอยู่บนการควบคุมดินแดน ความต่างนี้ส่งผลลึกซึ้งต่อทัศนคติและค่านิยมของโรมัน
+
+`}],qa_raw:`1. The word pervaded in the paragraph is closest in meaning to:
 Answer : Spread through
 
 1. คำว่า pervaded ในย่อหน้า ใกล้เคียงที่สุดกับ
@@ -16677,14 +17120,40 @@ streaming in the future?`,opts:[["A","It will be replaced by CDs."],["B","It wil
 information in the highlighted sentence in paragraph 4?
 “These services have changed drastically since their beginning.”`,opts:[["A","Streaming services have stayed the same since they started."],["B","Streaming services have experienced significant changes."],["C","Streaming services are too expensive for most people."],["D","Streaming services have disappeared over time."]],ans:"B",th:`9. ข้อใดสื่อสาระสำคัญของประโยคที่ไฮไลต์ในย่อหน้า 4 ได้ดีที่สุด “These services have changed drastically
 since their beginning.”
-เฉลย: b) บริการสตรีมผ่านการเปลี่ยนแปลงอย่างมีนัยสำคัญ`,ans_text:null,raw:null},{kind:"open",ok:!1,q:`10. Directions: An introductory sentence for a brief
+เฉลย: b) บริการสตรีมผ่านการเปลี่ยนแปลงอย่างมีนัยสำคัญ`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Directions: An introductory sentence for a brief
 summary of the passage is provided below. Complete
 the summary by selecting the THREE answer choices
 that express the most important ideas in the passage.
 Introductory sentence: The passage discusses how music
 streaming has changed the way people listen to music.`,opts:[],ans:"B",th:`10. คำถามสรุป (เลือก 3): ประโยคนำ “บทความอภิปรายว่าการสตรีมเพลงเปลี่ยนวิธีที่ผู้คนฟังเพลงอย่างไร”
 เฉลย: b) ความสะดวกเพราะเข้าถึงเพลงได้โดยไม่ต้องดาวน์โหลด • c) ศิลปินกังวลเรื่องค่าลิขสิทธิ์ต่ำจากบริการ
-สตรีม • e) บริการสตรีมอาจพัฒนาต่อไปด้วยเทคโนโลยีใหม่ (b, c, e)`,ans_text:"B, C, E",raw:null}],qa_raw:`1. The word “debut” in paragraph 2 is closest in
+สตรีม • e) บริการสตรีมอาจพัฒนาต่อไปด้วยเทคโนโลยีใหม่ (b, c, e)`,ans_text:null,raw:`10. Directions: An introductory sentence for a brief
+summary of the passage is provided below. Complete
+the summary by selecting the THREE answer choices
+that express the most important ideas in the passage.
+Introductory sentence: The passage discusses how music
+streaming has changed the way people listen to music.
+Answer Choices:
+a) Music streaming started in the 1990s and has not changed
+since then.
+b) It offers convenience because users can access music
+without downloading.
+c) Artists have concerns about low royalties from streaming
+services.
+d) Music streaming is expected to disappear soon due to
+criticism.
+e) Streaming services may continue to evolve with new
+technology.
+f) People prefer physical albums because they sound better
+than streaming.
+Correct Summary Should Include:
+Answer: B, C, E
+
+10. คำถามสรุป (เลือก 3): ประโยคนำ “บทความอภิปรายว่าการสตรีมเพลงเปลี่ยนวิธีที่ผู้คนฟังเพลงอย่างไร”
+เฉลย: b) ความสะดวกเพราะเข้าถึงเพลงได้โดยไม่ต้องดาวน์โหลด • c) ศิลปินกังวลเรื่องค่าลิขสิทธิ์ต่ำจากบริการ
+สตรีม • e) บริการสตรีมอาจพัฒนาต่อไปด้วยเทคโนโลยีใหม่ (b, c, e)
+
+`}],qa_raw:`1. The word “debut” in paragraph 2 is closest in
 meaning to:
 a) Return
 b) Beginning
@@ -17225,7 +17694,7 @@ and (D) indicate where the following sentence could be added.
 Nevertheless, the book came under attack.
 Where would the sentence best fit?`,opts:[["A","Choice A"],["B","Choice B"],["C","Choice C"],["D","Choice D"]],ans:"C",th:`9. แทรกประโยค “อย่างไรก็ตาม หนังสือถูกโจมตี” ที่ตำแหน่ง (A)–(D) ใด
 เฉลย: C. ตัวเลือก C (ตามคำอธิบายในต้นฉบับ: ย่อหน้าบรรยายความสำเร็จของหนังสือก่อน แล้วจึงเปลี่ยนไปที่
-นักวิจารณ์ที่ปฏิเสธข้อค้นพบ)`,ans_text:null,raw:null},{kind:"open",ok:!1,q:`10. Directions: An introductory sentence for a brief summary of the
+นักวิจารณ์ที่ปฏิเสธข้อค้นพบ)`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Directions: An introductory sentence for a brief summary of the
 passage is provided below. Complete the summary by selecting the 3
 answer choices that express the most important ideas in the passage.
 Some sentences do not belong in the summary because they express
@@ -17240,7 +17709,45 @@ A. กาลิเลโอใช้ความรู้ด้านออป�
 Sidereus Nuncius กาลิเลโอโต้แย้งอย่างน่าเชื่อว่าการสังเกตดาวบริวารพิสูจน์ว่าแผนโคเปอร์นิคัสถูกต้อง F.
 Sidereus Nuncius ได้รับการต้อนรับด้วยความสงสัยจากนักวิจารณ์ที่อ้างว่า “การค้นพบ” เกิดจากความบกพร่อง
 ของกล้องหรือการรบกวนของบรรยากาศ
-เฉลย: B, C, F`,ans_text:"B,C,F",raw:null}],qa_raw:`1. The word “exploiting” in paragraph 1 is closest in meaning
+เฉลย: B, C, F`,ans_text:null,raw:`10. Directions: An introductory sentence for a brief summary of the
+passage is provided below. Complete the summary by selecting the 3
+answer choices that express the most important ideas in the passage.
+Some sentences do not belong in the summary because they express
+ideas that are not presented in the passage or are minor ideas in the
+passage.
+Write your answers in the spaces where they belong. You can either
+write the letter of your answer choice or you can copy the sentence.
+Answer Choices
+A. Galileo was able to apply his extensive knowledge of optics in order to
+construct a more powerful telescope.
+B. Although he did not invent the telescope, Galileo was one of the first
+to recognize its full potential in enabling humans to see distant objects
+in new and startling ways.
+C. Galileo’s observations of the Moon and Jupiter challenged traditional
+Aristotelian notions of the nature of heavenly bodies and the paths of
+their orbits.
+D. Discoveries made by Galileo provided support for a model of the solar
+system that had been developed long before by Kan Te, an ancient
+Chinese astronomer.
+E. In his Sidereus Nuncius, Galileo argued convincingly that his
+observations of Jupiter’s satellites proved that the Copernican scheme
+was correct.
+F. Galileo’s Sidereus Nuncius was greeted with skepticism by critics, who
+attributed his “discoveries” to flaws in his telescope or to disturbances in
+the atmosphere.
+Answer: B,C,F
+
+10. คำถามสรุป (เลือก 3 ข้อ)
+A. กาลิเลโอใช้ความรู้ด้านออปติกอย่างกว้างขวางสร้างกล้องที่ทรงพลังกว่า B. แม้ไม่ได้ประดิษฐ์กล้อง กาลิเลโอ
+เป็นหนึ่งในคนแรกที่ตระหนักศักยภาพเต็มรูปแบบของกล้องในการทำให้มนุษย์มองเห็นวัตถุไกลในแบบใหม่ C.
+การสังเกตดวงจันทร์และดาวพฤหัสบดีของกาลิเลโอท้าทายแนวคิดแบบอริสโตเติลเรื่องธรรมชาติของเทห์ฟ้าและ
+เส้นทางโคจร D. การค้นพบของกาลิเลโอสนับสนุนแบบจำลองระบบสุริยะที่คังเต๋อพัฒนาไว้นานแล้ว E. ใน
+Sidereus Nuncius กาลิเลโอโต้แย้งอย่างน่าเชื่อว่าการสังเกตดาวบริวารพิสูจน์ว่าแผนโคเปอร์นิคัสถูกต้อง F.
+Sidereus Nuncius ได้รับการต้อนรับด้วยความสงสัยจากนักวิจารณ์ที่อ้างว่า “การค้นพบ” เกิดจากความบกพร่อง
+ของกล้องหรือการรบกวนของบรรยากาศ
+เฉลย: B, C, F
+
+`}],qa_raw:`1. The word “exploiting” in paragraph 1 is closest in meaning
 to
 A. calling attention to
 B. describing
@@ -17733,10 +18240,27 @@ Options:`,opts:[["A","Before the first sentence"],["B","After the first sentence
 ย่อหน้า 4)
 เฉลย: D. หลังประโยคที่สาม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`9. According to the passage, what skill is developed
 through participation in E-Sports communities?`,opts:[["A","Knowledge of physical anatomy"],["B","Strategic thinking"],["C","Advanced programming ability"],["D","Musical creativity"]],ans:"B",th:`9. ตามบทความ ทักษะใดพัฒนาจากการมีส่วนร่วมในชุมชนอีสปอร์ต
-เฉลย: B. การคิดเชิงกลยุทธ์`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`10. Summary Question
+เฉลย: B. การคิดเชิงกลยุทธ์`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Summary Question
 Select two statements that best summarize the passage.`,opts:[["A","E-Sports is becoming more structured and professional, attracting global audiences and sponsors."],["B","E-Sports has replaced traditional sports in most countries."],["C","Critics are concerned about the health impacts and pressure faced by young E-Sports players."],["D","Careers in E-Sports are limited to professional gamers only."],["E","Technology has hindered the growth of competitive gaming. Choose 2 answers."]],ans:"A",th:`10. คำถามสรุป (เลือก 2)
 เฉลย: A. อีสปอร์ตมีโครงสร้างและความเป็นมืออาชีพมากขึ้น ดึงดูดผู้ชมทั่วโลกและผู้สนับสนุน • C. นักวิจารณ์
-กังวลเรื่องผลกระทบต่อสุขภาพและแรงกดดันที่ผู้เล่นรุ่นเยาว์เผชิญ (A และ C)`,ans_text:null,raw:null}],qa_raw:`1. What is the main idea of the passage?
+กังวลเรื่องผลกระทบต่อสุขภาพและแรงกดดันที่ผู้เล่นรุ่นเยาว์เผชิญ (A และ C)`,ans_text:null,raw:`10. Summary Question
+Select two statements that best summarize the passage.
+A. E-Sports is becoming more structured and professional,
+attracting global audiences and sponsors.
+B. E-Sports has replaced traditional sports in most countries.
+C. Critics are concerned about the health impacts and pressure
+faced by young E-Sports players.
+D. Careers in E-Sports are limited to professional gamers only.
+E. Technology has hindered the growth of competitive gaming.
+Choose 2 answers.
+Answer A. and C.
+
+10. คำถามสรุป (เลือก 2)
+เฉลย: A. อีสปอร์ตมีโครงสร้างและความเป็นมืออาชีพมากขึ้น ดึงดูดผู้ชมทั่วโลกและผู้สนับสนุน • C. นักวิจารณ์
+กังวลเรื่องผลกระทบต่อสุขภาพและแรงกดดันที่ผู้เล่นรุ่นเยาว์เผชิญ (A และ C)
+
+
+`}],qa_raw:`1. What is the main idea of the passage?
 A. The economic decline of traditional sports.
 B. The emergence and broader impact of E-Sports in modern
 society.
@@ -18236,10 +18760,23 @@ animals mainly by`,opts:[["A","increasing water temperature"],["B","entering the
 microplastic pollution?`,opts:[["A","Fishing industry"],["B","Single-use plastic"],["C","Industrial chemicals"],["D","Land-based waste"]],ans:"C",th:`3. ข้อใดไม่ได้กล่าวถึงเป็นแหล่งของมลพิษไมโครพลาสติก
 เฉลย: C. สารเคมีอุตสาหกรรม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"4. The author mentions “8 million tons” primarily to",opts:[["A","criticize governments"],["B","emphasize the scale of the problem"],["C","compare countries"],["D","explain recycling processes"]],ans:"B",th:`4. ผู้เขียนกล่าวถึง “8 million tons” เป็นหลักเพื่อ
 เฉลย: B. เน้นขนาดของปัญหา`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"5. The word marine is closest in meaning to",opts:[["A","coastal"],["B","underwater"],["C","ocean-related"],["D","biological"]],ans:"C",th:`5. คำว่า marine ใกล้เคียงที่สุดกับ
-เฉลย: C. ocean-related (เกี่ยวกับมหาสมุทร)
-
-
-6–7. Drag & Drop
+เฉลย: C. ocean-related (เกี่ยวกับมหาสมุทร)`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`6–7. Drag & Drop
+Classify the following into Pollution Causes
+(3) and Solutions (2)
+• Fishing gear
+• Recycling programs
+• Public awareness
+• Single-use plastics
+• Land-based waste
+Pollution Causes (3):
+• Fishing gear
+• Single-use plastics
+• Land-based waste
+Solutions (2):
+• Recycling programs
+• Public awareness`,opts:[],ans:null,th:`6–7. ลากและวาง: จัดประเภทเป็นสาเหตุของมลพิษ (3) และทางแก้ (2)
+สาเหตุของมลพิษ: เครื่องมือประมง • พลาสติกใช้ครั้งเดียว • ขยะจากแหล่งบนบก
+ทางแก้: โครงการรีไซเคิล • การสร้างความตระหนักของประชาชน`,ans_text:null,raw:`6–7. Drag & Drop
 Classify the following into Pollution Causes
 (3) and Solutions (2)
 • Fishing gear
@@ -18257,7 +18794,7 @@ Solutions (2):
 
 6–7. ลากและวาง: จัดประเภทเป็นสาเหตุของมลพิษ (3) และทางแก้ (2)
 สาเหตุของมลพิษ: เครื่องมือประมง • พลาสติกใช้ครั้งเดียว • ขยะจากแหล่งบนบก
-ทางแก้: โครงการรีไซเคิล • การสร้างความตระหนักของประชาชน`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`8. What can be inferred about microplastics from the
+ทางแก้: โครงการรีไซเคิล • การสร้างความตระหนักของประชาชน`},{kind:"mcq",ok:!0,q:`8. What can be inferred about microplastics from the
 passage?`,opts:[["A","They dissolve quickly in water"],["B","They are harmless to large animals"],["C","They persist in the environment"],["D","They are easily removed"]],ans:"C",th:`8. อนุมานอะไรได้เกี่ยวกับไมโครพลาสติกจากบทความ
 เฉลย: C. คงอยู่ในสิ่งแวดล้อม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"9. The word they in paragraph 3 refers to",opts:[["A","marine animals"],["B","scientists"],["C","microplastics"],["D","fishing industries"]],ans:"C",th:`9. คำว่า they ในย่อหน้า 3 หมายถึง
 เฉลย: C. microplastics (ไมโครพลาสติก)`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Where would the following sentence best fit?
@@ -19969,7 +20506,7 @@ implies that the WSPU:`,opts:[["A","Value symbolic speeches over physical protes
 the Representation of the People Act in 1918?`,opts:[["A","It did not allow women to work in factories."],["B","It only granted the vote to men over the age of 30."],["C","It required women to be at least 30 years old and meet property criteria."],["D","It was completely rejected by the members of the WSPU."]],ans:"C",th:`4. ตามย่อหน้า 3 ข้อจำกัดของพระราชบัญญัติปี 1918 คืออะไร
 เฉลย: (C) กำหนดให้สตรีอายุอย่างน้อย 30 ปีและมีคุณสมบัติด้านทรัพย์สิน`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`5. Which of the following is NOT mentioned in the
 passage as a method used by "suffragettes"?`,opts:[["A","Smashing windows"],["B","Going on hunger strikes"],["C","Heckling politicians"],["D","Organizing armed military coups"]],ans:"D",th:`5. ข้อใดไม่ได้กล่าวถึงเป็นวิธีที่ “ซัฟฟราเจ็ตต์” ใช้
-เฉลย: (D) การจัดรัฐประหารด้วยอาวุธ`,ans_text:null,raw:null},{kind:"open",ok:!1,q:`6. Directions: Complete the table below by matching
+เฉลย: (D) การจัดรัฐประหารด้วยอาวุธ`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`6. Directions: Complete the table below by matching
 the descriptions to the correct group. (Drag and Drop)
 Select the correct phrases and place them under the
 appropriate heading.
@@ -19980,7 +20517,19 @@ List of phrases:
 • (A) Associated with the motto "Deeds, not words"
 • (B) Primarily used "suasion" and lobbying
 • (C) Founded by Emmeline Pankhurst
-• (D) Preceded the militant movement in the 19th century`,opts:[],ans:null,th:"",ans_text:"Drag & Drop:",raw:null},{kind:"raw",ok:!1,q:"1. Suffragists (NUWSS):",opts:[],ans:null,th:"",ans_text:null,raw:"1. Suffragists (NUWSS):"},{kind:"raw",ok:!1,q:"2. Suffragettes (WSPU):",opts:[["C","Founded by Emmeline Pankhurst (Suffragette Movement)"]],ans:null,th:`6. ลากและวาง: จับคู่คำอธิบายกับกลุ่มที่ถูกต้อง
+• (D) Preceded the militant movement in the 19th century`,opts:[],ans:null,th:"",ans_text:null,raw:`6. Directions: Complete the table below by matching
+the descriptions to the correct group. (Drag and Drop)
+Select the correct phrases and place them under the
+appropriate heading.
+Suffragists (NUWSS) Suffragettes (WSPU)
+(1) ........................................ (3) ........................................
+(2) ........................................ (4) ........................................
+List of phrases:
+• (A) Associated with the motto "Deeds, not words"
+• (B) Primarily used "suasion" and lobbying
+• (C) Founded by Emmeline Pankhurst
+• (D) Preceded the militant movement in the 19th century
+Answer: Drag & Drop:`},{kind:"raw",ok:!1,q:"1. Suffragists (NUWSS):",opts:[],ans:null,th:"",ans_text:null,raw:"1. Suffragists (NUWSS):"},{kind:"raw",ok:!1,q:"2. Suffragettes (WSPU):",opts:[["C","Founded by Emmeline Pankhurst (Suffragette Movement)"]],ans:null,th:`6. ลากและวาง: จับคู่คำอธิบายกับกลุ่มที่ถูกต้อง
 ซัฟฟราจิสต์ (NUWSS): (1) (B) ใช้ “suasion” และการล็อบบี้เป็นหลัก • (2) (D) มาก่อนขบวนการแข็งกร้าวใน
 ศตวรรษที่ 19
 ซัฟฟราเจ็ตต์ (WSPU): (3) (A) เกี่ยวกับคำขวัญ “Deeds, not words” • (4) (C) ก่อตั้งโดยเอ็มเมลีน แพงเคิร์สต์`,ans_text:null,raw:`2. Suffragettes (WSPU):
@@ -20168,11 +20717,26 @@ C. humor
 😂
 
 👍 → A (การยอมรับ/เห็นด้วย)
-`},{kind:"mcq",ok:!0,q:`8. Summary Question (Choose THREE correct statements)
+`},{kind:"raw",ok:!1,q:`8. Summary Question (Choose THREE correct statements)
 Select THREE statements that express the main ideas of the
 passage:`,opts:[["A","Emoji were standardized through Unicode, enabling global use."],["B","Emoji were invented in Europe in the early 2000s."],["C","Emoji function as paralinguistic tools in digital communication."],["D","Emoji have no impact on teenage users."],["E","Scholars debate the long-term social impact of emoji."],["F","Emoji are replacing all written languages."]],ans:"A",th:`8. คำถามสรุป (เลือก 3)
 เฉลย: A. อีโมจิถูกทำให้เป็นมาตรฐานผ่านยูนิโค้ด ทำให้ใช้ได้ทั่วโลก • C. อีโมจิทำหน้าที่เป็นเครื่องมือพาราลิ
-งกิวสติกในการสื่อสารดิจิทัล • E. นักวิชาการถกเถียงผลกระทบทางสังคมระยะยาวของอีโมจิ (A, C, E)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`12. Insert Sentence Question
+งกิวสติกในการสื่อสารดิจิทัล • E. นักวิชาการถกเถียงผลกระทบทางสังคมระยะยาวของอีโมจิ (A, C, E)`,ans_text:null,raw:`8. Summary Question (Choose THREE correct statements)
+Select THREE statements that express the main ideas of the
+passage:
+A. Emoji were standardized through Unicode, enabling global
+use.
+B. Emoji were invented in Europe in the early 2000s.
+C. Emoji function as paralinguistic tools in digital
+communication.
+D. Emoji have no impact on teenage users.
+E. Scholars debate the long-term social impact of emoji.
+F. Emoji are replacing all written languages.
+Answer: A, C, E
+
+8. คำถามสรุป (เลือก 3)
+เฉลย: A. อีโมจิถูกทำให้เป็นมาตรฐานผ่านยูนิโค้ด ทำให้ใช้ได้ทั่วโลก • C. อีโมจิทำหน้าที่เป็นเครื่องมือพาราลิ
+งกิวสติกในการสื่อสารดิจิทัล • E. นักวิชาการถกเถียงผลกระทบทางสังคมระยะยาวของอีโมจิ (A, C, E)`},{kind:"mcq",ok:!0,q:`12. Insert Sentence Question
 Where would the following sentence best fit?
 "This development allowed emoji to become part of
 international digital culture."`,opts:[["A","After the first sentence of paragraph 1"],["B","After the sentence describing Unicode adoption"],["C","At the beginning of paragraph 3"],["D","At the end of paragraph 4"]],ans:"B",th:`ข้อ 12 (ต้นฉบับ): แทรกประโยค “การพัฒนานี้ทำให้อีโมจิเป็นส่วนหนึ่งของวัฒนธรรมดิจิทัลระหว่างประเทศ”
@@ -21121,11 +21685,20 @@ in meaning to:`,opts:[["A","limited"],["B","complete"],["C","temporary"],["D","c
 เฉลย: C. โดยทั่วไปหนากว่าและมีความหนาแน่นน้อยกว่าเปลือกมหาสมุทร`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"5. Why is continental crust important to scientists?",opts:[["A","It causes earthquakes"],["B","It provides information about Earth’s geological history"],["C","It forms the ocean floor"],["D","It is constantly recycled every million years"]],ans:"B",th:`5. เหตุใดเปลือกโลกทวีปจึงสำคัญต่อนักวิทยาศาสตร์
 เฉลย: B. ให้ข้อมูลเกี่ยวกับประวัติศาสตร์ทางธรณีวิทยาของโลก`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`6. The word “fragmented” in paragraph 3 is closest in
 meaning to:`,opts:[["A","broken apart"],["B","heated up"],["C","strengthened"],["D","measured"]],ans:"A",th:`6. คำว่า “fragmented” ในย่อหน้า 3 ใกล้เคียงที่สุดกับ
-เฉลย: A. broken apart (แตกออกจากกัน)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`7. Which of the following was NOT mentioned as
+เฉลย: A. broken apart (แตกออกจากกัน)`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`7. Which of the following was NOT mentioned as
 evidence supporting Wegener’s hypothesis?`,opts:[["A","Matching coastlines of continents"],["B","Similar fossil records on distant continents"],["C","Geological formations aligning across oceans"],["D","Satellite measurements of plate movement"]],ans:"D",th:`7. ข้อใดไม่ได้กล่าวถึงเป็นหลักฐานสนับสนุนสมมติฐานของเวเกเนอร์
-เฉลย: D. การวัดการเคลื่อนที่ของแผ่นเปลือกโลกด้วยดาวเทียม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`8. From the passage, was Wegener’s theory
+เฉลย: D. การวัดการเคลื่อนที่ของแผ่นเปลือกโลกด้วยดาวเทียม`,ans_text:null,raw:`7. Which of the following was NOT mentioned as
+evidence supporting Wegener’s hypothesis?
+A. Matching coastlines of continents
+B. Similar fossil records on distant continents
+C. Geological formations aligning across oceans
+D. Satellite measurements of plate movement
+Answer: D
+
+7. ข้อใดไม่ได้กล่าวถึงเป็นหลักฐานสนับสนุนสมมติฐานของเวเกเนอร์
+เฉลย: D. การวัดการเคลื่อนที่ของแผ่นเปลือกโลกด้วยดาวเทียม`},{kind:"mcq",ok:!0,q:`8. From the passage, was Wegener’s theory
 immediately accepted by all scientists?`,opts:[["A","Yes, it was universally accepted from the beginning."],["B","No, many scientists were skeptical at first."],["C","Yes, because he explained the movement clearly."],["D","No, because fossils disproved his theory."]],ans:"B",th:`8. ตามบทความ ทฤษฎีของเวเกเนอร์เป็นที่ยอมรับของนักวิทยาศาสตร์ทุกคนทันทีหรือไม่
-เฉลย: B. ไม่ นักวิทยาศาสตร์หลายคนสงสัยในตอนแรก`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`9. Why did many scientists initially reject Wegener’s
+เฉลย: B. ไม่ นักวิทยาศาสตร์หลายคนสงสัยในตอนแรก`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`9. Why did many scientists initially reject Wegener’s
 theory?`,opts:[["A","He lacked fossil evidence"],["B","He could not explain the mechanism of continental movement"],["C","His data were incorrect"],["D","The continents did not match in shape"]],ans:"B",th:`9. เหตุใดนักวิทยาศาสตร์หลายคนจึงปฏิเสธทฤษฎีของเวเกเนอร์ในตอนแรก
 เฉลย: B. เขาอธิบายกลไกการเคลื่อนที่ของทวีปไม่ได้
 
@@ -21135,13 +21708,47 @@ Classify the following statements into the correct category.
 Categories:
 • Plate Tectonics
 • Continental Crust
-Statements:`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:"1. Explains the movement of Earth’s lithospheric plates.",opts:[],ans:null,th:"",ans_text:null,raw:"1. Explains the movement of Earth’s lithospheric plates."},{kind:"raw",ok:!1,q:"2. Generally thicker and less dense than oceanic crust.",opts:[],ans:null,th:"",ans_text:null,raw:"2. Generally thicker and less dense than oceanic crust."},{kind:"raw",ok:!1,q:"3. Composed mainly of granitic rocks.",opts:[],ans:null,th:"",ans_text:null,raw:"3. Composed mainly of granitic rocks."},{kind:"raw",ok:!1,q:`4. Provides a framework for understanding earthquakes and
+Statements:`,ans_text:null,raw:`9. Why did many scientists initially reject Wegener’s
+theory?
+A. He lacked fossil evidence
+B. He could not explain the mechanism of continental
+movement
+C. His data were incorrect
+D. The continents did not match in shape
+Answer: B
+
+9. เหตุใดนักวิทยาศาสตร์หลายคนจึงปฏิเสธทฤษฎีของเวเกเนอร์ในตอนแรก
+เฉลย: B. เขาอธิบายกลไกการเคลื่อนที่ของทวีปไม่ได้
+
+
+10.Drag and Drop Classification
+Classify the following statements into the correct category.
+Categories:
+• Plate Tectonics
+• Continental Crust
+Statements:`},{kind:"raw",ok:!1,q:"1. Explains the movement of Earth’s lithospheric plates.",opts:[],ans:null,th:"",ans_text:null,raw:"1. Explains the movement of Earth’s lithospheric plates."},{kind:"raw",ok:!1,q:"2. Generally thicker and less dense than oceanic crust.",opts:[],ans:null,th:"",ans_text:null,raw:"2. Generally thicker and less dense than oceanic crust."},{kind:"raw",ok:!1,q:"3. Composed mainly of granitic rocks.",opts:[],ans:null,th:"",ans_text:null,raw:"3. Composed mainly of granitic rocks."},{kind:"raw",ok:!1,q:`4. Provides a framework for understanding earthquakes and
 volcanoes.`,opts:[],ans:null,th:"",ans_text:null,raw:`4. Provides a framework for understanding earthquakes and
-volcanoes.`},{kind:"open",ok:!1,q:"5. Contains some of the oldest rocks on Earth.",opts:[],ans:null,th:`10. ลากและวาง: จัดข้อความเข้าหมวด
+volcanoes.`},{kind:"raw",ok:!1,q:"5. Contains some of the oldest rocks on Earth.",opts:[],ans:null,th:`10. ลากและวาง: จัดข้อความเข้าหมวด
 เฉลย: เพลตเทคโทนิกส์ → 1 (อธิบายการเคลื่อนที่ของแผ่นธรณีภาค), 4 (เป็นกรอบเข้าใจแผ่นดินไหวและ
 ภูเขาไฟ)
 เปลือกโลกทวีป → 2 (หนากว่าและหนาแน่นน้อยกว่าเปลือกมหาสมุทร), 3 (ประกอบหลักด้วยหินแกรนิต), 5 (มี
-หินที่เก่าที่สุดของโลกบางส่วน)`,ans_text:"Drag and Drop Plate Tectonics •1 •4 Continental Crust •2 •3 •5",raw:null}],qa_raw:`1. What is the main idea of the passage?
+หินที่เก่าที่สุดของโลกบางส่วน)`,ans_text:null,raw:`5. Contains some of the oldest rocks on Earth.
+Answer: Drag and Drop
+Plate Tectonics
+•1
+•4
+Continental Crust
+•2
+•3
+•5
+
+10. ลากและวาง: จัดข้อความเข้าหมวด
+เฉลย: เพลตเทคโทนิกส์ → 1 (อธิบายการเคลื่อนที่ของแผ่นธรณีภาค), 4 (เป็นกรอบเข้าใจแผ่นดินไหวและ
+ภูเขาไฟ)
+เปลือกโลกทวีป → 2 (หนากว่าและหนาแน่นน้อยกว่าเปลือกมหาสมุทร), 3 (ประกอบหลักด้วยหินแกรนิต), 5 (มี
+หินที่เก่าที่สุดของโลกบางส่วน)
+
+`}],qa_raw:`1. What is the main idea of the passage?
 A. The structure and chemical composition of Earth’s interior
 layers
 B. The characteristics of continental crust compared with
@@ -22540,7 +23147,7 @@ World War II?`,opts:[["A","They became widely available to the public"],["B","Th
 of antibiotic resistance?`,opts:[["A","Increasing bacterial metabolism"],["B","Producing enzymes that destroy antibiotics"],["C","Changing human immune systems"],["D","Reducing bacterial reproduction"]],ans:"B",th:`8. ข้อใดกล่าวถึงเป็นกลไกการดื้อยาปฏิชีวนะ
 เฉลย: B. ผลิตเอนไซม์ที่ทำลายยาปฏิชีวนะ`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`9. According to paragraph 4, why are antibiotics used in
 agriculture?`,opts:[["A","To improve food flavor"],["B","To accelerate livestock growth and prevent disease"],["C","To eliminate all bacteria in animals"],["D","To replace animal vaccines"]],ans:"B",th:`9. ตามย่อหน้า 4 เหตุใดจึงใช้ยาปฏิชีวนะในเกษตรกรรม
-เฉลย: B. เร่งการเติบโตของปศุสัตว์และป้องกันโรค`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`10. The word “administer” in paragraph 4 is closest in
+เฉลย: B. เร่งการเติบโตของปศุสัตว์และป้องกันโรค`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. The word “administer” in paragraph 4 is closest in
 meaning to`,opts:[["A","distribute"],["B","give"],["C","measure"],["D","store"]],ans:"B",th:`10. คำว่า “administer” ในย่อหน้า 4 ใกล้เคียงที่สุดกับ
 เฉลย: B. give (ให้)
 
@@ -22568,7 +23175,44 @@ Answer: Drag & Drop
 เฉลย: สาเหตุของการดื้อยา → B (ใช้ยาในปศุสัตว์), C (ปั๊มขับออกของแบคทีเรีย), E (ใช้ยามากเกินไปใน
 ทางการแพทย์)
 ประโยชน์ของยาปฏิชีวนะ → A (รักษาการติดเชื้อแบคทีเรียได้ผล), D (ลดการตายจากการติดเชื้อ), F (รักษาโรค
-อย่างปอดบวมได้)`,ans_text:null,raw:null}],qa_raw:`1. What is the main purpose of the passage?
+อย่างปอดบวมได้)`,ans_text:null,raw:`10. The word “administer” in paragraph 4 is closest in
+meaning to
+A. distribute
+B. give
+C. measure
+D. store
+Answer: B. give
+
+10. คำว่า “administer” ในย่อหน้า 4 ใกล้เคียงที่สุดกับ
+เฉลย: B. give (ให้)
+
+
+11.Drag & Drop Question
+Classify each statement as either a Cause of Antibiotic
+Resistance or a Benefit of Antibiotics.
+Options:
+A. Treat bacterial infections effectively
+B. Use of antibiotics in livestock farming
+C. Development of bacterial efflux pumps
+D. Reduction of deaths from infections
+E. Overuse of antibiotics in medicine
+F. Ability to cure diseases like pneumonia
+Causes of Antibiotic Resistance Benefits of Antibiotics
+Answer: Drag & Drop
+•B
+•C
+•E
+•A
+•D
+•F
+
+11. ลากและวาง: จัดข้อความเป็น “สาเหตุของการดื้อยา” หรือ “ประโยชน์ของยาปฏิชีวนะ”
+เฉลย: สาเหตุของการดื้อยา → B (ใช้ยาในปศุสัตว์), C (ปั๊มขับออกของแบคทีเรีย), E (ใช้ยามากเกินไปใน
+ทางการแพทย์)
+ประโยชน์ของยาปฏิชีวนะ → A (รักษาการติดเชื้อแบคทีเรียได้ผล), D (ลดการตายจากการติดเชื้อ), F (รักษาโรค
+อย่างปอดบวมได้)
+
+`}],qa_raw:`1. What is the main purpose of the passage?
 A. To explain the history and challenges related to antibiotics
 B. To describe the chemical structure of penicillin
 C. To criticize agricultural practices worldwide
@@ -23099,9 +23743,25 @@ generations contributed to a single project.”`,ans_text:null,raw:null},{kind:"
 ช่องใดในย่อหน้า 3
 เฉลย: C. ช่องที่สาม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"10. According to paragraph 4, what caused delays?",opts:[["A","Design problems"],["B","Economic and social issues"],["C","Lack of interest"],["D","Poor materials"]],ans:"B",th:`10. ตามย่อหน้า 4 อะไรทำให้เกิดความล่าช้า
 เฉลย: B. ปัญหาเศรษฐกิจและสังคม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"11. What is the main idea of paragraph 4?",opts:[["A","Gothic design"],["B","Construction techniques"],["C","Challenges and lasting importance"],["D","Religious beliefs"]],ans:"C",th:`11. ใจความสำคัญของย่อหน้า 4 คืออะไร
-เฉลย: C. ความท้าทายและความสำคัญที่คงอยู่`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`12. Select THREE answers that best express the main
+เฉลย: C. ความท้าทายและความสำคัญที่คงอยู่`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`12. Select THREE answers that best express the main
 ideas of the passage:`,opts:[["A","Gothic architecture introduced new structural innovations"],["B","Gothic buildings were simple and small"],["C","Communities worked together to build cathedrals"],["D","Construction faced many difficulties"],["E","Gothic architecture was only decorative"],["F","Gothic buildings disappeared completely"]],ans:"A",th:`12. เลือกสามข้อที่แสดงใจความสำคัญของบทความ
-เฉลย: A, C, D (A นวัตกรรม • C ความร่วมมือของชุมชน • D ความท้าทาย)`,ans_text:null,raw:null}],qa_raw:`1. According to paragraph 1, which is a feature of
+เฉลย: A, C, D (A นวัตกรรม • C ความร่วมมือของชุมชน • D ความท้าทาย)`,ans_text:null,raw:`12. Select THREE answers that best express the main
+ideas of the passage:
+A. Gothic architecture introduced new structural innovations
+B. Gothic buildings were simple and small
+C. Communities worked together to build cathedrals
+D. Construction faced many difficulties
+E. Gothic architecture was only decorative
+F. Gothic buildings disappeared completely
+Answer: A, C, D
+✔ A – innovation
+✔ C – community effort
+✔ D – challenges
+
+12. เลือกสามข้อที่แสดงใจความสำคัญของบทความ
+เฉลย: A, C, D (A นวัตกรรม • C ความร่วมมือของชุมชน • D ความท้าทาย)
+
+`}],qa_raw:`1. According to paragraph 1, which is a feature of
 Gothic architecture?
 A. Flat roofs
 B. Pointed arches
@@ -23281,8 +23941,20 @@ restrictive. Over time, these limitations contributed to the decline of guilds a
 เฉลย: B. [B]`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"6. What does “These regulations” refer to?",opts:[["A","Guild leaders"],["B","Apprentices"],["C","Rules enforced by guilds"],["D","Economic systems"]],ans:"C",th:"",ans_text:null,raw:null},{kind:"raw",ok:!1,q:"6. “These regulations” หมายถึงอะไร",opts:[],ans:null,th:"เฉลย: C. กฎที่กิลด์บังคับใช้",ans_text:null,raw:`6. “These regulations” หมายถึงอะไร
 เฉลย: C. กฎที่กิลด์บังคับใช้`},{kind:"mcq",ok:!0,q:"7. What does the number seventeen refer to?",opts:[["A","Number of workers"],["B","Number of guilds in some towns"],["C","Years of training"],["D","Types of products"]],ans:"B",th:`7. ตัวเลขสิบเจ็ดหมายถึงอะไร
 เฉลย: B. จำนวนกิลด์ในบางเมือง`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"8. What can be inferred about apprentices?",opts:[["A","They immediately became masters"],["B","They required long training"],["C","They worked independently"],["D","They avoided guilds"]],ans:"B",th:`8. อนุมานอะไรได้เกี่ยวกับลูกมือ
-เฉลย: B. ต้องฝึกนาน`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"9. Select THREE statements that express the main ideas:",opts:[["A","Guilds controlled trade and ensured stability"],["B","Guilds had no influence on society"],["C","Guilds provided social and financial support"],["D","Guilds encouraged unlimited innovation"],["E","Guilds sometimes restricted access and innovation"],["F","Guilds only existed in rural areas"]],ans:"A",th:`9. เลือกสามข้อที่แสดงใจความสำคัญ
-เฉลย: A, C, E`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Drag & Drop Classification
+เฉลย: B. ต้องฝึกนาน`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:"9. Select THREE statements that express the main ideas:",opts:[["A","Guilds controlled trade and ensured stability"],["B","Guilds had no influence on society"],["C","Guilds provided social and financial support"],["D","Guilds encouraged unlimited innovation"],["E","Guilds sometimes restricted access and innovation"],["F","Guilds only existed in rural areas"]],ans:"A",th:`9. เลือกสามข้อที่แสดงใจความสำคัญ
+เฉลย: A, C, E`,ans_text:null,raw:`9. Select THREE statements that express the main ideas:
+A. Guilds controlled trade and ensured stability
+B. Guilds had no influence on society
+C. Guilds provided social and financial support
+D. Guilds encouraged unlimited innovation
+E. Guilds sometimes restricted access and innovation
+F. Guilds only existed in rural areas
+Answer: A, C, E
+
+9. เลือกสามข้อที่แสดงใจความสำคัญ
+เฉลย: A, C, E
+
+`},{kind:"raw",ok:!1,q:`10. Drag & Drop Classification
 • ___ ensured product quality
 • ___ supported members financially
 • ___ stabilised the economy
@@ -23472,9 +24144,23 @@ in everyday life.
 เฉลย: C. ปัญหาความเป็นส่วนตัวของข้อมูล`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"6. What can happen if the internet is disrupted?",opts:[["A","Devices become smarter"],["B","Systems may not function properly"],["C","Costs decrease"],["D","Security improves"]],ans:"B",th:`6. จะเกิดอะไรขึ้นถ้าอินเทอร์เน็ตหยุดชะงัก
 เฉลย: B. ระบบอาจทำงานไม่ถูกต้อง`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`7. The word “unauthorized” in paragraph 3 is closest in
 meaning to:`,opts:[["A","permitted"],["B","illegal"],["C","expensive"],["D","useful"]],ans:"B",th:`7. คำว่า “unauthorized” ในย่อหน้า 3 ใกล้เคียงที่สุดกับ
-เฉลย: B. illegal (ผิดกฎหมาย/ไม่ได้รับอนุญาต)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`8. The word “adjusting” in paragraph 2 is closest in
+เฉลย: B. illegal (ผิดกฎหมาย/ไม่ได้รับอนุญาต)`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`8. The word “adjusting” in paragraph 2 is closest in
 meaning to:`,opts:[["A","ignoring"],["B","changing"],["C","stopping"],["D","measuring"]],ans:"B",th:`8. คำว่า “adjusting” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
-เฉลย: B. changing (เปลี่ยน)`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`9. Classify the following into Benefits or Concerns
+เฉลย: B. changing (เปลี่ยน)`,ans_text:null,raw:`8. The word “adjusting” in paragraph 2 is closest in
+meaning to:
+A. ignoring
+B. changing
+C. stopping
+D. measuring
+
+✅ Answer: B
+
+Drag & Drop (Benefits vs Concerns)
+
+8. คำว่า “adjusting” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
+เฉลย: B. changing (เปลี่ยน)
+
+`},{kind:"raw",ok:!1,q:`9. Classify the following into Benefits or Concerns
 Items:`,opts:[],ans:null,th:"",ans_text:null,raw:`9. Classify the following into Benefits or Concerns
 Items:`},{kind:"raw",ok:!1,q:"1. Remote device control",opts:[],ans:null,th:"",ans_text:null,raw:"1. Remote device control"},{kind:"raw",ok:!1,q:"2. Energy efficiency",opts:[],ans:null,th:"",ans_text:null,raw:"2. Energy efficiency"},{kind:"raw",ok:!1,q:"3. Data privacy risks",opts:[],ans:null,th:"",ans_text:null,raw:"3. Data privacy risks"},{kind:"open",ok:!1,q:"4. System failure due to internet issues",opts:[],ans:null,th:`9. ลากและวาง: จัดประเภทเป็นประโยชน์หรือข้อกังวล
 เฉลย:
@@ -23641,7 +24327,7 @@ mechanism of the placebo effect?`,opts:[["A","Bone regeneration"],["B","Hormone 
 เฉลย: C. ยังให้ผลเชิงบวก`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"7. The phrase “these findings” in paragraph 3 refers to:",opts:[["A","the cost of treatments"],["B","the effects of neurotransmitters and expectations"],["C","clinical trial failures"],["D","ethical concerns"]],ans:"B",th:`7. วลี “these findings” ในย่อหน้า 3 หมายถึง
 เฉลย: B. ผลของสารสื่อประสาทและความคาดหวัง`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`8. Which of the following is NOT mentioned in the
 passage?`,opts:[["A","Pain"],["B","Depression"],["C","Parkinson’s disease"],["D","Bone fractures"]],ans:"D",th:`8. ข้อใดไม่ได้กล่าวถึงในบทความ
-เฉลย: D. กระดูกหัก`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`9. Which sentence best completes the blank in
+เฉลย: D. กระดูกหัก`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`9. Which sentence best completes the blank in
 paragraph 3?`,opts:[["A","This challenges the assumption that deception is necessary for placebo effects to occur."],["B","This proves that all medicines are ineffective."],["C","This shows that patients dislike treatments."],["D","This explains why doctors avoid placebos."]],ans:"A",th:`9. ประโยคใดเติมช่องว่างในย่อหน้า 3 ได้เหมาะที่สุด
 เฉลย: A. สิ่งนี้ท้าทายสมมติฐานว่าต้องมีการหลอกลวงเพื่อให้เกิดปรากฏการณ์ยาหลอก
 
@@ -23689,7 +24375,66 @@ Drag & Drop
 ข้อพิจารณาด้านจริยธรรม (2): ความกังวลเรื่องการหลอกลวง • ค่ายาที่แพง
 สรุป (เลือก 3): A. ยาหลอกเป็นการรักษาที่ไม่ออกฤทธิ์แต่ยังให้ผลจริงได้ B. การทดลองทางคลินิกพึ่งยาหลอกเพื่อ
 ประเมินประสิทธิผลการรักษา D. ปรากฏการณ์ยาหลอกเกี่ยวข้องกับกลไกของสมองและความคาดหวังของผู้ป่วย
-เฉลย: A, B, D`,ans_text:null,raw:null}],qa_raw:`1. The word “inert” in paragraph 1 is closest in meaning
+เฉลย: A, B, D`,ans_text:null,raw:`9. Which sentence best completes the blank in
+paragraph 3?
+A. This challenges the assumption that deception is necessary
+for placebo effects to occur.
+B. This proves that all medicines are ineffective.
+C. This shows that patients dislike treatments.
+D. This explains why doctors avoid placebos.
+Answer: A. This challenges the assumption that deception is
+necessary for placebo effects to occur.
+
+9. ประโยคใดเติมช่องว่างในย่อหน้า 3 ได้เหมาะที่สุด
+เฉลย: A. สิ่งนี้ท้าทายสมมติฐานว่าต้องมีการหลอกลวงเพื่อให้เกิดปรากฏการณ์ยาหลอก
+
+
+10.Drag and Drop
+Classify the following into the correct categories:
+Mechanisms (3)
+• (i) Release of endorphins
+• (ii) Patient expectations
+• (iii) Brain activity changes
+• (iv) High cost of drugs
+• (v) Deception concerns
+Ethical Considerations (2)
+• (i) Release of endorphins
+• (ii) Patient expectations
+• (iii) Brain activity changes
+• (iv) High cost of drugs
+• (v) Deception concerns
+Answer: Drag & Drop
+
+✅ Mechanisms
+
+• Release of endorphins
+• Patient expectations
+• Brain activity changes
+
+✅ Ethical Considerations
+• Deception concerns
+• High cost of drugs
+Which THREE statements best summarize the passage?
+A. Placebos are inactive treatments that can still produce real
+effects.
+B. Clinical trials rely on placebos to evaluate treatment
+effectiveness.
+C. Placebos can cure all diseases permanently.
+D. The placebo effect involves brain mechanisms and patient
+expectations.
+E. Ethical concerns exist regarding the use of placebos.
+F. Placebos are mainly used to reduce costs in hospitals.
+Answer: A, B, D
+Drag & Drop
+
+10. ลากและวาง และคำถามสรุป
+ลากและวาง — กลไก (3): การหลั่งเอ็นดอร์ฟิน • ความคาดหวังของผู้ป่วย • การเปลี่ยนแปลงของกิจกรรมสมอง
+ข้อพิจารณาด้านจริยธรรม (2): ความกังวลเรื่องการหลอกลวง • ค่ายาที่แพง
+สรุป (เลือก 3): A. ยาหลอกเป็นการรักษาที่ไม่ออกฤทธิ์แต่ยังให้ผลจริงได้ B. การทดลองทางคลินิกพึ่งยาหลอกเพื่อ
+ประเมินประสิทธิผลการรักษา D. ปรากฏการณ์ยาหลอกเกี่ยวข้องกับกลไกของสมองและความคาดหวังของผู้ป่วย
+เฉลย: A, B, D
+
+`}],qa_raw:`1. The word “inert” in paragraph 1 is closest in meaning
 to:
 A. inactive
 B. harmful
@@ -23928,7 +24673,7 @@ analysis."`,opts:[["A","Economic models are accurate because they study how ment
 following sentence could be added to the passage.
 "This fear of missing out, often abbreviated as FOMO, is
 a powerful motivator in modern consumption."`,opts:[["A",'[■] After the sentence ending with "...fear of missing out." in paragraph 2.'],["B","[■] At the beginning of paragraph 1."],["C","[■] Before the explanation of the anchoring effect."],["D","[■] Inside the section discussing celebrity endorsements."]],ans:"A",th:`11. แทรกประโยค “ความกลัวพลาดโอกาสนี้ ซึ่งมักย่อว่า FOMO เป็นแรงจูงใจทรงพลังในการบริโภคสมัยใหม่”
-เฉลย: (A) หลังประโยคที่ลงท้ายว่า “…fear of missing out.” ในย่อหน้า 2`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`12. Directions: An introductory sentence for a brief summary of
+เฉลย: (A) หลังประโยคที่ลงท้ายว่า “…fear of missing out.” ในย่อหน้า 2`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`12. Directions: An introductory sentence for a brief summary of
 the passage is provided below. Complete the summary by
 selecting the THREE answer choices that express the most
 important ideas in the passage.
@@ -23939,7 +24684,39 @@ purchasing behavior.`,opts:[["A","Cognitive biases like anchoring and the decoy 
 เฉลย: (A) อคติทางการรู้คิดอย่างการยึดเหนี่ยวและตัวล่อให้นักการตลาดนำทางผู้บริโภคด้วยการจัดการการรับรู้
 มูลค่า • (C) ตัวขับเคลื่อนทางอารมณ์ เช่น ความกลัวสูญเสียและความต้องการการยอมรับทางสังคม มักเอาชนะ
 การวิเคราะห์เชิงเหตุผล • (E) ข้อมูลขนาดใหญ่ทำให้การตลาดเชิงจิตวิทยามีประสิทธิผลเพิ่มขึ้นแต่ก่อให้เกิดข้อ
-กังวลด้านจริยธรรมใหม่ (A, C, E)`,ans_text:null,raw:null}],qa_raw:`1. The word "deviates" in paragraph 1 is closest in meaning to
+กังวลด้านจริยธรรมใหม่ (A, C, E)`,ans_text:null,raw:`12. Directions: An introductory sentence for a brief summary of
+the passage is provided below. Complete the summary by
+selecting the THREE answer choices that express the most
+important ideas in the passage.
+Consumer psychology is a multi-disciplinary field that
+investigates how non-rational factors influence
+purchasing behavior.
+(A) Cognitive biases like anchoring and the decoy effect allow
+marketers to steer consumers toward specific choices by
+manipulating their perception of value.
+(B) Digital marketing is solely responsible for the creation of
+scarcity principles and social proof in the modern marketplace.
+(C) Emotional drivers, such as the fear of loss and the desire
+for social validation, often override logical cost-benefit analysis
+during the buying process.
+(D) Retailers often hide original prices to prevent consumers
+from using the anchoring effect to their advantage.
+(E) The rise of big data has intensified the effectiveness of
+psychological marketing, though it raises new ethical concerns
+regarding consumer autonomy.
+(F) Most consumers are now aware of these psychological
+tactics and have returned to a model of rational utility
+maximization.
+Answer: (A), (C), (E)
+
+12. คำถามสรุป (เลือก 3): ประโยคนำ “จิตวิทยาผู้บริโภคเป็นสาขาสหวิทยาการที่ศึกษาว่าปัจจัยที่ไม่ใช่เหตุผลมี
+อิทธิพลต่อพฤติกรรมการซื้ออย่างไร”
+เฉลย: (A) อคติทางการรู้คิดอย่างการยึดเหนี่ยวและตัวล่อให้นักการตลาดนำทางผู้บริโภคด้วยการจัดการการรับรู้
+มูลค่า • (C) ตัวขับเคลื่อนทางอารมณ์ เช่น ความกลัวสูญเสียและความต้องการการยอมรับทางสังคม มักเอาชนะ
+การวิเคราะห์เชิงเหตุผล • (E) ข้อมูลขนาดใหญ่ทำให้การตลาดเชิงจิตวิทยามีประสิทธิผลเพิ่มขึ้นแต่ก่อให้เกิดข้อ
+กังวลด้านจริยธรรมใหม่ (A, C, E)
+
+`}],qa_raw:`1. The word "deviates" in paragraph 1 is closest in meaning to
 (A) follows
 (B) originates
 (C) differs
@@ -24183,7 +24960,7 @@ Causes / Functions
 Causes / Functions
 1.Temporal discounting`},{kind:"raw",ok:!1,q:`3. Avoiding stress temporarily
 Effective Solutions`,opts:[],ans:null,th:"",ans_text:null,raw:`3. Avoiding stress temporarily
-Effective Solutions`},{kind:"raw",ok:!1,q:"2. Breaking tasks into smaller goals",opts:[],ans:null,th:"",ans_text:null,raw:"2. Breaking tasks into smaller goals"},{kind:"open",ok:!1,q:`4. Reducing delay of rewards
+Effective Solutions`},{kind:"raw",ok:!1,q:"2. Breaking tasks into smaller goals",opts:[],ans:null,th:"",ans_text:null,raw:"2. Breaking tasks into smaller goals"},{kind:"raw",ok:!1,q:`4. Reducing delay of rewards
 Select THREE statements that express the most important
 ideas:
 ⬜ A. Procrastination affects about 20% of adults
@@ -24197,7 +24974,30 @@ rewards
 วิธีแก้ที่ได้ผล: 2. แบ่งงานเป็นเป้าหมายย่อย • 4. ลดความล่าช้าของรางวัล
 สรุป (เลือก 3): A. การผัดวันกระทบผู้ใหญ่ราว 20% • B. การลดค่าตามเวลาอธิบายความชอบรางวัลทันที • D.
 ความเครียดและความวิตกกังวลเกี่ยวข้องกับการผัดวัน
-เฉลย: A, B, D`,ans_text:"s: •✅A •✅B •✅D",raw:null}],qa_raw:`Question 1 According to paragraph 1, what percentage of
+เฉลย: A, B, D`,ans_text:null,raw:`4. Reducing delay of rewards
+Select THREE statements that express the most important
+ideas:
+
+⬜ A. Procrastination affects about 20% of adults
+⬜ B. Temporal discounting explains preference for immediate
+rewards
+⬜ C. Procrastination improves long-term performance
+⬜ D. Stress and anxiety are linked to procrastination
+⬜ E. All people procrastinate equally
+⬜ F. Solutions can help reduce procrastination
+✅ Answers:
+•✅A
+•✅B
+•✅D
+
+คำถามที่ 9 เติมตารางโดยจับคู่หมวดหมู่ และเลือก 3 ข้อความที่แสดงแนวคิดสำคัญที่สุด
+สาเหตุ/หน้าที่: 1. การลดค่าตามเวลา • 3. การหลีกเลี่ยงความเครียดชั่วคราว
+วิธีแก้ที่ได้ผล: 2. แบ่งงานเป็นเป้าหมายย่อย • 4. ลดความล่าช้าของรางวัล
+สรุป (เลือก 3): A. การผัดวันกระทบผู้ใหญ่ราว 20% • B. การลดค่าตามเวลาอธิบายความชอบรางวัลทันที • D.
+ความเครียดและความวิตกกังวลเกี่ยวข้องกับการผัดวัน
+เฉลย: A, B, D
+
+`}],qa_raw:`Question 1 According to paragraph 1, what percentage of
 adults are chronic procrastinators?
 A. 10%
 B. 15%
@@ -24382,7 +25182,7 @@ Where would the following sentence best fit in Paragraph 1?
 👉 “Many investors had believed that stock prices would
 continue to rise indefinitely.”`,opts:[["A","After sentence 1"],["B","After sentence 2"],["C","After sentence 3"],["D","After sentence 4"]],ans:"B",th:`5. แทรกประโยค: ประโยค “นักลงทุนจำนวนมากเชื่อว่าราคาหุ้นจะสูงขึ้นไปเรื่อยๆ” เหมาะที่ตำแหน่งใดใน
 ย่อหน้า 1
-เฉลย: B. หลังประโยคที่ 2`,ans_text:null,raw:null},{kind:"open",ok:!1,q:`6. Summary (3 Answers)
+เฉลย: B. หลังประโยคที่ 2`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`6. Summary (3 Answers)
 Select THREE statements that express the most important
 ideas:
 ⬜ A. Black Tuesday caused a global economic crisis
@@ -24392,7 +25192,23 @@ ideas:
 ⬜ E. The crash led to reforms in financial systems
 ⬜ F. The event only affected the United States`,opts:[],ans:null,th:`6. สรุป (เลือก 3)
 เฉลย: A. วันอังคารทมิฬก่อให้เกิดวิกฤตเศรษฐกิจโลก • C. การเก็งกำไรมีส่วนต่อการล่มของตลาด • E. การล่ม
-นำไปสู่การปฏิรูประบบการเงิน (A, C, E)`,ans_text:"s: A, C, E",raw:null}],qa_raw:`1. What is the main idea of the passage?
+นำไปสู่การปฏิรูประบบการเงิน (A, C, E)`,ans_text:null,raw:`6. Summary (3 Answers)
+Select THREE statements that express the most important
+ideas:
+
+⬜ A. Black Tuesday caused a global economic crisis
+⬜ B. Stock prices remained stable during the event
+⬜ C. Speculation contributed to the market crash
+⬜ D. Governments ignored the crisis
+⬜ E. The crash led to reforms in financial systems
+⬜ F. The event only affected the United States
+✅ Answers: A, C, E
+
+6. สรุป (เลือก 3)
+เฉลย: A. วันอังคารทมิฬก่อให้เกิดวิกฤตเศรษฐกิจโลก • C. การเก็งกำไรมีส่วนต่อการล่มของตลาด • E. การล่ม
+นำไปสู่การปฏิรูประบบการเงิน (A, C, E)
+
+`}],qa_raw:`1. What is the main idea of the passage?
 A. The history of global trade
 B. The causes and effects of Black Tuesday
 C. The role of banks in modern society
@@ -24519,7 +25335,7 @@ to`,opts:[["A","forbidden"],["B","selected"],["C","hidden"],["D","destroyed"]],a
 เฉลย: B. selected (ถูกเลือกไว้)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"3. According to paragraph 3, what is one criticism of graffiti?",opts:[["A","It is too expensive"],["B","It reduces urban beauty"],["C","It is difficult to create"],["D","It is not creative"]],ans:"B",th:`3. ตามย่อหน้า 3 ข้อวิจารณ์อย่างหนึ่งของกราฟฟิตีคืออะไร
 เฉลย: B. ลดความงามของเมือง`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"4. What can be inferred about graffiti artists today?",opts:[["A","They are still completely rejected by society"],["B","They cannot sell their work"],["C","They are gaining acceptance in mainstream culture"],["D","They only work illegally"]],ans:"C",th:`4. อนุมานอะไรได้เกี่ยวกับศิลปินกราฟฟิตีในปัจจุบัน
 เฉลย: C. กำลังได้รับการยอมรับในวัฒนธรรมกระแสหลัก`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"5. Why does the author mention “marginalized communities”?",opts:[["A","To explain why graffiti is illegal"],["B","To show who opposes graffiti"],["C","To highlight one positive role of graffiti"],["D","To describe the history of graffiti"]],ans:"C",th:`5. เหตุใดผู้เขียนจึงกล่าวถึง “ชุมชนชายขอบ”
-เฉลย: C. เพื่อเน้นบทบาทเชิงบวกอย่างหนึ่งของกราฟฟิตี`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`6. The word “prominent” in Paragraph 1 is closest in meaning
+เฉลย: C. เพื่อเน้นบทบาทเชิงบวกอย่างหนึ่งของกราฟฟิตี`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`6. The word “prominent” in Paragraph 1 is closest in meaning
 to:`,opts:[["A","ancient"],["B","noticeable"],["C","hidden"],["D","illegal"]],ans:"B",th:`6. คำว่า “prominent” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
 เฉลย: B. noticeable (เด่นชัด)
 7.According to Paragraph 2, what is one benefit of graffiti
@@ -24579,7 +25395,76 @@ Answer: A, B, D
 Answer: B
 
 11. เลือกสามข้อที่แสดงใจความสำคัญ
-เฉลย: A, B, D`,ans_text:null,raw:null}],qa_raw:`1. What is the main idea of the passage?
+เฉลย: A, B, D`,ans_text:null,raw:`6. The word “prominent” in Paragraph 1 is closest in meaning
+to:
+A) ancient
+B) noticeable
+C) hidden
+D) illegal
+Answer: B (noticeable)
+
+6. คำว่า “prominent” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
+เฉลย: B. noticeable (เด่นชัด)
+7.According to Paragraph 2, what is one benefit of graffiti
+walls?
+A) They eliminate all illegal graffiti
+B) They allow artists to work without punishment
+C) They reduce the cost of public art
+D) They prevent tourists from visiting cities
+Answer: B
+
+7. ตามย่อหน้า 2 ประโยชน์อย่างหนึ่งของกำแพงกราฟฟิตีคืออะไร
+เฉลย: B. ให้ศิลปินทำงานโดยไม่ถูกลงโทษ
+8.What can be inferred about early graffiti?
+A) It was always respected as art
+B) It was mainly created for museums
+C) It was often considered vandalism
+D) It was legally protected
+Answer: C
+
+8. อนุมานอะไรได้เกี่ยวกับกราฟฟิตียุคแรก
+เฉลย: C. มักถูกมองว่าเป็นการทำลายทรัพย์สิน
+9.Where would the following sentence best fit in Paragraph 1?
+
+👉 “As a result, it is now widely studied and appreciated in
+academic fields.”
+
+A) Before the first sentence
+B) After the sentence about ancient inscriptions
+C) After the sentence about evolution into communication
+D) At the very end before Paragraph 2
+Answer: C
+
+9. ประโยค “ผลคือปัจจุบันถูกศึกษาและชื่นชมอย่างกว้างขวางในแวดวงวิชาการ” เหมาะที่ตำแหน่งใดในย่อหน้า
+1
+เฉลย: C. หลังประโยคเรื่องการพัฒนาเป็นการสื่อสาร
+
+
+10.All of the following are mentioned as criticisms of
+graffiti EXCEPT:
+A) It can encourage illegal tagging
+B) It reduces urban beauty
+C) It harms artists financially
+D) It is not always viewed positively
+
+10. ทุกข้อต่อไปนี้ถูกกล่าวถึงเป็นข้อวิจารณ์กราฟฟิตี ยกเว้น
+[ต้นฉบับไม่มีเฉลยชัดเจน — ตรวจจากเนื้อหา: C ทำร้ายศิลปินด้านการเงิน เพราะบทความไม่ได้กล่าวถึง]
+11.Directions: Select THREE statements that best express the
+main ideas of the passage.
+Choices:
+A) Graffiti has existed for centuries and changed over time
+B) Graffiti walls allow artists to create legally and safely
+C) Graffiti is always considered vandalism
+D) Some people still criticize graffiti’s impact on cities
+E) Graffiti is only popular in the twentieth century
+F) Graffiti has become part of mainstream culture
+Answer: A, B, D
+Answer: B
+
+11. เลือกสามข้อที่แสดงใจความสำคัญ
+เฉลย: A, B, D
+
+`}],qa_raw:`1. What is the main idea of the passage?
 A) Graffiti should be banned in all cities
 B) Graffiti has evolved from vandalism to a recognized art form
 C) Graffiti is only popular among young people
@@ -24961,7 +25846,7 @@ this sentence?
 “Colonized territories were often forced to produce raw
 materials...”`,opts:[["A","Colonies freely traded goods with other nations"],["B","Colonies were required to supply resources for colonizers’ benefit"],["C","Colonies refused to produce goods"],["D","Colonizers imported raw materials"]],ans:"B",th:`8. ประโยคใดสื่อสาระสำคัญของประโยค “ดินแดนอาณานิคมมักถูกบังคับให้ผลิตวัตถุดิบ…”
 เฉลย: B. อาณานิคมถูกกำหนดให้จัดหาทรัพยากรเพื่อประโยชน์ของผู้ตั้งอาณานิคม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"9. What can be inferred about education during colonial rule?",opts:[["A","It focused on preserving indigenous culture"],["B","It promoted local traditions"],["C","It reflected the values of colonizers"],["D","It was not available in colonies"]],ans:"C",th:`9. อนุมานอะไรได้เกี่ยวกับการศึกษาในยุคอาณานิคม
-เฉลย: C. สะท้อนค่านิยมของผู้ตั้งอาณานิคม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`10. Why does the author mention “peaceful protests and
+เฉลย: C. สะท้อนค่านิยมของผู้ตั้งอาณานิคม`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Why does the author mention “peaceful protests and
 armed struggles” in paragraph 4?`,opts:[["A","To compare two unrelated events"],["B","To show different forms of resistance"],["C","To criticize independence movements"],["D","To describe economic systems"]],ans:"B",th:`10. เหตุใดผู้เขียนจึงกล่าวถึง “การประท้วงอย่างสันติและการต่อสู้ด้วยอาวุธ” ในย่อหน้า 4
 เฉลย: B. เพื่อแสดงรูปแบบการต่อต้านที่หลากหลาย
 11.Select THREE answers that express the most important
@@ -24986,7 +25871,42 @@ F. Colonies benefited equally from trade
 
 11. เลือกสามข้อที่แสดงแนวคิดสำคัญที่สุด
 เฉลย: A. ลัทธิอาณานิคมสร้างการพึ่งพาทางเศรษฐกิจระยะยาว C. ลัทธิอาณานิคมเกี่ยวกับการควบคุมและ
-ขูดรีดภูมิภาคที่อ่อนแอกว่า E. ลัทธิอาณานิคมมีอิทธิพลต่อระบบการเมืองและสังคมสมัยใหม่ (A, C, E)`,ans_text:null,raw:null}],qa_raw:`1. What is the main idea of the passage?
+ขูดรีดภูมิภาคที่อ่อนแอกว่า E. ลัทธิอาณานิคมมีอิทธิพลต่อระบบการเมืองและสังคมสมัยใหม่ (A, C, E)`,ans_text:null,raw:`10. Why does the author mention “peaceful protests and
+armed struggles” in paragraph 4?
+A. To compare two unrelated events
+B. To show different forms of resistance
+C. To criticize independence movements
+D. To describe economic systems
+Answer: B. To show different forms of resistance
+
+10. เหตุใดผู้เขียนจึงกล่าวถึง “การประท้วงอย่างสันติและการต่อสู้ด้วยอาวุธ” ในย่อหน้า 4
+เฉลย: B. เพื่อแสดงรูปแบบการต่อต้านที่หลากหลาย
+11.Select THREE answers that express the most important
+ideas in the passage:
+A. Colonialism created long-term economic dependency
+B. Colonialism had only negative cultural effects
+
+✅
+
+C. Colonialism involved control and exploitation of weaker
+regions
+
+✅
+
+D. Colonialism ended without any lasting impact
+E. Colonialism influenced modern political and social systems
+F. Colonies benefited equally from trade
+
+✅ Correct Answers: A, C, E
+
+✅
+
+11. เลือกสามข้อที่แสดงแนวคิดสำคัญที่สุด
+เฉลย: A. ลัทธิอาณานิคมสร้างการพึ่งพาทางเศรษฐกิจระยะยาว C. ลัทธิอาณานิคมเกี่ยวกับการควบคุมและ
+ขูดรีดภูมิภาคที่อ่อนแอกว่า E. ลัทธิอาณานิคมมีอิทธิพลต่อระบบการเมืองและสังคมสมัยใหม่ (A, C, E)
+
+
+`}],qa_raw:`1. What is the main idea of the passage?
 A. Colonialism only had positive economic effects
 B. Colonialism had complex and lasting impacts on colonized
 regions
@@ -25121,5 +26041,5 @@ F. Colonies benefited equally from trade
 
 11. เลือกสามข้อที่แสดงแนวคิดสำคัญที่สุด
 เฉลย: A. ลัทธิอาณานิคมสร้างการพึ่งพาทางเศรษฐกิจระยะยาว C. ลัทธิอาณานิคมเกี่ยวกับการควบคุมและ
-ขูดรีดภูมิภาคที่อ่อนแอกว่า E. ลัทธิอาณานิคมมีอิทธิพลต่อระบบการเมืองและสังคมสมัยใหม่ (A, C, E)`},{n:156,type:"Listening",title:"Listening_Mystery Manor Review",date:"2026-04-30",status:"dup",dup:6}],Qr=[{approx:[],sec:"Reading",no:1,title:"Renewable Energy for a Better World",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[41],auto:[[1,41]]},{approx:[69,72,2],sec:"Reading",no:2,title:"Social media star",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[[1,72],[1,69],[.67,38]]},{approx:[],sec:"Reading",no:3,title:"Fashion influencers: how social media is changing the way we dress",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[2],auto:[[1,72],[1,69],[1,2]]},{approx:[],sec:"Reading",no:4,title:"The History of Animation",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[39,75],auto:[[1,75],[1,39]]},{approx:[],sec:"Reading",no:5,title:"The Exciting World of Space Exploration",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[42,99],auto:[[1,99],[1,42]]},{approx:[],sec:"Reading",no:6,title:"Making Healthy Choices in Modern Life",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[34],auto:[[1,34]]},{approx:[],sec:"Reading",no:7,title:"Protect Our Planet",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[4],auto:[[1,24],[1,4]]},{approx:[],sec:"Reading",no:8,title:"Environmental Conservation",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[24],auto:[]},{approx:[46],sec:"Reading",no:9,title:"Urban Green Gardens",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[]},{approx:[],sec:"Reading",no:10,title:"The Universal Appeal of Sports",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[]},{approx:[],sec:"Reading",no:11,title:"The Evolution of Photography",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[43],auto:[[1,43]]},{approx:[],sec:"Reading",no:12,title:"The Essentials of Sleeping N",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[20,83],auto:[]},{approx:[],sec:"Reading",no:13,title:"The Roman Empire",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[47,33],auto:[[1,47],[1,33]]},{approx:[69,72],sec:"Reading",no:14,title:"The Impact of Social Media on Your Life / How Social Media Affects Mental Health",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[38],auto:[[1,72],[1,69],[1,38]]},{approx:[],sec:"Reading",no:15,title:"Urbanization / Effects of Urbanization on Wildlife",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[37],auto:[[1,153],[1,136],[1,37]]},{approx:[],sec:"Reading",no:16,title:"Bees and Agriculture",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[23,90],auto:[[1,90],[1,23]]},{approx:[],sec:"Reading",no:17,title:"Streaming Music",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[103,36],auto:[[1,103],[1,36]]},{approx:[],sec:"Reading",no:18,title:"The Psychology of Color",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[40],auto:[[1,40]]},{approx:[],sec:"Reading",no:19,title:"Climate Change: Its Impact on the Polar Bear",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[22,5],auto:[[1,5],[.75,22]]},{approx:[],sec:"Reading",no:20,title:"The Eiffel Tower",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[84,151],auto:[[1,151],[1,84]]},{approx:[],sec:"Reading",no:21,title:"The History of the Bicycle",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[35,93],auto:[[1,35]]},{approx:[],sec:"Reading",no:22,title:"AI in Medicine",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[30],auto:[[1,30]]},{approx:[],sec:"Reading",no:23,title:"AI",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[95,104],auto:[]},{approx:[],sec:"Reading",no:24,title:"Sound in Motion Pictures",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[26,70,71],auto:[[1,26]]},{approx:[],sec:"Reading",no:25,title:"The History of Chocolate",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[7],auto:[[1,7]]},{approx:[],sec:"Reading",no:26,title:"The Great Wall of China",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[31],auto:[[1,31]]},{approx:[],sec:"Reading",no:27,title:"Gravitational Waves",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[27],auto:[[1,27]]},{approx:[],sec:"Reading",no:28,title:"Volcanic Geology",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[45],auto:[[1,45]]},{approx:[],sec:"Reading",no:29,title:"Street Busking/ Street Performances",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[29],auto:[[1,29]]},{approx:[],sec:"Reading",no:30,title:"The Evolution of Public Libraries",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[32],auto:[[1,32]]},{approx:[],sec:"Reading",no:31,title:"Women Codebreakers of World War II",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[54],auto:[[.67,54]]},{approx:[],sec:"Reading",no:32,title:"Coral Reefs",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[28],auto:[[1,28]]},{approx:[],sec:"Reading",no:33,title:"Street Lighting",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[44],auto:[[1,44]]},{approx:[],sec:"Reading",no:34,title:"Gentrification and social change",batch:"27 เรื่องใหม่ (17.01.69)",ids:[21],auto:[[1,21],[.67,2]]},{approx:[],sec:"Reading",no:35,title:"Bilingualism and cognitive benefits",batch:"27 เรื่องใหม่ (17.01.69)",ids:[17],auto:[[1,17]]},{approx:[],sec:"Reading",no:36,title:"Gig economy",batch:"27 เรื่องใหม่ (17.01.69)",ids:[],auto:[]},{approx:[],sec:"Reading",no:37,title:"The Internet of Things (IoT) in a smart home",batch:"27 เรื่องใหม่ (17.01.69)",ids:[144],auto:[[.8,144]]},{approx:[],sec:"Reading",no:38,title:"Pollution: microplastic pollution",batch:"27 เรื่องใหม่ (17.01.69)",ids:[113,13],auto:[[1,113]]},{approx:[],sec:"Reading",no:39,title:"Science of fermentation",batch:"27 เรื่องใหม่ (17.01.69)",ids:[118],auto:[[1,118]]},{approx:[],sec:"Reading",no:40,title:"The history of coffee trade",batch:"27 เรื่องใหม่ (17.01.69)",ids:[117,3],auto:[[.67,117],[.67,3]]},{approx:[],sec:"Reading",no:41,title:"Montessori method",batch:"27 เรื่องใหม่ (17.01.69)",ids:[141],auto:[[1,141]]},{approx:[],sec:"Reading",no:42,title:"History of Vaccines",batch:"27 เรื่องใหม่ (17.01.69)",ids:[128],auto:[[1,128]]},{approx:[],sec:"Reading",no:43,title:"Demonstrating of cat",batch:"27 เรื่องใหม่ (17.01.69)",ids:[138],auto:[]},{approx:[],sec:"Reading",no:44,title:"Antibiotic resistance N",batch:"27 เรื่องใหม่ (17.01.69)",ids:[139],auto:[[1,139]]},{approx:[],sec:"Reading",no:45,title:"The Great Depression/ Black Tuesday",batch:"27 เรื่องใหม่ (17.01.69)",ids:[149,114,15],auto:[[1,149],[1,114],[1,15]]},{approx:[],sec:"Reading",no:46,title:"Origins of paper money",batch:"27 เรื่องใหม่ (17.01.69)",ids:[14],auto:[[1,14]]},{approx:[],sec:"Reading",no:47,title:"Butterfly migration (Mexico)",batch:"27 เรื่องใหม่ (17.01.69)",ids:[123,116],auto:[[.67,123],[.67,116]]},{approx:[],sec:"Reading",no:48,title:"The Viking and Norse explorer",batch:"27 เรื่องใหม่ (17.01.69)",ids:[134],auto:[[1,134]]},{approx:[],sec:"Reading",no:49,title:"Neuroplasticity and brain adaptation",batch:"27 เรื่องใหม่ (17.01.69)",ids:[121],auto:[[1,121]]},{approx:[],sec:"Reading",no:50,title:"Graffiti wall/ Stress Art",batch:"27 เรื่องใหม่ (17.01.69)",ids:[153],auto:[]},{approx:[],sec:"Reading",no:51,title:"The Evolution of Theater and Drama/ / Acoustics architecture and ancient theater",batch:"27 เรื่องใหม่ (17.01.69)",ids:[130,12,9,1],auto:[[1,130],[1,12],[1,9]]},{approx:[],sec:"Reading",no:52,title:"Critical thinking in the digital age/ Data Privacy in the digital age",batch:"27 เรื่องใหม่ (17.01.69)",ids:[132,147],auto:[[.75,132],[.67,147]]},{approx:[],sec:"Reading",no:53,title:"Placebo effect",batch:"27 เรื่องใหม่ (17.01.69)",ids:[145],auto:[[1,145]]},{approx:[],sec:"Reading",no:54,title:"Bioluminescence in deep-sea creatures",batch:"27 เรื่องใหม่ (17.01.69)",ids:[119],auto:[[1,119]]},{approx:[],sec:"Reading",no:55,title:"Urban heat island",batch:"27 เรื่องใหม่ (17.01.69)",ids:[136],auto:[[1,136]]},{approx:[],sec:"Reading",no:56,title:"The History of emoji",batch:"27 เรื่องใหม่ (17.01.69)",ids:[125],auto:[]},{approx:[],sec:"Reading",no:57,title:"Underground transport",batch:"27 เรื่องใหม่ (17.01.69)",ids:[120],auto:[]},{approx:[],sec:"Reading",no:58,title:"Organ transplant",batch:"27 เรื่องใหม่ (17.01.69)",ids:[135],auto:[[1,135]]},{approx:[],sec:"Reading",no:59,title:"The Evaluation of Timekeeping",batch:"27 เรื่องใหม่ (17.01.69)",ids:[112],auto:[]},{approx:[],sec:"Reading",no:60,title:"Berlin Wall",batch:"27 เรื่องใหม่ (17.01.69)",ids:[122],auto:[[1,122]]},{approx:[],sec:"Reading",no:61,title:"Telemedicine & Remote Healthcare",batch:"5 เรื่องใหม่ (21.01.69)",ids:[],auto:[]},{approx:[],sec:"Reading",no:62,title:"The history of anesthesia surgery",batch:"5 เรื่องใหม่ (21.01.69)",ids:[137],auto:[[1,137]]},{approx:[],sec:"Reading",no:63,title:"Colonialism and Its Global Effects",batch:"5 เรื่องใหม่ (21.01.69)",ids:[155],auto:[[1,155]]},{approx:[],sec:"Reading",no:64,title:"The Suffragette Movement in Britain",batch:"5 เรื่องใหม่ (21.01.69)",ids:[124],auto:[[.67,124]]},{approx:[],sec:"Reading",no:65,title:"The Development of the Braille System",batch:"5 เรื่องใหม่ (21.01.69)",ids:[127],auto:[[1,127]]},{approx:[],sec:"Reading",no:66,title:"Plate Tectonics and Continental Crust N",batch:"4 เรื่องใหม่ (31.01.69)",ids:[131],auto:[[1,131]]},{approx:[],sec:"Reading",no:67,title:"Endangered language",batch:"4 เรื่องใหม่ (31.01.69)",ids:[115],auto:[[1,115]]},{approx:[],sec:"Reading",no:68,title:"Medieval Guild",batch:"4 เรื่องใหม่ (31.01.69)",ids:[143],auto:[[1,143]]},{approx:[],sec:"Reading",no:69,title:"The Democratic of Ancient Athens",batch:"4 เรื่องใหม่ (31.01.69)",ids:[126],auto:[[1,126]]},{approx:[],sec:"Reading",no:70,title:"The Linguistic Structure of Sign Language",batch:"14.02.69",ids:[129],auto:[[.75,129]]},{approx:[],sec:"Reading",no:71,title:"Financial Poverty / Microfinance",batch:"28.02.69",ids:[133],auto:[[1,133],[1,113]]},{approx:[],sec:"Reading",no:72,title:"The Science of Addiction",batch:"14.03.69",ids:[140],auto:[[1,140]]},{approx:[],sec:"Reading",no:73,title:"Gothic Architecture",batch:"18.03.69",ids:[142],auto:[[1,142]]},{approx:[],sec:"Reading",no:74,title:"Consumer Psychology and Marketing",batch:"28.03.69",ids:[146],auto:[[1,146]]},{approx:[],sec:"Reading",no:75,title:"Psychology of Procrastination",batch:"28.03.69",ids:[148],auto:[[1,148]]},{approx:[],sec:"Reading",no:76,title:"Water society and global crisis",batch:"28.03.69",ids:[152],auto:[[1,152]]},{approx:[],sec:"Reading",no:77,title:"Ancient civilization",batch:"28.03.69",ids:[154],auto:[[1,154]]},{approx:[],sec:"Reading",no:78,title:"Cryptocurrency And the evolution of economic technology",batch:"18.04.69",ids:[19],auto:[[1,19]]},{approx:[],sec:"Reading",no:79,title:"Epidemics that changed history",batch:"25.04.69",ids:[18],auto:[[1,18]]},{approx:[],sec:"Reading",no:80,title:"Genetic Therapy: Promise and Ethical Concerns",batch:"09.05.69",ids:[11],auto:[[1,11]]},{approx:[],sec:"Reading",no:81,title:"Ancient Roman Engineering Marvel",batch:"04.07.69",ids:[8],auto:[[1,8]]},{approx:[],sec:"Listening",no:1,title:"Used Furniture",batch:"",ids:[48,56],auto:[[1,56],[1,48]]},{approx:[],sec:"Listening",no:2,title:"Opera Show",batch:"",ids:[50,55],auto:[[1,50]]},{approx:[],sec:"Listening",no:3,title:"Concert",batch:"",ids:[49],auto:[[1,49]]},{approx:[],sec:"Listening",no:4,title:"Action Film",batch:"",ids:[86,110],auto:[[1,86]]},{approx:[],sec:"Listening",no:5,title:"Renewable Energy / Science Project: Wind Energy",batch:"",ids:[79],auto:[[1,79]]},{approx:[],sec:"Listening",no:6,title:"Taking a History Course",batch:"",ids:[102,10,101],auto:[[1,102],[1,10]]},{approx:[],sec:"Listening",no:7,title:"Amusement Park",batch:"",ids:[98,81],auto:[[1,98],[1,81]]},{approx:[],sec:"Listening",no:8,title:"Video Games",batch:"",ids:[85],auto:[[1,85]]},{approx:[],sec:"Listening",no:9,title:"Spring Festival",batch:"",ids:[80,51],auto:[[1,80],[1,51]]},{approx:[],sec:"Listening",no:10,title:"Road Trip",batch:"",ids:[108,87,82],auto:[[1,108],[1,87],[1,82]]},{approx:[],sec:"Listening",no:11,title:"A New Series: A Creepy Feeling",batch:"",ids:[105,100],auto:[[1,105],[1,100]]},{approx:[],sec:"Listening",no:12,title:"Music Festival",batch:"",ids:[89,16],auto:[[1,89],[1,80],[1,16]]}],Ur={class:"sub"},Vr={key:0,class:"note"},Jr={key:0,class:"card"},Kr={class:"note"},Yr={key:0,class:"badge"},$r={key:0},Xr={key:0,class:"raw"},Zr={class:"qh"},el=["onClick"],nl={key:0,class:"raw"},tl={class:"qh"},al=["onClick"],il={key:0,class:"raw"},ol={class:"raw"},sl={__name:"Item",props:{item:Object,all:Array},emits:["back","open"],setup(e,{emit:n}){const t=e,a=n,i=Ye(!0),o=Fn({}),s=Fn({}),r=/[\u0E00-\u0E7F]/,l=un(()=>{const x=[];let B=null;for(const w of(t.item.body||"").split(`
-`)){const D=w.trim();if(!D){B=null;continue}const _=r.test(D);B&&B.th===_?B.t+=" "+D:(B={th:_,t:D},x.push(B))}return x}),u=un(()=>t.item.qs||[]),d=un(()=>{const x=u.value.map((B,w)=>({q:B,i:w})).filter(B=>B.q.kind==="mcq");return{total:x.length,done:x.filter(B=>o[B.i]).length,right:x.filter(B=>o[B.i]===B.q.ans).length}}),m=x=>(x||"").replace(/\n+/g," "),C=un(()=>t.all.filter(x=>x.dup===t.item.n));return(x,B)=>(P(),M(N,null,[q("button",{class:"back",onClick:B[0]||(B[0]=w=>a("back"))},"← กลับ"),q("h1",null,"#"+O(e.item.n)+" "+O(e.item.title),1),q("p",Ur,[q("span",{class:ue(["badge",e.item.type==="Reading"?"r":"l"])},O(e.item.type),3),$e(" ไฟล์วันที่ "+O(e.item.date)+" ",1),C.value.length?(P(),M("span",Vr," · ซ้ำกับ "+O(C.value.map(w=>"#"+w.n).join(", ")),1)):me("",!0)]),e.item.status==="pending"&&!e.item.body?(P(),M("p",Jr,'รายการนี้อยู่ในสารบัญของไฟล์ต้นฉบับ แต่ไม่มีเนื้อหา/คำถามในไฟล์ (สถานะ "รอแปล")')):(P(),M(N,{key:1},[q("label",Kr,[ua(q("input",{type:"checkbox","onUpdate:modelValue":B[1]||(B[1]=w=>i.value=w)},null,512),[[Mr,i.value]]),B[2]||(B[2]=$e(" แสดงคำแปลไทย",-1))]),q("div",{class:ue(["card",{"hide-th":!i.value}])},[(P(!0),M(N,null,Ee(l.value,(w,D)=>(P(),M("p",{key:D,class:ue(w.th?"p-th":"p-en")},O(w.t),3))),128))],2),q("h2",null,[B[3]||(B[3]=$e("แบบฝึกหัด ",-1)),d.value.total?(P(),M("span",Yr,"ตอบแล้ว "+O(d.value.done)+"/"+O(d.value.total)+" · ถูก "+O(d.value.right),1)):me("",!0)]),u.value.length?me("",!0):(P(),M("div",$r,[B[4]||(B[4]=q("p",{class:"note"},"ไม่สามารถแยกเป็นข้อสอบได้ — แสดงข้อความต้นฉบับ",-1)),e.item.qa_raw?(P(),M("pre",Xr,O(e.item.qa_raw),1)):me("",!0)])),(P(!0),M(N,null,Ee(u.value,(w,D)=>(P(),M("div",{class:"card q",key:D},[w.kind==="mcq"?(P(),M(N,{key:0},[q("b",Zr,O(m(w.q)),1),(P(!0),M(N,null,Ee(w.opts,_=>(P(),M("button",{key:_[0],class:ue(["opt",{good:o[D]&&_[0]===w.ans,wrong:o[D]===_[0]&&_[0]!==w.ans}]),onClick:G=>!o[D]&&(o[D]=_[0])},O(_[0])+". "+O(_[1]),11,el))),128)),o[D]?(P(),M(N,{key:0},[q("p",{class:ue(o[D]===w.ans?"badge ok":"badge bad")},O(o[D]===w.ans?"ถูกต้อง":"เฉลย: "+w.ans),3),i.value&&w.th?(P(),M("pre",nl,O(w.th),1)):me("",!0)],64)):me("",!0)],64)):w.kind==="open"?(P(),M(N,{key:1},[q("b",tl,O(m(w.q)),1),q("button",{onClick:_=>s[D]=!s[D]},O(s[D]?"ซ่อนเฉลย":"ดูเฉลย"),9,al),s[D]?(P(),M(N,{key:0},[q("p",null,[B[5]||(B[5]=q("b",null,"เฉลย:",-1)),$e(" "+O(w.ans_text),1)]),i.value&&w.th?(P(),M("pre",il,O(w.th),1)):me("",!0)],64)):me("",!0)],64)):(P(),M(N,{key:2},[B[6]||(B[6]=q("p",{class:"note"},"ข้อนี้สร้างเป็นแบบฝึกหัดไม่ได้ — แสดงข้อความต้นฉบับ",-1)),q("pre",ol,O(w.raw),1)],64))]))),128))],64))],64))}},rl={class:"sum"},ll={class:"badge ok"},cl={class:"badge warn"},hl={class:"badge warn"},dl={class:"badge bad"},ul={style:{"overflow-x":"auto"}},pl={key:0,class:"note"},ml=["onClick"],gl={__name:"Checklist",props:{list:Array,lib:Array},emits:["open"],setup(e){const n=e,t=r=>n.lib.find(l=>l.n===r),a=r=>r.ids.length?r.ids.every(l=>{var u;return((u=t(l))==null?void 0:u.status)==="pending"})?"pending":"found":r.approx.length?"approx":"missing",i=un(()=>["Reading","Listening"].map(r=>({s:r,rows:n.list.filter(l=>l.sec===r)}))),o=(r,l)=>r.filter(u=>a(u)===l).length,s={found:["พบในไฟล์","ok"],pending:["มีในสารบัญ แต่ไม่มีเนื้อหา","warn"],approx:["ไม่พบชื่อตรง (มีเรื่องใกล้เคียง)","warn"],missing:["ไม่พบในไฟล์","bad"]};return(r,l)=>(P(),M(N,null,[l[1]||(l[1]=q("p",{class:"note"},'เทียบรายการในไฟล์ "รีวิวแนวข้อสอบ CEFR รอบ 31 ต.ค. 2569" (Reading 81 เรื่อง / Listening 12 เรื่อง) กับไฟล์ Reading_Listening_สรุปแปลไทย',-1)),(P(!0),M(N,null,Ee(i.value,u=>(P(),M("section",{key:u.s},[q("h2",null,O(u.s)+" ("+O(u.rows.length)+")",1),q("div",rl,[q("span",ll,"พบ "+O(o(u.rows,"found")),1),q("span",cl,"ไม่มีเนื้อหา "+O(o(u.rows,"pending")),1),q("span",hl,"ใกล้เคียง "+O(o(u.rows,"approx")),1),q("span",dl,"ไม่พบ "+O(o(u.rows,"missing")),1)]),q("div",ul,[q("table",null,[l[0]||(l[0]=q("tr",null,[q("th",null,"#"),q("th",null,"หัวข้อในรีวิว"),q("th",null,"สถานะ"),q("th",null,"เปิดดู")],-1)),(P(!0),M(N,null,Ee(u.rows,d=>(P(),M("tr",{key:d.no},[q("td",null,O(d.no),1),q("td",null,[$e(O(d.title),1),d.batch?(P(),M("div",pl,O(d.batch),1)):me("",!0)]),q("td",null,[q("span",{class:ue(["badge",s[a(d)][1]])},O(s[a(d)][0]),3)]),q("td",null,[(P(!0),M(N,null,Ee(d.ids.length?d.ids:d.approx,m=>(P(),M("a",{class:"lnk",key:m,onClick:C=>r.$emit("open",m)},"#"+O(m),9,ml))),128))])]))),128))])])]))),128))],64))}},fl=(e,n)=>{const t=e.__vccOpts||e;for(const[a,i]of n)t[a]=i;return t},yl={class:"gate"},wl={class:"card gate-box"},bl={key:0,class:"badge bad"},vl="11111111",Al={__name:"Gate",emits:["ok"],setup(e,{emit:n}){const t=n,a=Ye(""),i=Ye(!1),o=()=>{if(a.value.trim()===vl){try{localStorage.setItem("cefr_unlocked","1")}catch{}t("ok")}else i.value=!0,a.value=""};return(s,r)=>(P(),M("div",yl,[q("div",wl,[r[2]||(r[2]=q("h1",null,"สื่อการสอน CEFR",-1)),r[3]||(r[3]=q("p",{class:"sub"},"กรุณาใส่รหัสเพื่อเข้าใช้งาน",-1)),ua(q("input",{type:"password",inputmode:"numeric","onUpdate:modelValue":r[0]||(r[0]=l=>a.value=l),placeholder:"รหัส",autofocus:"",onKeyup:Gr(o,["enter"]),onInput:r[1]||(r[1]=l=>i.value=!1)},null,544),[[uo,a.value]]),i.value?(P(),M("p",bl,"รหัสไม่ถูกต้อง")):me("",!0),q("button",{class:"on",style:{"margin-top":"12px",width:"100%"},onClick:o},"เข้าสู่ระบบ")])]))}},kl=fl(Al,[["__scopeId","data-v-6bf4e97f"]]),Cl={key:1,class:"wrap"},Bl={class:"tabs"},Tl={class:"tabs"},Dl=["onClick"],xl={class:"badge"},ql={class:"list"},Il=["onClick"],Wl={class:"num"},_l={class:"t"},Sl={key:0,class:"badge warn"},El={key:0},Rl={class:"note"},Pl=["onClick"],Ml={__name:"App",setup(e){let n=!1;try{n=localStorage.getItem("cefr_unlocked")==="1"}catch{}const t=Ye(n),a=()=>{try{localStorage.removeItem("cefr_unlocked")}catch{}t.value=!1},i=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"],o=Ye("lib"),s=Ye(""),r=Ye(null),l=Ye("All"),u=qn.filter(B=>B.status!=="dup"),d=un(()=>{const B=s.value.trim().toLowerCase(),w={};for(const D of u){if(l.value!=="All"&&D.type!==l.value||B&&!`${D.n} ${D.title}`.toLowerCase().includes(B))continue;const _=(D.date||"").slice(0,7)||"ไม่ระบุ";(w[_]||(w[_]=[])).push(D)}return Object.keys(w).sort().reverse().map(D=>{const[_,G]=D.split("-");return{key:D,label:G?`${i[+G-1]} ${_}`:D,items:w[D]}})}),m=qn.filter(B=>B.status==="dup"),C=B=>{r.value=qn.find(w=>w.n===B),window.scrollTo(0,0)},x=B=>B.replace(/^(?:\d+(?:[._]\d+)?_?\s*)?(?:TOEFL\s*|IELTS\s*|Review\s*)?(?:Reading|Listening)\s*[-_ ]*/i,"").replace(/_/g," ").trim()||B;return(B,w)=>t.value?(P(),M("div",Cl,[r.value?(P(),rt(sl,{key:0,item:r.value,all:ln(qn),onBack:w[1]||(w[1]=D=>r.value=null),onOpen:C},null,8,["item","all"])):(P(),M(N,{key:1},[w[6]||(w[6]=q("h1",null,"สื่อการสอน CEFR – Reading & Listening",-1)),w[7]||(w[7]=q("p",{class:"sub"},"เนื้อหา คำถาม และเฉลยทั้งหมดมาจากไฟล์ต้นฉบับเท่านั้น · จัดตามเดือนของไฟล์ ใหม่ → เก่า · ข้อที่สร้างเป็นแบบฝึกหัดไม่ได้จะแสดงข้อความดิบ",-1)),q("div",Bl,[q("button",{onClick:a,style:{"margin-left":"auto",order:"3"}},"ออกจากระบบ"),q("button",{class:ue({on:o.value==="lib"}),onClick:w[2]||(w[2]=D=>o.value="lib")},"คลังข้อสอบ ("+O(ln(u).length)+")",3),q("button",{class:ue({on:o.value==="chk"}),onClick:w[3]||(w[3]=D=>o.value="chk")},"ตรวจเทียบรีวิว 31 ต.ค. 2569",2)]),o.value==="lib"?(P(),M(N,{key:0},[ua(q("input",{type:"search","onUpdate:modelValue":w[4]||(w[4]=D=>s.value=D),placeholder:"ค้นหาชื่อเรื่อง หรือเลขที่…"},null,512),[[uo,s.value]]),q("div",Tl,[(P(),M(N,null,Ee(["All","Reading","Listening"],D=>q("button",{key:D,class:ue({on:l.value===D}),onClick:_=>l.value=D},O(D==="All"?"ทั้งหมด":D),11,Dl)),64))]),(P(!0),M(N,null,Ee(d.value,D=>(P(),M("section",{key:D.key},[q("h2",null,[$e(O(D.label)+" ",1),q("span",xl,O(D.items.length)+" เรื่อง",1)]),q("div",ql,[(P(!0),M(N,null,Ee(D.items,_=>(P(),M("button",{class:"row",key:_.n,onClick:G=>C(_.n)},[q("span",Wl,"#"+O(_.n),1),q("span",_l,O(x(_.title)),1),q("span",{class:ue(["badge",_.type==="Reading"?"r":"l"])},O(_.type),3),_.status==="pending"?(P(),M("span",Sl,"ไม่มีเนื้อหาในไฟล์")):me("",!0)],8,Il))),128))])]))),128)),ln(m).length?(P(),M("section",El,[w[5]||(w[5]=q("h2",null,"รายการซ้ำ (ไฟล์ต้นฉบับไม่แปลซ้ำ)",-1)),q("p",Rl,[(P(!0),M(N,null,Ee(ln(m),D=>(P(),M("span",{key:D.n},[$e("#"+O(D.n)+" → ",1),q("a",{class:"lnk",onClick:_=>C(D.dup)},"#"+O(D.dup),9,Pl)]))),128))])])):me("",!0)],64)):(P(),rt(gl,{key:1,list:ln(Qr),lib:ln(qn),onOpen:C},null,8,["list","lib"]))],64))])):(P(),rt(kl,{key:0,onOk:w[0]||(w[0]=D=>t.value=!0)}))}};Nr(Ml).mount("#app");
+ขูดรีดภูมิภาคที่อ่อนแอกว่า E. ลัทธิอาณานิคมมีอิทธิพลต่อระบบการเมืองและสังคมสมัยใหม่ (A, C, E)`},{n:156,type:"Listening",title:"Listening_Mystery Manor Review",date:"2026-04-30",status:"dup",dup:6}],Qr=[{approx:[],sec:"Reading",no:1,title:"Renewable Energy for a Better World",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[41],auto:[[1,41]]},{approx:[69,72,2],sec:"Reading",no:2,title:"Social media star",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[[1,72],[1,69],[.67,38]]},{approx:[],sec:"Reading",no:3,title:"Fashion influencers: how social media is changing the way we dress",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[2],auto:[[1,72],[1,69],[1,2]]},{approx:[],sec:"Reading",no:4,title:"The History of Animation",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[39,75],auto:[[1,75],[1,39]]},{approx:[],sec:"Reading",no:5,title:"The Exciting World of Space Exploration",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[42,99],auto:[[1,99],[1,42]]},{approx:[],sec:"Reading",no:6,title:"Making Healthy Choices in Modern Life",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[34],auto:[[1,34]]},{approx:[],sec:"Reading",no:7,title:"Protect Our Planet",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[4],auto:[[1,24],[1,4]]},{approx:[],sec:"Reading",no:8,title:"Environmental Conservation",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[24],auto:[]},{approx:[46],sec:"Reading",no:9,title:"Urban Green Gardens",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[]},{approx:[],sec:"Reading",no:10,title:"The Universal Appeal of Sports",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[]},{approx:[],sec:"Reading",no:11,title:"The Evolution of Photography",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[43],auto:[[1,43]]},{approx:[],sec:"Reading",no:12,title:"The Essentials of Sleeping N",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[20,83],auto:[]},{approx:[],sec:"Reading",no:13,title:"The Roman Empire",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[47,33],auto:[[1,47],[1,33]]},{approx:[69,72],sec:"Reading",no:14,title:"The Impact of Social Media on Your Life / How Social Media Affects Mental Health",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[38],auto:[[1,72],[1,69],[1,38]]},{approx:[],sec:"Reading",no:15,title:"Urbanization / Effects of Urbanization on Wildlife",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[37],auto:[[1,153],[1,136],[1,37]]},{approx:[],sec:"Reading",no:16,title:"Bees and Agriculture",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[23,90],auto:[[1,90],[1,23]]},{approx:[],sec:"Reading",no:17,title:"Streaming Music",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[103,36],auto:[[1,103],[1,36]]},{approx:[],sec:"Reading",no:18,title:"The Psychology of Color",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[40],auto:[[1,40]]},{approx:[],sec:"Reading",no:19,title:"Climate Change: Its Impact on the Polar Bear",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[22,5],auto:[[1,5],[.75,22]]},{approx:[],sec:"Reading",no:20,title:"The Eiffel Tower",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[84,151],auto:[[1,151],[1,84]]},{approx:[],sec:"Reading",no:21,title:"The History of the Bicycle",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[35,93],auto:[[1,35]]},{approx:[],sec:"Reading",no:22,title:"AI in Medicine",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[30],auto:[[1,30]]},{approx:[],sec:"Reading",no:23,title:"AI",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[95,104],auto:[]},{approx:[],sec:"Reading",no:24,title:"Sound in Motion Pictures",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[26,70,71],auto:[[1,26]]},{approx:[],sec:"Reading",no:25,title:"The History of Chocolate",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[7],auto:[[1,7]]},{approx:[],sec:"Reading",no:26,title:"The Great Wall of China",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[31],auto:[[1,31]]},{approx:[],sec:"Reading",no:27,title:"Gravitational Waves",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[27],auto:[[1,27]]},{approx:[],sec:"Reading",no:28,title:"Volcanic Geology",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[45],auto:[[1,45]]},{approx:[],sec:"Reading",no:29,title:"Street Busking/ Street Performances",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[29],auto:[[1,29]]},{approx:[],sec:"Reading",no:30,title:"The Evolution of Public Libraries",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[32],auto:[[1,32]]},{approx:[],sec:"Reading",no:31,title:"Women Codebreakers of World War II",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[54],auto:[[.67,54]]},{approx:[],sec:"Reading",no:32,title:"Coral Reefs",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[28],auto:[[1,28]]},{approx:[],sec:"Reading",no:33,title:"Street Lighting",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[44],auto:[[1,44]]},{approx:[],sec:"Reading",no:34,title:"Gentrification and social change",batch:"27 เรื่องใหม่ (17.01.69)",ids:[21],auto:[[1,21],[.67,2]]},{approx:[],sec:"Reading",no:35,title:"Bilingualism and cognitive benefits",batch:"27 เรื่องใหม่ (17.01.69)",ids:[17],auto:[[1,17]]},{approx:[],sec:"Reading",no:36,title:"Gig economy",batch:"27 เรื่องใหม่ (17.01.69)",ids:[],auto:[]},{approx:[],sec:"Reading",no:37,title:"The Internet of Things (IoT) in a smart home",batch:"27 เรื่องใหม่ (17.01.69)",ids:[144],auto:[[.8,144]]},{approx:[],sec:"Reading",no:38,title:"Pollution: microplastic pollution",batch:"27 เรื่องใหม่ (17.01.69)",ids:[113,13],auto:[[1,113]]},{approx:[],sec:"Reading",no:39,title:"Science of fermentation",batch:"27 เรื่องใหม่ (17.01.69)",ids:[118],auto:[[1,118]]},{approx:[],sec:"Reading",no:40,title:"The history of coffee trade",batch:"27 เรื่องใหม่ (17.01.69)",ids:[117,3],auto:[[.67,117],[.67,3]]},{approx:[],sec:"Reading",no:41,title:"Montessori method",batch:"27 เรื่องใหม่ (17.01.69)",ids:[141],auto:[[1,141]]},{approx:[],sec:"Reading",no:42,title:"History of Vaccines",batch:"27 เรื่องใหม่ (17.01.69)",ids:[128],auto:[[1,128]]},{approx:[],sec:"Reading",no:43,title:"Demonstrating of cat",batch:"27 เรื่องใหม่ (17.01.69)",ids:[138],auto:[]},{approx:[],sec:"Reading",no:44,title:"Antibiotic resistance N",batch:"27 เรื่องใหม่ (17.01.69)",ids:[139],auto:[[1,139]]},{approx:[],sec:"Reading",no:45,title:"The Great Depression/ Black Tuesday",batch:"27 เรื่องใหม่ (17.01.69)",ids:[149,114,15],auto:[[1,149],[1,114],[1,15]]},{approx:[],sec:"Reading",no:46,title:"Origins of paper money",batch:"27 เรื่องใหม่ (17.01.69)",ids:[14],auto:[[1,14]]},{approx:[],sec:"Reading",no:47,title:"Butterfly migration (Mexico)",batch:"27 เรื่องใหม่ (17.01.69)",ids:[123,116],auto:[[.67,123],[.67,116]]},{approx:[],sec:"Reading",no:48,title:"The Viking and Norse explorer",batch:"27 เรื่องใหม่ (17.01.69)",ids:[134],auto:[[1,134]]},{approx:[],sec:"Reading",no:49,title:"Neuroplasticity and brain adaptation",batch:"27 เรื่องใหม่ (17.01.69)",ids:[121],auto:[[1,121]]},{approx:[],sec:"Reading",no:50,title:"Graffiti wall/ Stress Art",batch:"27 เรื่องใหม่ (17.01.69)",ids:[153],auto:[]},{approx:[],sec:"Reading",no:51,title:"The Evolution of Theater and Drama/ / Acoustics architecture and ancient theater",batch:"27 เรื่องใหม่ (17.01.69)",ids:[130,12,9,1],auto:[[1,130],[1,12],[1,9]]},{approx:[],sec:"Reading",no:52,title:"Critical thinking in the digital age/ Data Privacy in the digital age",batch:"27 เรื่องใหม่ (17.01.69)",ids:[132,147],auto:[[.75,132],[.67,147]]},{approx:[],sec:"Reading",no:53,title:"Placebo effect",batch:"27 เรื่องใหม่ (17.01.69)",ids:[145],auto:[[1,145]]},{approx:[],sec:"Reading",no:54,title:"Bioluminescence in deep-sea creatures",batch:"27 เรื่องใหม่ (17.01.69)",ids:[119],auto:[[1,119]]},{approx:[],sec:"Reading",no:55,title:"Urban heat island",batch:"27 เรื่องใหม่ (17.01.69)",ids:[136],auto:[[1,136]]},{approx:[],sec:"Reading",no:56,title:"The History of emoji",batch:"27 เรื่องใหม่ (17.01.69)",ids:[125],auto:[]},{approx:[],sec:"Reading",no:57,title:"Underground transport",batch:"27 เรื่องใหม่ (17.01.69)",ids:[120],auto:[]},{approx:[],sec:"Reading",no:58,title:"Organ transplant",batch:"27 เรื่องใหม่ (17.01.69)",ids:[135],auto:[[1,135]]},{approx:[],sec:"Reading",no:59,title:"The Evaluation of Timekeeping",batch:"27 เรื่องใหม่ (17.01.69)",ids:[112],auto:[]},{approx:[],sec:"Reading",no:60,title:"Berlin Wall",batch:"27 เรื่องใหม่ (17.01.69)",ids:[122],auto:[[1,122]]},{approx:[],sec:"Reading",no:61,title:"Telemedicine & Remote Healthcare",batch:"5 เรื่องใหม่ (21.01.69)",ids:[],auto:[]},{approx:[],sec:"Reading",no:62,title:"The history of anesthesia surgery",batch:"5 เรื่องใหม่ (21.01.69)",ids:[137],auto:[[1,137]]},{approx:[],sec:"Reading",no:63,title:"Colonialism and Its Global Effects",batch:"5 เรื่องใหม่ (21.01.69)",ids:[155],auto:[[1,155]]},{approx:[],sec:"Reading",no:64,title:"The Suffragette Movement in Britain",batch:"5 เรื่องใหม่ (21.01.69)",ids:[124],auto:[[.67,124]]},{approx:[],sec:"Reading",no:65,title:"The Development of the Braille System",batch:"5 เรื่องใหม่ (21.01.69)",ids:[127],auto:[[1,127]]},{approx:[],sec:"Reading",no:66,title:"Plate Tectonics and Continental Crust N",batch:"4 เรื่องใหม่ (31.01.69)",ids:[131],auto:[[1,131]]},{approx:[],sec:"Reading",no:67,title:"Endangered language",batch:"4 เรื่องใหม่ (31.01.69)",ids:[115],auto:[[1,115]]},{approx:[],sec:"Reading",no:68,title:"Medieval Guild",batch:"4 เรื่องใหม่ (31.01.69)",ids:[143],auto:[[1,143]]},{approx:[],sec:"Reading",no:69,title:"The Democratic of Ancient Athens",batch:"4 เรื่องใหม่ (31.01.69)",ids:[126],auto:[[1,126]]},{approx:[],sec:"Reading",no:70,title:"The Linguistic Structure of Sign Language",batch:"14.02.69",ids:[129],auto:[[.75,129]]},{approx:[],sec:"Reading",no:71,title:"Financial Poverty / Microfinance",batch:"28.02.69",ids:[133],auto:[[1,133],[1,113]]},{approx:[],sec:"Reading",no:72,title:"The Science of Addiction",batch:"14.03.69",ids:[140],auto:[[1,140]]},{approx:[],sec:"Reading",no:73,title:"Gothic Architecture",batch:"18.03.69",ids:[142],auto:[[1,142]]},{approx:[],sec:"Reading",no:74,title:"Consumer Psychology and Marketing",batch:"28.03.69",ids:[146],auto:[[1,146]]},{approx:[],sec:"Reading",no:75,title:"Psychology of Procrastination",batch:"28.03.69",ids:[148],auto:[[1,148]]},{approx:[],sec:"Reading",no:76,title:"Water society and global crisis",batch:"28.03.69",ids:[152],auto:[[1,152]]},{approx:[],sec:"Reading",no:77,title:"Ancient civilization",batch:"28.03.69",ids:[154],auto:[[1,154]]},{approx:[],sec:"Reading",no:78,title:"Cryptocurrency And the evolution of economic technology",batch:"18.04.69",ids:[19],auto:[[1,19]]},{approx:[],sec:"Reading",no:79,title:"Epidemics that changed history",batch:"25.04.69",ids:[18],auto:[[1,18]]},{approx:[],sec:"Reading",no:80,title:"Genetic Therapy: Promise and Ethical Concerns",batch:"09.05.69",ids:[11],auto:[[1,11]]},{approx:[],sec:"Reading",no:81,title:"Ancient Roman Engineering Marvel",batch:"04.07.69",ids:[8],auto:[[1,8]]},{approx:[],sec:"Listening",no:1,title:"Used Furniture",batch:"",ids:[48,56],auto:[[1,56],[1,48]]},{approx:[],sec:"Listening",no:2,title:"Opera Show",batch:"",ids:[50,55],auto:[[1,50]]},{approx:[],sec:"Listening",no:3,title:"Concert",batch:"",ids:[49],auto:[[1,49]]},{approx:[],sec:"Listening",no:4,title:"Action Film",batch:"",ids:[86,110],auto:[[1,86]]},{approx:[],sec:"Listening",no:5,title:"Renewable Energy / Science Project: Wind Energy",batch:"",ids:[79],auto:[[1,79]]},{approx:[],sec:"Listening",no:6,title:"Taking a History Course",batch:"",ids:[102,10,101],auto:[[1,102],[1,10]]},{approx:[],sec:"Listening",no:7,title:"Amusement Park",batch:"",ids:[98,81],auto:[[1,98],[1,81]]},{approx:[],sec:"Listening",no:8,title:"Video Games",batch:"",ids:[85],auto:[[1,85]]},{approx:[],sec:"Listening",no:9,title:"Spring Festival",batch:"",ids:[80,51],auto:[[1,80],[1,51]]},{approx:[],sec:"Listening",no:10,title:"Road Trip",batch:"",ids:[108,87,82],auto:[[1,108],[1,87],[1,82]]},{approx:[],sec:"Listening",no:11,title:"A New Series: A Creepy Feeling",batch:"",ids:[105,100],auto:[[1,105],[1,100]]},{approx:[],sec:"Listening",no:12,title:"Music Festival",batch:"",ids:[89,16],auto:[[1,89],[1,80],[1,16]]}],Ur={class:"sub"},Vr={key:0,class:"note"},Jr={key:0,class:"card"},Kr={class:"note"},Yr={key:0,class:"badge"},$r={key:0},Xr={key:0,class:"raw"},Zr={class:"qh"},el=["onClick"],nl={key:0,class:"raw"},tl={class:"qh"},al=["onClick"],il={key:0,class:"raw"},sl={class:"raw"},ol={__name:"Item",props:{item:Object,all:Array},emits:["back","open"],setup(e,{emit:n}){const t=e,a=n,i=Ye(!0),s=zn({}),o=zn({}),r=/[\u0E00-\u0E7F]/,l=un(()=>{const x=[];let B=null;for(const w of(t.item.body||"").split(`
+`)){const D=w.trim();if(!D){B=null;continue}const _=r.test(D);B&&B.th===_?B.t+=" "+D:(B={th:_,t:D},x.push(B))}return x}),u=un(()=>t.item.qs||[]),d=un(()=>{const x=u.value.map((B,w)=>({q:B,i:w})).filter(B=>B.q.kind==="mcq");return{total:x.length,done:x.filter(B=>s[B.i]).length,right:x.filter(B=>s[B.i]===B.q.ans).length}}),m=x=>(x||"").replace(/\n+/g," "),C=un(()=>t.all.filter(x=>x.dup===t.item.n));return(x,B)=>(P(),M(N,null,[q("button",{class:"back",onClick:B[0]||(B[0]=w=>a("back"))},"← กลับ"),q("h1",null,"#"+G(e.item.n)+" "+G(e.item.title),1),q("p",Ur,[q("span",{class:ue(["badge",e.item.type==="Reading"?"r":"l"])},G(e.item.type),3),$e(" ไฟล์วันที่ "+G(e.item.date)+" ",1),C.value.length?(P(),M("span",Vr," · ซ้ำกับ "+G(C.value.map(w=>"#"+w.n).join(", ")),1)):me("",!0)]),e.item.status==="pending"&&!e.item.body?(P(),M("p",Jr,'รายการนี้อยู่ในสารบัญของไฟล์ต้นฉบับ แต่ไม่มีเนื้อหา/คำถามในไฟล์ (สถานะ "รอแปล")')):(P(),M(N,{key:1},[q("label",Kr,[ua(q("input",{type:"checkbox","onUpdate:modelValue":B[1]||(B[1]=w=>i.value=w)},null,512),[[Mr,i.value]]),B[2]||(B[2]=$e(" แสดงคำแปลไทย",-1))]),q("div",{class:ue(["card",{"hide-th":!i.value}])},[(P(!0),M(N,null,Ee(l.value,(w,D)=>(P(),M("p",{key:D,class:ue(w.th?"p-th":"p-en")},G(w.t),3))),128))],2),q("h2",null,[B[3]||(B[3]=$e("แบบฝึกหัด ",-1)),d.value.total?(P(),M("span",Yr,"ตอบแล้ว "+G(d.value.done)+"/"+G(d.value.total)+" · ถูก "+G(d.value.right),1)):me("",!0)]),u.value.length?me("",!0):(P(),M("div",$r,[B[4]||(B[4]=q("p",{class:"note"},"ไม่สามารถแยกเป็นข้อสอบได้ — แสดงข้อความต้นฉบับ",-1)),e.item.qa_raw?(P(),M("pre",Xr,G(e.item.qa_raw),1)):me("",!0)])),(P(!0),M(N,null,Ee(u.value,(w,D)=>(P(),M("div",{class:"card q",key:D},[w.kind==="mcq"?(P(),M(N,{key:0},[q("b",Zr,G(m(w.q)),1),(P(!0),M(N,null,Ee(w.opts,_=>(P(),M("button",{key:_[0],class:ue(["opt",{good:s[D]&&_[0]===w.ans,wrong:s[D]===_[0]&&_[0]!==w.ans}]),onClick:O=>!s[D]&&(s[D]=_[0])},G(_[0])+". "+G(_[1]),11,el))),128)),s[D]?(P(),M(N,{key:0},[q("p",{class:ue(s[D]===w.ans?"badge ok":"badge bad")},G(s[D]===w.ans?"ถูกต้อง":"เฉลย: "+w.ans),3),i.value&&w.th?(P(),M("pre",nl,G(w.th),1)):me("",!0)],64)):me("",!0)],64)):w.kind==="open"?(P(),M(N,{key:1},[q("b",tl,G(m(w.q)),1),q("button",{onClick:_=>o[D]=!o[D]},G(o[D]?"ซ่อนเฉลย":"ดูเฉลย"),9,al),o[D]?(P(),M(N,{key:0},[q("p",null,[B[5]||(B[5]=q("b",null,"เฉลย:",-1)),$e(" "+G(w.ans_text),1)]),i.value&&w.th?(P(),M("pre",il,G(w.th),1)):me("",!0)],64)):me("",!0)],64)):(P(),M(N,{key:2},[B[6]||(B[6]=q("p",{class:"note"},"ข้อนี้สร้างเป็นแบบฝึกหัดไม่ได้ — แสดงข้อความต้นฉบับ",-1)),q("pre",sl,G(w.raw),1)],64))]))),128))],64))],64))}},rl={class:"sum"},ll={class:"badge ok"},cl={class:"badge warn"},hl={class:"badge warn"},dl={class:"badge bad"},ul={style:{"overflow-x":"auto"}},pl={key:0,class:"note"},ml=["onClick"],gl={__name:"Checklist",props:{list:Array,lib:Array},emits:["open"],setup(e){const n=e,t=r=>n.lib.find(l=>l.n===r),a=r=>r.ids.length?r.ids.every(l=>{var u;return((u=t(l))==null?void 0:u.status)==="pending"})?"pending":"found":r.approx.length?"approx":"missing",i=un(()=>["Reading","Listening"].map(r=>({s:r,rows:n.list.filter(l=>l.sec===r)}))),s=(r,l)=>r.filter(u=>a(u)===l).length,o={found:["พบในไฟล์","ok"],pending:["มีในสารบัญ แต่ไม่มีเนื้อหา","warn"],approx:["ไม่พบชื่อตรง (มีเรื่องใกล้เคียง)","warn"],missing:["ไม่พบในไฟล์","bad"]};return(r,l)=>(P(),M(N,null,[l[1]||(l[1]=q("p",{class:"note"},'เทียบรายการในไฟล์ "รีวิวแนวข้อสอบ CEFR รอบ 31 ต.ค. 2569" (Reading 81 เรื่อง / Listening 12 เรื่อง) กับไฟล์ Reading_Listening_สรุปแปลไทย',-1)),(P(!0),M(N,null,Ee(i.value,u=>(P(),M("section",{key:u.s},[q("h2",null,G(u.s)+" ("+G(u.rows.length)+")",1),q("div",rl,[q("span",ll,"พบ "+G(s(u.rows,"found")),1),q("span",cl,"ไม่มีเนื้อหา "+G(s(u.rows,"pending")),1),q("span",hl,"ใกล้เคียง "+G(s(u.rows,"approx")),1),q("span",dl,"ไม่พบ "+G(s(u.rows,"missing")),1)]),q("div",ul,[q("table",null,[l[0]||(l[0]=q("tr",null,[q("th",null,"#"),q("th",null,"หัวข้อในรีวิว"),q("th",null,"สถานะ"),q("th",null,"เปิดดู")],-1)),(P(!0),M(N,null,Ee(u.rows,d=>(P(),M("tr",{key:d.no},[q("td",null,G(d.no),1),q("td",null,[$e(G(d.title),1),d.batch?(P(),M("div",pl,G(d.batch),1)):me("",!0)]),q("td",null,[q("span",{class:ue(["badge",o[a(d)][1]])},G(o[a(d)][0]),3)]),q("td",null,[(P(!0),M(N,null,Ee(d.ids.length?d.ids:d.approx,m=>(P(),M("a",{class:"lnk",key:m,onClick:C=>r.$emit("open",m)},"#"+G(m),9,ml))),128))])]))),128))])])]))),128))],64))}},fl=(e,n)=>{const t=e.__vccOpts||e;for(const[a,i]of n)t[a]=i;return t},yl={class:"gate"},wl={class:"card gate-box"},bl={key:0,class:"badge bad"},vl="11111111",Al={__name:"Gate",emits:["ok"],setup(e,{emit:n}){const t=n,a=Ye(""),i=Ye(!1),s=()=>{if(a.value.trim()===vl){try{localStorage.setItem("cefr_unlocked","1")}catch{}t("ok")}else i.value=!0,a.value=""};return(o,r)=>(P(),M("div",yl,[q("div",wl,[r[2]||(r[2]=q("h1",null,"สื่อการสอน CEFR",-1)),r[3]||(r[3]=q("p",{class:"sub"},"กรุณาใส่รหัสเพื่อเข้าใช้งาน",-1)),ua(q("input",{type:"password",inputmode:"numeric","onUpdate:modelValue":r[0]||(r[0]=l=>a.value=l),placeholder:"รหัส",autofocus:"",onKeyup:Or(s,["enter"]),onInput:r[1]||(r[1]=l=>i.value=!1)},null,544),[[ds,a.value]]),i.value?(P(),M("p",bl,"รหัสไม่ถูกต้อง")):me("",!0),q("button",{class:"on",style:{"margin-top":"12px",width:"100%"},onClick:s},"เข้าสู่ระบบ")])]))}},kl=fl(Al,[["__scopeId","data-v-6bf4e97f"]]),Cl={key:1,class:"wrap"},Bl={class:"tabs"},Tl={class:"tabs"},Dl=["onClick"],xl={class:"badge"},ql={class:"list"},Il=["onClick"],Wl={class:"num"},_l={class:"t"},Sl={key:0,class:"badge warn"},El={key:0},Rl={class:"note"},Pl=["onClick"],Ml={__name:"App",setup(e){let n=!1;try{n=localStorage.getItem("cefr_unlocked")==="1"}catch{}const t=Ye(n),a=()=>{try{localStorage.removeItem("cefr_unlocked")}catch{}t.value=!1},i=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"],s=Ye("lib"),o=Ye(""),r=Ye(null),l=Ye("All"),u=qn.filter(B=>B.status!=="dup"),d=un(()=>{const B=o.value.trim().toLowerCase(),w={};for(const D of u){if(l.value!=="All"&&D.type!==l.value||B&&!`${D.n} ${D.title}`.toLowerCase().includes(B))continue;const _=(D.date||"").slice(0,7)||"ไม่ระบุ";(w[_]||(w[_]=[])).push(D)}return Object.keys(w).sort().reverse().map(D=>{const[_,O]=D.split("-");return{key:D,label:O?`${i[+O-1]} ${_}`:D,items:w[D]}})}),m=qn.filter(B=>B.status==="dup"),C=B=>{r.value=qn.find(w=>w.n===B),window.scrollTo(0,0)},x=B=>B.replace(/^(?:\d+(?:[._]\d+)?_?\s*)?(?:TOEFL\s*|IELTS\s*|Review\s*)?(?:Reading|Listening)\s*[-_ ]*/i,"").replace(/_/g," ").trim()||B;return(B,w)=>t.value?(P(),M("div",Cl,[r.value?(P(),rt(ol,{key:0,item:r.value,all:ln(qn),onBack:w[1]||(w[1]=D=>r.value=null),onOpen:C},null,8,["item","all"])):(P(),M(N,{key:1},[w[6]||(w[6]=q("h1",null,"สื่อการสอน CEFR – Reading & Listening",-1)),w[7]||(w[7]=q("p",{class:"sub"},"เนื้อหา คำถาม และเฉลยทั้งหมดมาจากไฟล์ต้นฉบับเท่านั้น · จัดตามเดือนของไฟล์ ใหม่ → เก่า · ข้อที่สร้างเป็นแบบฝึกหัดไม่ได้จะแสดงข้อความดิบ",-1)),q("div",Bl,[q("button",{onClick:a,style:{"margin-left":"auto",order:"3"}},"ออกจากระบบ"),q("button",{class:ue({on:s.value==="lib"}),onClick:w[2]||(w[2]=D=>s.value="lib")},"คลังข้อสอบ ("+G(ln(u).length)+")",3),q("button",{class:ue({on:s.value==="chk"}),onClick:w[3]||(w[3]=D=>s.value="chk")},"ตรวจเทียบรีวิว 31 ต.ค. 2569",2)]),s.value==="lib"?(P(),M(N,{key:0},[ua(q("input",{type:"search","onUpdate:modelValue":w[4]||(w[4]=D=>o.value=D),placeholder:"ค้นหาชื่อเรื่อง หรือเลขที่…"},null,512),[[ds,o.value]]),q("div",Tl,[(P(),M(N,null,Ee(["All","Reading","Listening"],D=>q("button",{key:D,class:ue({on:l.value===D}),onClick:_=>l.value=D},G(D==="All"?"ทั้งหมด":D),11,Dl)),64))]),(P(!0),M(N,null,Ee(d.value,D=>(P(),M("section",{key:D.key},[q("h2",null,[$e(G(D.label)+" ",1),q("span",xl,G(D.items.length)+" เรื่อง",1)]),q("div",ql,[(P(!0),M(N,null,Ee(D.items,_=>(P(),M("button",{class:"row",key:_.n,onClick:O=>C(_.n)},[q("span",Wl,"#"+G(_.n),1),q("span",_l,G(x(_.title)),1),q("span",{class:ue(["badge",_.type==="Reading"?"r":"l"])},G(_.type),3),_.status==="pending"?(P(),M("span",Sl,"ไม่มีเนื้อหาในไฟล์")):me("",!0)],8,Il))),128))])]))),128)),ln(m).length?(P(),M("section",El,[w[5]||(w[5]=q("h2",null,"รายการซ้ำ (ไฟล์ต้นฉบับไม่แปลซ้ำ)",-1)),q("p",Rl,[(P(!0),M(N,null,Ee(ln(m),D=>(P(),M("span",{key:D.n},[$e("#"+G(D.n)+" → ",1),q("a",{class:"lnk",onClick:_=>C(D.dup)},"#"+G(D.dup),9,Pl)]))),128))])])):me("",!0)],64)):(P(),rt(gl,{key:1,list:ln(Qr),lib:ln(qn),onOpen:C},null,8,["list","lib"]))],64))])):(P(),rt(kl,{key:0,onOk:w[0]||(w[0]=D=>t.value=!0)}))}};Nr(Ml).mount("#app");
