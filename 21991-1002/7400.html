@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สื่อการสอนและห้องปฏิบัติการเสมือนจริง: ไอซีลอจิกเกตตระกูล 7400</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Sarabun & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sarabun', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#080d1a',
+                        },
+                        crimson: {
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* LED Glow Effects */
+        .led-on {
+            background: radial-gradient(circle at 35% 35%, #fef08a, #ef4444 65%, #991b1b);
+            box-shadow: 0 0 18px #ef4444, 0 0 32px rgba(239, 68, 68, 0.7), inset 0 0 6px #ffffff;
+            border-color: #fca5a5;
+        }
+        .led-off {
+            background: radial-gradient(circle at 35% 35%, #64748b, #334155 70%, #1e293b);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.6);
+            border-color: #475569;
+        }
+        .led-power-on {
+            background: radial-gradient(circle at 35% 35%, #bbf7d0, #22c55e 65%, #15803d);
+            box-shadow: 0 0 14px #22c55e, 0 0 24px rgba(34, 197, 94, 0.5);
+        }
+
+        /* Protoboard Hole Hover & Highlight */
+        .pb-hole {
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+        .pb-hole:hover {
+            transform: scale(1.35);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.85);
+            z-index: 25;
+        }
+        @keyframes pulseHint {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.9); transform: scale(1.15); }
+            50% { box-shadow: 0 0 0 6px rgba(251, 191, 36, 0); transform: scale(1.35); }
+        }
+        .hole-hint-pulse {
+            animation: pulseHint 1.4s infinite;
+            background-color: #fbbf24 !important;
+            border-color: #0f172a !important;
+        }
+
+        /* Print Media Styles for A4 Report */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 12mm;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #print-area {
+                box-shadow: none !important;
+                border: 2px solid #0f172a !important;
+                margin: 0 !important;
+                padding: 20px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <!-- Custom Notification Toast -->
+    <div id="toast-box" class="fixed top-5 right-5 z-50 hidden transform transition-all duration-300 no-print max-w-md">
+        <div id="toast-content" class="flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-2xl border text-white font-medium">
+            <i id="toast-icon" class="fas fa-info-circle text-xl shrink-0"></i>
+            <span id="toast-message" class="text-sm sm:text-base">ข้อความแจ้งเตือน</span>
+        </div>
+    </div>
+
+    <!-- Teacher Unlock / Bypass Modal -->
+    <div id="unlock-modal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+        <div class="bg-white rounded-2xl shadow-2xl border-2 border-navy-900 max-w-md w-full overflow-hidden animate-fade-in">
+            <div class="bg-gradient-to-r from-navy-950 to-navy-900 px-6 py-4 text-white flex items-center justify-between border-b-4 border-amber-500">
+                <div class="flex items-center gap-2.5">
+                    <i class="fas fa-key text-amber-400 text-lg"></i>
+                    <h3 class="font-bold text-lg">โหมดปลดล็อกข้ามขั้นตอน (สำหรับผู้สอน)</h3>
+                </div>
+                <button type="button" onclick="closeUnlockModal()" class="text-slate-400 hover:text-white transition">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="unlock-form" class="p-6 space-y-4">
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    กรอกรหัสผ่านสำหรับผู้สอนเพื่อปลดล็อกทุกขั้นตอนทันที (สามารถคลิกสลับดูเนื้อหา ทดลอง Lab และพิมพ์ใบรายงานได้อย่างอิสระ)
+                </p>
+                <div>
+                    <label class="block text-sm font-bold text-navy-900 mb-1.5">รหัสผ่านปลดล็อก (Password)</label>
+                    <input type="password" id="unlock-password-input" placeholder="กรอกรหัสผ่าน..." autocomplete="off"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-slate-300 focus:border-crimson-600 outline-none font-mono-code text-lg text-center tracking-widest">
+                </div>
+                <div class="flex items-center justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeUnlockModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 transition">
+                        ยกเลิก
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-crimson-600 hover:bg-crimson-700 text-white font-bold shadow-md transition flex items-center gap-2">
+                        <i class="fas fa-unlock-alt"></i> ยืนยันปลดล็อก
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header Navigation Bar -->
+    <header class="bg-gradient-to-r from-navy-950 via-navy-900 to-slate-900 text-white shadow-lg border-b-4 border-amber-500 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-crimson-600 to-amber-500 flex items-center justify-center shadow-lg shrink-0">
+                        <i class="fas fa-microchip text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider bg-amber-500 text-navy-950 rounded-full">Digital Electronics Lab</span>
+                            <span class="text-xs text-slate-300 font-mono-code">TTL 7400 Series (6 ICs)</span>
+                        </div>
+                        <h1 class="text-lg sm:text-2xl font-extrabold tracking-tight text-white mt-0.5">
+                            ไอซีลอจิกเกตพื้นฐานตระกูล 7400 (Logic Gate ICs)
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Teacher Unlock Button -->
+                    <button type="button" id="btn-open-unlock" onclick="openUnlockModal()"
+                        class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-navy-950 font-extrabold text-xs sm:text-sm shadow-md transition flex items-center gap-2">
+                        <i class="fas fa-unlock-alt"></i>
+                        <span>เข้าสู่เนื้อหาเลย (สำหรับผู้สอน / ข้ามการล็อก)</span>
+                    </button>
+
+                    <!-- Instructor Badge -->
+                    <div class="flex items-center gap-3 bg-navy-800/90 border border-slate-700 px-4 py-2 rounded-xl">
+                        <div class="w-8 h-8 rounded-full bg-crimson-600/20 border border-crimson-500 flex items-center justify-center text-amber-400 shrink-0">
+                            <i class="fas fa-chalkboard-teacher text-sm"></i>
+                        </div>
+                        <div class="text-xs sm:text-sm">
+                            <p class="text-slate-400 text-[11px] leading-tight">ผู้สอน / จัดทำสื่อการสอน</p>
+                            <p class="font-bold text-amber-400">ครู อนุสรณ์ บุญเจริญปัญญา</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 5-Step Progress Stepper -->
+    <div class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-30 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2" id="stepper-container">
+                <!-- Steps rendered via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+        <!-- ========================================================== -->
+        <!-- STEP 1: PRE-TEST (10 QUESTIONS)                            -->
+        <!-- ========================================================== -->
+        <section id="step-1" class="step-section">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-navy-950 via-navy-900 to-slate-800 px-6 py-5 text-white border-b-4 border-amber-400 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-amber-400 text-navy-950 font-extrabold flex items-center justify-center text-lg shrink-0">1</span>
+                        <div>
+                            <h2 class="text-xl font-bold">แบบทดสอบก่อนเรียน (Pre-Test)</h2>
+                            <p class="text-slate-300 text-sm">จำนวน 10 ข้อ — วัดความรู้พื้นฐานเรื่องไอซีลอจิกเกตตระกูล 7400 และการต่อวงจรบน Protoboard</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 bg-crimson-600/80 border border-amber-400/50 rounded-lg text-xs text-amber-200 font-semibold self-start sm:self-center">
+                        ขั้นตอนที่ 1 / 5
+                    </span>
+                </div>
+
+                <div id="pretest-questions" class="p-6 sm:p-8 space-y-6">
+                    <!-- Rendered dynamically -->
+                </div>
+
+                <div class="px-6 py-5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button type="button" onclick="openUnlockModal()" class="px-5 py-2.5 rounded-xl border border-amber-400 bg-amber-50 text-amber-900 font-bold hover:bg-amber-100 transition w-full sm:w-auto text-sm">
+                        <i class="fas fa-key mr-1.5 text-amber-600"></i> ข้ามไปเนื้อหาเลย (สำหรับผู้สอน)
+                    </button>
+                    <button type="button" onclick="submitPreTest()" class="px-7 py-3 rounded-xl bg-crimson-600 hover:bg-crimson-700 text-white font-bold shadow-lg transition w-full sm:w-auto flex items-center justify-center gap-2">
+                        <i class="fas fa-paper-plane"></i> ส่งคำตอบก่อนเรียนและเข้าสู่เนื้อหา
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- STEP 2: STUDY MATERIAL & 14-PIN DIP DIAGRAMS               -->
+        <!-- ========================================================== -->
+        <section id="step-2" class="step-section hidden">
+            <div class="space-y-6">
+                <!-- Lesson Intro Banner -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-md bg-navy-900 text-amber-400 text-xs font-bold">ขั้นตอนที่ 2 : เนื้อหาบทเรียนและผังขา DIP-14</span>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-navy-900 mt-1">โครงสร้างและผังขาไอซีลอจิกเกตตระกูล 7400 (6 เบอร์พื้นฐาน)</h2>
+                            <p class="text-sm text-slate-600 mt-1">
+                                ศึกษาตำแหน่งขาไฟเลี้ยง <strong>VCC (+5V) ขา 14</strong>, <strong>GND (0V) ขา 7</strong> และขา Input / Output ของเกตตัวที่ 1 ก่อนเข้าสู่ห้องปฏิบัติการต่อวงจรบน Protoboard
+                            </p>
+                        </div>
+                        <button type="button" onclick="goToStep(3)"
+                            class="px-6 py-3 rounded-xl bg-crimson-600 hover:bg-crimson-700 text-white font-bold shadow-lg transition flex items-center justify-center gap-2 shrink-0">
+                            <span>เข้าสู่ Lab ต่อวงจร Protoboard</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Quick Tips Box -->
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+                        <div class="p-3.5 rounded-xl bg-red-50 border border-crimson-200 text-crimson-900">
+                            <strong class="block font-extrabold mb-0.5"><i class="fas fa-bolt text-crimson-600 mr-1"></i>ไฟเลี้ยงมาตรฐาน TTL (+5V):</strong>
+                            ทุกเบอร์ในชุดนี้ใช้ตัวถัง 14 ขา โดยต่อ <strong>+5V (VCC) ที่ขา 14</strong> และ <strong>GND (0V) ที่ขา 7</strong> เสมอ
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-950">
+                            <strong class="block font-extrabold mb-0.5"><i class="fas fa-exclamation-triangle text-amber-600 mr-1"></i>ข้อควรระวังพิเศษ (IC 7402):</strong>
+                            เบอร์ <strong>7402 (NOR)</strong> เรียงขาสลับกับเบอร์อื่น! โดย <strong>ขา 1 เป็น Output Y1</strong> ส่วนขา 2 และ 3 เป็น Input A1, B1
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-900">
+                            <strong class="block font-extrabold mb-0.5"><i class="fas fa-microchip text-sky-600 mr-1"></i>การวางบน Protoboard:</strong>
+                            ต้องวางตัวไอซี <strong>คร่อมร่องกลาง</strong> เสมอ เพื่อให้ขาแถวบน (14-8) และแถวล่าง (1-7) แยกอิสระไม่ช็อตกัน
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6 IC Cards Grid -->
+                <div id="study-cards-container" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Rendered dynamically via renderStudyMaterials() -->
+                </div>
+
+                <!-- Bottom Next Button -->
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button type="button" onclick="goToStep(1)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 transition w-full sm:w-auto">
+                        <i class="fas fa-arrow-left mr-1.5"></i> กลับไปแบบทดสอบก่อนเรียน
+                    </button>
+                    <button type="button" onclick="goToStep(3)" class="px-7 py-3 rounded-xl bg-navy-900 hover:bg-crimson-600 text-white font-bold shadow-lg transition w-full sm:w-auto flex items-center justify-center gap-2">
+                        <i class="fas fa-flask text-amber-400"></i> เริ่มปฏิบัติการต่อวงจรบน Protoboard (ขั้นตอนที่ 3)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- STEP 3: EASY PROTOBOARD LAB (CLICK-TO-WIRE & DRAG-DROP)   -->
+        <!-- ========================================================== -->
+        <section id="step-3" class="step-section hidden">
+            <div class="space-y-5">
+                
+                <!-- Lab Header & IC Selector -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-5">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200 pb-4">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded-md bg-crimson-600 text-white text-xs font-bold">ขั้นตอนที่ 3 : Smart Protoboard Lab</span>
+                                <span id="lab-pass-badge" class="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-300 text-xs font-bold">
+                                    สถานะ: กำลังต่อวงจร (ต่อครบเปิดไฟอัตโนมัติ)
+                                </span>
+                            </div>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-navy-900 mt-1">ห้องปฏิบัติการต่อวงจรบน Protoboard (ใช้งานง่าย 1-Click / ลากวาง)</h2>
+                            <p class="text-sm text-slate-600">
+                                <strong>วิธีต่อสุดง่าย:</strong> 1) คลิกเลือกสายไฟด้านซ้าย 2) คลิกที่รูไหนก็ได้ในคอลัมน์ของขานั้นบน Protoboard (ระบบตรวจถูก-ผิดทันที!)
+                            </p>
+                        </div>
+
+                        <!-- Choose IC & Helper Tools -->
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <div class="bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+                                <label class="block text-[11px] font-bold text-slate-500">เลือกเบอร์ IC ทดลอง:</label>
+                                <select id="proto-ic-select" onchange="changeProtoIc(this.value)"
+                                    class="w-56 font-mono-code font-bold text-sm text-navy-900 bg-transparent focus:outline-none">
+                                    <option value="7408">IC 7408 (AND Gate - แนะนำ)</option>
+                                    <option value="7432">IC 7432 (OR Gate)</option>
+                                    <option value="7400">IC 7400 (NAND Gate)</option>
+                                    <option value="7402">IC 7402 (NOR Gate - ขาสลับ!)</option>
+                                    <option value="7404">IC 7404 (NOT Gate / Inverter)</option>
+                                    <option value="7486">IC 7486 (XOR Gate)</option>
+                                </select>
+                            </div>
+
+                            <button type="button" id="btn-toggle-hint" onclick="togglePinHint()"
+                                class="px-3.5 py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-400 font-bold text-xs transition flex items-center gap-1.5">
+                                <i class="fas fa-lightbulb text-amber-600"></i>
+                                <span id="hint-btn-label">ไฟนำทาง: เปิด</span>
+                            </button>
+
+                            <button type="button" onclick="autoWireDemo()"
+                                class="px-3.5 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-amber-400 border border-navy-700 font-bold text-xs transition flex items-center gap-1.5">
+                                <i class="fas fa-magic"></i>
+                                <span>ต่อสายตัวอย่างอัตโนมัติ</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Smart Pin Guide Bar (Shows exact pin mapping clearly) -->
+                    <div class="mt-4 bg-navy-950 text-white rounded-xl p-3.5 border-l-4 border-amber-500 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="px-2.5 py-1 rounded bg-crimson-600 font-mono-code font-extrabold text-xs shrink-0" id="guide-ic-badge">IC 7408</span>
+                            <span class="text-xs sm:text-sm font-bold text-amber-300" id="mission-ic-label">Quad 2-Input AND Gate</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2 text-xs font-mono-code" id="smart-pin-pills">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Protoboard Workspace -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+                    
+                    <!-- Left Toolbox: 1-Click / Draggable Wires (4 Cols) -->
+                    <div class="xl:col-span-4 bg-white rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-5 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-200 pb-2.5 mb-3">
+                                <h3 class="font-extrabold text-navy-900 text-base">
+                                    <i class="fas fa-plug text-crimson-600 mr-1.5"></i>1. เลือกอุปกรณ์ / สายไฟ
+                                </h3>
+                                <button type="button" onclick="resetProtoboard()" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-crimson-50 text-slate-600 hover:text-crimson-600 font-bold border border-slate-300 transition">
+                                    <i class="fas fa-redo mr-1"></i>ล้างสายไฟ
+                                </button>
+                            </div>
+
+                            <!-- Component Palette -->
+                            <div class="space-y-2" id="component-palette">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Live Feedback Box -->
+                        <div id="wiring-diagnostic-box" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            <i class="fas fa-hand-pointer text-amber-500 mr-1"></i>
+                            <strong>พร้อมต่อวงจร!</strong> ตัว IC ถูกวางคร่อมร่องกลางให้แล้ว คลิกเลือกสายไฟด้านบนแล้วคลิกวางบนรูคอลัมน์ที่ตรงกับขา IC ได้เลย
+                        </div>
+                    </div>
+
+                    <!-- Right Interactive Protoboard & Simulator Console (8 Cols) -->
+                    <div class="xl:col-span-8 space-y-5">
+                        
+                        <!-- Interactive Protoboard Canvas -->
+                        <div class="bg-navy-950 rounded-2xl shadow-2xl border-2 border-slate-700 p-4 sm:p-5 overflow-x-auto">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-3 text-xs">
+                                <span class="font-mono-code font-bold text-amber-400">
+                                    <i class="fas fa-border-all mr-1"></i>PROTOBOARD (แถว A-E เชื่อมแนวตั้ง | แถว F-J เชื่อมแนวตั้ง)
+                                </span>
+                                <span id="selected-tool-indicator" class="px-3 py-1 rounded-full bg-amber-500 text-navy-950 font-extrabold text-xs">
+                                    กำลังถือ: สาย +5V (คลิกวางบนคอลัมน์ขา 14)
+                                </span>
+                            </div>
+
+                            <!-- Protoboard Graphic Container -->
+                            <div class="min-w-[660px] bg-[#f8fafc] rounded-xl p-4 border-4 border-slate-400 shadow-inner select-none relative" id="protoboard-surface">
+                                <!-- Rendered dynamically via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Live Power & Logic Switch Testing Panel -->
+                        <div id="proto-test-bench" class="bg-slate-900 rounded-2xl shadow-xl border-2 border-slate-700 p-5 text-white transition-all">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-3.5 mb-4">
+                                <div>
+                                    <h3 class="font-extrabold text-base sm:text-lg text-amber-400 flex items-center gap-2">
+                                        <i class="fas fa-sliders-h"></i> 2. แผงกดสวิตช์ทดสอบสัญญาณ (Logic Switch & LED)
+                                    </h3>
+                                    <p class="text-xs text-slate-400" id="test-bench-subtitle">เมื่อต่อสายครบทุกเส้น ระบบจะเปิดไฟ +5V ให้อัตโนมัติทันที</p>
+                                </div>
+                                <button type="button" id="btn-proto-power" onclick="toggleProtoPower()" disabled
+                                    class="px-4 py-2 rounded-xl font-mono-code font-extrabold text-xs sm:text-sm bg-slate-700 text-slate-400 border-2 border-slate-600 cursor-not-allowed transition flex items-center gap-2 shrink-0">
+                                    <i class="fas fa-power-off"></i>
+                                    <span id="proto-power-label">POWER : รอต่อสายครบ</span>
+                                </button>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center text-center">
+                                <!-- Switch A -->
+                                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700">
+                                    <p class="text-xs font-bold text-slate-400 uppercase mb-1.5">Input Switch A</p>
+                                    <button type="button" id="proto-sw-a" onclick="toggleProtoInput('A')" disabled
+                                        class="w-32 h-12 mx-auto rounded-xl font-mono-code text-lg font-extrabold bg-slate-700 text-slate-400 border-2 border-slate-600 cursor-not-allowed transition">
+                                        0 (LOW)
+                                    </button>
+                                </div>
+
+                                <!-- Switch B -->
+                                <div id="proto-sw-b-box" class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700">
+                                    <p class="text-xs font-bold text-slate-400 uppercase mb-1.5">Input Switch B</p>
+                                    <button type="button" id="proto-sw-b" onclick="toggleProtoInput('B')" disabled
+                                        class="w-32 h-12 mx-auto rounded-xl font-mono-code text-lg font-extrabold bg-slate-700 text-slate-400 border-2 border-slate-600 cursor-not-allowed transition">
+                                        0 (LOW)
+                                    </button>
+                                </div>
+
+                                <!-- Output LED -->
+                                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 flex flex-col items-center">
+                                    <p class="text-xs font-bold text-slate-400 uppercase mb-1.5">Output LED (Y)</p>
+                                    <div class="flex items-center gap-3">
+                                        <div id="proto-led-y" class="w-11 h-11 rounded-full border-2 led-off transition-all"></div>
+                                        <div class="text-left font-mono-code">
+                                            <div id="proto-val-y" class="text-xl font-extrabold text-slate-400">-</div>
+                                            <div id="proto-txt-y" class="text-xs text-slate-400">NO POWER</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Complete Lab Button -->
+                            <div class="mt-4 pt-3.5 border-t border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="text-xs text-slate-300 font-mono-code">
+                                    สมการ: <strong id="proto-eq-display" class="text-amber-400">Y = A · B</strong> |
+                                    ทดสอบแล้ว: <strong id="proto-tested-count" class="text-emerald-400">0 / 4 รูปแบบ</strong>
+                                </div>
+                                <button type="button" id="btn-complete-proto-lab" onclick="completeProtoLab()"
+                                    class="px-6 py-3 rounded-xl bg-slate-700 text-slate-400 font-bold cursor-not-allowed transition flex items-center gap-2 w-full sm:w-auto justify-center">
+                                    <i class="fas fa-lock" id="btn-complete-proto-icon"></i>
+                                    <span>บันทึกผล Lab และไปแบบทดสอบหลังเรียน</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- STEP 4: POST-TEST (10 QUESTIONS)                           -->
+        <!-- ========================================================== -->
+        <section id="step-4" class="step-section hidden">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-crimson-700 via-crimson-600 to-navy-900 px-6 py-5 text-white border-b-4 border-amber-400 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-amber-400 text-navy-950 font-extrabold flex items-center justify-center text-lg shrink-0">4</span>
+                        <div>
+                            <h2 class="text-xl font-bold">แบบทดสอบหลังเรียน (Post-Test)</h2>
+                            <p class="text-amber-100 text-sm">จำนวน 10 ข้อ — ประเมินผลสัมฤทธิ์หลังศึกษาเนื้อหาและปฏิบัติการต่อวงจร Protoboard</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 bg-navy-950/70 border border-amber-400/50 rounded-lg text-xs text-amber-300 font-semibold self-start sm:self-center">
+                        ขั้นตอนที่ 4 / 5
+                    </span>
+                </div>
+
+                <div id="posttest-questions" class="p-6 sm:p-8 space-y-6">
+                    <!-- Rendered dynamically -->
+                </div>
+
+                <div class="px-6 py-5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button type="button" onclick="goToStep(3)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 transition w-full sm:w-auto">
+                        <i class="fas fa-arrow-left mr-1.5"></i> กลับไปห้องปฏิบัติการ Protoboard
+                    </button>
+                    <button type="button" onclick="submitPostTest()" class="px-7 py-3 rounded-xl bg-navy-900 hover:bg-crimson-600 text-white font-bold shadow-lg transition w-full sm:w-auto flex items-center justify-center gap-2">
+                        <i class="fas fa-award text-amber-400"></i> ส่งคำตอบและไปหน้าพิมพ์ใบรายงานผล PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- STEP 5: STUDENT INFO, REPORT SUMMARY & PRINT TO PDF        -->
+        <!-- ========================================================== -->
+        <section id="step-5" class="step-section hidden">
+            <div class="max-w-4xl mx-auto space-y-5">
+                
+                <!-- Student Name Input & Print Action Bar (Hidden on Print) -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-navy-900 p-5 sm:p-6 no-print">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4 mb-4">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-xs font-bold">ขั้นตอนที่ 5 : สรุปผลและออกใบรายงานผล</span>
+                            <h2 class="text-xl font-extrabold text-navy-900 mt-1">กรอกข้อมูลผู้เรียนเพื่อแสดงบนใบรายงานผล และพิมพ์เป็น PDF</h2>
+                        </div>
+                        <button type="button" onclick="window.print()"
+                            class="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-yellow-300 text-navy-950 font-extrabold rounded-xl shadow-lg transition flex items-center gap-2 shrink-0 justify-center">
+                            <i class="fas fa-file-pdf text-lg text-crimson-700"></i>
+                            <span>พิมพ์ / บันทึกเป็น PDF (Print to PDF)</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">ชื่อ - นามสกุล นักเรียน <span class="text-crimson-600">*</span></label>
+                            <input type="text" id="input-report-name" oninput="syncReportStudentInfo()" placeholder="เช่น นายสมชาย ใจดี"
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-crimson-600 outline-none text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">เลขที่ / รหัสนักศึกษา <span class="text-crimson-600">*</span></label>
+                            <input type="text" id="input-report-no" oninput="syncReportStudentInfo()" placeholder="เช่น เลขที่ 15 / 6720105015"
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-crimson-600 outline-none text-sm font-mono-code">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">ระดับชั้น / ห้องเรียน <span class="text-crimson-600">*</span></label>
+                            <input type="text" id="input-report-class" oninput="syncReportStudentInfo()" placeholder="เช่น ปวช.1 อิเล็กทรอนิกส์ 1"
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-crimson-600 outline-none text-sm font-semibold">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Printable A4 Report Sheet -->
+                <div id="print-area" class="bg-white rounded-2xl shadow-2xl border-2 border-navy-900 p-6 sm:p-10 relative overflow-hidden">
+                    <!-- Decorative Top Bar -->
+                    <div class="h-3 w-full bg-gradient-to-r from-navy-900 via-crimson-600 to-amber-500 rounded-full mb-6"></div>
+
+                    <!-- Report Header -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b-2 border-slate-200 pb-5">
+                        <div class="flex items-center gap-4 text-center sm:text-left">
+                            <div class="w-16 h-16 rounded-2xl bg-navy-900 text-amber-400 flex items-center justify-center shrink-0 border-2 border-amber-500">
+                                <i class="fas fa-microchip text-3xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-widest text-crimson-600">Digital Electronics & Logic Circuits Lab</p>
+                                <h1 class="text-xl sm:text-2xl font-extrabold text-navy-900">ใบรายงานผลการเรียนรู้และปฏิบัติการต่อวงจร</h1>
+                                <p class="text-sm font-semibold text-slate-600">เรื่อง ไอซีลอจิกเกตพื้นฐานตระกูล 7400 (7400, 7402, 7404, 7408, 7432, 7486)</p>
+                            </div>
+                        </div>
+                        <div class="text-center sm:text-right bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200 shrink-0">
+                            <p class="text-xs text-slate-500">วันที่บันทึกผลการเรียน</p>
+                            <p id="report-date" class="font-bold text-navy-900 text-sm">-</p>
+                            <p class="font-mono-code text-xs text-slate-400 mt-0.5">TTL-7400-PROTOBOARD</p>
+                        </div>
+                    </div>
+
+                    <!-- Student Information Display -->
+                    <div class="mt-5 bg-slate-50 rounded-xl p-4 sm:p-5 border border-slate-200">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">ข้อมูลผู้เรียน (Student Information)</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <p class="text-xs text-slate-500">ชื่อ - นามสกุล</p>
+                                <p id="disp-report-name" class="text-base font-extrabold text-navy-900">.......................................................</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500">เลขที่ / รหัสนักศึกษา</p>
+                                <p id="disp-report-no" class="text-base font-bold font-mono-code text-crimson-700">...............................</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500">ระดับชั้น / ห้องเรียน</p>
+                                <p id="disp-report-class" class="text-base font-bold text-slate-800">...............................</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pre-Test vs Post-Test Score Comparison -->
+                    <div class="mt-5">
+                        <h3 class="text-sm font-extrabold text-navy-900 mb-2.5 flex items-center gap-2">
+                            <i class="fas fa-chart-bar text-crimson-600"></i>
+                            <span>1. ตารางเปรียบเทียบผลคะแนนแบบทดสอบก่อนเรียนและหลังเรียน</span>
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-xl border-2 border-slate-200 bg-white text-center">
+                                <p class="text-xs font-bold text-slate-500 uppercase">คะแนนก่อนเรียน (Pre-Test)</p>
+                                <p class="text-3xl font-extrabold text-slate-700 mt-1 font-mono-code"><span id="report-pre-score">0</span><span class="text-base font-normal text-slate-400"> / 10</span></p>
+                                <p id="report-pre-percent" class="text-xs font-semibold text-slate-500 mt-1">คิดเป็น 0%</p>
+                            </div>
+                            <div class="p-4 rounded-xl border-2 border-crimson-600 bg-crimson-50/40 text-center">
+                                <p class="text-xs font-bold text-crimson-700 uppercase">คะแนนหลังเรียน (Post-Test)</p>
+                                <p class="text-3xl font-extrabold text-crimson-700 mt-1 font-mono-code"><span id="report-post-score">0</span><span class="text-base font-normal text-slate-500"> / 10</span></p>
+                                <p id="report-post-percent" class="text-xs font-bold text-crimson-700 mt-1">คิดเป็น 0%</p>
+                            </div>
+                            <div class="p-4 rounded-xl border-2 border-emerald-600 bg-emerald-50/50 text-center">
+                                <p class="text-xs font-bold text-emerald-800 uppercase">ผลพัฒนาการ (Gain Score)</p>
+                                <p id="report-diff-score" class="text-3xl font-extrabold text-emerald-700 mt-1 font-mono-code">+0</p>
+                                <p id="report-eval-status" class="text-xs font-bold text-emerald-700 mt-1">ผ่านเกณฑ์การประเมิน</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Protoboard Practical Lab Summary -->
+                    <div class="mt-5">
+                        <h3 class="text-sm font-extrabold text-navy-900 mb-2.5 flex items-center gap-2">
+                            <i class="fas fa-microchip text-amber-500"></i>
+                            <span>2. ผลการปฏิบัติการต่อวงจรบน Protoboard (Virtual Protoboard Lab)</span>
+                        </h3>
+                        <div class="rounded-xl border border-slate-300 overflow-hidden">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead class="bg-navy-900 text-white">
+                                    <tr>
+                                        <th class="py-2.5 px-3 font-bold">รายการปฏิบัติการทดลอง</th>
+                                        <th class="py-2.5 px-3 font-bold">รายละเอียดการต่อขา Pin</th>
+                                        <th class="py-2.5 px-3 font-bold text-center">ผลการประเมิน</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200">
+                                    <tr>
+                                        <td class="py-2.5 px-3 font-bold text-navy-900" id="report-lab-ic-name">ปฏิบัติการต่อวงจร IC 7408 (AND Gate)</td>
+                                        <td class="py-2.5 px-3 text-slate-700 text-xs sm:text-sm" id="report-lab-pin-summary">
+                                            วาง IC คร่อมร่องกลาง, ต่อ VCC (ขา 14), GND (ขา 7), Input A/B และ Output Y ถูกต้องครบถ้วน
+                                        </td>
+                                        <td class="py-2.5 px-3 text-center" id="report-lab-status-cell">
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                                <i class="fas fa-check-circle"></i> ผ่านปฏิบัติการ
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Footer & Instructor Signature -->
+                    <div class="mt-8 pt-6 border-t-2 border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div class="text-xs text-slate-500 max-w-sm text-center sm:text-left">
+                            <p class="font-bold text-slate-700">คำรับรองจากระบบ:</p>
+                            <p>เอกสารฉบับนี้บันทึกผลการเรียนรู้และผลการต่อวงจรบน Protoboard อัตโนมัติ สามารถพิมพ์หรือบันทึกเป็นไฟล์ PDF เพื่อส่งเป็นหลักฐานการเรียนได้ทันที</p>
+                        </div>
+                        <div class="text-center min-w-[250px]">
+                            <div class="border-b border-dashed border-slate-400 pb-2 mb-1.5">
+                                <span class="font-bold text-navy-900 text-base italic">อนุสรณ์ บุญเจริญปัญญา</span>
+                            </div>
+                            <p class="font-extrabold text-navy-900 text-sm">( ครู อนุสรณ์ บุญเจริญปัญญา )</p>
+                            <p class="text-xs text-slate-500">ครูผู้สอน / ผู้จัดทำสื่อการสอน</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy-950 text-slate-400 py-4 text-center text-xs border-t border-slate-800 no-print">
+        <p>สื่อการสอนดิจิทัลและห้องปฏิบัติการต่อวงจรเสมือนจริง เรื่อง ไอซีลอจิกเกตพื้นฐานตระกูล 7400 | จัดทำโดย <strong class="text-amber-400">ครู อนุสรณ์ บุญเจริญปัญญา</strong></p>
+    </footer>
+
+    <!-- ========================================================== -->
+    <!-- JAVASCRIPT LOGIC                                           -->
+    <!-- ========================================================== -->
+    <script>
+        // 1. DATA: 6 LOGIC GATE ICs
+        const IC_DATA = {
+            '7400': {
+                id: '7400',
+                name: '7400',
+                title: 'Quad 2-Input NAND Gate',
+                thaiName: 'ไอซีแนนด์เกต 2 อินพุต จำนวน 4 ตัว',
+                inputs: 2,
+                equation: "Y = (A · B)'",
+                desc: 'ให้เอาต์พุตเป็นลอจิก "0" เฉพาะเมื่ออินพุตทั้งสองเป็น "1" พร้อมกัน นอกนั้นให้เอาต์พุตเป็น "1" ทั้งหมด (ตรงข้ามกับ AND Gate)',
+                pins: { a: 1, b: 2, y: 3 },
+                evalFunc: (a, b) => (a & b) ? 0 : 1,
+                truthTable: [
+                    { a: 0, b: 0, y: 1 },
+                    { a: 0, b: 1, y: 1 },
+                    { a: 1, b: 0, y: 1 },
+                    { a: 1, b: 1, y: 0 }
+                ],
+                pinoutType: 'standard'
+            },
+            '7402': {
+                id: '7402',
+                name: '7402',
+                title: 'Quad 2-Input NOR Gate',
+                thaiName: 'ไอซีนอร์เกต 2 อินพุต จำนวน 4 ตัว',
+                inputs: 2,
+                equation: "Y = (A + B)'",
+                desc: 'ให้เอาต์พุตเป็นลอจิก "1" เฉพาะเมื่ออินพุตทั้งสองเป็น "0" พร้อมกัน (ข้อควรระวังพิเศษ: ขา 1 เป็น Output Y1 ส่วนขา 2 และ 3 เป็น Input A1, B1 สลับกับเบอร์อื่น!)',
+                pins: { y: 1, a: 2, b: 3 },
+                evalFunc: (a, b) => (a | b) ? 0 : 1,
+                truthTable: [
+                    { a: 0, b: 0, y: 1 },
+                    { a: 0, b: 1, y: 0 },
+                    { a: 1, b: 0, y: 0 },
+                    { a: 1, b: 1, y: 0 }
+                ],
+                pinoutType: 'nor7402'
+            },
+            '7404': {
+                id: '7404',
+                name: '7404',
+                title: 'Hex Inverter (NOT Gate)',
+                thaiName: 'ไอซีอินเวอร์เตอร์ / นอตเกต จำนวน 6 ตัว',
+                inputs: 1,
+                equation: "Y = A'",
+                desc: 'ทำหน้าที่กลับสถานะลอจิก (Inverter) หากอินพุต A (ขา 1) เป็น "0" เอาต์พุต Y (ขา 2) จะเป็น "1" และในทางกลับกัน ภายในมี 6 ตัว',
+                pins: { a: 1, b: null, y: 2 },
+                evalFunc: (a) => a ? 0 : 1,
+                truthTable: [
+                    { a: 0, y: 1 },
+                    { a: 1, y: 0 }
+                ],
+                pinoutType: 'inverter7404'
+            },
+            '7408': {
+                id: '7408',
+                name: '7408',
+                title: 'Quad 2-Input AND Gate',
+                thaiName: 'ไอซีแอนด์เกต 2 อินพุต จำนวน 4 ตัว',
+                inputs: 2,
+                equation: 'Y = A · B',
+                desc: 'ทำหน้าที่คูณทางลอจิก ให้เอาต์พุต Y (ขา 3) เป็น "1" เฉพาะเมื่ออินพุต A (ขา 1) และ B (ขา 2) เป็น "1" พร้อมกันเท่านั้น',
+                pins: { a: 1, b: 2, y: 3 },
+                evalFunc: (a, b) => (a & b) ? 1 : 0,
+                truthTable: [
+                    { a: 0, b: 0, y: 0 },
+                    { a: 0, b: 1, y: 0 },
+                    { a: 1, b: 0, y: 0 },
+                    { a: 1, b: 1, y: 1 }
+                ],
+                pinoutType: 'standard'
+            },
+            '7432': {
+                id: '7432',
+                name: '7432',
+                title: 'Quad 2-Input OR Gate',
+                thaiName: 'ไอซีออร์เกต 2 อินพุต จำนวน 4 ตัว',
+                inputs: 2,
+                equation: 'Y = A + B',
+                desc: 'ทำหน้าที่บวกทางลอจิก ให้เอาต์พุต Y (ขา 3) เป็น "1" เมื่อมีอินพุต A (ขา 1) หรือ B (ขา 2) ตัวใดตัวหนึ่งหรือทั้งคู่เป็น "1"',
+                pins: { a: 1, b: 2, y: 3 },
+                evalFunc: (a, b) => (a | b) ? 1 : 0,
+                truthTable: [
+                    { a: 0, b: 0, y: 0 },
+                    { a: 0, b: 1, y: 1 },
+                    { a: 1, b: 0, y: 1 },
+                    { a: 1, b: 1, y: 1 }
+                ],
+                pinoutType: 'standard'
+            },
+            '7486': {
+                id: '7486',
+                name: '7486',
+                title: 'Quad 2-Input XOR Gate',
+                thaiName: 'ไอซีเอ็กซ์คลูซีฟออร์เกต 2 อินพุต จำนวน 4 ตัว',
+                inputs: 2,
+                equation: 'Y = A ⊕ B',
+                desc: 'Exclusive-OR Gate ให้เอาต์พุต Y (ขา 3) เป็น "1" เมื่ออินพุต A (ขา 1) และ B (ขา 2) มีสถานะ "ต่างกัน" และเป็น "0" เมื่อเหมือนกัน',
+                pins: { a: 1, b: 2, y: 3 },
+                evalFunc: (a, b) => (a ^ b) ? 1 : 0,
+                truthTable: [
+                    { a: 0, b: 0, y: 0 },
+                    { a: 0, b: 1, y: 1 },
+                    { a: 1, b: 0, y: 1 },
+                    { a: 1, b: 1, y: 0 }
+                ],
+                pinoutType: 'standard'
+            }
+        };
+
+        const IC_LIST = ['7400', '7402', '7404', '7408', '7432', '7486'];
+
+        // 2. PRE-TEST & POST-TEST QUESTIONS (10 EACH)
+        const PRE_TEST_QUESTIONS = [
+            {
+                q: '1. ไอซีลอจิกเกตตระกูล 7400 แบบตัวถัง 14 ขา มาตรฐาน ใช้ขาใดในการต่อไฟเลี้ยงบวก (+5V VCC) และกราวด์ (GND)?',
+                options: ['ขา 14 เป็น VCC (+5V), ขา 7 เป็น GND (0V)', 'ขา 7 เป็น VCC (+5V), ขา 14 เป็น GND (0V)', 'ขา 1 เป็น VCC (+5V), ขา 14 เป็น GND (0V)', 'ขา 8 เป็น VCC (+5V), ขา 1 เป็น GND (0V)'],
+                answer: 0
+            },
+            {
+                q: '2. ไอซีเบอร์ 7408 คือลอจิกเกตชนิดใด และบรรจุอยู่กี่ตัวภายใน 1 ตัวถัง?',
+                options: ['Quad 2-Input OR Gate (4 ตัว)', 'Quad 2-Input AND Gate (4 ตัว)', 'Quad 2-Input NAND Gate (4 ตัว)', 'Hex Inverter (6 ตัว)'],
+                answer: 1
+            },
+            {
+                q: '3. หากต้องการวงจรกลับสถานะลอจิก (Inverter / NOT Gate) ต้องเลือกใช้ไอซีเบอร์ใด?',
+                options: ['7400', '7402', '7404', '7432'],
+                answer: 2
+            },
+            {
+                q: '4. ไอซีเบอร์ใดที่มีการจัดเรียงขาแตกต่างจากเบอร์อื่น (โดยขา 1 เป็น Output Y1 ส่วนขา 2 และ 3 เป็น Input A1, B1)?',
+                options: ['7400 (NAND)', '7402 (NOR)', '7408 (AND)', '7486 (XOR)'],
+                answer: 1
+            },
+            {
+                q: '5. สมการบูลีน Y = (A · B)\' ตรงกับการทำงานของไอซีเบอร์ใด?',
+                options: ['7400', '7402', '7432', '7486'],
+                answer: 0
+            },
+            {
+                q: '6. ลอจิกเกตใดที่ให้เอาต์พุตเป็น "1" เฉพาะเมื่ออินพุตทั้งสองมีค่า "ต่างกัน" (เช่น A=0, B=1 หรือ A=1, B=0)?',
+                options: ['7408 (AND)', '7432 (OR)', '7400 (NAND)', '7486 (XOR)'],
+                answer: 3
+            },
+            {
+                q: '7. หากป้อนอินพุต A = 1 และ B = 0 เข้าที่ไอซี 7432 (OR Gate) เอาต์พุต Y จะมีค่าลอจิกเป็นเท่าใด?',
+                options: ['0 (LOW)', '1 (HIGH)', 'ไม่แน่นอน (Floating)', 'สลับ 0 และ 1 ตลอดเวลา'],
+                answer: 1
+            },
+            {
+                q: '8. การวางตัวไอซี (DIP-14) ลงบน Protoboard (Breadboard) ที่ถูกต้องควรวางในลักษณะใด?',
+                options: ['วางคร่อมร่องกลาง Protoboard (ขา 8-14 อยู่ฝั่งบน, ขา 1-7 อยู่ฝั่งล่าง)', 'วางให้ขาทั้งหมดอยู่ในแถวแนวตั้งเดียวกัน', 'วางด้านข้างซ้ายสุดติดรางไฟบวกทั้งหมด', 'วางทับรางกราวด์ด้านล่างทั้งหมด'],
+                answer: 0
+            },
+            {
+                q: '9. หากป้อนอินพุต A = 1 และ B = 1 เข้าที่ไอซี 7400 (NAND Gate) เอาต์พุต Y จะได้ค่าใด?',
+                options: ['1', '0', '5V', 'ไม่มีสัญญาณออก'],
+                answer: 1
+            },
+            {
+                q: '10. ไอซีเบอร์ 7402 ให้เอาต์พุตเป็นลอจิก "1" ในกรณีใดเท่านั้น?',
+                options: ['A = 1 และ B = 1', 'A = 1 และ B = 0', 'A = 0 และ B = 1', 'A = 0 และ B = 0'],
+                answer: 3
+            }
+        ];
+
+        const POST_TEST_QUESTIONS = [
+            {
+                q: '1. ในการต่อวงจรบน Protoboard หากวางไอซี 7408 โดยไม่คร่อมร่องกลาง (ให้ขาด้านบนและล่างอยู่คอลัมน์เดียวกัน) จะเกิดผลอย่างไร?',
+                options: ['ไอซีทำงานได้เร็วขึ้น', 'ขาของไอซีฝั่งตรงข้ามจะช็อต (ลัดวงจร) ถึงกันทั้งหมด', 'ไฟเลี้ยง +5V จะเพิ่มขึ้นเป็น 10V', 'หลอด LED จะสว่างค้างทุกดวง'],
+                answer: 1
+            },
+            {
+                q: '2. หากต้องการให้เอาต์พุตเป็นลอจิก "1" เฉพาะเมื่อกดสวิตช์ A และ B พร้อมกัน (A=1, B=1) ต้องเลือกใช้ IC เบอร์ใด?',
+                options: ['7408 (Quad 2-Input AND Gate)', '7402 (Quad 2-Input NOR Gate)', '7404 (Hex Inverter)', '7486 (Quad 2-Input XOR Gate)'],
+                answer: 0
+            },
+            {
+                q: '3. เมื่อต่อวงจรไอซี 7402 บน Protoboard หากต้องการทดสอบเกตตัวที่ 1 ต้องต่อหลอด LED Output Y เข้าที่ขาหมายเลขใดของไอซี?',
+                options: ['ขา 3', 'ขา 2', 'ขา 1', 'ขา 4'],
+                answer: 2
+            },
+            {
+                q: '4. ข้อใดจับคู่ "เบอร์ไอซี" กับ "สมการบูลีน" ได้ถูกต้อง?',
+                options: ['7432 → Y = A · B', '7486 → Y = A ⊕ B', '7400 → Y = A + B', '7404 → Y = A · B\''],
+                answer: 1
+            },
+            {
+                q: '5. หากป้อนลอจิก "1" เข้าที่ขา 1 ของไอซี 7404 สัญญาณเอาต์พุตที่ขา 2 จะมีค่าเท่าใด?',
+                options: ['ลอจิก 0 (LED ดับ)', 'ลอจิก 1 (LED สว่าง)', 'ลอจิก 1 (LED ดับ)', 'ไม่มีสัญญาณออก'],
+                answer: 0
+            },
+            {
+                q: '6. ไอซี 7400 (NAND Gate) จะให้เอาต์พุตเป็นลอจิก "0" ในกรณีใด?',
+                options: ['เมื่ออินพุตทั้งสองเป็น 0', 'เมื่ออินพุตตัวใดตัวหนึ่งเป็น 0', 'เมื่ออินพุตทั้งสองเป็น 1 พร้อมกัน', 'เมื่ออินพุตมีค่าต่างกัน'],
+                answer: 2
+            },
+            {
+                q: '7. หากป้อน A = 1, B = 1 เข้าที่ไอซี 7486 (XOR Gate) ผลลัพธ์ที่ขา 3 คือข้อใด?',
+                options: ['1 เพราะอินพุตเป็น 1 ทั้งคู่', '0 เพราะอินพุตมีสถานะเหมือนกัน', '1 เพราะเป็นเกตบวกลอจิก', '0 เพราะขา 3 เป็นขาอินพุต'],
+                answer: 1
+            },
+            {
+                q: '8. รูเสียบในพื้นที่หลักของ Protoboard (แถว A-E และแถว F-J) มีการเชื่อมต่อถึงกันภายในอย่างไร?',
+                options: ['เชื่อมต่อถึงกันในแนวตั้ง 5 รูต่อคอลัมน์ (A-E แยกกับ F-J ด้วยร่องกลาง)', 'เชื่อมต่อถึงกันในแนวนอนยาวตลอดทั้งแถว', 'เชื่อมต่อถึงกันทุกช่องทั่วทั้งบอร์ด', 'ไม่มีการเชื่อมต่อถึงกันเลย'],
+                answer: 0
+            },
+            {
+                q: '9. เมื่อทดสอบไอซี 7432 (OR Gate) พบว่าหลอด LED เอาต์พุตดับ (ลอจิก 0) แสดงว่าอินพุต A และ B มีค่าเป็นอย่างไร?',
+                options: ['A = 0, B = 0', 'A = 0, B = 1', 'A = 1, B = 0', 'A = 1, B = 1'],
+                answer: 0
+            },
+            {
+                q: '10. การนับหมายเลขขาของไอซีตัวถัง DIP 14 ขา เมื่อหันรอยบาก (Notch) ไปทางด้านซ้ายมือ ขาหมายเลข 14 จะอยู่ตำแหน่งใด?',
+                options: ['ล่างซ้ายสุด', 'ล่างขวาสุด', 'บนซ้ายสุด (ตรงข้ามขา 1)', 'บนขวาสุด'],
+                answer: 2
+            }
+        ];
+
+        // 3. APPLICATION STATE
+        const state = {
+            currentStep: 1,
+            maxUnlockedStep: 1,
+            teacherUnlocked: false,
+            preTestScore: null,
+            postTestScore: null,
+            proto: {
+                icId: '7408',
+                showHint: true,
+                selectedTool: 'vcc', // Auto-select first wire to make it 1-click ready
+                icStartCol: 5,       // Pre-placed nicely at center (Cols 5 to 11)
+                wires: {
+                    vcc: null,
+                    gnd: null,
+                    inA: null,
+                    inB: null,
+                    outY: null
+                },
+                wiringVerified: false,
+                powerOn: false,
+                inputA: 0,
+                inputB: 0,
+                testedPatterns: new Set(),
+                labPassed: false
+            }
+        };
+
+        const STEPS_INFO = [
+            { num: 1, label: '1. แบบทดสอบก่อนเรียน' },
+            { num: 2, label: '2. เนื้อหา & ผังขา IC' },
+            { num: 3, label: '3. Lab ต่อวงจร Protoboard' },
+            { num: 4, label: '4. แบบทดสอบหลังเรียน' },
+            { num: 5, label: '5. พิมพ์ใบรายงาน PDF' }
+        ];
+
+        // 4. INITIALIZATION
+        window.onload = function () {
+            renderStepper();
+            renderQuiz('pretest-questions', PRE_TEST_QUESTIONS, 'pre');
+            renderStudyMaterials();
+            initProtoLab();
+            renderQuiz('posttest-questions', POST_TEST_QUESTIONS, 'post');
+            populateReport();
+        };
+
+        function showToast(message, type = 'info') {
+            const box = document.getElementById('toast-box');
+            const content = document.getElementById('toast-content');
+            const icon = document.getElementById('toast-icon');
+            const msg = document.getElementById('toast-message');
+
+            msg.textContent = message;
+            content.className = 'flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-2xl border text-white font-semibold ';
+
+            if (type === 'success') {
+                content.classList.add('bg-emerald-600', 'border-emerald-400');
+                icon.className = 'fas fa-check-circle text-xl shrink-0';
+            } else if (type === 'error') {
+                content.classList.add('bg-crimson-600', 'border-crimson-400');
+                icon.className = 'fas fa-exclamation-triangle text-xl shrink-0';
+            } else {
+                content.classList.add('bg-navy-900', 'border-amber-400');
+                icon.className = 'fas fa-info-circle text-xl text-amber-400 shrink-0';
+            }
+
+            box.classList.remove('hidden');
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => {
+                box.classList.add('hidden');
+            }, 4000);
+        }
+
+        // 5. TEACHER UNLOCK / BYPASS MODAL (PASSWORD = '1')
+        function openUnlockModal() {
+            document.getElementById('unlock-modal').classList.remove('hidden');
+            const input = document.getElementById('unlock-password-input');
+            input.value = '';
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closeUnlockModal() {
+            document.getElementById('unlock-modal').classList.add('hidden');
+        }
+
+        document.getElementById('unlock-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const pwd = document.getElementById('unlock-password-input').value.trim();
+            if (pwd === '1') {
+                state.teacherUnlocked = true;
+                state.maxUnlockedStep = 5;
+                closeUnlockModal();
+
+                const unlockBtn = document.getElementById('btn-open-unlock');
+                unlockBtn.className = 'px-4 py-2.5 rounded-xl bg-emerald-500 text-white font-extrabold text-xs sm:text-sm shadow-md flex items-center gap-2';
+                unlockBtn.innerHTML = '<i class="fas fa-unlock"></i><span>ปลดล็อกทุกขั้นตอนแล้ว (โหมดผู้สอน)</span>';
+
+                renderStepper();
+                showToast('ปลดล็อกทุกขั้นตอนสำเร็จ! สามารถเข้าดูเนื้อหาและทดลอง Lab ได้ทันที', 'success');
+                goToStep(2); // Jump directly to Study Material as requested
+            } else {
+                showToast('รหัสผ่านไม่ถูกต้อง! กรุณาลองใหม่อีกครั้ง', 'error');
+            }
+        });
+
+        // 6. STEPPER NAVIGATION
+        function renderStepper() {
+            const container = document.getElementById('stepper-container');
+            container.innerHTML = STEPS_INFO.map(step => {
+                const isActive = state.currentStep === step.num;
+                const isUnlocked = state.teacherUnlocked || step.num <= state.maxUnlockedStep;
+                const isDone = step.num < state.currentStep && !state.teacherUnlocked;
+
+                let btnClass = 'flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition border text-left ';
+                if (isActive) {
+                    btnClass += 'bg-navy-900 text-white border-navy-900 shadow-md ring-2 ring-amber-400';
+                } else if (isUnlocked) {
+                    btnClass += 'bg-slate-50 text-navy-900 border-slate-300 hover:bg-amber-50 hover:border-amber-400 cursor-pointer';
+                } else {
+                    btnClass += 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-70';
+                }
+
+                const badgeClass = isActive
+                    ? 'bg-amber-400 text-navy-950'
+                    : (isDone ? 'bg-emerald-500 text-white' : (isUnlocked ? 'bg-navy-800 text-white' : 'bg-slate-300 text-slate-600'));
+
+                return `
+                    <button type="button" onclick="handleStepClick(${step.num})" class="${btnClass}">
+                        <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 ${badgeClass}">
+                            ${isDone ? '<i class="fas fa-check"></i>' : step.num}
+                        </span>
+                        <span class="truncate">${step.label}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function handleStepClick(stepNum) {
+            if (state.teacherUnlocked || stepNum <= state.maxUnlockedStep) {
+                goToStep(stepNum);
+            } else {
+                showToast('กรุณาทำขั้นตอนปัจจุบันให้เสร็จสิ้นก่อน หรือกดปุ่มปลดล็อกสำหรับผู้สอน', 'error');
+            }
+        }
+
+        function goToStep(stepNum) {
+            state.currentStep = stepNum;
+            if (stepNum > state.maxUnlockedStep) {
+                state.maxUnlockedStep = stepNum;
+            }
+            document.querySelectorAll('.step-section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(`step-${stepNum}`).classList.remove('hidden');
+            if (stepNum === 5) {
+                populateReport();
+            }
+            renderStepper();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 7. QUIZ RENDERING & GRADING
+        function renderQuiz(containerId, questions, prefix) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = questions.map((item, idx) => `
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/70 hover:border-slate-300 transition">
+                    <p class="font-bold text-navy-900 text-base mb-3">${item.q}</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        ${item.options.map((opt, optIdx) => `
+                            <label class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 hover:border-crimson-500 cursor-pointer transition select-none">
+                                <input type="radio" name="${prefix}_q_${idx}" value="${optIdx}" class="w-4 h-4 text-crimson-600 focus:ring-crimson-500">
+                                <span class="text-sm text-slate-700 font-medium">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function gradeQuiz(questions, prefix) {
+            let score = 0;
+            for (let i = 0; i < questions.length; i++) {
+                const selected = document.querySelector(`input[name="${prefix}_q_${i}"]:checked`);
+                if (!selected) return null;
+                if (parseInt(selected.value, 10) === questions[i].answer) score++;
+            }
+            return score;
+        }
+
+        function submitPreTest() {
+            const score = gradeQuiz(PRE_TEST_QUESTIONS, 'pre');
+            if (score === null) {
+                showToast('กรุณาตอบแบบทดสอบก่อนเรียนให้ครบทั้ง 10 ข้อ', 'error');
+                return;
+            }
+            state.preTestScore = score;
+            showToast(`บันทึกคะแนนก่อนเรียนเรียบร้อย: ได้ ${score} / 10 คะแนน`, 'success');
+            goToStep(2);
+        }
+
+        function submitPostTest() {
+            const score = gradeQuiz(POST_TEST_QUESTIONS, 'post');
+            if (score === null) {
+                showToast('กรุณาตอบแบบทดสอบหลังเรียนให้ครบทั้ง 10 ข้อ', 'error');
+                return;
+            }
+            state.postTestScore = score;
+            showToast(`บันทึกคะแนนหลังเรียนเรียบร้อย: ได้ ${score} / 10 คะแนน`, 'success');
+            goToStep(5);
+        }
+
+        // 8. STUDY MATERIAL RENDERER (6 ICs WITH DIP-14 SVG)
+        function getPinoutSvg(ic) {
+            let gate1Info = '';
+            if (ic.pinoutType === 'standard') {
+                gate1Info = `
+                    <text x="58" y="138" fill="#fbbf24" font-size="9" font-weight="bold">1(A1)</text>
+                    <text x="92" y="138" fill="#fbbf24" font-size="9" font-weight="bold">2(B1)</text>
+                    <text x="126" y="138" fill="#34d399" font-size="9" font-weight="bold">3(Y1)</text>
+                    <path d="M 65 112 L 65 88 L 95 88 M 99 112 L 99 96 L 95 96" stroke="#fbbf24" stroke-width="1.5" fill="none"/>
+                    <rect x="95" y="82" width="26" height="20" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                    <text x="108" y="95" fill="#ffffff" font-size="8" text-anchor="middle" font-weight="bold">${ic.name}</text>
+                    <path d="M 121 92 L 133 92 L 133 112" stroke="#34d399" stroke-width="1.5" fill="none"/>
+                `;
+            } else if (ic.pinoutType === 'nor7402') {
+                gate1Info = `
+                    <text x="58" y="138" fill="#34d399" font-size="9" font-weight="bold">1(Y1)</text>
+                    <text x="92" y="138" fill="#fbbf24" font-size="9" font-weight="bold">2(A1)</text>
+                    <text x="126" y="138" fill="#fbbf24" font-size="9" font-weight="bold">3(B1)</text>
+                    <path d="M 99 112 L 99 88 L 105 88 M 133 112 L 133 96 L 105 96" stroke="#fbbf24" stroke-width="1.5" fill="none"/>
+                    <rect x="81" y="82" width="26" height="20" rx="3" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5"/>
+                    <text x="94" y="95" fill="#ffffff" font-size="8" text-anchor="middle" font-weight="bold">NOR</text>
+                    <path d="M 81 92 L 65 92 L 65 112" stroke="#34d399" stroke-width="1.5" fill="none"/>
+                `;
+            } else {
+                gate1Info = `
+                    <text x="58" y="138" fill="#fbbf24" font-size="9" font-weight="bold">1(A1)</text>
+                    <text x="92" y="138" fill="#34d399" font-size="9" font-weight="bold">2(Y1)</text>
+                    <path d="M 65 112 L 65 92 L 73 92" stroke="#fbbf24" stroke-width="1.5" fill="none"/>
+                    <polygon points="73,83 73,101 89,92" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                    <circle cx="92" cy="92" r="2.5" fill="#34d399"/>
+                    <path d="M 95 92 L 99 92 L 99 112" stroke="#34d399" stroke-width="1.5" fill="none"/>
+                `;
+            }
+
+            let topPinsSvg = '';
+            let botPinsSvg = '';
+            for (let i = 0; i < 7; i++) {
+                const x = 60 + i * 34;
+                const topPinNum = 14 - i;
+                const botPinNum = 1 + i;
+
+                const topColor = topPinNum === 14 ? '#ef4444' : '#94a3b8';
+                const botColor = botPinNum === 7 ? '#38bdf8' : '#94a3b8';
+
+                topPinsSvg += `
+                    <rect x="${x}" y="26" width="10" height="14" rx="2" fill="${topColor}"/>
+                    <text x="${x + 5}" y="21" fill="${topPinNum === 14 ? '#f87171' : '#cbd5e1'}" font-size="9" text-anchor="middle" font-weight="bold">${topPinNum === 14 ? '14(VCC)' : topPinNum}</text>
+                `;
+                botPinsSvg += `
+                    <rect x="${x}" y="112" width="10" height="14" rx="2" fill="${botColor}"/>
+                    ${botPinNum > 3 ? `<text x="${x + 5}" y="138" fill="${botPinNum === 7 ? '#38bdf8' : '#cbd5e1'}" font-size="9" text-anchor="middle" font-weight="bold">${botPinNum === 7 ? '7(GND)' : botPinNum}</text>` : ''}
+                `;
+            }
+
+            return `
+                <svg viewBox="0 0 320 150" class="w-full max-w-[320px] h-auto mx-auto font-mono-code">
+                    ${topPinsSvg}
+                    ${botPinsSvg}
+                    <rect x="44" y="40" width="236" height="72" rx="6" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+                    <path d="M 44 64 A 12 12 0 0 1 44 88" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+                    <circle cx="56" cy="100" r="3" fill="#fbbf24"/>
+                    <text x="225" y="72" fill="#e2e8f0" font-size="14" font-weight="bold" text-anchor="middle">SN74LS${ic.name.slice(2)}N</text>
+                    <text x="225" y="86" fill="#94a3b8" font-size="8" text-anchor="middle">TOP VIEW (Notch ซ้าย)</text>
+                    ${gate1Info}
+                </svg>
+            `;
+        }
+
+        function renderStudyMaterials() {
+            const container = document.getElementById('study-cards-container');
+            container.innerHTML = IC_LIST.map(id => {
+                const ic = IC_DATA[id];
+                const tableHeaders = ic.inputs === 2
+                    ? `<th class="py-1.5 px-2">A (ขา ${ic.pins.a})</th><th class="py-1.5 px-2">B (ขา ${ic.pins.b})</th><th class="py-1.5 px-2 bg-crimson-700">Y (ขา ${ic.pins.y})</th>`
+                    : `<th class="py-1.5 px-2">A (ขา ${ic.pins.a})</th><th class="py-1.5 px-2 bg-crimson-700">Y (ขา ${ic.pins.y})</th>`;
+
+                const tableRows = ic.truthTable.map(row => {
+                    if (ic.inputs === 2) {
+                        return `<tr class="border-t border-slate-200">
+                            <td class="py-1 font-mono-code">${row.a}</td>
+                            <td class="py-1 font-mono-code">${row.b}</td>
+                            <td class="py-1 font-mono-code font-bold ${row.y ? 'text-crimson-600 bg-crimson-50' : 'text-slate-700'}">${row.y}</td>
+                        </tr>`;
+                    }
+                    return `<tr class="border-t border-slate-200">
+                        <td class="py-1 font-mono-code">${row.a}</td>
+                        <td class="py-1 font-mono-code font-bold ${row.y ? 'text-crimson-600 bg-crimson-50' : 'text-slate-700'}">${row.y}</td>
+                    </tr>`;
+                }).join('');
+
+                return `
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden flex flex-col justify-between hover:border-navy-800 transition">
+                        <div>
+                            <div class="bg-navy-900 px-5 py-4 text-white flex items-center justify-between border-b-2 border-amber-500">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-2.5 py-0.5 bg-crimson-600 text-white font-mono-code font-extrabold rounded-md text-sm">IC ${ic.name}</span>
+                                        <h3 class="font-bold text-base sm:text-lg">${ic.title}</h3>
+                                    </div>
+                                    <p class="text-xs text-slate-300 mt-0.5">${ic.thaiName}</p>
+                                </div>
+                                <div class="text-right font-mono-code bg-navy-950 px-3 py-1.5 rounded-lg border border-slate-700">
+                                    <span class="text-[10px] text-slate-400 block">สมการบูลีน</span>
+                                    <span class="text-sm font-bold text-amber-400">${ic.equation}</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900 p-4 border-b border-slate-200">
+                                ${getPinoutSvg(ic)}
+                            </div>
+
+                            <div class="p-5 grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                                <div class="sm:col-span-7 text-sm text-slate-700 leading-relaxed">
+                                    <p class="font-bold text-navy-900 mb-1"><i class="fas fa-info-circle text-crimson-600 mr-1"></i>หลักการทำงานและผังขา:</p>
+                                    <p>${ic.desc}</p>
+                                </div>
+                                <div class="sm:col-span-5">
+                                    <table class="w-full text-center text-xs border border-slate-300 rounded-lg overflow-hidden">
+                                        <thead class="bg-navy-800 text-white font-mono-code">
+                                            <tr>${tableHeaders}</tr>
+                                        </thead>
+                                        <tbody>${tableRows}</tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================================
+        // 9. EASY CLICK-TO-WIRE & DRAG-DROP PROTOBOARD LAB ENGINE
+        // ==========================================================
+        const PROTO_COLS = 16; // Columns 1 to 16
+
+        function initProtoLab() {
+            changeProtoIc('7408');
+        }
+
+        function changeProtoIc(icId) {
+            state.proto.icId = icId;
+            resetProtoboard(false);
+        }
+
+        function resetProtoboard(removeIc = false) {
+            state.proto.selectedTool = removeIc ? 'ic' : 'vcc';
+            state.proto.icStartCol = removeIc ? null : 5; // Place IC centered at cols 5..11 by default
+            state.proto.wires = { vcc: null, gnd: null, inA: null, inB: null, outY: null };
+            state.proto.wiringVerified = false;
+            state.proto.powerOn = false;
+            state.proto.inputA = 0;
+            state.proto.inputB = 0;
+            state.proto.testedPatterns = new Set();
+
+            setDiagnosticBox('info', '<strong>พร้อมต่อวงจร!</strong> คลิกเลือกสายไฟด้านซ้าย แล้วคลิกวางลงบนรูคอลัมน์ที่ตรงกับขา IC ได้เลย (ระบบตรวจถูก-ผิดทันที)');
+            updateProtoLabUI();
+        }
+
+        function togglePinHint() {
+            state.proto.showHint = !state.proto.showHint;
+            const label = document.getElementById('hint-btn-label');
+            label.textContent = state.proto.showHint ? 'ไฟนำทาง: เปิด' : 'ไฟนำทาง: ปิด';
+            updateProtoLabUI();
+        }
+
+        function autoWireDemo() {
+            const ic = IC_DATA[state.proto.icId];
+            if (state.proto.icStartCol === null) {
+                state.proto.icStartCol = 5;
+            }
+            const start = state.proto.icStartCol;
+            state.proto.wires.vcc = { zone: 'top', col: start };
+            state.proto.wires.gnd = { zone: 'bot', col: start + 6 };
+            state.proto.wires.inA = { zone: 'bot', col: start + (ic.pins.a - 1) };
+            state.proto.wires.inB = ic.inputs === 2 ? { zone: 'bot', col: start + (ic.pins.b - 1) } : null;
+            state.proto.wires.outY = { zone: 'bot', col: start + (ic.pins.y - 1) };
+            state.proto.selectedTool = null;
+
+            verifyAllWiresRealtime(true);
+            updateProtoLabUI();
+        }
+
+        function setDiagnosticBox(type, htmlMsg) {
+            const diag = document.getElementById('wiring-diagnostic-box');
+            if (type === 'success') {
+                diag.className = 'p-3.5 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-emerald-900 text-xs sm:text-sm leading-relaxed';
+            } else if (type === 'error') {
+                diag.className = 'p-3.5 rounded-xl bg-crimson-50 border-2 border-crimson-400 text-crimson-900 text-xs sm:text-sm leading-relaxed';
+            } else {
+                diag.className = 'p-3.5 rounded-xl bg-amber-50/70 border border-amber-300 text-slate-800 text-xs sm:text-sm leading-relaxed';
+            }
+            diag.innerHTML = htmlMsg;
+        }
+
+        function selectProtoTool(toolKey) {
+            state.proto.selectedTool = toolKey;
+            updateProtoLabUI();
+        }
+
+        function handleDragStart(e, toolKey) {
+            state.proto.selectedTool = toolKey;
+            e.dataTransfer.setData('text/plain', toolKey);
+            e.dataTransfer.effectAllowed = 'copyMove';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        }
+
+        function handleDropOnHole(e, zone, col) {
+            e.preventDefault();
+            const tool = e.dataTransfer.getData('text/plain') || state.proto.selectedTool;
+            if (tool) {
+                placeComponentAt(tool, zone, col);
+            }
+        }
+
+        function handleClickHole(zone, col) {
+            if (!state.proto.selectedTool) {
+                // Auto-pick the next unplaced wire to save clicks!
+                const nextUnplaced = getNextUnplacedTool();
+                if (nextUnplaced) {
+                    state.proto.selectedTool = nextUnplaced;
+                } else {
+                    showToast('ต่อสายครบทุกเส้นแล้ว! กดปุ่มสวิตช์ Input A/B ด้านล่างเพื่อทดสอบได้เลย', 'info');
+                    return;
+                }
+            }
+            placeComponentAt(state.proto.selectedTool, zone, col);
+        }
+
+        function getNextUnplacedTool() {
+            const ic = IC_DATA[state.proto.icId];
+            if (state.proto.icStartCol === null) return 'ic';
+            const order = ic.inputs === 2 ? ['vcc', 'gnd', 'inA', 'inB', 'outY'] : ['vcc', 'gnd', 'inA', 'outY'];
+            return order.find(k => state.proto.wires[k] === null) || null;
+        }
+
+        function removePlacedItem(key) {
+            if (key === 'ic') {
+                state.proto.icStartCol = null;
+                state.proto.selectedTool = 'ic';
+            } else {
+                state.proto.wires[key] = null;
+                state.proto.selectedTool = key;
+            }
+            state.proto.wiringVerified = false;
+            state.proto.powerOn = false;
+            setDiagnosticBox('info', `ถอด <strong>${getToolDisplayName(key)}</strong> ออกแล้ว คลิกวางใหม่บน Protoboard ได้เลย`);
+            updateProtoLabUI();
+        }
+
+        function getExpectedTargetForTool(tool) {
+            const ic = IC_DATA[state.proto.icId];
+            const start = state.proto.icStartCol;
+            if (start === null) return null;
+            if (tool === 'vcc') return { zone: 'top', col: start, pinLabel: 'ขา 14 (+5V VCC)' };
+            if (tool === 'gnd') return { zone: 'bot', col: start + 6, pinLabel: 'ขา 7 (GND 0V)' };
+            if (tool === 'inA') return { zone: 'bot', col: start + (ic.pins.a - 1), pinLabel: `ขา ${ic.pins.a} (Input A)` };
+            if (tool === 'inB' && ic.inputs === 2) return { zone: 'bot', col: start + (ic.pins.b - 1), pinLabel: `ขา ${ic.pins.b} (Input B)` };
+            if (tool === 'outY') return { zone: 'bot', col: start + (ic.pins.y - 1), pinLabel: `ขา ${ic.pins.y} (Output Y)` };
+            return null;
+        }
+
+        function placeComponentAt(tool, zone, col) {
+            const ic = IC_DATA[state.proto.icId];
+
+            if (tool === 'ic') {
+                const startCol = Math.min(Math.max(col, 2), 9);
+                state.proto.icStartCol = startCol;
+                state.proto.selectedTool = getNextUnplacedTool();
+                setDiagnosticBox('success', `<i class="fas fa-check-circle text-emerald-600 mr-1"></i>วางตัว <strong>IC ${ic.name}</strong> คร่อมร่องกลางเรียบร้อย! ต่อไปคลิกวาง <strong>สาย +5V (VCC)</strong> ที่คอลัมน์ขา 14`);
+                verifyAllWiresRealtime(false);
+                updateProtoLabUI();
+                return;
+            }
+
+            if (state.proto.icStartCol === null) {
+                state.proto.selectedTool = 'ic';
+                setDiagnosticBox('error', '<i class="fas fa-exclamation-triangle mr-1"></i>กรุณาวางตัว <strong>IC</strong> คร่อมร่องกลาง Protoboard ก่อนเสียบสายไฟ!');
+                updateProtoLabUI();
+                return;
+            }
+
+            if (zone !== 'top' && zone !== 'bot') {
+                setDiagnosticBox('error', '<i class="fas fa-exclamation-triangle mr-1"></i>ปลายสายไฟต้องเสียบลงในรูแถว <strong>A-E (ด้านบน)</strong> หรือ <strong>F-J (ด้านล่าง)</strong> เท่านั้น');
+                return;
+            }
+
+            // Place the wire and immediately validate in Real-Time!
+            state.proto.wires[tool] = { zone, col };
+            const expected = getExpectedTargetForTool(tool);
+
+            if (expected && zone === expected.zone && col === expected.col) {
+                // Correct placement! Auto-advance to next unplaced wire
+                state.proto.selectedTool = getNextUnplacedTool();
+                setDiagnosticBox('success', `<i class="fas fa-check-circle text-emerald-600 mr-1"></i><strong>เยี่ยมมาก!</strong> ต่อ <strong>${getToolDisplayName(tool)}</strong> ตรงกับ <strong>${expected.pinLabel}</strong> ถูกต้อง!`);
+            } else if (expected) {
+                // Wrong hole -> give immediate friendly guidance
+                const zoneName = expected.zone === 'top' ? 'แถวบน (A-E)' : 'แถวล่าง (F-J)';
+                setDiagnosticBox('error', `<i class="fas fa-times-circle text-crimson-600 mr-1"></i><strong>ยังไม่ตรงขา!</strong> ${getToolDisplayName(tool)} ต้องต่อที่ <strong>${expected.pinLabel}</strong> ซึ่งอยู่ <strong>${zoneName} คอลัมน์ที่ ${expected.col}</strong> (ดูจุดไฟกะพริบสีเหลืองนำทาง)`);
+            }
+
+            verifyAllWiresRealtime(false);
+            updateProtoLabUI();
+        }
+
+        function verifyAllWiresRealtime(isAutoDemo) {
+            const ic = IC_DATA[state.proto.icId];
+            if (state.proto.icStartCol === null) {
+                state.proto.wiringVerified = false;
+                state.proto.powerOn = false;
+                return;
+            }
+
+            const requiredTools = ic.inputs === 2 ? ['vcc', 'gnd', 'inA', 'inB', 'outY'] : ['vcc', 'gnd', 'inA', 'outY'];
+            const allCorrect = requiredTools.every(k => {
+                const w = state.proto.wires[k];
+                const exp = getExpectedTargetForTool(k);
+                return w && exp && w.zone === exp.zone && w.col === exp.col;
+            });
+
+            if (allCorrect) {
+                state.proto.wiringVerified = true;
+                state.proto.powerOn = true; // Auto power-on when wiring is 100% complete!
+                recordTestedPattern();
+                setDiagnosticBox('success', `<i class="fas fa-bolt text-amber-500 mr-1"></i><strong>ต่อวงจรครบสมบูรณ์ 100% และเปิดไฟ +5V อัตโนมัติแล้ว!</strong> กดปุ่มสวิตช์ <strong>Input A / Input B</strong> ด้านล่างเพื่อดูไฟ LED Output ได้เลย`);
+                if (!isAutoDemo) {
+                    showToast('ต่อวงจรครบถูกต้อง 100%! เปิดสวิตช์จ่ายไฟให้อัตโนมัติแล้ว', 'success');
+                }
+            } else {
+                state.proto.wiringVerified = false;
+                state.proto.powerOn = false;
+            }
+        }
+
+        function getToolDisplayName(tool) {
+            const ic = IC_DATA[state.proto.icId];
+            const map = {
+                ic: `ตัว IC ${ic.name}`,
+                vcc: 'สาย +5V (VCC)',
+                gnd: 'สาย GND (0V)',
+                inA: `สาย Input A (ขา ${ic.pins.a})`,
+                inB: `สาย Input B (ขา ${ic.pins.b})`,
+                outY: `สาย Output Y (ขา ${ic.pins.y})`
+            };
+            return map[tool] || tool;
+        }
+
+        function updateProtoLabUI() {
+            const ic = IC_DATA[state.proto.icId];
+            document.getElementById('guide-ic-badge').textContent = `IC ${ic.name}`;
+            document.getElementById('mission-ic-label').textContent = `${ic.title} (${ic.thaiName})`;
+            document.getElementById('proto-eq-display').textContent = ic.equation;
+
+            // Smart Pin Pills
+            const start = state.proto.icStartCol;
+            const colHint = (offset) => start !== null ? ` [คอลัมน์ ${start + offset}]` : '';
+            const pills = [
+                `<span class="px-2 py-1 rounded bg-crimson-950 border border-crimson-500 text-crimson-300">Pin 14 = +5V${colHint(0)}</span>`,
+                `<span class="px-2 py-1 rounded bg-sky-950 border border-sky-500 text-sky-300">Pin 7 = GND${colHint(6)}</span>`,
+                `<span class="px-2 py-1 rounded bg-amber-950 border border-amber-500 text-amber-300">Pin ${ic.pins.a} = Input A${colHint(ic.pins.a - 1)}</span>`
+            ];
+            if (ic.inputs === 2) {
+                pills.push(`<span class="px-2 py-1 rounded bg-purple-950 border border-purple-500 text-purple-300">Pin ${ic.pins.b} = Input B${colHint(ic.pins.b - 1)}</span>`);
+            }
+            pills.push(`<span class="px-2 py-1 rounded bg-emerald-950 border border-emerald-500 text-emerald-300">Pin ${ic.pins.y} = Output Y${colHint(ic.pins.y - 1)}</span>`);
+            document.getElementById('smart-pin-pills').innerHTML = pills.join('');
+
+            if (ic.inputs === 1) {
+                document.getElementById('proto-sw-b-box').classList.add('opacity-40');
+            } else {
+                document.getElementById('proto-sw-b-box').classList.remove('opacity-40');
+            }
+
+            // Selected tool indicator
+            const indicator = document.getElementById('selected-tool-indicator');
+            if (state.proto.wiringVerified) {
+                indicator.className = 'px-3 py-1 rounded-full bg-emerald-500 text-navy-950 font-extrabold text-xs';
+                indicator.innerHTML = '<i class="fas fa-check-circle mr-1"></i> ต่อวงจรครบสมบูรณ์แล้ว! กดทดสอบสวิตช์ด้านล่าง';
+            } else if (state.proto.selectedTool) {
+                const exp = getExpectedTargetForTool(state.proto.selectedTool);
+                const hintTxt = exp ? ` → คลิกวางที่ ${exp.zone === 'top' ? 'แถวบน' : 'แถวล่าง'} คอลัมน์ ${exp.col}` : ' → คลิกวางกลางบอร์ด';
+                indicator.className = 'px-3 py-1 rounded-full bg-amber-500 text-navy-950 font-extrabold text-xs';
+                indicator.innerHTML = `<i class="fas fa-hand-pointer mr-1"></i> กำลังถือ: ${getToolDisplayName(state.proto.selectedTool)}${hintTxt}`;
+            } else {
+                indicator.className = 'px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-slate-300 text-xs';
+                indicator.textContent = 'คลิกเลือกสายไฟด้านซ้าย เพื่อวางลงบน Protoboard';
+            }
+
+            renderComponentPalette(ic);
+            renderProtoboardSurface(ic);
+            updateProtoTestBench(ic);
+        }
+
+        function renderComponentPalette(ic) {
+            const tools = [
+                {
+                    key: 'ic',
+                    label: `ตัวไอซี IC ${ic.name} (DIP-14)`,
+                    sub: 'วางคร่อมร่องกลาง (วางให้อัตโนมัติแล้ว)',
+                    color: 'border-slate-700 bg-slate-900 text-white',
+                    badgeColor: 'bg-amber-500 text-navy-950',
+                    icon: 'fa-microchip',
+                    isCorrect: state.proto.icStartCol !== null
+                },
+                {
+                    key: 'vcc',
+                    label: 'สายไฟเลี้ยง +5V (VCC สีแดง)',
+                    sub: 'ต่อเข้าขา 14 (แถวบน A-E)',
+                    color: 'border-crimson-500 bg-crimson-50 text-crimson-900',
+                    badgeColor: 'bg-crimson-600 text-white',
+                    icon: 'fa-bolt'
+                },
+                {
+                    key: 'gnd',
+                    label: 'สายกราวด์ 0V (GND สีน้ำเงิน)',
+                    sub: 'ต่อเข้าขา 7 (แถวล่าง F-J)',
+                    color: 'border-sky-500 bg-sky-50 text-sky-900',
+                    badgeColor: 'bg-sky-600 text-white',
+                    icon: 'fa-plug'
+                },
+                {
+                    key: 'inA',
+                    label: `สายสัญญาณ Input A (สีส้ม)`,
+                    sub: `ต่อเข้าขา ${ic.pins.a} ของ IC ${ic.name}`,
+                    color: 'border-amber-500 bg-amber-50 text-amber-950',
+                    badgeColor: 'bg-amber-500 text-navy-950',
+                    icon: 'fa-toggle-on'
+                }
+            ];
+
+            if (ic.inputs === 2) {
+                tools.push({
+                    key: 'inB',
+                    label: `สายสัญญาณ Input B (สีม่วง)`,
+                    sub: `ต่อเข้าขา ${ic.pins.b} ของ IC ${ic.name}`,
+                    color: 'border-purple-500 bg-purple-50 text-purple-950',
+                    badgeColor: 'bg-purple-600 text-white',
+                    icon: 'fa-toggle-on'
+                });
+            }
+
+            tools.push({
+                key: 'outY',
+                label: `สายสัญญาณ Output Y (สีเขียว)`,
+                sub: `ต่อจากขา ${ic.pins.y} ไปหลอด LED`,
+                color: 'border-emerald-500 bg-emerald-50 text-emerald-950',
+                badgeColor: 'bg-emerald-600 text-white',
+                icon: 'fa-lightbulb'
+            });
+
+            document.getElementById('component-palette').innerHTML = tools.map(t => {
+                const isSelected = state.proto.selectedTool === t.key;
+                let statusBadge = `<span class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-black/10">คลิกเลือก</span>`;
+
+                if (t.key === 'ic') {
+                    statusBadge = state.proto.icStartCol !== null
+                        ? `<span class="px-2 py-1 rounded-lg bg-emerald-600 text-white text-[11px] font-bold"><i class="fas fa-check mr-1"></i>วางแล้ว</span>`
+                        : `<span class="px-2 py-1 rounded-lg bg-amber-500 text-navy-950 text-[11px] font-bold">คลิกวาง</span>`;
+                } else {
+                    const w = state.proto.wires[t.key];
+                    const exp = getExpectedTargetForTool(t.key);
+                    if (w && exp && w.zone === exp.zone && w.col === exp.col) {
+                        statusBadge = `<button type="button" onclick="event.stopPropagation(); removePlacedItem('${t.key}')" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[11px] font-bold hover:bg-crimson-600 transition"><i class="fas fa-check mr-1"></i>ถูกต้อง ×</button>`;
+                    } else if (w) {
+                        statusBadge = `<button type="button" onclick="event.stopPropagation(); removePlacedItem('${t.key}')" class="px-2.5 py-1 rounded-lg bg-crimson-600 text-white text-[11px] font-bold animate-pulse"><i class="fas fa-times mr-1"></i>ผิดขา ×</button>`;
+                    }
+                }
+
+                return `
+                    <div draggable="true"
+                        ondragstart="handleDragStart(event, '${t.key}')"
+                        onclick="selectProtoTool('${t.key}')"
+                        class="p-2.5 rounded-xl border-2 cursor-pointer transition flex items-center justify-between gap-2 select-none ${t.color} ${isSelected ? 'ring-4 ring-amber-400 scale-[1.02] shadow-md' : 'hover:shadow-sm'}">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-lg ${t.badgeColor} flex items-center justify-center shrink-0 text-sm">
+                                <i class="fas ${t.icon}"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-xs sm:text-sm leading-tight">${t.label}</div>
+                                <div class="text-[11px] opacity-80">${t.sub}</div>
+                            </div>
+                        </div>
+                        <div class="shrink-0">${statusBadge}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderProtoboardSurface(ic) {
+            const surface = document.getElementById('protoboard-surface');
+            const wireColors = {
+                vcc: { bg: 'bg-crimson-600', stroke: '#dc2626', text: 'VCC (+5V)', ring: 'ring-crimson-300' },
+                gnd: { bg: 'bg-sky-600', stroke: '#0284c7', text: 'GND (0V)', ring: 'ring-sky-300' },
+                inA: { bg: 'bg-amber-500 text-navy-950', stroke: '#f59e0b', text: 'IN A', ring: 'ring-amber-300' },
+                inB: { bg: 'bg-purple-600', stroke: '#9333ea', text: 'IN B', ring: 'ring-purple-300' },
+                outY: { bg: 'bg-emerald-600', stroke: '#059669', text: 'OUT Y', ring: 'ring-emerald-300' }
+            };
+
+            // Determine active hint target (zone + col) for blinking guide
+            const activeTarget = (state.proto.showHint && state.proto.selectedTool && state.proto.selectedTool !== 'ic')
+                ? getExpectedTargetForTool(state.proto.selectedTool)
+                : null;
+
+            // Column numbers header (1..16)
+            let colHeaderHtml = '<div class="grid gap-1 pl-8 pr-2 mb-1 text-center font-mono-code text-[10px] font-bold text-slate-500" style="grid-template-columns: repeat(16, minmax(0, 1fr));">';
+            for (let c = 1; c <= PROTO_COLS; c++) {
+                const isHintCol = activeTarget && activeTarget.col === c;
+                colHeaderHtml += `<div class="${isHintCol ? 'bg-amber-400 text-navy-950 rounded font-extrabold' : ''}">${c}</div>`;
+            }
+            colHeaderHtml += '</div>';
+
+            // Top Power Rail (+5V VCC Red)
+            let topRailHtml = `
+                <div class="bg-red-50 border-2 border-crimson-500 rounded-lg px-2 py-1.5 mb-2.5 flex items-center justify-between">
+                    <span class="font-mono-code font-extrabold text-xs text-crimson-700 w-7">+5V</span>
+                    <div class="flex-1 grid gap-1" style="grid-template-columns: repeat(16, minmax(0, 1fr));">
+                        ${Array.from({ length: 16 }, (_, i) => {
+                            const col = i + 1;
+                            const hasVcc = state.proto.wires.vcc !== null && col === 2;
+                            return `<div class="flex justify-center items-center">
+                                <div class="w-3.5 h-3.5 rounded-full ${hasVcc ? 'bg-crimson-600 ring-2 ring-amber-400' : 'bg-slate-800 border border-crimson-400'}"></div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                    <span class="font-mono-code text-[10px] font-bold text-crimson-700 pl-2">VCC RAIL</span>
+                </div>
+            `;
+
+            // Helper to render 5 rows (A-E for 'top' or F-J for 'bot')
+            const renderMainRows = (zone, rowLetters) => {
+                return `
+                    <div class="space-y-1.5">
+                        ${rowLetters.map((letter, rIdx) => {
+                            return `
+                                <div class="flex items-center">
+                                    <span class="font-mono-code font-bold text-xs text-slate-600 w-7 text-center">${letter}</span>
+                                    <div class="flex-1 grid gap-1" style="grid-template-columns: repeat(16, minmax(0, 1fr));">
+                                        ${Array.from({ length: 16 }, (_, cIdx) => {
+                                            const col = cIdx + 1;
+                                            let wireKeyHere = null;
+                                            for (const [k, w] of Object.entries(state.proto.wires)) {
+                                                if (w && w.zone === zone && w.col === col) {
+                                                    wireKeyHere = k;
+                                                    break;
+                                                }
+                                            }
+
+                                            // Check if IC pin occupies row E (zone top, rIdx 4) or row F (zone bot, rIdx 0)
+                                            let icPinNum = null;
+                                            if (state.proto.icStartCol !== null) {
+                                                const start = state.proto.icStartCol;
+                                                if (col >= start && col <= start + 6) {
+                                                    const offset = col - start;
+                                                    if (zone === 'top' && rIdx === 4) {
+                                                        icPinNum = 14 - offset;
+                                                    } else if (zone === 'bot' && rIdx === 0) {
+                                                        icPinNum = 1 + offset;
+                                                    }
+                                                }
+                                            }
+
+                                            const isOuterRow = (zone === 'top' && rIdx === 0) || (zone === 'bot' && rIdx === 4);
+                                            const isColConnected = wireKeyHere !== null;
+                                            const isHintTarget = activeTarget && activeTarget.zone === zone && activeTarget.col === col && icPinNum === null;
+
+                                            let holeInner = `<div class="w-3.5 h-3.5 rounded-sm bg-slate-800 border border-slate-500 ${isHintTarget ? 'hole-hint-pulse' : ''}"></div>`;
+                                            if (icPinNum !== null) {
+                                                holeInner = `<div class="w-5 h-4 rounded-sm bg-slate-300 border border-slate-700 text-[9px] font-mono-code font-extrabold text-navy-950 flex items-center justify-center shadow">${icPinNum}</div>`;
+                                            } else if (wireKeyHere && isOuterRow) {
+                                                const wc = wireColors[wireKeyHere];
+                                                holeInner = `<div onclick="event.stopPropagation(); removePlacedItem('${wireKeyHere}')" title="คลิกเพื่อถอดสาย ${wc.text}" class="px-1.5 py-0.5 rounded ${wc.bg} text-white text-[8px] font-mono-code font-extrabold shadow-md ring-2 ${wc.ring} cursor-pointer whitespace-nowrap z-20">${wc.text}</div>`;
+                                            } else if (isColConnected) {
+                                                holeInner = `<div class="w-3.5 h-3.5 rounded-full bg-amber-400 border-2 border-navy-900"></div>`;
+                                            }
+
+                                            return `
+                                                <div ondragover="handleDragOver(event)"
+                                                    ondrop="handleDropOnHole(event, '${zone}', ${col})"
+                                                    onclick="handleClickHole('${zone}', ${col})"
+                                                    class="pb-hole h-5 flex items-center justify-center cursor-pointer ${isColConnected ? 'bg-amber-100/80 rounded' : (isHintTarget ? 'bg-amber-200/50 rounded' : '')}">
+                                                    ${holeInner}
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            };
+
+            // Center IC Channel (ร่องกลาง Protoboard)
+            let icBodyOverlay = '';
+            if (state.proto.icStartCol !== null) {
+                const start = state.proto.icStartCol;
+                const leftPct = ((start - 1) / 16) * 100;
+                const widthPct = (7 / 16) * 100;
+                icBodyOverlay = `
+                    <div onclick="removePlacedItem('ic')" title="คลิกเพื่อถอดตัว IC ออกจากบอร์ด"
+                        style="left: ${leftPct}%; width: ${widthPct}%;"
+                        class="absolute top-0 bottom-0 bg-navy-950 border-2 border-amber-400 rounded-md shadow-xl flex items-center justify-between px-2 cursor-pointer hover:border-crimson-500 transition z-20">
+                        <div class="w-2.5 h-4 rounded-r-full bg-slate-700 border border-slate-500 -ml-2"></div>
+                        <div class="text-center">
+                            <span class="font-mono-code font-extrabold text-xs text-white tracking-wider">SN74LS${ic.name.slice(2)}N</span>
+                            <span class="block text-[8px] text-amber-400 font-mono-code leading-none">IC ${ic.name}</span>
+                        </div>
+                        <span class="text-[9px] text-slate-400 font-mono-code">DIP14</span>
+                    </div>
+                `;
+            }
+
+            const centerChannelHtml = `
+                <div class="my-2 flex items-center">
+                    <span class="font-mono-code text-[9px] font-bold text-slate-400 w-7 text-center">ร่อง</span>
+                    <div ondragover="handleDragOver(event)"
+                        ondrop="handleDropOnHole(event, 'center', 5)"
+                        onclick="handleClickHole('center', 5)"
+                        class="flex-1 h-9 bg-slate-300/80 border-y-2 border-slate-400 rounded relative flex items-center justify-center cursor-pointer">
+                        <span class="text-[10px] font-mono-code text-slate-500 tracking-widest">CENTER ISOLATION CHANNEL</span>
+                        ${icBodyOverlay}
+                    </div>
+                </div>
+            `;
+
+            // Bottom Power Rail (GND Blue)
+            let botRailHtml = `
+                <div class="bg-sky-50 border-2 border-sky-600 rounded-lg px-2 py-1.5 mt-2.5 flex items-center justify-between">
+                    <span class="font-mono-code font-extrabold text-xs text-sky-800 w-7">GND</span>
+                    <div class="flex-1 grid gap-1" style="grid-template-columns: repeat(16, minmax(0, 1fr));">
+                        ${Array.from({ length: 16 }, (_, i) => {
+                            const col = i + 1;
+                            const hasGnd = state.proto.wires.gnd !== null && col === 15;
+                            return `<div class="flex justify-center items-center">
+                                <div class="w-3.5 h-3.5 rounded-full ${hasGnd ? 'bg-sky-600 ring-2 ring-amber-400' : 'bg-slate-800 border border-sky-500'}"></div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                    <span class="font-mono-code text-[10px] font-bold text-sky-800 pl-2">GND RAIL</span>
+                </div>
+            `;
+
+            // Realistic SVG Jumper Wires Overlay
+            let wiresSvgPaths = '';
+            const getColX = (col) => 44 + ((col - 0.5) / 16) * 556; // Approximate X center in 640px SVG viewBox
+            for (const [k, w] of Object.entries(state.proto.wires)) {
+                if (!w) continue;
+                const wc = wireColors[k];
+                const targetX = getColX(w.col);
+                if (k === 'vcc' && w.zone === 'top') {
+                    const startX = getColX(2);
+                    wiresSvgPaths += `<path d="M ${startX} 26 Q ${(startX + targetX) / 2} 6, ${targetX} 52" stroke="${wc.stroke}" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.88"/>`;
+                } else if (k === 'gnd' && w.zone === 'bot') {
+                    const startX = getColX(15);
+                    wiresSvgPaths += `<path d="M ${startX} 314 Q ${(startX + targetX) / 2} 334, ${targetX} 288" stroke="${wc.stroke}" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.88"/>`;
+                } else {
+                    const targetY = w.zone === 'top' ? 52 : 288;
+                    const edgeX = k === 'outY' ? 625 : 15;
+                    const edgeY = k === 'inA' ? 220 : (k === 'inB' ? 260 : 240);
+                    wiresSvgPaths += `<path d="M ${edgeX} ${edgeY} Q ${(edgeX + targetX) / 2} ${targetY + 28}, ${targetX} ${targetY}" stroke="${wc.stroke}" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.85"/>`;
+                }
+            }
+
+            const svgOverlay = `
+                <svg viewBox="0 0 640 340" class="absolute inset-0 w-full h-full pointer-events-none z-10">
+                    ${wiresSvgPaths}
+                </svg>
+            `;
+
+            surface.innerHTML = svgOverlay + colHeaderHtml + topRailHtml + renderMainRows('top', ['A', 'B', 'C', 'D', 'E']) + centerChannelHtml + renderMainRows('bot', ['F', 'G', 'H', 'I', 'J']) + botRailHtml;
+        }
+
+        // 11. LIVE POWER & SWITCH TESTING ON PROTOBOARD
+        function toggleProtoPower() {
+            if (!state.proto.wiringVerified) return;
+            state.proto.powerOn = !state.proto.powerOn;
+            if (state.proto.powerOn) {
+                recordTestedPattern();
+            }
+            updateProtoTestBench(IC_DATA[state.proto.icId]);
+        }
+
+        function toggleProtoInput(which) {
+            if (!state.proto.powerOn) return;
+            if (which === 'A') {
+                state.proto.inputA = state.proto.inputA === 0 ? 1 : 0;
+            } else {
+                state.proto.inputB = state.proto.inputB === 0 ? 1 : 0;
+            }
+            recordTestedPattern();
+            updateProtoTestBench(IC_DATA[state.proto.icId]);
+        }
+
+        function recordTestedPattern() {
+            const ic = IC_DATA[state.proto.icId];
+            const key = ic.inputs === 1 ? `${state.proto.inputA}` : `${state.proto.inputA}-${state.proto.inputB}`;
+            state.proto.testedPatterns.add(key);
+        }
+
+        function updateProtoTestBench(ic) {
+            const btnPower = document.getElementById('btn-proto-power');
+            const powerLabel = document.getElementById('proto-power-label');
+            const swA = document.getElementById('proto-sw-a');
+            const swB = document.getElementById('proto-sw-b');
+            const ledY = document.getElementById('proto-led-y');
+            const valY = document.getElementById('proto-val-y');
+            const txtY = document.getElementById('proto-txt-y');
+
+            if (!state.proto.wiringVerified) {
+                btnPower.disabled = true;
+                btnPower.className = 'px-4 py-2 rounded-xl font-mono-code font-extrabold text-xs sm:text-sm bg-slate-700 text-slate-400 border-2 border-slate-600 cursor-not-allowed transition flex items-center gap-2 shrink-0';
+                powerLabel.textContent = 'POWER : รอต่อสายครบ';
+            } else {
+                btnPower.disabled = false;
+                if (state.proto.powerOn) {
+                    btnPower.className = 'px-4 py-2 rounded-xl font-mono-code font-extrabold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white border-2 border-emerald-300 shadow-lg cursor-pointer transition flex items-center gap-2 shrink-0';
+                    powerLabel.textContent = 'POWER : ON (+5V)';
+                } else {
+                    btnPower.className = 'px-4 py-2 rounded-xl font-mono-code font-extrabold text-xs sm:text-sm bg-amber-500 hover:bg-amber-400 text-navy-950 border-2 border-amber-300 shadow-lg cursor-pointer transition flex items-center gap-2 shrink-0';
+                    powerLabel.textContent = 'POWER : OFF';
+                }
+            }
+
+            if (!state.proto.powerOn) {
+                swA.disabled = true;
+                swB.disabled = true;
+                swA.className = 'w-32 h-12 mx-auto rounded-xl font-mono-code text-lg font-extrabold bg-slate-700 text-slate-400 border-2 border-slate-600 cursor-not-allowed transition';
+                swB.className = 'w-32 h-12 mx-auto rounded-xl font-mono-code text-lg font-extrabold bg-slate-700 text-slate-400 border-2 border-slate-600 cursor-not-allowed transition';
+                swA.textContent = '0 (LOW)';
+                swB.textContent = '0 (LOW)';
+                ledY.className = 'w-11 h-11 rounded-full border-2 led-off transition-all';
+                valY.textContent = '-';
+                valY.className = 'text-xl font-extrabold text-slate-400';
+                txtY.textContent = 'NO POWER';
+                txtY.className = 'text-xs text-slate-400';
+            } else {
+                swA.disabled = false;
+                swA.textContent = state.proto.inputA === 1 ? '1 (HIGH)' : '0 (LOW)';
+                swA.className = state.proto.inputA === 1
+                    ? 'w-32 h-12 mx-auto rounded-xl font-mono-code text-lg font-extrabold bg-crimson-600 text-white border-2 border-amber-400 shadow-lg cursor-pointer transition'
+                    : 'w-32 h-12 mx-auto rounded-xl font-mono-code text-lg font-extrabold bg-slate-700 text-white border-2 border-slate-400 hover:border-amber-400 cursor-pointer transition';
+
+                if (ic.inputs === 2) {
+                    swB.disabled = false;
+                    swB.textContent = state.proto.inputB === 1 ? '1 (HIGH)' : '0 (LOW)';
+                    swB.className = state.proto.inputB === 1
+                        ? 'w-32 h-12 mx-auto rounded-xl font-mono-code text-lg font-extrabold bg-crimson-600 text-white border-2 border-amber-400 shadow-lg cursor-pointer transition'
+                        : 'w-32 h-12 mx-auto rounded-xl font-mono-code text-lg font-extrabold bg-slate-700 text-white border-2 border-slate-400 hover:border-amber-400 cursor-pointer transition';
+                } else {
+                    swB.disabled = true;
+                    swB.textContent = 'N/A';
+                }
+
+                const outVal = ic.inputs === 1 ? ic.evalFunc(state.proto.inputA) : ic.evalFunc(state.proto.inputA, state.proto.inputB);
+                if (outVal === 1) {
+                    ledY.className = 'w-11 h-11 rounded-full border-2 led-on transition-all';
+                    valY.textContent = '1';
+                    valY.className = 'text-xl font-extrabold text-amber-400';
+                    txtY.textContent = 'HIGH (+5V)';
+                    txtY.className = 'text-xs text-amber-300 font-bold';
+                } else {
+                    ledY.className = 'w-11 h-11 rounded-full border-2 led-off transition-all';
+                    valY.textContent = '0';
+                    valY.className = 'text-xl font-extrabold text-slate-400';
+                    txtY.textContent = 'LOW (0V)';
+                    txtY.className = 'text-xs text-slate-400';
+                }
+            }
+
+            // Update tested patterns & Complete Lab Button
+            const requiredPatterns = ic.inputs === 1 ? 2 : 4;
+            const testedCount = state.proto.testedPatterns.size;
+            document.getElementById('proto-tested-count').textContent = `${testedCount} / ${requiredPatterns} รูปแบบ`;
+
+            const btnComplete = document.getElementById('btn-complete-proto-lab');
+            const btnIcon = document.getElementById('btn-complete-proto-icon');
+            if (state.proto.wiringVerified && state.proto.powerOn && testedCount >= 2) {
+                btnComplete.className = 'px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-extrabold shadow-lg cursor-pointer transition flex items-center gap-2 w-full sm:w-auto justify-center';
+                btnIcon.className = 'fas fa-check-circle';
+            } else {
+                btnComplete.className = 'px-6 py-3 rounded-xl bg-slate-700 text-slate-400 font-bold cursor-not-allowed transition flex items-center gap-2 w-full sm:w-auto justify-center';
+                btnIcon.className = 'fas fa-lock';
+            }
+        }
+
+        function completeProtoLab() {
+            const testedCount = state.proto.testedPatterns.size;
+            if (!state.proto.wiringVerified || !state.proto.powerOn || testedCount < 2) {
+                showToast('กรุณาต่อสายไฟให้ครบทุกเส้น และลองกดสวิตช์ Input อย่างน้อย 2 รูปแบบก่อนบันทึกผล', 'error');
+                return;
+            }
+            state.proto.labPassed = true;
+            const badge = document.getElementById('lab-pass-badge');
+            badge.className = 'px-2.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-400 text-xs font-bold';
+            badge.innerHTML = '<i class="fas fa-check-circle mr-1"></i> ผ่านปฏิบัติการต่อวงจร Protoboard แล้ว';
+
+            showToast('บันทึกผลปฏิบัติการต่อวงจรบน Protoboard เรียบร้อย! เข้าสู่แบบทดสอบหลังเรียน', 'success');
+            goToStep(4);
+        }
+
+        // 12. STEP 5: REPORT & PRINT TO PDF
+        function syncReportStudentInfo() {
+            const nameVal = document.getElementById('input-report-name').value.trim();
+            const noVal = document.getElementById('input-report-no').value.trim();
+            const classVal = document.getElementById('input-report-class').value.trim();
+
+            document.getElementById('disp-report-name').textContent = nameVal || '.......................................................';
+            document.getElementById('disp-report-no').textContent = noVal || '...............................';
+            document.getElementById('disp-report-class').textContent = classVal || '...............................';
+        }
+
+        function populateReport() {
+            const now = new Date();
+            const thaiMonths = [
+                'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+            ];
+            document.getElementById('report-date').textContent = `${now.getDate()} ${thaiMonths[now.getMonth()]} พ.ศ. ${now.getFullYear() + 543}`;
+
+            const pre = state.preTestScore ?? 0;
+            const post = state.postTestScore ?? 0;
+            const diff = post - pre;
+
+            document.getElementById('report-pre-score').textContent = pre;
+            document.getElementById('report-pre-percent').textContent = `คิดเป็น ${pre * 10}%`;
+
+            document.getElementById('report-post-score').textContent = post;
+            document.getElementById('report-post-percent').textContent = `คิดเป็น ${post * 10}%`;
+
+            const diffEl = document.getElementById('report-diff-score');
+            diffEl.textContent = diff >= 0 ? `+${diff}` : `${diff}`;
+
+            const evalEl = document.getElementById('report-eval-status');
+            evalEl.textContent = post >= 6 ? 'ผ่านเกณฑ์การประเมิน (ดีเยี่ยม)' : 'เสร็จสิ้นการเรียนรู้';
+
+            const ic = IC_DATA[state.proto.icId];
+            document.getElementById('report-lab-ic-name').textContent = `ปฏิบัติการต่อวงจร IC ${ic.name} (${ic.title})`;
+            document.getElementById('report-lab-pin-summary').textContent = ic.inputs === 1
+                ? `วาง IC ${ic.name} คร่อมร่องกลาง, ต่อ +5V (ขา 14), GND (ขา 7), Input A (ขา ${ic.pins.a}) และ Output Y (ขา ${ic.pins.y})`
+                : `วาง IC ${ic.name} คร่อมร่องกลาง, ต่อ +5V (ขา 14), GND (ขา 7), Input A (ขา ${ic.pins.a}), Input B (ขา ${ic.pins.b}) และ Output Y (ขา ${ic.pins.y})`;
+
+            const statusCell = document.getElementById('report-lab-status-cell');
+            if (state.proto.labPassed || state.teacherUnlocked) {
+                statusCell.innerHTML = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300"><i class="fas fa-check-circle"></i> ผ่านปฏิบัติการ (100%)</span>`;
+            } else {
+                statusCell.innerHTML = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300"><i class="fas fa-clock"></i> รอการทดสอบใน Lab</span>`;
+            }
+        }
+    </script>
+</body>
+</html>
