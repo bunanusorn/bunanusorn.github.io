@@ -57,6 +57,7 @@ const label = t => t.replace(/^(?:\d+(?:[._]\d+)?_?\s*)?(?:TOEFL\s*|IELTS\s*|Rev
               <span class="num">#{{ r.n }}</span>
               <span class="t">{{ label(r.title) }}</span>
               <span class="badge" :class="r.type==='Reading'?'r':'l'">{{ r.type }}</span>
+              <span class="badge ok" v-if="r.added">เพิ่มใหม่</span>
               <span class="badge warn" v-if="r.status==='pending'">ไม่มีเนื้อหาในไฟล์</span>
             </button>
           </div>

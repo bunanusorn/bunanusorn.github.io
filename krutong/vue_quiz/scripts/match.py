@@ -31,7 +31,7 @@ for sec,key in (('Reading','reading'),('Listening','listening')):
         m=MAN.get(k)
         ids=m if m is not None else [b[1] for b in best if b[0]>=best[0][0]-0.15][:3]
         bt=next((b for x,y,z in [(0,0,0)] for b in BAT if b[0]<=no<=b[1]),None) if sec=='Reading' else None
-        APPROX={'Reading2':[69,72,2],'Reading9':[46],'Reading14':[69,72]}
+        APPROX={'Reading2':[69,72,2],'Reading9':[46,158],'Reading14':[69,72]}
         out.append(dict(approx=APPROX.get(k,[]),sec=sec,no=no,title=en,batch=bt[2] if bt else '',ids=ids,auto=[b[:2] for b in best[:3]]))
 json.dump(out,open('/home/claude/quiz/src/data/checklist.json','w'),ensure_ascii=False)
 for o in out: print(o['sec'][0],o['no'],'|',o['title'][:55],'|',o['ids'],[ (lib[i-1]['title'][:28]) for i in o['ids']])

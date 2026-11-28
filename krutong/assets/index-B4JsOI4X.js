@@ -2,20 +2,20 @@
 * @vue/shared v3.5.46
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
-**/function Zt(e){const n=Object.create(null);for(const t of e.split(","))n[t]=1;return t=>t in n}const J={},dn=[],Re=()=>{},ai=()=>!1,yt=e=>e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&(e.charCodeAt(2)>122||e.charCodeAt(2)<97),wt=e=>e.startsWith("onUpdate:"),ne=Object.assign,ea=(e,n)=>{const t=e.indexOf(n);t>-1&&e.splice(t,1)},ms=Object.prototype.hasOwnProperty,z=(e,n)=>ms.call(e,n),S=Array.isArray,Xe=e=>An(e)==="[object Map]",bn=e=>An(e)==="[object Set]",Ba=e=>An(e)==="[object Date]",H=e=>typeof e=="function",X=e=>typeof e=="string",Pe=e=>typeof e=="symbol",U=e=>e!==null&&typeof e=="object",ii=e=>(U(e)||H(e))&&H(e.then)&&H(e.catch),si=Object.prototype.toString,An=e=>si.call(e),gs=e=>An(e).slice(8,-1),oi=e=>An(e)==="[object Object]",na=e=>X(e)&&e!=="NaN"&&e[0]!=="-"&&""+parseInt(e,10)===e,_n=Zt(",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted"),fs=1e4,bt=e=>{let n=Object.create(null),t=0;return a=>{const i=n[a];return i!==void 0?i:(++t>fs&&(n=Object.create(null),t=1),n[a]=e(a))}},ys=/-\w/g,Ae=bt(e=>e.replace(ys,n=>n.slice(1).toUpperCase())),ws=/\B([A-Z])/g,nn=bt(e=>e.replace(ws,"-$1").toLowerCase()),ri=bt(e=>e.charAt(0).toUpperCase()+e.slice(1)),qt=bt(e=>e?`on${ri(e)}`:""),Se=(e,n)=>!Object.is(e,n),st=(e,...n)=>{for(let t=0;t<e.length;t++)e[t](...n)},li=(e,n,t,a=!1)=>{Object.defineProperty(e,n,{configurable:!0,enumerable:!1,writable:a,value:t})},ta=e=>{const n=parseFloat(e);return isNaN(n)?e:n};let Ta;const vt=()=>Ta||(Ta=typeof globalThis<"u"?globalThis:typeof self<"u"?self:typeof window<"u"?window:typeof global<"u"?global:{});function aa(e){if(S(e)){const n={};for(let t=0;t<e.length;t++){const a=e[t],i=X(a)?ks(a):aa(a);if(i)for(const s in i)n[s]=i[s]}return n}else if(X(e)||U(e))return e}const bs=/;(?![^(]*\))/g,vs=/:([^]+)/,As=/"(?:[^"\\]|\\[^])*"|'(?:[^'\\]|\\[^])*'|\\[^]|\/\*[^]*?\*\//g;function ks(e){const n={};return e.replace(As,t=>t.startsWith("/*")?"":t).split(bs).forEach(t=>{if(t){const a=t.split(vs);a.length>1&&(n[a[0].trim()]=a[1].trim())}}),n}function ue(e){let n="";if(X(e))n=e;else if(S(e))for(let t=0;t<e.length;t++){const a=ue(e[t]);a&&(n+=a+" ")}else if(U(e))for(const t in e)e[t]&&(n+=t+" ");return n.trim()}const Cs="itemscope,allowfullscreen,disablepictureinpicture,disableremoteplayback,formnovalidate,ismap,nomodule,novalidate,playsinline,readonly",Bs=Zt(Cs);function ci(e){return!!e||e===""}function Ts(e,n,t){if(e.length!==n.length)return!1;let a=!0;for(let i=0;a&&i<e.length;i++)a=kn(e[i],n[i],t);return a}function Da(e,n,t){if(e.size!==n.size)return!1;const a=Array.from(n),i=new Uint8Array(a.length);for(const s of e){let o=-1;for(let r=0;r<a.length;r++)if(!i[r]&&kn(s,a[r],t)){o=r;break}if(o<0)return!1;i[o]=1}return!0}function Ds(e,n,t){let a=Xe(e),i=Xe(n);if(a||i||(a=bn(e),i=bn(n),a||i))return a&&i?Da(e,n,t):!1;const s=Object.keys(e).length,o=Object.keys(n).length;if(s!==o)return!1;for(const r in e){const l=z(e,r),u=z(n,r);if(l&&!u||!l&&u||!kn(e[r],n[r],t))return!1}return qa(e)===qa(n)}function xa(e,n,t,a){t||(t=[new Map,new Map]);const[i,s]=t;if(i.has(e)||s.has(n))return i.get(e)===n&&s.get(n)===e;i.set(e,n),s.set(n,e);const o=a(e,n,t);return i.delete(e),s.delete(n),o}function kn(e,n,t){if(e===n)return!0;let a=Ba(e),i=Ba(n);return a||i?a&&i?e.getTime()===n.getTime():!1:(a=Pe(e),i=Pe(n),a||i?e===n:(a=S(e),i=S(n),a||i?a&&i?xa(e,n,t,Ts):!1:(a=U(e),i=U(n),a||i?!a||!i?!1:xa(e,n,t,Ds):String(e)===String(n))))}function hi(e,n){return e.findIndex(t=>kn(t,n))}function qa(e){return Object.getPrototypeOf(e)===null&&e[Symbol.toPrimitive]==null&&typeof e.toString!="function"&&typeof e.valueOf!="function"?An(e):String(e)}const di=e=>!!(e&&e.__v_isRef===!0),G=e=>X(e)?e:e==null?"":S(e)||U(e)&&(e.toString===si||!H(e.toString))?di(e)?G(e.value):JSON.stringify(e,ui,2):String(e),ui=(e,n)=>di(n)?ui(e,n.value):Xe(n)?{[`Map(${n.size})`]:[...n.entries()].reduce((t,[a,i],s)=>(t[It(a,s)+" =>"]=i,t),{})}:bn(n)?{[`Set(${n.size})`]:[...n.values()].map(t=>It(t))}:Pe(n)?It(n):U(n)&&!S(n)&&!oi(n)?String(n):n,It=(e,n="")=>{var t;return Pe(e)?`Symbol(${(t=e.description)!=null?t:n})`:e};/**
+**/function Zt(e){const n=Object.create(null);for(const t of e.split(","))n[t]=1;return t=>t in n}const J={},dn=[],Re=()=>{},ai=()=>!1,yt=e=>e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&(e.charCodeAt(2)>122||e.charCodeAt(2)<97),wt=e=>e.startsWith("onUpdate:"),ne=Object.assign,ea=(e,n)=>{const t=e.indexOf(n);t>-1&&e.splice(t,1)},ms=Object.prototype.hasOwnProperty,F=(e,n)=>ms.call(e,n),S=Array.isArray,Ze=e=>An(e)==="[object Map]",bn=e=>An(e)==="[object Set]",Ba=e=>An(e)==="[object Date]",G=e=>typeof e=="function",X=e=>typeof e=="string",Pe=e=>typeof e=="symbol",U=e=>e!==null&&typeof e=="object",ii=e=>(U(e)||G(e))&&G(e.then)&&G(e.catch),si=Object.prototype.toString,An=e=>si.call(e),gs=e=>An(e).slice(8,-1),oi=e=>An(e)==="[object Object]",na=e=>X(e)&&e!=="NaN"&&e[0]!=="-"&&""+parseInt(e,10)===e,_n=Zt(",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted"),fs=1e4,bt=e=>{let n=Object.create(null),t=0;return a=>{const i=n[a];return i!==void 0?i:(++t>fs&&(n=Object.create(null),t=1),n[a]=e(a))}},ys=/-\w/g,ke=bt(e=>e.replace(ys,n=>n.slice(1).toUpperCase())),ws=/\B([A-Z])/g,tn=bt(e=>e.replace(ws,"-$1").toLowerCase()),ri=bt(e=>e.charAt(0).toUpperCase()+e.slice(1)),qt=bt(e=>e?`on${ri(e)}`:""),Se=(e,n)=>!Object.is(e,n),st=(e,...n)=>{for(let t=0;t<e.length;t++)e[t](...n)},li=(e,n,t,a=!1)=>{Object.defineProperty(e,n,{configurable:!0,enumerable:!1,writable:a,value:t})},ta=e=>{const n=parseFloat(e);return isNaN(n)?e:n};let Ta;const vt=()=>Ta||(Ta=typeof globalThis<"u"?globalThis:typeof self<"u"?self:typeof window<"u"?window:typeof global<"u"?global:{});function aa(e){if(S(e)){const n={};for(let t=0;t<e.length;t++){const a=e[t],i=X(a)?ks(a):aa(a);if(i)for(const s in i)n[s]=i[s]}return n}else if(X(e)||U(e))return e}const bs=/;(?![^(]*\))/g,vs=/:([^]+)/,As=/"(?:[^"\\]|\\[^])*"|'(?:[^'\\]|\\[^])*'|\\[^]|\/\*[^]*?\*\//g;function ks(e){const n={};return e.replace(As,t=>t.startsWith("/*")?"":t).split(bs).forEach(t=>{if(t){const a=t.split(vs);a.length>1&&(n[a[0].trim()]=a[1].trim())}}),n}function pe(e){let n="";if(X(e))n=e;else if(S(e))for(let t=0;t<e.length;t++){const a=pe(e[t]);a&&(n+=a+" ")}else if(U(e))for(const t in e)e[t]&&(n+=t+" ");return n.trim()}const Cs="itemscope,allowfullscreen,disablepictureinpicture,disableremoteplayback,formnovalidate,ismap,nomodule,novalidate,playsinline,readonly",Bs=Zt(Cs);function ci(e){return!!e||e===""}function Ts(e,n,t){if(e.length!==n.length)return!1;let a=!0;for(let i=0;a&&i<e.length;i++)a=kn(e[i],n[i],t);return a}function Da(e,n,t){if(e.size!==n.size)return!1;const a=Array.from(n),i=new Uint8Array(a.length);for(const s of e){let o=-1;for(let r=0;r<a.length;r++)if(!i[r]&&kn(s,a[r],t)){o=r;break}if(o<0)return!1;i[o]=1}return!0}function Ds(e,n,t){let a=Ze(e),i=Ze(n);if(a||i||(a=bn(e),i=bn(n),a||i))return a&&i?Da(e,n,t):!1;const s=Object.keys(e).length,o=Object.keys(n).length;if(s!==o)return!1;for(const r in e){const l=F(e,r),u=F(n,r);if(l&&!u||!l&&u||!kn(e[r],n[r],t))return!1}return qa(e)===qa(n)}function xa(e,n,t,a){t||(t=[new Map,new Map]);const[i,s]=t;if(i.has(e)||s.has(n))return i.get(e)===n&&s.get(n)===e;i.set(e,n),s.set(n,e);const o=a(e,n,t);return i.delete(e),s.delete(n),o}function kn(e,n,t){if(e===n)return!0;let a=Ba(e),i=Ba(n);return a||i?a&&i?e.getTime()===n.getTime():!1:(a=Pe(e),i=Pe(n),a||i?e===n:(a=S(e),i=S(n),a||i?a&&i?xa(e,n,t,Ts):!1:(a=U(e),i=U(n),a||i?!a||!i?!1:xa(e,n,t,Ds):String(e)===String(n))))}function hi(e,n){return e.findIndex(t=>kn(t,n))}function qa(e){return Object.getPrototypeOf(e)===null&&e[Symbol.toPrimitive]==null&&typeof e.toString!="function"&&typeof e.valueOf!="function"?An(e):String(e)}const di=e=>!!(e&&e.__v_isRef===!0),O=e=>X(e)?e:e==null?"":S(e)||U(e)&&(e.toString===si||!G(e.toString))?di(e)?O(e.value):JSON.stringify(e,ui,2):String(e),ui=(e,n)=>di(n)?ui(e,n.value):Ze(n)?{[`Map(${n.size})`]:[...n.entries()].reduce((t,[a,i],s)=>(t[It(a,s)+" =>"]=i,t),{})}:bn(n)?{[`Set(${n.size})`]:[...n.values()].map(t=>It(t))}:Pe(n)?It(n):U(n)&&!S(n)&&!oi(n)?String(n):n,It=(e,n="")=>{var t;return Pe(e)?`Symbol(${(t=e.description)!=null?t:n})`:e};/**
 * @vue/reactivity v3.5.46
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
-**/let ae;class xs{constructor(n=!1){this.detached=n,this._active=!0,this._on=0,this.effects=[],this.cleanups=[],this._isPaused=!1,this._warnOnRun=!0,this.__v_skip=!0,!n&&ae&&(ae.active?(this.parent=ae,this.index=(ae.scopes||(ae.scopes=[])).push(this)-1):(this._active=!1,this._warnOnRun=!1))}get active(){return this._active}pause(){if(this._active){this._isPaused=!0;let n,t;if(this.scopes){const a=this.scopes.slice();for(n=0,t=a.length;n<t;n++)a[n].pause()}for(n=0,t=this.effects.length;n<t;n++)this.effects[n].pause()}}resume(){if(this._active&&this._isPaused){this._isPaused=!1;let n,t;if(this.scopes){const i=this.scopes.slice();for(n=0,t=i.length;n<t;n++)i[n].resume()}const a=this.effects.slice();for(n=0,t=a.length;n<t;n++)a[n].resume()}}run(n){if(this._active){const t=ae;try{return ae=this,n()}finally{ae=t}}}on(){++this._on===1&&(this.prevScope=ae,ae=this)}off(){if(this._on>0&&--this._on===0){if(ae===this)ae=this.prevScope;else{let n=ae;for(;n;){if(n.prevScope===this){n.prevScope=this.prevScope;break}n=n.prevScope}}this.prevScope=void 0}}stop(n){if(this._active){this._active=!1;let t,a;for(t=0,a=this.effects.length;t<a;t++)this.effects[t].stop();for(this.effects.length=0,t=0,a=this.cleanups.length;t<a;t++)this.cleanups[t]();if(this.cleanups.length=0,this.scopes){const i=this.scopes.slice();for(t=0,a=i.length;t<a;t++)i[t].stop(!0);this.scopes.length=0}if(!this.detached&&this.parent&&!n){const i=this.parent.scopes.pop();i&&i!==this&&(this.parent.scopes[this.index]=i,i.index=this.index)}this.parent=void 0}}}function qs(){return ae}let Y;const Wt=new WeakSet;class pi{constructor(n){this.fn=n,this.deps=void 0,this.depsTail=void 0,this.flags=5,this.next=void 0,this.cleanup=void 0,this.scheduler=void 0,ae&&(ae.active?ae.effects.push(this):this.flags&=-2)}pause(){this.flags|=64}resume(){this.flags&64&&(this.flags&=-65,Wt.has(this)&&(Wt.delete(this),this.trigger()))}notify(){this.flags&2&&!(this.flags&32)||this.flags&8||gi(this)}run(){if(!(this.flags&1))return this.fn();this.flags|=2,Ia(this),fi(this);const n=Y,t=ke;Y=this,ke=!0;try{return this.fn()}finally{yi(this),Y=n,ke=t,this.flags&=-3}}stop(){if(this.flags&1){for(let n=this.deps;n;n=n.nextDep)oa(n);this.deps=this.depsTail=void 0,Ia(this),this.onStop&&this.onStop(),this.flags&=-2}}trigger(){this.flags&64?Wt.add(this):this.scheduler?this.scheduler():this.runIfDirty()}runIfDirty(){Nt(this)&&this.run()}get dirty(){return Nt(this)}}let mi=0,Sn,En;function gi(e,n=!1){if(e.flags|=8,n){e.next=En,En=e;return}e.next=Sn,Sn=e}function ia(){mi++}function sa(){if(--mi>0)return;if(En){let n=En;for(En=void 0;n;){const t=n.next;n.next=void 0,n.flags&=-9,n=t}}let e;for(;Sn;){let n=Sn;for(Sn=void 0;n;){const t=n.next;if(n.next=void 0,n.flags&=-9,n.flags&1)try{n.trigger()}catch(a){e||(e=a)}n=t}}if(e)throw e}function fi(e){for(let n=e.deps;n;n=n.nextDep)n.version=-1,n.prevActiveLink=n.dep.activeLink,n.dep.activeLink=n}function yi(e){let n,t=e.depsTail,a=t;for(;a;){const i=a.prevDep;a.version===-1?(a===t&&(t=i),oa(a),Is(a)):n=a,a.dep.activeLink=a.prevActiveLink,a.prevActiveLink=void 0,a=i}e.deps=n,e.depsTail=t}function Nt(e){for(let n=e.deps;n;n=n.nextDep)if(n.dep.version!==n.version||n.dep.computed&&(wi(n.dep.computed)||n.dep.version!==n.version))return!0;return!!e._dirty}function wi(e){if(e.flags&4&&!(e.flags&16)||(e.flags&=-17,e.globalVersion===On)||(e.globalVersion=On,!e.isSSR&&e.flags&128&&(!e.deps&&!e._dirty||!Nt(e))))return;e.flags|=2;const n=e.dep,t=Y,a=ke;Y=e,ke=!0;try{fi(e);const i=e.fn(e._value);(n.version===0||Se(i,e._value))&&(e.flags|=128,e._value=i,n.version++)}catch(i){throw n.version++,i}finally{Y=t,ke=a,yi(e),e.flags&=-3}}function oa(e,n=!1){const{dep:t,prevSub:a,nextSub:i}=e;if(a&&(a.nextSub=i,e.prevSub=void 0),i&&(i.prevSub=a,e.nextSub=void 0),t.subs===e&&(t.subs=a,!a&&t.computed)){t.computed.flags&=-5;for(let s=t.computed.deps;s;s=s.nextDep)oa(s,!0)}!n&&!--t.sc&&t.map&&t.map.delete(t.key)}function Is(e){const{prevDep:n,nextDep:t}=e;n&&(n.nextDep=t,e.prevDep=void 0),t&&(t.prevDep=n,e.nextDep=void 0)}let ke=!0;const bi=[];function Me(){bi.push(ke),ke=!1}function He(){const e=bi.pop();ke=e===void 0?!0:e}function Ia(e){const{cleanup:n}=e;if(e.cleanup=void 0,n){const t=Y;Y=void 0;try{n()}finally{Y=t}}}let On=0;class Ws{constructor(n,t){this.sub=n,this.dep=t,this.version=t.version,this.nextDep=this.prevDep=this.nextSub=this.prevSub=this.prevActiveLink=void 0}}class ra{constructor(n){this.computed=n,this.version=0,this.activeLink=void 0,this.subs=void 0,this.map=void 0,this.key=void 0,this.sc=0,this.__v_skip=!0}track(n){if(!Y||!ke||Y===this.computed)return;let t=this.activeLink;if(t===void 0||t.sub!==Y)t=this.activeLink=new Ws(Y,this),Y.deps?(t.prevDep=Y.depsTail,Y.depsTail.nextDep=t,Y.depsTail=t):Y.deps=Y.depsTail=t,vi(t);else if(t.version===-1&&(t.version=this.version,t.nextDep)){const a=t.nextDep;a.prevDep=t.prevDep,t.prevDep&&(t.prevDep.nextDep=a),t.prevDep=Y.depsTail,t.nextDep=void 0,Y.depsTail.nextDep=t,Y.depsTail=t,Y.deps===t&&(Y.deps=a)}return t}trigger(n){this.version++,On++,this.notify(n)}notify(n){ia();try{for(let t=this.subs;t;t=t.prevSub)t.sub.notify()&&t.sub.dep.notify()}finally{sa()}}}function vi(e){if(e.dep.sc++,e.sub.flags&4){const n=e.dep.computed;if(n&&!e.dep.subs){n.flags|=20;for(let a=n.deps;a;a=a.nextDep)vi(a)}const t=e.dep.subs;t!==e&&(e.prevSub=t,t&&(t.nextSub=e)),e.dep.subs=e}}const Lt=new WeakMap,mn=Symbol(""),jt=Symbol(""),Fn=Symbol("");function ie(e,n,t){if(ke&&Y){let a=Lt.get(e);a||Lt.set(e,a=new Map);let i=a.get(t);i||(a.set(t,i=new ra),i.map=a,i.key=t),i.track()}}function Le(e,n,t,a,i,s){const o=Lt.get(e);if(!o){On++;return}const r=l=>{l&&l.trigger()};if(ia(),n==="clear")o.forEach(r);else{const l=S(e),u=l&&na(t);if(l&&t==="length"){const d=Number(a);o.forEach((m,C)=>{(C==="length"||C===Fn||!Pe(C)&&C>=d)&&r(m)})}else switch((t!==void 0||o.has(void 0))&&r(o.get(t)),u&&r(o.get(Fn)),n){case"add":l?u&&r(o.get("length")):(r(o.get(mn)),Xe(e)&&r(o.get(jt)));break;case"delete":l||(r(o.get(mn)),Xe(e)&&r(o.get(jt)));break;case"set":Xe(e)&&r(o.get(mn));break}}sa()}function fn(e){const n=L(e);return n===e||(ie(n,"iterate",Fn),fe(e))?n:Ge(e)?Ze(e)?n.map(t=>en(ye(t))):n.map(en):n.map(ye)}function At(e){return ie(e=L(e),"iterate",Fn),e}function Ie(e,n){return Ge(e)?en(Ze(e)?ye(n):n):ye(n)}const _s={__proto__:null,[Symbol.iterator](){return _t(this,Symbol.iterator,e=>Ie(this,e))},concat(...e){return fn(this).concat(...e.map(n=>S(n)?fn(n):n))},entries(){return _t(this,"entries",e=>(e[1]=Ie(this,e[1]),e))},every(e,n){return Fe(this,"every",e,n,void 0,arguments)},filter(e,n){return Fe(this,"filter",e,n,t=>t.map(a=>Ie(this,a)),arguments)},find(e,n){return Fe(this,"find",e,n,t=>Ie(this,t),arguments)},findIndex(e,n){return Fe(this,"findIndex",e,n,void 0,arguments)},findLast(e,n){return Fe(this,"findLast",e,n,t=>Ie(this,t),arguments)},findLastIndex(e,n){return Fe(this,"findLastIndex",e,n,void 0,arguments)},forEach(e,n){return Fe(this,"forEach",e,n,void 0,arguments)},includes(...e){return St(this,"includes",e)},indexOf(...e){return St(this,"indexOf",e)},join(e){return fn(this).join(e)},lastIndexOf(...e){return St(this,"lastIndexOf",e)},map(e,n){return Fe(this,"map",e,n,void 0,arguments)},pop(){return Dn(this,"pop")},push(...e){return Dn(this,"push",e)},reduce(e,...n){return _a(this,"reduce",e,n)},reduceRight(e,...n){return _a(this,"reduceRight",e,n)},shift(){return Dn(this,"shift")},some(e,n){return Fe(this,"some",e,n,void 0,arguments)},splice(...e){return Dn(this,"splice",e)},toReversed(){return fn(this).toReversed()},toSorted(e){return fn(this).toSorted(e)},toSpliced(...e){return fn(this).toSpliced(...e)},unshift(...e){return Dn(this,"unshift",e)},values(){return _t(this,"values",e=>Ie(this,e))}};function _t(e,n,t){const a=At(e),i=a[n],s=i.call(a);if(a!==e&&!fe(e)){if(s[Symbol.toStringTag]==="Array Iterator"){const o=Object.create(Object.getPrototypeOf(s));return o.next=()=>Wa(s.next(),t),i!==Ai[n]&&Object.defineProperties(o,{return:{get(){const r=s.return;return typeof r=="function"?r.bind(s):r}},throw:{get(){const r=s.throw;return typeof r=="function"?r.bind(s):r}}}),o}s._next=s.next,s.next=()=>Wa(s._next(),t)}return s}function Wa(e,n){return e.done||(e.value=n(e.value)),e}const Ai=Array.prototype;function Fe(e,n,t,a,i,s){const o=At(e),r=o!==e&&!fe(e),l=o[n];if(l!==Ai[n]){const m=l.apply(e,s);return r?ye(m):m}let u=t;o!==e&&(r?u=function(m,C){return t.call(this,Ie(e,m),C,e)}:t.length>2&&(u=function(m,C){return t.call(this,m,C,e)}));const d=l.call(o,u,a);return r&&i?i(d):d}function _a(e,n,t,a){const i=At(e),s=i!==e&&!fe(e);let o=t,r=!1;i!==e&&(s?(r=a.length===0,o=function(u,d,m){return r&&(r=!1,u=Ie(e,u)),t.call(this,u,Ie(e,d),m,e)}):t.length>3&&(o=function(u,d,m){return t.call(this,u,d,m,e)}));const l=i[n](o,...a);return r?Ie(e,l):l}function St(e,n,t){const a=L(e);ie(a,"iterate",Fn);const i=a[n](...t);return(i===-1||i===!1)&&ha(t[0])?(t[0]=L(t[0]),a[n](...t)):i}function Dn(e,n,t=[]){Me(),ia();const a=L(e)[n].apply(e,t);return sa(),He(),a}const Ss=Zt("__proto__,__v_isRef,__isVue"),ki=new Set(Object.getOwnPropertyNames(Symbol).filter(e=>e!=="arguments"&&e!=="caller").map(e=>Symbol[e]).filter(Pe));function Es(e){Pe(e)||(e=String(e));const n=L(this);return ie(n,"has",e),n.hasOwnProperty(e)}class Ci{constructor(n=!1,t=!1){this._isReadonly=n,this._isShallow=t}get(n,t,a){if(t==="__v_skip")return n.__v_skip;const i=this._isReadonly,s=this._isShallow;if(t==="__v_isReactive")return!i;if(t==="__v_isReadonly")return i;if(t==="__v_isShallow")return s;if(t==="__v_raw")return a===(i?s?Ls:xi:s?Di:Ti).get(n)||Object.getPrototypeOf(n)===Object.getPrototypeOf(a)?n:void 0;const o=S(n);if(!i){let l;if(o&&(l=_s[t]))return l;if(t==="hasOwnProperty")return Es}const r=Reflect.get(n,t,se(n)?n:a);if((Pe(t)?ki.has(t):Ss(t))||(i||ie(n,"get",t),s))return r;if(se(r)){const l=o&&na(t)?r:r.value;return i&&U(l)?Ut(l):l}return U(r)?i?Ut(r):zn(r):r}}class Bi extends Ci{constructor(n=!1){super(!1,n)}set(n,t,a,i){let s=n[t];const o=S(n)&&na(t);if(!this._isShallow){const u=Ge(s);if(!fe(a)&&!Ge(a)&&(s=L(s),a=L(a)),!o&&se(s)&&!se(a))return u||(s.value=a),!0}const r=o?Number(t)<n.length:z(n,t),l=Reflect.set(n,t,a,se(n)?n:i);return n===L(i)&&l&&(r?Se(a,s)&&Le(n,"set",t,a):Le(n,"add",t,a)),l}deleteProperty(n,t){const a=z(n,t);n[t];const i=Reflect.deleteProperty(n,t);return i&&a&&Le(n,"delete",t,void 0),i}has(n,t){const a=Reflect.has(n,t);return(!Pe(t)||!ki.has(t))&&ie(n,"has",t),a}ownKeys(n){return ie(n,"iterate",S(n)?"length":mn),Reflect.ownKeys(n)}}class Rs extends Ci{constructor(n=!1){super(!0,n)}set(n,t){return!0}deleteProperty(n,t){return!0}}const Ps=new Bi,Ms=new Rs,Hs=new Bi(!0);const Qt=e=>e,et=e=>Reflect.getPrototypeOf(e);function Gs(e,n,t){return function(...a){const i=this.__v_raw,s=L(i),o=Xe(s),r=e==="entries"||e===Symbol.iterator&&o,l=e==="keys"&&o,u=i[e](...a),d=t?Qt:n?en:ye;return!n&&ie(s,"iterate",l?jt:mn),ne(Object.create(u),{next(){const{value:m,done:C}=u.next();return C?{value:m,done:C}:{value:r?[d(m[0]),d(m[1])]:d(m),done:C}}})}}function nt(e){return function(...n){return e==="delete"?!1:e==="clear"?void 0:this}}function Os(e,n){const t={get(i){const s=this.__v_raw,o=L(s),r=L(i);e||(Se(i,r)&&ie(o,"get",i),ie(o,"get",r));const{has:l}=et(o),u=n?Qt:e?en:ye;if(l.call(o,i))return u(s.get(i));if(l.call(o,r))return u(s.get(r));s!==o&&s.get(i)},get size(){const i=this.__v_raw;return!e&&ie(L(i),"iterate",mn),i.size},has(i){const s=this.__v_raw,o=L(s),r=L(i);return e||(Se(i,r)&&ie(o,"has",i),ie(o,"has",r)),i===r?s.has(i):s.has(i)||s.has(r)},forEach(i,s){const o=this,r=o.__v_raw,l=L(r),u=n?Qt:e?en:ye;return!e&&ie(l,"iterate",mn),r.forEach((d,m)=>i.call(s,u(d),u(m),o))}};return ne(t,e?{add:nt("add"),set:nt("set"),delete:nt("delete"),clear:nt("clear")}:{add(i){const s=L(this),o=et(s),r=L(i),l=!n&&!fe(i)&&!Ge(i)?r:i;return o.has.call(s,l)||Se(i,l)&&o.has.call(s,i)||Se(r,l)&&o.has.call(s,r)||(s.add(l),Le(s,"add",l,l)),this},set(i,s){!n&&!fe(s)&&!Ge(s)&&(s=L(s));const o=L(this),{has:r,get:l}=et(o);let u=r.call(o,i);u||(i=L(i),u=r.call(o,i));const d=l.call(o,i);return o.set(i,s),u?Se(s,d)&&Le(o,"set",i,s):Le(o,"add",i,s),this},delete(i){const s=L(this),{has:o,get:r}=et(s);let l=o.call(s,i);l||(i=L(i),l=o.call(s,i)),r&&r.call(s,i);const u=s.delete(i);return l&&Le(s,"delete",i,void 0),u},clear(){const i=L(this),s=i.size!==0,o=i.clear();return s&&Le(i,"clear",void 0,void 0),o}}),["keys","values","entries",Symbol.iterator].forEach(i=>{t[i]=Gs(i,e,n)}),t}function la(e,n){const t=Os(e,n);return(a,i,s)=>i==="__v_isReactive"?!e:i==="__v_isReadonly"?e:i==="__v_isShallow"?n:i==="__v_raw"?a:Reflect.get(z(t,i)&&i in a?t:a,i,s)}const Fs={get:la(!1,!1)},zs={get:la(!1,!0)},Ns={get:la(!0,!1)};const Ti=new WeakMap,Di=new WeakMap,xi=new WeakMap,Ls=new WeakMap;function js(e){switch(e){case"Object":case"Array":return 1;case"Map":case"Set":case"WeakMap":case"WeakSet":return 2;default:return 0}}function zn(e){return Ge(e)?e:ca(e,!1,Ps,Fs,Ti)}function Qs(e){return ca(e,!1,Hs,zs,Di)}function Ut(e){return ca(e,!0,Ms,Ns,xi)}function ca(e,n,t,a,i){if(!U(e)||e.__v_raw&&!(n&&e.__v_isReactive)||e.__v_skip||!Object.isExtensible(e))return e;const s=i.get(e);if(s)return s;const o=js(gs(e));if(o===0)return e;const r=new Proxy(e,o===2?a:t);return i.set(e,r),r}function Ze(e){return Ge(e)?Ze(e.__v_raw):!!(e&&e.__v_isReactive)}function Ge(e){return!!(e&&e.__v_isReadonly)}function fe(e){return!!(e&&e.__v_isShallow)}function ha(e){return e?!!e.__v_raw:!1}function L(e){const n=e&&e.__v_raw;return n?L(n):e}function Us(e){return!z(e,"__v_skip")&&Object.isExtensible(e)&&li(e,"__v_skip",!0),e}const ye=e=>U(e)?zn(e):e,en=e=>U(e)?Ut(e):e;function se(e){return e?e.__v_isRef===!0:!1}function Ye(e){return Vs(e,!1)}function Vs(e,n){return se(e)?e:new Js(e,n)}class Js{constructor(n,t){this.dep=new ra,this.__v_isRef=!0,this.__v_isShallow=!1,this._rawValue=t?n:L(n),this._value=t?n:ye(n),this.__v_isShallow=t}get value(){return this.dep.track(),this._value}set value(n){const t=this._rawValue,a=this.__v_isShallow||fe(n)||Ge(n);n=a?n:L(n),Se(n,t)&&(this._rawValue=n,this._value=a?n:ye(n),this.dep.trigger())}}function ln(e){return se(e)?e.value:e}const Ks={get:(e,n,t)=>n==="__v_raw"?e:ln(Reflect.get(e,n,t)),set:(e,n,t,a)=>{const i=e[n];return se(i)&&!se(t)?(i.value=t,!0):Reflect.set(e,n,t,a)}};function qi(e){return Ze(e)?e:new Proxy(e,Ks)}class Ys{constructor(n,t,a){this.fn=n,this.setter=t,this._value=void 0,this.dep=new ra(this),this.__v_isRef=!0,this.deps=void 0,this.depsTail=void 0,this.flags=16,this.globalVersion=On-1,this.next=void 0,this.effect=this,this.__v_isReadonly=!t,this.isSSR=a}notify(){if(this.flags|=16,!(this.flags&8)&&Y!==this)return gi(this,!0),!0}get value(){const n=this.dep.track();return wi(this),n&&(n.version=this.dep.version),this._value}set value(n){this.setter&&this.setter(n)}}function $s(e,n,t=!1){let a,i;return H(e)?a=e:(a=e.get,i=e.set),new Ys(a,i,t)}const tt={},ct=new WeakMap;let cn;function Xs(e,n=!1,t=cn){if(t){let a=ct.get(t);a||ct.set(t,a=[]),a.push(e)}}function Zs(e,n,t=J){const{immediate:a,deep:i,once:s,scheduler:o,augmentJob:r,call:l}=t,u=E=>i?E:fe(E)||i===!1||i===0?je(E,1):je(E);let d,m,C,x,B=!1,w=!1;if(se(e)?(m=()=>e.value,B=fe(e)):Ze(e)?(m=()=>u(e),B=!0):S(e)?(w=!0,B=e.some(E=>Ze(E)||fe(E)),m=()=>e.map(E=>{if(se(E))return E.value;if(Ze(E))return u(E);if(H(E))return l?l(E,2):E()})):H(e)?n?m=l?()=>l(e,2):e:m=()=>{if(C){Me();try{C()}finally{He()}}const E=cn;cn=d;try{return l?l(e,3,[x]):e(x)}finally{cn=E}}:m=Re,n&&i){const E=m,ee=i===!0?1/0:i;m=()=>je(E(),ee)}const D=qs(),_=()=>{d.stop(),D&&D.active&&ea(D.effects,d)};if(s&&n){const E=n;n=(...ee)=>{try{return E(...ee)}finally{_()}}}let O=w?new Array(e.length).fill(tt):tt;const j=E=>{if(!(!(d.flags&1)||!d.dirty&&!E))if(n){const ee=d.run();if(E||i||B||(w?ee.some((Ve,Te)=>Se(Ve,O[Te])):Se(ee,O))){const Ve=cn;Me();try{C&&C(),cn=d;const Te=[ee,O===tt?void 0:w&&O[0]===tt?[]:O,x];O=ee,l?l(n,3,Te):n(...Te)}finally{cn=Ve,He()}}}else d.run()};return r&&r(j),d=new pi(m),d.scheduler=o?()=>o(j,!1):j,x=E=>Xs(E,!1,d),C=d.onStop=()=>{const E=ct.get(d);if(E){if(l)l(E,4);else for(const ee of E)ee();ct.delete(d)}},n?a?j(!0):O=d.run():o?o(j.bind(null,!0),!0):d.run(),_.pause=d.pause.bind(d),_.resume=d.resume.bind(d),_.stop=_,_}function je(e,n=1/0,t){if(n<=0||!U(e)||e.__v_skip||(t=t||new Map,(t.get(e)||0)>=n))return e;if(t.set(e,n),n--,se(e))je(e.value,n,t);else if(S(e))for(let a=0;a<e.length;a++)je(e[a],n,t);else if(bn(e)||Xe(e))e.forEach(a=>{je(a,n,t)});else if(oi(e)){for(const a in e)je(e[a],n,t);for(const a of Object.getOwnPropertySymbols(e))Object.prototype.propertyIsEnumerable.call(e,a)&&je(e[a],n,t)}return e}/**
+**/let ae;class xs{constructor(n=!1){this.detached=n,this._active=!0,this._on=0,this.effects=[],this.cleanups=[],this._isPaused=!1,this._warnOnRun=!0,this.__v_skip=!0,!n&&ae&&(ae.active?(this.parent=ae,this.index=(ae.scopes||(ae.scopes=[])).push(this)-1):(this._active=!1,this._warnOnRun=!1))}get active(){return this._active}pause(){if(this._active){this._isPaused=!0;let n,t;if(this.scopes){const a=this.scopes.slice();for(n=0,t=a.length;n<t;n++)a[n].pause()}for(n=0,t=this.effects.length;n<t;n++)this.effects[n].pause()}}resume(){if(this._active&&this._isPaused){this._isPaused=!1;let n,t;if(this.scopes){const i=this.scopes.slice();for(n=0,t=i.length;n<t;n++)i[n].resume()}const a=this.effects.slice();for(n=0,t=a.length;n<t;n++)a[n].resume()}}run(n){if(this._active){const t=ae;try{return ae=this,n()}finally{ae=t}}}on(){++this._on===1&&(this.prevScope=ae,ae=this)}off(){if(this._on>0&&--this._on===0){if(ae===this)ae=this.prevScope;else{let n=ae;for(;n;){if(n.prevScope===this){n.prevScope=this.prevScope;break}n=n.prevScope}}this.prevScope=void 0}}stop(n){if(this._active){this._active=!1;let t,a;for(t=0,a=this.effects.length;t<a;t++)this.effects[t].stop();for(this.effects.length=0,t=0,a=this.cleanups.length;t<a;t++)this.cleanups[t]();if(this.cleanups.length=0,this.scopes){const i=this.scopes.slice();for(t=0,a=i.length;t<a;t++)i[t].stop(!0);this.scopes.length=0}if(!this.detached&&this.parent&&!n){const i=this.parent.scopes.pop();i&&i!==this&&(this.parent.scopes[this.index]=i,i.index=this.index)}this.parent=void 0}}}function qs(){return ae}let Y;const Wt=new WeakSet;class pi{constructor(n){this.fn=n,this.deps=void 0,this.depsTail=void 0,this.flags=5,this.next=void 0,this.cleanup=void 0,this.scheduler=void 0,ae&&(ae.active?ae.effects.push(this):this.flags&=-2)}pause(){this.flags|=64}resume(){this.flags&64&&(this.flags&=-65,Wt.has(this)&&(Wt.delete(this),this.trigger()))}notify(){this.flags&2&&!(this.flags&32)||this.flags&8||gi(this)}run(){if(!(this.flags&1))return this.fn();this.flags|=2,Ia(this),fi(this);const n=Y,t=Ce;Y=this,Ce=!0;try{return this.fn()}finally{yi(this),Y=n,Ce=t,this.flags&=-3}}stop(){if(this.flags&1){for(let n=this.deps;n;n=n.nextDep)oa(n);this.deps=this.depsTail=void 0,Ia(this),this.onStop&&this.onStop(),this.flags&=-2}}trigger(){this.flags&64?Wt.add(this):this.scheduler?this.scheduler():this.runIfDirty()}runIfDirty(){Nt(this)&&this.run()}get dirty(){return Nt(this)}}let mi=0,En,Sn;function gi(e,n=!1){if(e.flags|=8,n){e.next=Sn,Sn=e;return}e.next=En,En=e}function ia(){mi++}function sa(){if(--mi>0)return;if(Sn){let n=Sn;for(Sn=void 0;n;){const t=n.next;n.next=void 0,n.flags&=-9,n=t}}let e;for(;En;){let n=En;for(En=void 0;n;){const t=n.next;if(n.next=void 0,n.flags&=-9,n.flags&1)try{n.trigger()}catch(a){e||(e=a)}n=t}}if(e)throw e}function fi(e){for(let n=e.deps;n;n=n.nextDep)n.version=-1,n.prevActiveLink=n.dep.activeLink,n.dep.activeLink=n}function yi(e){let n,t=e.depsTail,a=t;for(;a;){const i=a.prevDep;a.version===-1?(a===t&&(t=i),oa(a),Is(a)):n=a,a.dep.activeLink=a.prevActiveLink,a.prevActiveLink=void 0,a=i}e.deps=n,e.depsTail=t}function Nt(e){for(let n=e.deps;n;n=n.nextDep)if(n.dep.version!==n.version||n.dep.computed&&(wi(n.dep.computed)||n.dep.version!==n.version))return!0;return!!e._dirty}function wi(e){if(e.flags&4&&!(e.flags&16)||(e.flags&=-17,e.globalVersion===Gn)||(e.globalVersion=Gn,!e.isSSR&&e.flags&128&&(!e.deps&&!e._dirty||!Nt(e))))return;e.flags|=2;const n=e.dep,t=Y,a=Ce;Y=e,Ce=!0;try{fi(e);const i=e.fn(e._value);(n.version===0||Se(i,e._value))&&(e.flags|=128,e._value=i,n.version++)}catch(i){throw n.version++,i}finally{Y=t,Ce=a,yi(e),e.flags&=-3}}function oa(e,n=!1){const{dep:t,prevSub:a,nextSub:i}=e;if(a&&(a.nextSub=i,e.prevSub=void 0),i&&(i.prevSub=a,e.nextSub=void 0),t.subs===e&&(t.subs=a,!a&&t.computed)){t.computed.flags&=-5;for(let s=t.computed.deps;s;s=s.nextDep)oa(s,!0)}!n&&!--t.sc&&t.map&&t.map.delete(t.key)}function Is(e){const{prevDep:n,nextDep:t}=e;n&&(n.nextDep=t,e.prevDep=void 0),t&&(t.prevDep=n,e.nextDep=void 0)}let Ce=!0;const bi=[];function Me(){bi.push(Ce),Ce=!1}function He(){const e=bi.pop();Ce=e===void 0?!0:e}function Ia(e){const{cleanup:n}=e;if(e.cleanup=void 0,n){const t=Y;Y=void 0;try{n()}finally{Y=t}}}let Gn=0;class Ws{constructor(n,t){this.sub=n,this.dep=t,this.version=t.version,this.nextDep=this.prevDep=this.nextSub=this.prevSub=this.prevActiveLink=void 0}}class ra{constructor(n){this.computed=n,this.version=0,this.activeLink=void 0,this.subs=void 0,this.map=void 0,this.key=void 0,this.sc=0,this.__v_skip=!0}track(n){if(!Y||!Ce||Y===this.computed)return;let t=this.activeLink;if(t===void 0||t.sub!==Y)t=this.activeLink=new Ws(Y,this),Y.deps?(t.prevDep=Y.depsTail,Y.depsTail.nextDep=t,Y.depsTail=t):Y.deps=Y.depsTail=t,vi(t);else if(t.version===-1&&(t.version=this.version,t.nextDep)){const a=t.nextDep;a.prevDep=t.prevDep,t.prevDep&&(t.prevDep.nextDep=a),t.prevDep=Y.depsTail,t.nextDep=void 0,Y.depsTail.nextDep=t,Y.depsTail=t,Y.deps===t&&(Y.deps=a)}return t}trigger(n){this.version++,Gn++,this.notify(n)}notify(n){ia();try{for(let t=this.subs;t;t=t.prevSub)t.sub.notify()&&t.sub.dep.notify()}finally{sa()}}}function vi(e){if(e.dep.sc++,e.sub.flags&4){const n=e.dep.computed;if(n&&!e.dep.subs){n.flags|=20;for(let a=n.deps;a;a=a.nextDep)vi(a)}const t=e.dep.subs;t!==e&&(e.prevSub=t,t&&(t.nextSub=e)),e.dep.subs=e}}const Lt=new WeakMap,mn=Symbol(""),Qt=Symbol(""),zn=Symbol("");function ie(e,n,t){if(Ce&&Y){let a=Lt.get(e);a||Lt.set(e,a=new Map);let i=a.get(t);i||(a.set(t,i=new ra),i.map=a,i.key=t),i.track()}}function Le(e,n,t,a,i,s){const o=Lt.get(e);if(!o){Gn++;return}const r=l=>{l&&l.trigger()};if(ia(),n==="clear")o.forEach(r);else{const l=S(e),u=l&&na(t);if(l&&t==="length"){const d=Number(a);o.forEach((m,B)=>{(B==="length"||B===zn||!Pe(B)&&B>=d)&&r(m)})}else switch((t!==void 0||o.has(void 0))&&r(o.get(t)),u&&r(o.get(zn)),n){case"add":l?u&&r(o.get("length")):(r(o.get(mn)),Ze(e)&&r(o.get(Qt)));break;case"delete":l||(r(o.get(mn)),Ze(e)&&r(o.get(Qt)));break;case"set":Ze(e)&&r(o.get(mn));break}}sa()}function fn(e){const n=L(e);return n===e||(ie(n,"iterate",zn),fe(e))?n:Oe(e)?en(e)?n.map(t=>nn(ye(t))):n.map(nn):n.map(ye)}function At(e){return ie(e=L(e),"iterate",zn),e}function We(e,n){return Oe(e)?nn(en(e)?ye(n):n):ye(n)}const _s={__proto__:null,[Symbol.iterator](){return _t(this,Symbol.iterator,e=>We(this,e))},concat(...e){return fn(this).concat(...e.map(n=>S(n)?fn(n):n))},entries(){return _t(this,"entries",e=>(e[1]=We(this,e[1]),e))},every(e,n){return ze(this,"every",e,n,void 0,arguments)},filter(e,n){return ze(this,"filter",e,n,t=>t.map(a=>We(this,a)),arguments)},find(e,n){return ze(this,"find",e,n,t=>We(this,t),arguments)},findIndex(e,n){return ze(this,"findIndex",e,n,void 0,arguments)},findLast(e,n){return ze(this,"findLast",e,n,t=>We(this,t),arguments)},findLastIndex(e,n){return ze(this,"findLastIndex",e,n,void 0,arguments)},forEach(e,n){return ze(this,"forEach",e,n,void 0,arguments)},includes(...e){return Et(this,"includes",e)},indexOf(...e){return Et(this,"indexOf",e)},join(e){return fn(this).join(e)},lastIndexOf(...e){return Et(this,"lastIndexOf",e)},map(e,n){return ze(this,"map",e,n,void 0,arguments)},pop(){return Dn(this,"pop")},push(...e){return Dn(this,"push",e)},reduce(e,...n){return _a(this,"reduce",e,n)},reduceRight(e,...n){return _a(this,"reduceRight",e,n)},shift(){return Dn(this,"shift")},some(e,n){return ze(this,"some",e,n,void 0,arguments)},splice(...e){return Dn(this,"splice",e)},toReversed(){return fn(this).toReversed()},toSorted(e){return fn(this).toSorted(e)},toSpliced(...e){return fn(this).toSpliced(...e)},unshift(...e){return Dn(this,"unshift",e)},values(){return _t(this,"values",e=>We(this,e))}};function _t(e,n,t){const a=At(e),i=a[n],s=i.call(a);if(a!==e&&!fe(e)){if(s[Symbol.toStringTag]==="Array Iterator"){const o=Object.create(Object.getPrototypeOf(s));return o.next=()=>Wa(s.next(),t),i!==Ai[n]&&Object.defineProperties(o,{return:{get(){const r=s.return;return typeof r=="function"?r.bind(s):r}},throw:{get(){const r=s.throw;return typeof r=="function"?r.bind(s):r}}}),o}s._next=s.next,s.next=()=>Wa(s._next(),t)}return s}function Wa(e,n){return e.done||(e.value=n(e.value)),e}const Ai=Array.prototype;function ze(e,n,t,a,i,s){const o=At(e),r=o!==e&&!fe(e),l=o[n];if(l!==Ai[n]){const m=l.apply(e,s);return r?ye(m):m}let u=t;o!==e&&(r?u=function(m,B){return t.call(this,We(e,m),B,e)}:t.length>2&&(u=function(m,B){return t.call(this,m,B,e)}));const d=l.call(o,u,a);return r&&i?i(d):d}function _a(e,n,t,a){const i=At(e),s=i!==e&&!fe(e);let o=t,r=!1;i!==e&&(s?(r=a.length===0,o=function(u,d,m){return r&&(r=!1,u=We(e,u)),t.call(this,u,We(e,d),m,e)}):t.length>3&&(o=function(u,d,m){return t.call(this,u,d,m,e)}));const l=i[n](o,...a);return r?We(e,l):l}function Et(e,n,t){const a=L(e);ie(a,"iterate",zn);const i=a[n](...t);return(i===-1||i===!1)&&ha(t[0])?(t[0]=L(t[0]),a[n](...t)):i}function Dn(e,n,t=[]){Me(),ia();const a=L(e)[n].apply(e,t);return sa(),He(),a}const Es=Zt("__proto__,__v_isRef,__isVue"),ki=new Set(Object.getOwnPropertyNames(Symbol).filter(e=>e!=="arguments"&&e!=="caller").map(e=>Symbol[e]).filter(Pe));function Ss(e){Pe(e)||(e=String(e));const n=L(this);return ie(n,"has",e),n.hasOwnProperty(e)}class Ci{constructor(n=!1,t=!1){this._isReadonly=n,this._isShallow=t}get(n,t,a){if(t==="__v_skip")return n.__v_skip;const i=this._isReadonly,s=this._isShallow;if(t==="__v_isReactive")return!i;if(t==="__v_isReadonly")return i;if(t==="__v_isShallow")return s;if(t==="__v_raw")return a===(i?s?Ls:xi:s?Di:Ti).get(n)||Object.getPrototypeOf(n)===Object.getPrototypeOf(a)?n:void 0;const o=S(n);if(!i){let l;if(o&&(l=_s[t]))return l;if(t==="hasOwnProperty")return Ss}const r=Reflect.get(n,t,se(n)?n:a);if((Pe(t)?ki.has(t):Es(t))||(i||ie(n,"get",t),s))return r;if(se(r)){const l=o&&na(t)?r:r.value;return i&&U(l)?Ut(l):l}return U(r)?i?Ut(r):Fn(r):r}}class Bi extends Ci{constructor(n=!1){super(!1,n)}set(n,t,a,i){let s=n[t];const o=S(n)&&na(t);if(!this._isShallow){const u=Oe(s);if(!fe(a)&&!Oe(a)&&(s=L(s),a=L(a)),!o&&se(s)&&!se(a))return u||(s.value=a),!0}const r=o?Number(t)<n.length:F(n,t),l=Reflect.set(n,t,a,se(n)?n:i);return n===L(i)&&l&&(r?Se(a,s)&&Le(n,"set",t,a):Le(n,"add",t,a)),l}deleteProperty(n,t){const a=F(n,t);n[t];const i=Reflect.deleteProperty(n,t);return i&&a&&Le(n,"delete",t,void 0),i}has(n,t){const a=Reflect.has(n,t);return(!Pe(t)||!ki.has(t))&&ie(n,"has",t),a}ownKeys(n){return ie(n,"iterate",S(n)?"length":mn),Reflect.ownKeys(n)}}class Rs extends Ci{constructor(n=!1){super(!0,n)}set(n,t){return!0}deleteProperty(n,t){return!0}}const Ps=new Bi,Ms=new Rs,Hs=new Bi(!0);const jt=e=>e,et=e=>Reflect.getPrototypeOf(e);function Os(e,n,t){return function(...a){const i=this.__v_raw,s=L(i),o=Ze(s),r=e==="entries"||e===Symbol.iterator&&o,l=e==="keys"&&o,u=i[e](...a),d=t?jt:n?nn:ye;return!n&&ie(s,"iterate",l?Qt:mn),ne(Object.create(u),{next(){const{value:m,done:B}=u.next();return B?{value:m,done:B}:{value:r?[d(m[0]),d(m[1])]:d(m),done:B}}})}}function nt(e){return function(...n){return e==="delete"?!1:e==="clear"?void 0:this}}function Gs(e,n){const t={get(i){const s=this.__v_raw,o=L(s),r=L(i);e||(Se(i,r)&&ie(o,"get",i),ie(o,"get",r));const{has:l}=et(o),u=n?jt:e?nn:ye;if(l.call(o,i))return u(s.get(i));if(l.call(o,r))return u(s.get(r));s!==o&&s.get(i)},get size(){const i=this.__v_raw;return!e&&ie(L(i),"iterate",mn),i.size},has(i){const s=this.__v_raw,o=L(s),r=L(i);return e||(Se(i,r)&&ie(o,"has",i),ie(o,"has",r)),i===r?s.has(i):s.has(i)||s.has(r)},forEach(i,s){const o=this,r=o.__v_raw,l=L(r),u=n?jt:e?nn:ye;return!e&&ie(l,"iterate",mn),r.forEach((d,m)=>i.call(s,u(d),u(m),o))}};return ne(t,e?{add:nt("add"),set:nt("set"),delete:nt("delete"),clear:nt("clear")}:{add(i){const s=L(this),o=et(s),r=L(i),l=!n&&!fe(i)&&!Oe(i)?r:i;return o.has.call(s,l)||Se(i,l)&&o.has.call(s,i)||Se(r,l)&&o.has.call(s,r)||(s.add(l),Le(s,"add",l,l)),this},set(i,s){!n&&!fe(s)&&!Oe(s)&&(s=L(s));const o=L(this),{has:r,get:l}=et(o);let u=r.call(o,i);u||(i=L(i),u=r.call(o,i));const d=l.call(o,i);return o.set(i,s),u?Se(s,d)&&Le(o,"set",i,s):Le(o,"add",i,s),this},delete(i){const s=L(this),{has:o,get:r}=et(s);let l=o.call(s,i);l||(i=L(i),l=o.call(s,i)),r&&r.call(s,i);const u=s.delete(i);return l&&Le(s,"delete",i,void 0),u},clear(){const i=L(this),s=i.size!==0,o=i.clear();return s&&Le(i,"clear",void 0,void 0),o}}),["keys","values","entries",Symbol.iterator].forEach(i=>{t[i]=Os(i,e,n)}),t}function la(e,n){const t=Gs(e,n);return(a,i,s)=>i==="__v_isReactive"?!e:i==="__v_isReadonly"?e:i==="__v_isShallow"?n:i==="__v_raw"?a:Reflect.get(F(t,i)&&i in a?t:a,i,s)}const zs={get:la(!1,!1)},Fs={get:la(!1,!0)},Ns={get:la(!0,!1)};const Ti=new WeakMap,Di=new WeakMap,xi=new WeakMap,Ls=new WeakMap;function Qs(e){switch(e){case"Object":case"Array":return 1;case"Map":case"Set":case"WeakMap":case"WeakSet":return 2;default:return 0}}function Fn(e){return Oe(e)?e:ca(e,!1,Ps,zs,Ti)}function js(e){return ca(e,!1,Hs,Fs,Di)}function Ut(e){return ca(e,!0,Ms,Ns,xi)}function ca(e,n,t,a,i){if(!U(e)||e.__v_raw&&!(n&&e.__v_isReactive)||e.__v_skip||!Object.isExtensible(e))return e;const s=i.get(e);if(s)return s;const o=Qs(gs(e));if(o===0)return e;const r=new Proxy(e,o===2?a:t);return i.set(e,r),r}function en(e){return Oe(e)?en(e.__v_raw):!!(e&&e.__v_isReactive)}function Oe(e){return!!(e&&e.__v_isReadonly)}function fe(e){return!!(e&&e.__v_isShallow)}function ha(e){return e?!!e.__v_raw:!1}function L(e){const n=e&&e.__v_raw;return n?L(n):e}function Us(e){return!F(e,"__v_skip")&&Object.isExtensible(e)&&li(e,"__v_skip",!0),e}const ye=e=>U(e)?Fn(e):e,nn=e=>U(e)?Ut(e):e;function se(e){return e?e.__v_isRef===!0:!1}function $e(e){return Vs(e,!1)}function Vs(e,n){return se(e)?e:new Js(e,n)}class Js{constructor(n,t){this.dep=new ra,this.__v_isRef=!0,this.__v_isShallow=!1,this._rawValue=t?n:L(n),this._value=t?n:ye(n),this.__v_isShallow=t}get value(){return this.dep.track(),this._value}set value(n){const t=this._rawValue,a=this.__v_isShallow||fe(n)||Oe(n);n=a?n:L(n),Se(n,t)&&(this._rawValue=n,this._value=a?n:ye(n),this.dep.trigger())}}function Ke(e){return se(e)?e.value:e}const Ks={get:(e,n,t)=>n==="__v_raw"?e:Ke(Reflect.get(e,n,t)),set:(e,n,t,a)=>{const i=e[n];return se(i)&&!se(t)?(i.value=t,!0):Reflect.set(e,n,t,a)}};function qi(e){return en(e)?e:new Proxy(e,Ks)}class Ys{constructor(n,t,a){this.fn=n,this.setter=t,this._value=void 0,this.dep=new ra(this),this.__v_isRef=!0,this.deps=void 0,this.depsTail=void 0,this.flags=16,this.globalVersion=Gn-1,this.next=void 0,this.effect=this,this.__v_isReadonly=!t,this.isSSR=a}notify(){if(this.flags|=16,!(this.flags&8)&&Y!==this)return gi(this,!0),!0}get value(){const n=this.dep.track();return wi(this),n&&(n.version=this.dep.version),this._value}set value(n){this.setter&&this.setter(n)}}function $s(e,n,t=!1){let a,i;return G(e)?a=e:(a=e.get,i=e.set),new Ys(a,i,t)}const tt={},ct=new WeakMap;let cn;function Xs(e,n=!1,t=cn){if(t){let a=ct.get(t);a||ct.set(t,a=[]),a.push(e)}}function Zs(e,n,t=J){const{immediate:a,deep:i,once:s,scheduler:o,augmentJob:r,call:l}=t,u=P=>i?P:fe(P)||i===!1||i===0?Qe(P,1):Qe(P);let d,m,B,q,W=!1,y=!1;if(se(e)?(m=()=>e.value,W=fe(e)):en(e)?(m=()=>u(e),W=!0):S(e)?(y=!0,W=e.some(P=>en(P)||fe(P)),m=()=>e.map(P=>{if(se(P))return P.value;if(en(P))return u(P);if(G(P))return l?l(P,2):P()})):G(e)?n?m=l?()=>l(e,2):e:m=()=>{if(B){Me();try{B()}finally{He()}}const P=cn;cn=d;try{return l?l(e,3,[q]):e(q)}finally{cn=P}}:m=Re,n&&i){const P=m,ee=i===!0?1/0:i;m=()=>Qe(P(),ee)}const v=qs(),x=()=>{d.stop(),v&&v.active&&ea(v.effects,d)};if(s&&n){const P=n;n=(...ee)=>{try{return P(...ee)}finally{x()}}}let R=y?new Array(e.length).fill(tt):tt;const Q=P=>{if(!(!(d.flags&1)||!d.dirty&&!P))if(n){const ee=d.run();if(P||i||W||(y?ee.some((Ve,De)=>Se(Ve,R[De])):Se(ee,R))){const Ve=cn;Me();try{B&&B(),cn=d;const De=[ee,R===tt?void 0:y&&R[0]===tt?[]:R,q];R=ee,l?l(n,3,De):n(...De)}finally{cn=Ve,He()}}}else d.run()};return r&&r(Q),d=new pi(m),d.scheduler=o?()=>o(Q,!1):Q,q=P=>Xs(P,!1,d),B=d.onStop=()=>{const P=ct.get(d);if(P){if(l)l(P,4);else for(const ee of P)ee();ct.delete(d)}},n?a?Q(!0):R=d.run():o?o(Q.bind(null,!0),!0):d.run(),x.pause=d.pause.bind(d),x.resume=d.resume.bind(d),x.stop=x,x}function Qe(e,n=1/0,t){if(n<=0||!U(e)||e.__v_skip||(t=t||new Map,(t.get(e)||0)>=n))return e;if(t.set(e,n),n--,se(e))Qe(e.value,n,t);else if(S(e))for(let a=0;a<e.length;a++)Qe(e[a],n,t);else if(bn(e)||Ze(e))e.forEach(a=>{Qe(a,n,t)});else if(oi(e)){for(const a in e)Qe(e[a],n,t);for(const a of Object.getOwnPropertySymbols(e))Object.prototype.propertyIsEnumerable.call(e,a)&&Qe(e[a],n,t)}return e}/**
 * @vue/runtime-core v3.5.46
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
-**/function Vn(e,n,t,a){try{return a?e(...a):e()}catch(i){kt(i,n,t)}}function Ce(e,n,t,a){if(H(e)){const i=Vn(e,n,t,a);return i&&ii(i)&&i.catch(s=>{kt(s,n,t,void 0,!0)}),i}if(S(e)){const i=[];for(let s=0;s<e.length;s++)i.push(Ce(e[s],n,t,a));return i}}function kt(e,n,t,a=!0,i=!1){const s=n?n.vnode:null,{errorHandler:o,throwUnhandledErrorInProduction:r}=n&&n.appContext.config||J;if(n){let l=n.parent;const u=n.proxy,d=`https://vuejs.org/error-reference/#runtime-${t}`;for(;l;){const m=l.ec;if(m&&!l.isUnmounted&&(!i||l.scope.active)){for(let C=0;C<m.length;C++)if(m[C](e,u,d)===!1)return}l=l.parent}if(o){Me(),Vn(o,null,10,[e,u,d]),He();return}}eo(e,t,s,a,r)}function eo(e,n,t,a=!0,i=!1){if(i)throw e;console.error(e)}const ce=[];let ve=-1;const We=[];let Ke=null,yn=0;const Ii=Promise.resolve();let ht=null;function no(e){const n=ht||Ii;return e?n.then(this?e.bind(this):e):n}function to(e){let n=ve+1,t=ce.length;for(;n<t;){const a=n+t>>>1,i=ce[a],s=Nn(i);s<e||s===e&&i.flags&2?n=a+1:t=a}return n}function da(e){if(!(e.flags&1)){const n=Nn(e),t=ce[ce.length-1];!t||!(e.flags&2)&&n>=Nn(t)?ce.push(e):ce.splice(to(n),0,e),e.flags|=1,Wi()}}function Wi(){ht||(ht=Ii.then(Ei))}function ao(e){if(!S(e))Ke&&e.id===-1?Ke.splice(yn+1,0,e):e.flags&1||(We.push(e),e.flags|=1);else for(let n=0;n<e.length;n++)We.push(e[n]);Wi()}function _i(e,n,t,a=ve+1){for(;a<ce.length;a++){const i=ce[a];if(i&&i.flags&2){if(e&&i.id!==e.uid||n!==void 0&&!(i.id>=n))continue;ce.splice(a,1),a=e?a-1:ve,i.flags&4&&(i.flags&=-2),i(),i.flags&4||(i.flags&=-2)}}}function Si(e,n,t=0){if(We.length){let a=We,i=0;if(n){a=[];for(let o=0;o<We.length;o++){const r=We[o];(r.i!==void 0?!r.i||r.i.uid<t:n.has(r))?We[i++]=r:a.push(r)}}const s=[...new Set(a)].sort((o,r)=>Nn(o)-Nn(r));if(We.length=i,Ke){for(let o=0;o<s.length;o++)Ke.push(s[o]);return}for(Ke=s,yn=0;yn<Ke.length;yn++){const o=Ke[yn];o.flags&4&&(o.flags&=-2),o.flags&8||o(),o.flags&=-2}Ke=null,yn=0}}let Et=!1;function io(e,n){if(Et){e();return}const t=n===void 0?void 0:new Set(We);e(),Et=!0;try{_i(void 0,n),Si(void 0,t,n)}finally{Et=!1}}const Nn=e=>e.id==null?e.flags&2?-1:1/0:e.id;function Ei(e){try{for(ve=0;ve<ce.length;ve++){const n=ce[ve];n&&!(n.flags&8)&&(n.flags&4&&(n.flags&=-2),Vn(n,n.i,n.i?15:14),n.flags&4||(n.flags&=-2))}}finally{for(;ve<ce.length;ve++){const n=ce[ve];n&&(n.flags&=-2)}ve=-1,ce.length=0,Si(),ht=null,(ce.length||We.length)&&Ei()}}let ge=null,Ri=null;function dt(e){const n=ge;return ge=e,Ri=e&&e.type.__scopeId||null,n}function so(e,n=ge,t){if(!n||e._n)return e;const a=(...i)=>{a._d&&Na(-1);const s=dt(n),o=gn.length;let r;try{r=e(...i)}finally{for(let l=gn.length;l>o;l--)as();dt(s),a._d&&Na(1)}return r};return a._n=!0,a._c=!0,a._d=!0,a}function ua(e,n){if(ge===null)return e;const t=Dt(ge),a=e.dirs||(e.dirs=[]);for(let i=0;i<n.length;i++){let[s,o,r,l=J]=n[i];s&&(H(s)&&(s={mounted:s,updated:s}),s.deep&&je(o),a.push({dir:s,instance:t,value:o,oldValue:void 0,arg:r,modifiers:l}))}return e}function on(e,n,t,a){let i=e;if(a==="beforeMount")e._mount=e;else if(a==="beforeUpdate"){const r=n&&n._mount;r&&(r._latest=e,e._mount=r)}else if(a==="mounted"){const r=e._latest;e._mount=e._latest=void 0,r&&(i=r,r._mount=void 0)}const s=i.dirs,o=n&&n.dirs;for(let r=0;r<s.length;r++){let l=s[r];o?l.oldValue=o[r].value:a==="mounted"&&l.oldValue!==void 0&&(l=ne({},l,{oldValue:void 0}));let u=l.dir[a];u&&(Me(),Ce(u,t,8,[e.el,l,i,n]),He())}}function oo(e,n){if(he){let t=he.provides;const a=he.parent&&he.parent.provides;a===t&&(t=he.provides=Object.create(a)),t[e]=n}}function ot(e,n,t=!1){const a=or();if(a||wn){let i=wn?wn._context.provides:a?a.parent==null||a.ce?a.vnode.appContext&&a.vnode.appContext.provides:a.parent.provides:void 0;if(i&&e in i)return i[e];if(arguments.length>1)return t&&H(n)?n.call(a&&a.proxy):n}}const ro=Symbol.for("v-scx"),lo=()=>ot(ro);function Rt(e,n,t){return Pi(e,n,t)}function Pi(e,n,t=J){const{immediate:a,deep:i,flush:s,once:o}=t,r=ne({},t),l=n&&a||!n&&s!=="post";let u;if(Un){if(s==="sync"){const x=lo();u=x.__watcherHandles||(x.__watcherHandles=[])}else if(!l){const x=()=>{};return x.stop=Re,x.resume=Re,x.pause=Re,x}}const d=he;r.call=(x,B,w)=>Ce(x,d,B,w);let m=!1;s==="post"?r.scheduler=x=>{x.i=d,le(x,d&&d.suspense)}:s!=="sync"&&(m=!0,r.scheduler=(x,B)=>{B?x():da(x)}),r.augmentJob=x=>{n&&(x.flags|=4),m&&(x.flags|=2,d&&(x.id=d.uid,x.i=d))};const C=Zs(e,n,r);return Un&&(u?u.push(C):l&&C()),C}function co(e,n,t){const a=this.proxy,i=X(e)?e.includes(".")?Mi(a,e):()=>a[e]:e.bind(a,a);let s;H(n)?s=n:(s=n.handler,t=n);const o=Jn(this),r=Pi(i,s.bind(a),t);return o(),r}function Mi(e,n){const t=n.split(".");return()=>{let a=e;for(let i=0;i<t.length&&a;i++)a=a[t[i]];return a}}const ho=Symbol("_vte"),Ct=e=>e.__isTeleport,Pt=Symbol("_leaveCb");function uo(e){let n=e[0];if(e.length>1){for(const t of e)if(t.type!==Be){n=t;break}}return n}function Hi(e){if(!pa(e))return Ct(e.type)&&e.children?uo(e.children):e;if(e.component)return e.component.subTree;const{shapeFlag:n,children:t}=e;if(t){if(n&16)return t[0];if(n&32&&H(t.default))return t.default()}}function Rn(e,n){if(e.shapeFlag&6&&e.component){e.transition=n;const t=e.component.subTree;Rn(Ct(t.type)&&Hi(t)||t,n)}else if(e.shapeFlag&128){const t=e.suspense;if(t){const a=t.isHydrating?t.pendingBranch:t.activeBranch;a&&Rn(a,n.clone(a))}else e.ssContent.transition=n.clone(e.ssContent),e.ssFallback.transition=n.clone(e.ssFallback)}else if(e.transition=n,e.type===N&&S(e.children)){const t=ji(e.children,!1);t&&Rn(t,n)}}function Vt(e){if(e.component)return Vt(e.component.subTree);if(e.type===N){const n=S(e.children)&&ji(e.children,!1);return n?Vt(n):void 0}if(e.type!==Be)return e}function Gi(e){e.ids=[e.ids[0]+e.ids[2]+++"-",0,0]}function Sa(e,n){let t;return!!((t=Object.getOwnPropertyDescriptor(e,n))&&!t.configurable)}const ut=new WeakMap;function Pn(e,n,t,a,i=!1){if(S(e)){e.forEach((w,D)=>Pn(w,n&&(S(n)?n[D]:n),t,a,i));return}if(Mn(a)&&!i){a.shapeFlag&512&&a.type.__asyncResolved&&a.component.subTree.component&&Pn(e,n,t,a.component.subTree);return}const s=a.shapeFlag&4?Dt(a.component):a.el,o=i?null:s,{i:r,r:l}=e,u=n&&n.r,d=r.refs===J?r.refs={}:r.refs,m=r.setupState,C=L(m),x=m===J?ai:w=>Sa(d,w)?!1:z(C,w),B=(w,D)=>!(D&&Sa(d,D));if(u!=null&&u!==l){if(Ea(n),X(u))d[u]=null,x(u)&&(m[u]=null);else if(se(u)){const w=n;B(u,w.k)&&(u.value=null),w.k&&(d[w.k]=null)}}if(H(l))Vn(l,r,12,[o,d]);else{const w=X(l),D=se(l);if(w||D){const _=()=>{if(e.f){const O=w?x(l)?m[l]:d[l]:B()||!e.k?l.value:d[e.k];if(i)S(O)&&ea(O,s);else if(S(O))O.includes(s)||O.push(s);else if(w)d[l]=[s],x(l)&&(m[l]=d[l]);else{const j=[s];B(l,e.k)&&(l.value=j),e.k&&(d[e.k]=j)}}else w?(d[l]=o,x(l)&&(m[l]=o)):D&&(B(l,e.k)&&(l.value=o),e.k&&(d[e.k]=o))};if(o){const O=()=>{_(),ut.delete(e)};O.id=-1,ut.set(e,O),le(O,t)}else Ea(e),_()}}}function Ea(e){const n=ut.get(e);n&&(n.flags|=8,ut.delete(e))}vt().requestIdleCallback;vt().cancelIdleCallback;const Mn=e=>!!e.type.__asyncLoader,pa=e=>e.type.__isKeepAlive;function po(e,n){Oi(e,"a",n)}function mo(e,n){Oi(e,"da",n)}function Oi(e,n,t=he){const a=e.__wdc||(e.__wdc=()=>{let i=t;for(;i;){if(i.isDeactivated)return;i=i.parent}return e()});if(Ln(n,a,t),t){let i=t.parent;for(;i&&i.parent;)pa(i.parent.vnode)&&go(a,n,t,i),i=i.parent}}function go(e,n,t,a){const i=Ln(n,e,a,!0),s=Ln("um",()=>ea(a[n],i),t);s.flags=16}function Ln(e,n,t=he,a=!1){if(t){const i=t[e]||(t[e]=[]),s=n.__weh||(n.__weh=(...o)=>{Me();const r=Jn(t),l=Ce(n,t,e,o);return r(),He(),l});return a?i.unshift(s):i.push(s),s}}const Ue=e=>(n,t=he)=>{(!Un||e==="sp")&&Ln(e,(...a)=>n(...a),t)},fo=Ue("bm"),yo=Ue("m"),wo=Ue("bu"),bo=Ue("u"),vo=Ue("bum"),Ao=Ue("um"),ko=Ue("sp"),Co=Ue("rtg"),Bo=Ue("rtc");function To(e,n=he){Ln("ec",e,n)}const Do=Symbol.for("v-ndc");function Ee(e,n,t,a){let i;const s=t,o=S(e);if(o||X(e)){const r=o&&Ze(e);let l=!1,u=!1;r&&(l=!fe(e),u=Ge(e),e=At(e)),i=new Array(e.length);for(let d=0,m=e.length;d<m;d++)i[d]=n(l?u?en(ye(e[d])):ye(e[d]):e[d],d,void 0,s)}else if(typeof e=="number")if(!Number.isInteger(e)||e<0)i=[];else{i=new Array(e);for(let r=0;r<e;r++)i[r]=n(r+1,r,void 0,s)}else if(U(e))if(e[Symbol.iterator])i=Array.from(e,(r,l)=>n(r,l,void 0,s));else{const r=Object.keys(e);i=new Array(r.length);for(let l=0,u=r.length;l<u;l++){const d=r[l];i[l]=n(e[d],d,l,s)}}else i=[];return i}const Jt=e=>e?rs(e)?Dt(e):Jt(e.parent):null,Hn=ne(Object.create(null),{$:e=>e,$el:e=>e.vnode.el,$data:e=>e.data,$props:e=>e.props,$attrs:e=>e.attrs,$slots:e=>e.slots,$refs:e=>e.refs,$parent:e=>Jt(e.parent),$root:e=>Jt(e.root),$host:e=>e.ce,$emit:e=>e.emit,$options:e=>zi(e),$forceUpdate:e=>e.f||(e.f=()=>{da(e.update)}),$nextTick:e=>e.n||(e.n=no.bind(e.proxy)),$watch:e=>co.bind(e)}),Mt=(e,n)=>e!==J&&!e.__isScriptSetup&&z(e,n),xo={get({_:e},n){if(n==="__v_skip")return!0;const{ctx:t,setupState:a,data:i,props:s,accessCache:o,type:r,appContext:l}=e;if(n[0]!=="$"){const C=o[n];if(C!==void 0)switch(C){case 1:return a[n];case 2:return i[n];case 4:return t[n];case 3:return s[n]}else{if(Mt(a,n))return o[n]=1,a[n];if(i!==J&&z(i,n))return o[n]=2,i[n];if(z(s,n))return o[n]=3,s[n];if(t!==J&&z(t,n))return o[n]=4,t[n];Kt&&(o[n]=0)}}const u=Hn[n];let d,m;if(u)return n==="$attrs"&&ie(e.attrs,"get",""),u(e);if((d=r.__cssModules)&&(d=d[n]))return d;if(t!==J&&z(t,n))return o[n]=4,t[n];if(m=l.config.globalProperties,z(m,n))return m[n]},set({_:e},n,t){const{data:a,setupState:i,ctx:s}=e;return Mt(i,n)?(i[n]=t,!0):a!==J&&z(a,n)?(a[n]=t,!0):z(e.props,n)||n[0]==="$"&&n.slice(1)in e?!1:(s[n]=t,!0)},has({_:{data:e,setupState:n,accessCache:t,ctx:a,appContext:i,props:s,type:o}},r){let l;return!!(t[r]||e!==J&&r[0]!=="$"&&z(e,r)||Mt(n,r)||z(s,r)||z(a,r)||z(Hn,r)||z(i.config.globalProperties,r)||(l=o.__cssModules)&&l[r])},defineProperty(e,n,t){return t.get!=null?e._.accessCache[n]=0:z(t,"value")&&this.set(e,n,t.value,null),Reflect.defineProperty(e,n,t)}};function Ra(e){return S(e)?e.reduce((n,t)=>(n[t]=null,n),{}):e}let Kt=!0;function qo(e){const n=zi(e),t=e.proxy,a=e.ctx;Kt=!1,n.beforeCreate&&Pa(n.beforeCreate,e,"bc");const{data:i,computed:s,methods:o,watch:r,provide:l,inject:u,created:d,beforeMount:m,mounted:C,beforeUpdate:x,updated:B,activated:w,deactivated:D,beforeDestroy:_,beforeUnmount:O,destroyed:j,unmounted:E,render:ee,renderTracked:Ve,renderTriggered:Te,errorCaptured:Je,serverPrefetch:Kn,expose:tn,inheritAttrs:Cn,components:Yn,directives:$n,filters:xt}=n;if(u&&Io(u,a,null),o)for(const $ in o){const K=o[$];H(K)&&(a[$]=K.bind(t))}if(i){const $=i.call(t,t);U($)&&(e.data=zn($))}if(Kt=!0,s)for(const $ in s){const K=s[$],an=H(K)?K.bind(t,t):H(K.get)?K.get.bind(t,t):Re,Xn=!H(K)&&H(K.set)?K.set.bind(t):Re,sn=un({get:an,set:Xn});Object.defineProperty(a,$,{enumerable:!0,configurable:!0,get:()=>sn.value,set:we=>sn.value=we})}if(r)for(const $ in r)Fi(r[$],a,t,$);if(l){const $=H(l)?l.call(t):l;Reflect.ownKeys($).forEach(K=>{oo(K,$[K])})}d&&Pa(d,e,"c");function oe($,K){S(K)?K.forEach(an=>$(an.bind(t))):K&&$(K.bind(t))}if(oe(fo,m),oe(yo,C),oe(wo,x),oe(bo,B),oe(po,w),oe(mo,D),oe(To,Je),oe(Bo,Ve),oe(Co,Te),oe(vo,O),oe(Ao,E),oe(ko,Kn),S(tn))if(tn.length){const $=e.exposed||(e.exposed={});tn.forEach(K=>{Object.defineProperty($,K,{get:()=>t[K],set:an=>t[K]=an,enumerable:!0})})}else e.exposed||(e.exposed={});ee&&e.render===Re&&(e.render=ee),Cn!=null&&(e.inheritAttrs=Cn),Yn&&(e.components=Yn),$n&&(e.directives=$n),Kn&&Gi(e)}function Io(e,n,t=Re){S(e)&&(e=Yt(e));for(const a in e){const i=e[a];let s;U(i)?"default"in i?s=ot(i.from||a,i.default,!0):s=ot(i.from||a):s=ot(i),se(s)?Object.defineProperty(n,a,{enumerable:!0,configurable:!0,get:()=>s.value,set:o=>s.value=o}):n[a]=s}}function Pa(e,n,t){Ce(S(e)?e.map(a=>a.bind(n.proxy)):e.bind(n.proxy),n,t)}function Fi(e,n,t,a){let i=a.includes(".")?Mi(t,a):()=>t[a];if(X(e)){const s=n[e];H(s)&&Rt(i,s)}else if(H(e))Rt(i,e.bind(t));else if(U(e))if(S(e))e.forEach(s=>Fi(s,n,t,a));else{const s=H(e.handler)?e.handler.bind(t):n[e.handler];H(s)&&Rt(i,s,e)}}function zi(e){const n=e.type,{mixins:t,extends:a}=n,{mixins:i,optionsCache:s,config:{optionMergeStrategies:o}}=e.appContext,r=s.get(n);let l;return r?l=r:!i.length&&!t&&!a?l=n:(l={},i.length&&i.forEach(u=>pt(l,u,o,!0)),pt(l,n,o)),U(n)&&s.set(n,l),l}function pt(e,n,t,a=!1){const{mixins:i,extends:s}=n;s&&pt(e,s,t,!0),i&&i.forEach(o=>pt(e,o,t,!0));for(const o in n)if(!(a&&o==="expose")){const r=Wo[o]||t&&t[o];e[o]=r?r(e[o],n[o]):n[o]}return e}const Wo={data:Ma,props:Ha,emits:Ha,methods:In,computed:In,beforeCreate:re,created:re,beforeMount:re,mounted:re,beforeUpdate:re,updated:re,beforeDestroy:re,beforeUnmount:re,destroyed:re,unmounted:re,activated:re,deactivated:re,errorCaptured:re,serverPrefetch:re,components:In,directives:In,watch:So,provide:Ma,inject:_o};function Ma(e,n){return n?e?function(){return ne(H(e)?e.call(this,this):e,H(n)?n.call(this,this):n)}:n:e}function _o(e,n){return In(Yt(e),Yt(n))}function Yt(e){if(S(e)){const n={};for(let t=0;t<e.length;t++)n[e[t]]=e[t];return n}return e}function re(e,n){return e?[...new Set([].concat(e,n))]:n}function In(e,n){return e?ne(Object.create(null),e,n):n}function Ha(e,n){return e?S(e)&&S(n)?[...new Set([...e,...n])]:ne(Object.create(null),Ra(e),Ra(n??{})):n}function So(e,n){if(!e)return n;if(!n)return e;const t=ne(Object.create(null),e);for(const a in n)t[a]=re(e[a],n[a]);return t}function Ni(){return{app:null,config:{isNativeTag:ai,performance:!1,globalProperties:{},optionMergeStrategies:{},errorHandler:void 0,warnHandler:void 0,compilerOptions:{}},mixins:[],components:{},directives:{},provides:Object.create(null),optionsCache:new WeakMap,propsCache:new WeakMap,emitsCache:new WeakMap}}let Eo=0;function Ro(e,n){return function(a,i=null){H(a)||(a=ne({},a)),i!=null&&!U(i)&&(i=null);const s=Ni(),o=new WeakSet,r=[];let l=!1;const u=s.app={_uid:Eo++,_component:a,_props:i,_container:null,_context:s,_instance:null,version:ur,get config(){return s.config},set config(d){},use(d,...m){return o.has(d)||(d&&H(d.install)?(o.add(d),d.install(u,...m)):H(d)&&(o.add(d),d(u,...m))),u},mixin(d){return s.mixins.includes(d)||s.mixins.push(d),u},component(d,m){return m?(s.components[d]=m,u):s.components[d]},directive(d,m){return m?(s.directives[d]=m,u):s.directives[d]},mount(d,m,C){if(!l){const x=u._ceVNode||Qe(a,i);return x.appContext=s,C===!0?C="svg":C===!1&&(C=void 0),e(x,d,C),l=!0,u._container=d,d.__vue_app__=u,Dt(x.component)}},onUnmount(d){r.push(d)},unmount(){l&&(Ce(r,u._instance,16),e(null,u._container),delete u._container.__vue_app__)},provide(d,m){return s.provides[d]=m,u},runWithContext(d){const m=wn;wn=u;try{return d()}finally{wn=m}}};return u}}let wn=null;const Po=(e,n)=>n==="modelValue"||n==="model-value"?e.modelModifiers:e[`${n}Modifiers`]||e[`${Ae(n)}Modifiers`]||e[`${nn(n)}Modifiers`];function Mo(e,n,...t){if(e.isUnmounted)return;const a=e.vnode.props||J;let i=t;const s=n.startsWith("update:"),o=s&&Po(a,n.slice(7));o&&(o.trim&&(i=t.map(d=>X(d)?d.trim():d)),o.number&&(i=i.map(ta)));let r,l=a[r=qt(n)]||a[r=qt(Ae(n))];!l&&s&&(l=a[r=qt(nn(n))]),l&&Ce(l,e,6,i);const u=a[r+"Once"];if(u){if(!e.emitted)e.emitted={};else if(e.emitted[r])return;e.emitted[r]=!0,Ce(u,e,6,i)}}const Ho=new WeakMap;function Li(e,n,t=!1){const a=t?Ho:n.emitsCache,i=a.get(e);if(i!==void 0)return i;const s=e.emits;let o={},r=!1;if(!H(e)){const l=u=>{const d=Li(u,n,!0);d&&(r=!0,ne(o,d))};!t&&n.mixins.length&&n.mixins.forEach(l),e.extends&&l(e.extends),e.mixins&&e.mixins.forEach(l)}return!s&&!r?(U(e)&&a.set(e,null),null):(S(s)?s.forEach(l=>o[l]=null):ne(o,s),U(e)&&a.set(e,o),o)}function Bt(e,n){return!e||!yt(n)?!1:(n=n.slice(2),n=n==="Once"?n:n.replace(/Once$/,""),z(e,n[0].toLowerCase()+n.slice(1))||z(e,nn(n))||z(e,n))}function Ga(e){const{type:n,vnode:t,proxy:a,withProxy:i,propsOptions:[s],slots:o,attrs:r,emit:l,render:u,renderCache:d,props:m,data:C,setupState:x,ctx:B,inheritAttrs:w}=e,D=dt(e);let _,O;try{if(t.shapeFlag&4){const E=i||a,ee=E;_=_e(u.call(ee,E,d,m,x,C,B)),O=r}else{const E=n;_=_e(E.length>1?E(m,{attrs:r,slots:o,emit:l}):E(m,null)),O=n.props?r:Go(r)}}catch(E){gn.length=0,kt(E,e,1),_=Qe(Be)}let j=_;if(O&&w!==!1){const E=Object.keys(O),{shapeFlag:ee}=j;E.length&&ee&7&&(s&&E.some(wt)&&(O=Oo(O,s)),j=vn(j,O,!1,!0))}if(t.dirs&&(j=vn(j,null,!1,!0),j.dirs=j.dirs?j.dirs.concat(t.dirs):t.dirs),t.transition){const E=Ct(j.type)&&Hi(j)||j;Rn(E,t.transition)}return _=j,dt(D),_}function ji(e,n=!0){let t;for(let a=0;a<e.length;a++){const i=e[a];if(fa(i)){if(i.type!==Be||i.children==="v-if"){if(t)return;t=i}}else return}return t}const Go=e=>{let n;for(const t in e)(t==="class"||t==="style"||yt(t))&&((n||(n={}))[t]=e[t]);return n},Oo=(e,n)=>{const t={};for(const a in e)(!wt(a)||!(a.slice(9)in n))&&(t[a]=e[a]);return t};function Fo(e,n,t){const{props:a,children:i,component:s}=e,{props:o,children:r,patchFlag:l}=n,u=s.emitsOptions;if(n.dirs||n.transition)return!0;if(t&&l>=0){if(l&1024)return!0;if(l&16)return a?Oa(a,o,u):!!o;if(l&8){const d=n.dynamicProps;for(let m=0;m<d.length;m++){const C=d[m];if(Qi(o,a,C)&&!Bt(u,C))return!0}}}else return(i||r)&&(!r||!r.$stable)?!0:a===o?!1:a?o?Oa(a,o,u):!0:!!o;return!1}function Oa(e,n,t){const a=Object.keys(n);if(a.length!==Object.keys(e).length)return!0;for(let i=0;i<a.length;i++){const s=a[i];if(!z(e,s)||Qi(n,e,s)&&!Bt(t,s))return!0}return!1}function Qi(e,n,t){const a=e[t],i=n[t];return t==="style"&&U(a)&&U(i)?!kn(a,i):a!==i}function zo({vnode:e,parent:n,suspense:t},a){for(;n;){const i=n.subTree;if(i.suspense&&i.suspense.activeBranch===e&&(i.suspense.vnode.el=i.el=a,e=i),i===e)(e=n.vnode).el=a,n=n.parent;else break}t&&t.activeBranch===e&&(t.vnode.el=a)}const Ui={},Vi=()=>Object.create(Ui),Ji=e=>Object.getPrototypeOf(e)===Ui;function No(e,n,t,a=!1){const i={},s=Vi();e.propsDefaults=Object.create(null),Ki(e,n,i,s);for(const o in e.propsOptions[0])o in i||(i[o]=void 0);t?e.props=a?i:Qs(i):e.type.props?e.props=i:e.props=s,e.attrs=s}function Lo(e,n,t,a){const{props:i,attrs:s,vnode:{patchFlag:o}}=e,r=L(i),[l]=e.propsOptions;let u=!1;if((a||o>0)&&!(o&16)){if(o&8){const d=e.vnode.dynamicProps;for(let m=0;m<d.length;m++){let C=d[m];if(Bt(e.emitsOptions,C))continue;const x=n[C];if(l)if(z(s,C))x!==s[C]&&(s[C]=x,u=!0);else{const B=Ae(C);i[B]=$t(l,r,B,x,e,!1)}else x!==s[C]&&(s[C]=x,u=!0)}}}else{Ki(e,n,i,s)&&(u=!0);let d;for(const m in r)(!n||!z(n,m)&&((d=nn(m))===m||!z(n,d)))&&(l?t&&(t[m]!==void 0||t[d]!==void 0)&&(i[m]=$t(l,r,m,void 0,e,!0)):delete i[m]);if(s!==r)for(const m in s)(!n||!z(n,m))&&(delete s[m],u=!0)}u&&Le(e.attrs,"set","")}function Ki(e,n,t,a){const[i,s]=e.propsOptions;let o=!1,r;if(n)for(let l in n){if(_n(l))continue;const u=n[l];let d;i&&z(i,d=Ae(l))?!s||!s.includes(d)?t[d]=u:(r||(r={}))[d]=u:Bt(e.emitsOptions,l)||(!(l in a)||u!==a[l])&&(a[l]=u,o=!0)}if(s){const l=L(t),u=r||J;for(let d=0;d<s.length;d++){const m=s[d];t[m]=$t(i,l,m,u[m],e,!z(u,m))}}return o}function $t(e,n,t,a,i,s){const o=e[t];if(o!=null){const r=z(o,"default");if(r&&a===void 0){const l=o.default;if(o.type!==Function&&!o.skipFactory&&H(l)){const{propsDefaults:u}=i;if(t in u)a=u[t];else{const d=Jn(i);a=u[t]=l.call(null,n),d()}}else a=l;i.ce&&i.ce._setProp(t,a)}o[0]&&(s&&!r?a=!1:o[1]&&(a===""||a===nn(t))&&(a=!0))}return a}const jo=new WeakMap;function Yi(e,n,t=!1){const a=t?jo:n.propsCache,i=a.get(e);if(i)return i;const s=e.props,o={},r=[];let l=!1;if(!H(e)){const d=m=>{l=!0;const[C,x]=Yi(m,n,!0);ne(o,C),x&&r.push(...x)};!t&&n.mixins.length&&n.mixins.forEach(d),e.extends&&d(e.extends),e.mixins&&e.mixins.forEach(d)}if(!s&&!l)return U(e)&&a.set(e,dn),dn;if(S(s))for(let d=0;d<s.length;d++){const m=Ae(s[d]);Fa(m)&&(o[m]=J)}else if(s)for(const d in s){const m=Ae(d);if(Fa(m)){const C=s[d],x=o[m]=S(C)||H(C)?{type:C}:ne({},C),B=x.type;let w=!1,D=!0;if(S(B))for(let _=0;_<B.length;++_){const O=B[_],j=H(O)&&O.name;if(j==="Boolean"){w=!0;break}else j==="String"&&(D=!1)}else w=H(B)&&B.name==="Boolean";x[0]=w,x[1]=D,(w||z(x,"default"))&&r.push(m)}}const u=[o,r];return U(e)&&a.set(e,u),u}function Fa(e){return e[0]!=="$"&&!_n(e)}const ma=e=>e==="_"||e==="_ctx"||e==="$stable",ga=e=>S(e)?e.map(_e):[_e(e)],Qo=(e,n,t)=>{if(n._n)return n;const a=so((...i)=>ga(n(...i)),t);return a._c=!1,a},$i=(e,n,t)=>{const a=e._ctx;for(const i in e){if(ma(i))continue;const s=e[i];if(H(s))n[i]=Qo(i,s,a);else if(s!=null){const o=ga(s);n[i]=()=>o}}},Xi=(e,n)=>{const t=ga(n);e.slots.default=()=>t},Zi=(e,n,t)=>{for(const a in n)(t||!ma(a))&&(e[a]=n[a])},Uo=(e,n,t)=>{const a=e.slots=Vi();if(e.vnode.shapeFlag&32){const i=n._;i?(Zi(a,n,t),t&&li(a,"_",i,!0)):$i(n,a)}else n&&Xi(e,n)},Vo=(e,n,t)=>{const{vnode:a,slots:i}=e;let s=!0,o=J;if(a.shapeFlag&32){const r=n._;r?t&&r===1?s=!1:Zi(i,n,t):(s=!n.$stable,$i(n,i)),o=n}else n&&(Xi(e,n),o={default:1});if(s)for(const r in i)!ma(r)&&o[r]==null&&delete i[r]},le=Zo;function Jo(e){return Ko(e)}function Ko(e,n){const t=vt();t.__VUE__=!0;const{insert:a,remove:i,patchProp:s,createElement:o,createText:r,createComment:l,setText:u,setElementText:d,parentNode:m,nextSibling:C,setScopeId:x=Re,insertStaticContent:B}=e,w=(c,h,p,b=null,g=null,y=null,k=void 0,A=null,v=!!h.dynamicChildren)=>{if(c===h)return;c&&!xn(c,h)&&(b=Zn(c),we(c,g,y,!0),c=null),h.patchFlag===-2&&(v=!1,h.dynamicChildren=null),h.dynamicChildren&&c&&c.dynamicChildren&&c.dynamicChildren.hasOnce&&(h.dynamicChildren===dn&&(h.dynamicChildren=[]),h.dynamicChildren.hasOnce=!0);const{type:f,ref:I,shapeFlag:T}=h;switch(f){case Tt:D(c,h,p,b);break;case Be:_(c,h,p,b);break;case Gt:c==null&&O(h,p,b,k);break;case N:Yn(c,h,p,b,g,y,k,A,v);break;default:T&1?ee(c,h,p,b,g,y,k,A,v):T&6?$n(c,h,p,b,g,y,k,A,v):(T&64||T&128)&&f.process(c,h,p,b,g,y,k,A,v,Tn)}I!=null&&g?Pn(I,c&&c.ref,y,h||c,!h):I==null&&c&&c.ref!=null&&Pn(c.ref,null,y,c,!0)},D=(c,h,p,b)=>{if(c==null)a(h.el=r(h.children),p,b);else{const g=h.el=c.el;h.children!==c.children&&u(g,h.children)}},_=(c,h,p,b)=>{c==null?a(h.el=l(h.children||""),p,b):h.el=c.el},O=(c,h,p,b)=>{[c.el,c.anchor]=B(c.children,h,p,b,c.el,c.anchor)},j=({el:c,anchor:h},p,b)=>{let g;for(;c&&c!==h;)g=C(c),a(c,p,b),c=g;a(h,p,b)},E=({el:c,anchor:h})=>{let p;for(;c&&c!==h;)p=C(c),i(c),c=p;i(h)},ee=(c,h,p,b,g,y,k,A,v)=>{if(h.type==="svg"?k="svg":h.type==="math"&&(k="mathml"),c==null)Ve(h,p,b,g,y,k,A,v);else{const f=c.el&&c.el._isVueCE?c.el:null;try{f&&f._beginPatch(),Kn(c,h,g,y,k,A,v)}finally{f&&f._endPatch()}}},Ve=(c,h,p,b,g,y,k,A)=>{let v,f;const{props:I,shapeFlag:T,transition:W,dirs:R}=c;if(v=c.el=o(c.type,y,I&&I.is,I),T&8?d(v,c.children):T&16&&Je(c.children,v,null,b,g,Ht(c,y),k,A),R&&on(c,null,b,"created"),Te(v,c,c.scopeId,k,b),I){for(const V in I)V!=="value"&&!_n(V)&&s(v,V,null,I[V],y,b);"value"in I&&s(v,"value",null,I.value,y),(f=I.onVnodeBeforeMount)&&qe(f,b,c)}R&&on(c,null,b,"beforeMount");const F=Yo(g,W);F?W.beforeEnter(v):W&&!W.persisted&&(v[Xo]=!0),a(v,h,p),((f=I&&I.onVnodeMounted)||F||R)&&le(()=>{try{f&&qe(f,b,c),F&&W.enter(v),R&&on(c,null,b,"mounted")}finally{}},g)},Te=(c,h,p,b,g)=>{if(p&&x(c,p),b)for(let y=0;y<b.length;y++)x(c,b[y]);if(g){let y=g.subTree;if(h===y||ts(y.type)&&(y.ssContent===h||y.ssFallback===h)){const k=g.vnode;Te(c,k,k.scopeId,k.slotScopeIds,g.parent)}}},Je=(c,h,p,b,g,y,k,A,v=0)=>{for(let f=v;f<c.length;f++){const I=c[f]=A?Ne(c[f]):_e(c[f]);w(null,I,h,p,b,g,y,k,A)}},Kn=(c,h,p,b,g,y,k)=>{const A=h.el=c.el;let{patchFlag:v,dynamicChildren:f,dirs:I}=h;v|=c.patchFlag&16;const T=c.props||J,W=h.props||J;let R;if(p&&rn(p,!1),(R=W.onVnodeBeforeUpdate)&&qe(R,p,h,c),I&&on(h,c,p,"beforeUpdate"),p&&rn(p,!0),f&&(!c.dynamicChildren||c.dynamicChildren.length!==f.length)&&(v=0,k=!1,f=null),(T.innerHTML&&W.innerHTML==null||T.textContent&&W.textContent==null)&&d(A,""),f?tn(c.dynamicChildren,f,A,p,b,Ht(h,g),y):k||K(c,h,A,null,p,b,Ht(h,g),y,!1),v>0){if(v&16)Cn(A,T,W,p,g);else if(v&2&&T.class!==W.class&&s(A,"class",null,W.class,g),v&4&&s(A,"style",T.style,W.style,g),v&8){const F=h.dynamicProps;for(let V=0;V<F.length;V++){const Q=F[V],Z=T[Q],te=W[Q];(te!==Z||Q==="value")&&s(A,Q,Z,te,g,p)}}v&1&&c.children!==h.children&&d(A,h.children)}else!k&&f==null&&Cn(A,T,W,p,g);((R=W.onVnodeUpdated)||I)&&le(()=>{R&&qe(R,p,h,c),I&&on(h,c,p,"updated")},b)},tn=(c,h,p,b,g,y,k)=>{for(let A=0;A<h.length;A++){const v=c[A],f=h[A],I=v.el||Gn(v),T=I&&(v.type===N||!xn(v,f)||v.shapeFlag&198)?m(I):p;w(v,f,T,null,b,g,y,k,!0)}},Cn=(c,h,p,b,g)=>{if(h!==p){if(h!==J)for(const y in h)!_n(y)&&!(y in p)&&s(c,y,h[y],null,g,b);for(const y in p){if(_n(y))continue;const k=p[y],A=h[y];k!==A&&y!=="value"&&s(c,y,A,k,g,b)}"value"in p&&s(c,"value",h.value,p.value,g)}},Yn=(c,h,p,b,g,y,k,A,v)=>{const f=h.el=c?c.el:r(""),I=h.anchor=c?c.anchor:r("");let{patchFlag:T,dynamicChildren:W,slotScopeIds:R}=h;R&&(A=A?A.concat(R):R),c==null?(a(f,p,b),a(I,p,b),Je(h.children||[],p,I,g,y,k,A,v)):T>0&&T&64&&W&&c.dynamicChildren&&c.dynamicChildren.length===W.length?(tn(c.dynamicChildren,W,p,g,y,k,A),(h.key!=null||g&&h===g.subTree)&&es(c,h,!0)):K(c,h,p,I,g,y,k,A,v)},$n=(c,h,p,b,g,y,k,A,v)=>{h.slotScopeIds=A,c==null?h.shapeFlag&512?g.ctx.activate(h,p,b,k,v):xt(h,p,b,g,y,k,v):ya(c,h,v)},xt=(c,h,p,b,g,y,k)=>{const A=c.component=sr(c,b,g);if(pa(c)&&(A.ctx.renderer=Tn),rr(A,!1,k),A.asyncDep){if(g&&g.registerDep(A,oe,k,y),!c.el){const v=A.subTree=Qe(Be);_(null,v,h,p),c.placeholder=v.el}}else oe(A,c,h,p,g,y,k)},ya=(c,h,p)=>{const b=h.component=c.component;if(Fo(c,h,p))if(b.asyncDep&&!b.asyncResolved){h.el=c.el,h.placeholder=c.placeholder,$(b,h,p);return}else b.next=h,b.update();else h.el=c.el,h.placeholder=c.placeholder,b.vnode=h},oe=(c,h,p,b,g,y,k)=>{const A=()=>{if(c.isMounted){let{next:T,bu:W,u:R,parent:F,vnode:V}=c;{const De=ns(c);if(De){T&&(T.el=V.el,$(c,T,k)),De.asyncDep.then(()=>{const Oe=()=>{c.job.flags&8||(g&&g.pendingBranch?le(Oe,g):f())};Oe.flags=48,le(Oe,g)});return}}let Q=T,Z;rn(c,!1),T?(T.el=V.el,$(c,T,k)):T=V,W&&st(W),(Z=T.props&&T.props.onVnodeBeforeUpdate)&&qe(Z,F,T,V),rn(c,!0);const te=Ga(c),be=c.subTree;c.subTree=te,w(be,te,m(be.el||Gn(be)),Zn(be),c,g,y),T.el=te.el,Q===null&&zo(c,te.el),R&&le(R,g),(Z=T.props&&T.props.onVnodeUpdated)&&le(()=>qe(Z,F,T,V),g)}else{let T;const{el:W,props:R}=h,{bm:F,m:V,parent:Q,root:Z,type:te}=c,be=Mn(h);rn(c,!1),F&&st(F),!be&&(T=R&&R.onVnodeBeforeMount)&&qe(T,Q,h),rn(c,!0);{Z.ce&&Z.ce._hasShadowRoot()&&Z.ce._injectChildStyle(te,c.parent?c.parent.type:void 0);const De=c.subTree=Ga(c);w(null,De,p,b,c,g,y),h.el=De.el}if(V&&le(V,g),!be&&(T=R&&R.onVnodeMounted)){const De=h;le(()=>qe(T,Q,De),g)}(h.shapeFlag&256||Q&&Mn(Q.vnode)&&Q.vnode.shapeFlag&256)&&c.a&&le(c.a,g),c.isMounted=!0,h=p=b=null}};c.scope.on();const v=c.effect=new pi(A);c.scope.off();const f=c.update=v.run.bind(v),I=c.job=v.runIfDirty.bind(v);I.i=c,I.id=c.uid,v.scheduler=()=>da(I),rn(c,!0),f()},$=(c,h,p)=>{h.component=c;const b=c.vnode.props;c.vnode=h,c.next=null,Lo(c,h.props,b,p),Vo(c,h.children,p),Me(),_i(c),He()},K=(c,h,p,b,g,y,k,A,v=!1)=>{const f=c&&c.children,I=c?c.shapeFlag:0,T=h.children,{patchFlag:W,shapeFlag:R}=h;if(W>0){if(W&128){Xn(f,T,p,b,g,y,k,A,v);return}else if(W&256){an(f,T,p,b,g,y,k,A,v);return}}R&8?(I&16&&Bn(f,g,y),T!==f&&d(p,T)):I&16?R&16?Xn(f,T,p,b,g,y,k,A,v):Bn(f,g,y,!0):(I&8&&d(p,""),R&16&&Je(T,p,b,g,y,k,A,v))},an=(c,h,p,b,g,y,k,A,v)=>{c=c||dn,h=h||dn;const f=c.length,I=h.length,T=Math.min(f,I);let W;for(W=0;W<T;W++){const R=h[W]=v?Ne(h[W]):_e(h[W]);w(c[W],R,p,null,g,y,k,A,v)}f>I?Bn(c,g,y,!0,!1,T):Je(h,p,b,g,y,k,A,v,T)},Xn=(c,h,p,b,g,y,k,A,v)=>{let f=0;const I=h.length;let T=c.length-1,W=I-1;for(;f<=T&&f<=W;){const R=c[f],F=h[f]=v?Ne(h[f]):_e(h[f]);if(xn(R,F))w(R,F,p,null,g,y,k,A,v);else break;f++}for(;f<=T&&f<=W;){const R=c[T],F=h[W]=v?Ne(h[W]):_e(h[W]);if(xn(R,F))w(R,F,p,null,g,y,k,A,v);else break;T--,W--}if(f>T){if(f<=W){const R=W+1,F=R<I?h[R].el:b;for(;f<=W;)w(null,h[f]=v?Ne(h[f]):_e(h[f]),p,F,g,y,k,A,v),f++}}else if(f>W)for(;f<=T;)we(c[f],g,y,!0),f++;else{const R=f,F=f,V=new Map;for(f=F;f<=W;f++){const de=h[f]=v?Ne(h[f]):_e(h[f]);de.key!=null&&V.set(de.key,f)}let Q,Z=0;const te=W-F+1;let be=!1,De=0;const Oe=new Array(te);for(f=0;f<te;f++)Oe[f]=0;for(f=R;f<=T;f++){const de=c[f];if(Z>=te){we(de,g,y,!0);continue}let xe;if(de.key!=null)xe=V.get(de.key);else for(Q=F;Q<=W;Q++)if(Oe[Q-F]===0&&xn(de,h[Q])){xe=Q;break}xe===void 0?we(de,g,y,!0):(Oe[xe-F]=f+1,xe>=De?De=xe:be=!0,w(de,h[xe],p,null,g,y,k,A,v),Z++)}const Aa=be?$o(Oe):dn;for(Q=Aa.length-1,f=te-1;f>=0;f--){const de=F+f,xe=h[de],ka=h[de+1],Ca=de+1<I?ka.el||Gn(ka):b;Oe[f]===0?w(null,xe,p,Ca,g,y,k,A,v):be&&(Q<0||f!==Aa[Q]?sn(xe,p,Ca,2):Q--)}}},sn=(c,h,p,b,g=null)=>{const{el:y,type:k,transition:A,children:v,shapeFlag:f}=c;if(f&6){sn(c.component.subTree,h,p,b);return}if(f&128){c.suspense.move(h,p,b);return}if(f&64){k.move(c,h,p,Tn);return}if(k===N){a(y,h,p);for(let T=0;T<v.length;T++)sn(v[T],h,p,b);a(c.anchor,h,p);return}if(k===Gt){j(c,h,p);return}if(b!==2&&f&1&&A)if(b===0)A.persisted&&!y[Pt]?a(y,h,p):(A.beforeEnter(y),a(y,h,p),le(()=>A.enter(y),g));else{const{leave:T,delayLeave:W,afterLeave:R}=A,F=()=>{c.ctx.isUnmounted?i(y):a(y,h,p)},V=()=>{const Q=y._isLeaving||!!y[Pt];y._isLeaving&&y[Pt](!0),A.persisted&&!Q?F():T(y,()=>{F(),R&&R()})};W?W(y,F,V):V()}else a(y,h,p)},we=(c,h,p,b=!1,g=!1)=>{const{type:y,props:k,ref:A,children:v,dynamicChildren:f,shapeFlag:I,patchFlag:T,dirs:W,cacheIndex:R,memo:F}=c;if((T===-2||f&&f.hasOnce)&&(g=!1),A!=null&&(Me(),Pn(A,null,p,c,!0),He()),R!=null&&(!c.ctx||c.ctx===h)&&(h.renderCache[R]=void 0),I&256&&h.ctx.deactivate(c))return;const V=I&1&&W,Q=!Mn(c);let Z;if(Q&&(Z=k&&k.onVnodeBeforeUnmount)&&qe(Z,h,c),I&6)ps(c.component,p,b);else{if(I&128){c.suspense.unmount(p,b);return}V&&on(c,null,h,"beforeUnmount"),I&64?c.type.remove(c,h,p,Tn,b):f&&!f.hasOnce&&(y!==N||T>0&&T&64)?Bn(f,h,p,!1,!0):(y===N&&T&384||!g&&I&16)&&Bn(v,h,p),b&&wa(c)}const te=F!=null&&R==null;(Q&&(Z=k&&k.onVnodeUnmounted)||V||te)&&le(()=>{Z&&qe(Z,h,c),V&&on(c,null,h,"unmounted"),te&&(c.el=null)},p)},wa=c=>{const{type:h,el:p,anchor:b,transition:g}=c,y=h===N;if(y&&!g){ba(p,b);return}if(h===Gt){E(c),g&&!g.persisted&&g.afterLeave&&g.afterLeave();return}const k=y?Vt(c):c,A=()=>{y?m(p)&&ba(p,b):i(p),g&&!g.persisted&&g.afterLeave&&g.afterLeave()};if(k&&k.shapeFlag&1&&g&&!g.persisted){const{leave:v,delayLeave:f}=g,I=k.el,T=()=>v(I,A);f?f(I,A,T):T()}else A()},ba=(c,h)=>{let p;for(;c!==h;)p=C(c),i(c),c=p;i(h)},ps=(c,h,p)=>{const{bum:b,scope:g,job:y,subTree:k,um:A,m:v,a:f}=c;za(v),za(f),b&&st(b),g.stop(),y?(y.flags|=8,we(k,c,h,p)):k&&(k.transition=c.vnode.transition,we(k,c,h,p)),A&&le(A,h);const I=()=>{c.isUnmounted=!0};I.flags=16,le(I,h)},Bn=(c,h,p,b=!1,g=!1,y=0)=>{for(let k=y;k<c.length;k++)we(c[k],h,p,b,g)},Zn=c=>{if(c.shapeFlag&6)return Zn(c.component.subTree);if(c.shapeFlag&128)return c.suspense.next();const h=C(c.anchor||c.el),p=h&&h[ho];return p?C(p):h},va=(c,h,p)=>{const b=c&&h._vnode?void 0:c&&c.component?c.component.uid:ir();io(()=>{c==null?h._vnode&&we(h._vnode,null,null,!0):w(h._vnode||null,c,h,null,null,null,p),h._vnode=c},b)},Tn={p:w,um:we,m:sn,r:wa,mt:xt,mc:Je,pc:K,pbc:tn,n:Zn,o:e};return{render:va,hydrate:void 0,createApp:Ro(va)}}function Ht({type:e,props:n},t){return t==="svg"&&e==="foreignObject"||t==="mathml"&&e==="annotation-xml"&&n&&n.encoding&&n.encoding.includes("html")?void 0:t}function rn({effect:e,job:n},t){t?(e.flags|=32,n.flags|=4):(e.flags&=-33,n.flags&=-5)}function Yo(e,n){return(!e||e&&!e.pendingBranch)&&n&&!n.persisted}function es(e,n,t=!1){const a=e.children,i=n.children;if(S(a)&&S(i))for(let s=0;s<a.length;s++){const o=a[s];let r=i[s];r.shapeFlag&1&&!r.dynamicChildren&&((r.patchFlag<=0||r.patchFlag===32)&&(r=i[s]=Ne(i[s]),r.el=o.el),!t&&r.patchFlag!==-2&&es(o,r)),r.type===Tt&&(r.patchFlag===-1&&(r=i[s]=Ne(r)),r.el=o.el),r.type===Be&&!r.el&&(r.el=o.el)}}function $o(e){const n=e.slice(),t=[0];let a,i,s,o,r;const l=e.length;for(a=0;a<l;a++){const u=e[a];if(u!==0){if(i=t[t.length-1],e[i]<u){n[a]=i,t.push(a);continue}for(s=0,o=t.length-1;s<o;)r=s+o>>1,e[t[r]]<u?s=r+1:o=r;u<e[t[s]]&&(s>0&&(n[a]=t[s-1]),t[s]=a)}}for(s=t.length,o=t[s-1];s-- >0;)t[s]=o,o=n[o];return t}function ns(e){const n=e.subTree.component;if(n)return n.asyncDep&&!n.asyncResolved?n:ns(n)}function za(e){if(e)for(let n=0;n<e.length;n++)e[n].flags|=8}function Gn(e){if(e.placeholder)return e.placeholder;const n=e.component;if(n)return Gn(n.subTree);const t=e.suspense;return t&&t.activeBranch?Gn(t.activeBranch):null}const ts=e=>e.__isSuspense,Xo=Symbol("_deferredEnter");function Zo(e,n){n&&n.pendingBranch?S(e)?n.effects.push(...e):n.effects.push(e):ao(e)}const N=Symbol.for("v-fgt"),Tt=Symbol.for("v-txt"),Be=Symbol.for("v-cmt"),Gt=Symbol.for("v-stc"),gn=[];let pe=null;function P(e=!1){gn.push(pe=e?null:[])}function as(){gn.pop(),pe=gn[gn.length-1]||null}let jn=1;function Na(e,n=!1){jn+=e,e<0&&pe&&n&&(pe.hasOnce=!0)}function is(e){return e.dynamicChildren=jn>0?pe||dn:null,as(),jn>0&&pe&&pe.push(e),e}function M(e,n,t,a,i,s){return is(q(e,n,t,a,i,s,!0))}function rt(e,n,t,a,i){return is(Qe(e,n,t,a,i,!0))}function fa(e){return e?e.__v_isVNode===!0:!1}function xn(e,n){return e.type===n.type&&e.key===n.key}const ss=({key:e})=>e??null,lt=({ref:e,ref_key:n,ref_for:t})=>(typeof e=="number"&&(e=""+e),e!=null?X(e)||se(e)||H(e)?{i:ge,r:e,k:n,f:!!t}:e:null);function q(e,n=null,t=null,a=0,i=null,s=e===N?0:1,o=!1,r=!1){const l={__v_isVNode:!0,__v_skip:!0,type:e,props:n,key:n&&ss(n),ref:n&&lt(n),scopeId:Ri,slotScopeIds:null,children:t,component:null,suspense:null,ssContent:null,ssFallback:null,dirs:null,transition:null,el:null,anchor:null,target:null,targetStart:null,targetAnchor:null,staticCount:0,shapeFlag:s,patchFlag:a,dynamicProps:i,dynamicChildren:null,appContext:null,ctx:ge};return r?(mt(l,t),s&128&&e.normalize(l)):t&&(l.shapeFlag|=X(t)?8:16),jn>0&&!o&&pe&&(l.patchFlag>0||s&6)&&l.patchFlag!==32&&pe.push(l),l}const Qe=er;function er(e,n=null,t=null,a=0,i=null,s=!1){if((!e||e===Do)&&(e=Be),fa(e)){const r=vn(e,n,!0);return t&&mt(r,t),jn>0&&!s&&pe&&(r.shapeFlag&6?pe[pe.indexOf(e)]=r:pe.push(r)),r.patchFlag=-2,r}if(dr(e)&&(e=e.__vccOpts),n){n=nr(n);let{class:r,style:l}=n;r&&!X(r)&&(n.class=ue(r)),U(l)&&(ha(l)&&!S(l)&&(l=ne({},l)),n.style=aa(l))}const o=X(e)?1:ts(e)?128:Ct(e)?64:U(e)?4:H(e)?2:0;return q(e,n,t,a,i,o,s,!0)}function nr(e){return e?ha(e)?ne({},e):Ji(e)?ne({},e[cs]||e):e:null}function vn(e,n,t=!1,a=!1){const{props:i,ref:s,patchFlag:o,children:r,transition:l}=e,u=n?tr(i||{},n):i,d={__v_isVNode:!0,__v_skip:!0,type:e.type,props:u,key:u&&ss(u),ref:n&&n.ref?t&&s?S(s)?s.concat(lt(n)):[s,lt(n)]:lt(n):s,scopeId:e.scopeId,slotScopeIds:e.slotScopeIds,children:r,target:e.target,targetStart:e.targetStart,targetAnchor:e.targetAnchor,staticCount:e.staticCount,shapeFlag:e.shapeFlag,patchFlag:n&&e.type!==N?o===-1?16:o|16:o,dynamicProps:e.dynamicProps,dynamicChildren:e.dynamicChildren,appContext:e.appContext,dirs:e.dirs,transition:l,component:e.component,suspense:e.suspense,ssContent:e.ssContent&&vn(e.ssContent),ssFallback:e.ssFallback&&vn(e.ssFallback),placeholder:e.placeholder,el:e.el,anchor:e.anchor,ctx:e.ctx,ce:e.ce,cacheIndex:e.cacheIndex};return l&&a&&Rn(d,l.clone(d)),d}function $e(e=" ",n=0){return Qe(Tt,null,e,n)}function me(e="",n=!1){return n?(P(),rt(Be,null,e)):Qe(Be,null,e)}function _e(e){return e==null||typeof e=="boolean"?Qe(Be):S(e)?Qe(N,null,e.slice()):fa(e)?Ne(e):Qe(Tt,null,String(e))}function Ne(e){return e.el===null&&e.patchFlag!==-1||e.memo?e:vn(e)}function mt(e,n){let t=0;const{shapeFlag:a}=e;if(n==null)n=null;else if(S(n))t=16;else if(typeof n=="object")if(a&65){const i=n.default;i&&(i._c&&(i._d=!1),mt(e,i()),i._c&&(i._d=!0));return}else{t=32;const i=n._;!i&&!Ji(n)?n._ctx=ge:i===3&&ge&&(ge.slots._===1?n._=1:(n._=2,e.patchFlag|=1024))}else if(H(n)){if(a&65){mt(e,{default:n});return}n={default:n,_ctx:ge},t=32}else n=String(n),a&64?(t=16,n=[$e(n)]):t=8;e.children=n,e.shapeFlag|=t}function tr(...e){const n={};for(let t=0;t<e.length;t++){const a=e[t];for(const i in a)if(i==="class")n.class!==a.class&&(n.class=ue([n.class,a.class]));else if(i==="style")n.style=aa([n.style,a.style]);else if(yt(i)){const s=n[i],o=a[i];o&&s!==o&&!(S(s)&&s.includes(o))?n[i]=s?[].concat(s,o):o:o==null&&s==null&&!wt(i)&&(n[i]=o)}else i!==""&&(n[i]=a[i])}return n}function qe(e,n,t,a=null){Ce(e,n,7,[t,a])}const ar=Ni();let os=0;function ir(){return os}function sr(e,n,t){const a=e.type,i=(n?n.appContext:e.appContext)||ar,s={uid:os++,vnode:e,type:a,parent:n,appContext:i,root:null,next:null,subTree:null,effect:null,update:null,job:null,scope:new xs(!0),render:null,proxy:null,exposed:null,exposeProxy:null,withProxy:null,provides:n?n.provides:Object.create(i.provides),ids:n?n.ids:["",0,0],accessCache:null,renderCache:[],components:null,directives:null,propsOptions:Yi(a,i),emitsOptions:Li(a,i),emit:null,emitted:null,propsDefaults:J,inheritAttrs:a.inheritAttrs,ctx:J,data:J,props:J,attrs:J,slots:J,refs:J,setupState:J,setupContext:null,suspense:t,suspenseId:t?t.pendingId:0,asyncDep:null,asyncResolved:!1,isMounted:!1,isUnmounted:!1,isDeactivated:!1,bc:null,c:null,bm:null,m:null,bu:null,u:null,um:null,bum:null,da:null,a:null,rtg:null,rtc:null,ec:null,sp:null};return s.ctx={_:s},s.root=n?n.root:s,s.emit=Mo.bind(null,s),e.ce&&e.ce(s),s}let he=null;const or=()=>he||ge;let gt,Qn;{const e=vt(),n=(t,a)=>{let i;return(i=e[t])||(i=e[t]=[]),i.push(a),s=>{i.length>1?i.forEach(o=>o(s)):i[0](s)}};gt=n("__VUE_INSTANCE_SETTERS__",t=>he=t),Qn=n("__VUE_SSR_SETTERS__",t=>Un=t)}const Jn=e=>{const n=he;return gt(e),e.scope.on(),()=>{e.scope.off(),gt(n)}},La=()=>{he&&he.scope.off(),gt(null)};function rs(e){return e.vnode.shapeFlag&4}let Un=!1;function rr(e,n=!1,t=!1){n&&Qn(n);const{props:a,children:i}=e.vnode,s=rs(e);No(e,a,s,n),Uo(e,i,t||n);const o=s?lr(e,n):void 0;return n&&Qn(!1),o}function lr(e,n){const t=e.type;e.accessCache=Object.create(null),e.proxy=new Proxy(e.ctx,xo);const{setup:a}=t;if(a){Me();const i=e.setupContext=a.length>1?hr(e):null,s=Jn(e),o=Vn(a,e,0,[e.props,i]),r=ii(o);if(He(),s(),(r||e.sp)&&!Mn(e)&&Gi(e),r){if(o.then(La,La),n)return o.then(l=>{Qn(!0);try{ja(e,l,n)}finally{Qn(!1)}}).catch(l=>{kt(l,e,0,void 0,!0),e.ssrRender=(u,d)=>d("<!---->")});e.asyncDep=o}else ja(e,o)}else ls(e)}function ja(e,n,t){H(n)?e.type.__ssrInlineRender?e.ssrRender=n:e.render=n:U(n)&&(e.setupState=qi(n)),ls(e)}function ls(e,n,t){const a=e.type;e.render||(e.render=a.render||Re);{const i=Jn(e);Me();try{qo(e)}finally{He(),i()}}}const cs=Symbol(),cr={get(e,n){return ie(e,"get",""),n===cs?e:e[n]}};function hr(e){const n=t=>{e.exposed=t||{}};return{attrs:new Proxy(e.attrs,cr),slots:e.slots,emit:e.emit,expose:n}}function Dt(e){return e.exposed?e.exposeProxy||(e.exposeProxy=new Proxy(qi(Us(e.exposed)),{get(n,t){if(t in n)return n[t];if(t in Hn)return Hn[t](e)},has(n,t){return t in n||t in Hn}})):e.proxy}function dr(e){return H(e)&&"__vccOpts"in e}const un=(e,n)=>$s(e,n,Un),ur="3.5.46";/**
+**/function Vn(e,n,t,a){try{return a?e(...a):e()}catch(i){kt(i,n,t)}}function Be(e,n,t,a){if(G(e)){const i=Vn(e,n,t,a);return i&&ii(i)&&i.catch(s=>{kt(s,n,t,void 0,!0)}),i}if(S(e)){const i=[];for(let s=0;s<e.length;s++)i.push(Be(e[s],n,t,a));return i}}function kt(e,n,t,a=!0,i=!1){const s=n?n.vnode:null,{errorHandler:o,throwUnhandledErrorInProduction:r}=n&&n.appContext.config||J;if(n){let l=n.parent;const u=n.proxy,d=`https://vuejs.org/error-reference/#runtime-${t}`;for(;l;){const m=l.ec;if(m&&!l.isUnmounted&&(!i||l.scope.active)){for(let B=0;B<m.length;B++)if(m[B](e,u,d)===!1)return}l=l.parent}if(o){Me(),Vn(o,null,10,[e,u,d]),He();return}}eo(e,t,s,a,r)}function eo(e,n,t,a=!0,i=!1){if(i)throw e;console.error(e)}const ce=[];let ve=-1;const _e=[];let Ye=null,yn=0;const Ii=Promise.resolve();let ht=null;function no(e){const n=ht||Ii;return e?n.then(this?e.bind(this):e):n}function to(e){let n=ve+1,t=ce.length;for(;n<t;){const a=n+t>>>1,i=ce[a],s=Nn(i);s<e||s===e&&i.flags&2?n=a+1:t=a}return n}function da(e){if(!(e.flags&1)){const n=Nn(e),t=ce[ce.length-1];!t||!(e.flags&2)&&n>=Nn(t)?ce.push(e):ce.splice(to(n),0,e),e.flags|=1,Wi()}}function Wi(){ht||(ht=Ii.then(Si))}function ao(e){if(!S(e))Ye&&e.id===-1?Ye.splice(yn+1,0,e):e.flags&1||(_e.push(e),e.flags|=1);else for(let n=0;n<e.length;n++)_e.push(e[n]);Wi()}function _i(e,n,t,a=ve+1){for(;a<ce.length;a++){const i=ce[a];if(i&&i.flags&2){if(e&&i.id!==e.uid||n!==void 0&&!(i.id>=n))continue;ce.splice(a,1),a=e?a-1:ve,i.flags&4&&(i.flags&=-2),i(),i.flags&4||(i.flags&=-2)}}}function Ei(e,n,t=0){if(_e.length){let a=_e,i=0;if(n){a=[];for(let o=0;o<_e.length;o++){const r=_e[o];(r.i!==void 0?!r.i||r.i.uid<t:n.has(r))?_e[i++]=r:a.push(r)}}const s=[...new Set(a)].sort((o,r)=>Nn(o)-Nn(r));if(_e.length=i,Ye){for(let o=0;o<s.length;o++)Ye.push(s[o]);return}for(Ye=s,yn=0;yn<Ye.length;yn++){const o=Ye[yn];o.flags&4&&(o.flags&=-2),o.flags&8||o(),o.flags&=-2}Ye=null,yn=0}}let St=!1;function io(e,n){if(St){e();return}const t=n===void 0?void 0:new Set(_e);e(),St=!0;try{_i(void 0,n),Ei(void 0,t,n)}finally{St=!1}}const Nn=e=>e.id==null?e.flags&2?-1:1/0:e.id;function Si(e){try{for(ve=0;ve<ce.length;ve++){const n=ce[ve];n&&!(n.flags&8)&&(n.flags&4&&(n.flags&=-2),Vn(n,n.i,n.i?15:14),n.flags&4||(n.flags&=-2))}}finally{for(;ve<ce.length;ve++){const n=ce[ve];n&&(n.flags&=-2)}ve=-1,ce.length=0,Ei(),ht=null,(ce.length||_e.length)&&Si()}}let ge=null,Ri=null;function dt(e){const n=ge;return ge=e,Ri=e&&e.type.__scopeId||null,n}function so(e,n=ge,t){if(!n||e._n)return e;const a=(...i)=>{a._d&&Na(-1);const s=dt(n),o=gn.length;let r;try{r=e(...i)}finally{for(let l=gn.length;l>o;l--)as();dt(s),a._d&&Na(1)}return r};return a._n=!0,a._c=!0,a._d=!0,a}function ua(e,n){if(ge===null)return e;const t=Dt(ge),a=e.dirs||(e.dirs=[]);for(let i=0;i<n.length;i++){let[s,o,r,l=J]=n[i];s&&(G(s)&&(s={mounted:s,updated:s}),s.deep&&Qe(o),a.push({dir:s,instance:t,value:o,oldValue:void 0,arg:r,modifiers:l}))}return e}function rn(e,n,t,a){let i=e;if(a==="beforeMount")e._mount=e;else if(a==="beforeUpdate"){const r=n&&n._mount;r&&(r._latest=e,e._mount=r)}else if(a==="mounted"){const r=e._latest;e._mount=e._latest=void 0,r&&(i=r,r._mount=void 0)}const s=i.dirs,o=n&&n.dirs;for(let r=0;r<s.length;r++){let l=s[r];o?l.oldValue=o[r].value:a==="mounted"&&l.oldValue!==void 0&&(l=ne({},l,{oldValue:void 0}));let u=l.dir[a];u&&(Me(),Be(u,t,8,[e.el,l,i,n]),He())}}function oo(e,n){if(he){let t=he.provides;const a=he.parent&&he.parent.provides;a===t&&(t=he.provides=Object.create(a)),t[e]=n}}function ot(e,n,t=!1){const a=or();if(a||wn){let i=wn?wn._context.provides:a?a.parent==null||a.ce?a.vnode.appContext&&a.vnode.appContext.provides:a.parent.provides:void 0;if(i&&e in i)return i[e];if(arguments.length>1)return t&&G(n)?n.call(a&&a.proxy):n}}const ro=Symbol.for("v-scx"),lo=()=>ot(ro);function Rt(e,n,t){return Pi(e,n,t)}function Pi(e,n,t=J){const{immediate:a,deep:i,flush:s,once:o}=t,r=ne({},t),l=n&&a||!n&&s!=="post";let u;if(Un){if(s==="sync"){const q=lo();u=q.__watcherHandles||(q.__watcherHandles=[])}else if(!l){const q=()=>{};return q.stop=Re,q.resume=Re,q.pause=Re,q}}const d=he;r.call=(q,W,y)=>Be(q,d,W,y);let m=!1;s==="post"?r.scheduler=q=>{q.i=d,le(q,d&&d.suspense)}:s!=="sync"&&(m=!0,r.scheduler=(q,W)=>{W?q():da(q)}),r.augmentJob=q=>{n&&(q.flags|=4),m&&(q.flags|=2,d&&(q.id=d.uid,q.i=d))};const B=Zs(e,n,r);return Un&&(u?u.push(B):l&&B()),B}function co(e,n,t){const a=this.proxy,i=X(e)?e.includes(".")?Mi(a,e):()=>a[e]:e.bind(a,a);let s;G(n)?s=n:(s=n.handler,t=n);const o=Jn(this),r=Pi(i,s.bind(a),t);return o(),r}function Mi(e,n){const t=n.split(".");return()=>{let a=e;for(let i=0;i<t.length&&a;i++)a=a[t[i]];return a}}const ho=Symbol("_vte"),Ct=e=>e.__isTeleport,Pt=Symbol("_leaveCb");function uo(e){let n=e[0];if(e.length>1){for(const t of e)if(t.type!==Te){n=t;break}}return n}function Hi(e){if(!pa(e))return Ct(e.type)&&e.children?uo(e.children):e;if(e.component)return e.component.subTree;const{shapeFlag:n,children:t}=e;if(t){if(n&16)return t[0];if(n&32&&G(t.default))return t.default()}}function Rn(e,n){if(e.shapeFlag&6&&e.component){e.transition=n;const t=e.component.subTree;Rn(Ct(t.type)&&Hi(t)||t,n)}else if(e.shapeFlag&128){const t=e.suspense;if(t){const a=t.isHydrating?t.pendingBranch:t.activeBranch;a&&Rn(a,n.clone(a))}else e.ssContent.transition=n.clone(e.ssContent),e.ssFallback.transition=n.clone(e.ssFallback)}else if(e.transition=n,e.type===N&&S(e.children)){const t=Qi(e.children,!1);t&&Rn(t,n)}}function Vt(e){if(e.component)return Vt(e.component.subTree);if(e.type===N){const n=S(e.children)&&Qi(e.children,!1);return n?Vt(n):void 0}if(e.type!==Te)return e}function Oi(e){e.ids=[e.ids[0]+e.ids[2]+++"-",0,0]}function Ea(e,n){let t;return!!((t=Object.getOwnPropertyDescriptor(e,n))&&!t.configurable)}const ut=new WeakMap;function Pn(e,n,t,a,i=!1){if(S(e)){e.forEach((y,v)=>Pn(y,n&&(S(n)?n[v]:n),t,a,i));return}if(Mn(a)&&!i){a.shapeFlag&512&&a.type.__asyncResolved&&a.component.subTree.component&&Pn(e,n,t,a.component.subTree);return}const s=a.shapeFlag&4?Dt(a.component):a.el,o=i?null:s,{i:r,r:l}=e,u=n&&n.r,d=r.refs===J?r.refs={}:r.refs,m=r.setupState,B=L(m),q=m===J?ai:y=>Ea(d,y)?!1:F(B,y),W=(y,v)=>!(v&&Ea(d,v));if(u!=null&&u!==l){if(Sa(n),X(u))d[u]=null,q(u)&&(m[u]=null);else if(se(u)){const y=n;W(u,y.k)&&(u.value=null),y.k&&(d[y.k]=null)}}if(G(l))Vn(l,r,12,[o,d]);else{const y=X(l),v=se(l);if(y||v){const x=()=>{if(e.f){const R=y?q(l)?m[l]:d[l]:W()||!e.k?l.value:d[e.k];if(i)S(R)&&ea(R,s);else if(S(R))R.includes(s)||R.push(s);else if(y)d[l]=[s],q(l)&&(m[l]=d[l]);else{const Q=[s];W(l,e.k)&&(l.value=Q),e.k&&(d[e.k]=Q)}}else y?(d[l]=o,q(l)&&(m[l]=o)):v&&(W(l,e.k)&&(l.value=o),e.k&&(d[e.k]=o))};if(o){const R=()=>{x(),ut.delete(e)};R.id=-1,ut.set(e,R),le(R,t)}else Sa(e),x()}}}function Sa(e){const n=ut.get(e);n&&(n.flags|=8,ut.delete(e))}vt().requestIdleCallback;vt().cancelIdleCallback;const Mn=e=>!!e.type.__asyncLoader,pa=e=>e.type.__isKeepAlive;function po(e,n){Gi(e,"a",n)}function mo(e,n){Gi(e,"da",n)}function Gi(e,n,t=he){const a=e.__wdc||(e.__wdc=()=>{let i=t;for(;i;){if(i.isDeactivated)return;i=i.parent}return e()});if(Ln(n,a,t),t){let i=t.parent;for(;i&&i.parent;)pa(i.parent.vnode)&&go(a,n,t,i),i=i.parent}}function go(e,n,t,a){const i=Ln(n,e,a,!0),s=Ln("um",()=>ea(a[n],i),t);s.flags=16}function Ln(e,n,t=he,a=!1){if(t){const i=t[e]||(t[e]=[]),s=n.__weh||(n.__weh=(...o)=>{Me();const r=Jn(t),l=Be(n,t,e,o);return r(),He(),l});return a?i.unshift(s):i.push(s),s}}const Ue=e=>(n,t=he)=>{(!Un||e==="sp")&&Ln(e,(...a)=>n(...a),t)},fo=Ue("bm"),yo=Ue("m"),wo=Ue("bu"),bo=Ue("u"),vo=Ue("bum"),Ao=Ue("um"),ko=Ue("sp"),Co=Ue("rtg"),Bo=Ue("rtc");function To(e,n=he){Ln("ec",e,n)}const Do=Symbol.for("v-ndc");function Ae(e,n,t,a){let i;const s=t,o=S(e);if(o||X(e)){const r=o&&en(e);let l=!1,u=!1;r&&(l=!fe(e),u=Oe(e),e=At(e)),i=new Array(e.length);for(let d=0,m=e.length;d<m;d++)i[d]=n(l?u?nn(ye(e[d])):ye(e[d]):e[d],d,void 0,s)}else if(typeof e=="number")if(!Number.isInteger(e)||e<0)i=[];else{i=new Array(e);for(let r=0;r<e;r++)i[r]=n(r+1,r,void 0,s)}else if(U(e))if(e[Symbol.iterator])i=Array.from(e,(r,l)=>n(r,l,void 0,s));else{const r=Object.keys(e);i=new Array(r.length);for(let l=0,u=r.length;l<u;l++){const d=r[l];i[l]=n(e[d],d,l,s)}}else i=[];return i}const Jt=e=>e?rs(e)?Dt(e):Jt(e.parent):null,Hn=ne(Object.create(null),{$:e=>e,$el:e=>e.vnode.el,$data:e=>e.data,$props:e=>e.props,$attrs:e=>e.attrs,$slots:e=>e.slots,$refs:e=>e.refs,$parent:e=>Jt(e.parent),$root:e=>Jt(e.root),$host:e=>e.ce,$emit:e=>e.emit,$options:e=>Fi(e),$forceUpdate:e=>e.f||(e.f=()=>{da(e.update)}),$nextTick:e=>e.n||(e.n=no.bind(e.proxy)),$watch:e=>co.bind(e)}),Mt=(e,n)=>e!==J&&!e.__isScriptSetup&&F(e,n),xo={get({_:e},n){if(n==="__v_skip")return!0;const{ctx:t,setupState:a,data:i,props:s,accessCache:o,type:r,appContext:l}=e;if(n[0]!=="$"){const B=o[n];if(B!==void 0)switch(B){case 1:return a[n];case 2:return i[n];case 4:return t[n];case 3:return s[n]}else{if(Mt(a,n))return o[n]=1,a[n];if(i!==J&&F(i,n))return o[n]=2,i[n];if(F(s,n))return o[n]=3,s[n];if(t!==J&&F(t,n))return o[n]=4,t[n];Kt&&(o[n]=0)}}const u=Hn[n];let d,m;if(u)return n==="$attrs"&&ie(e.attrs,"get",""),u(e);if((d=r.__cssModules)&&(d=d[n]))return d;if(t!==J&&F(t,n))return o[n]=4,t[n];if(m=l.config.globalProperties,F(m,n))return m[n]},set({_:e},n,t){const{data:a,setupState:i,ctx:s}=e;return Mt(i,n)?(i[n]=t,!0):a!==J&&F(a,n)?(a[n]=t,!0):F(e.props,n)||n[0]==="$"&&n.slice(1)in e?!1:(s[n]=t,!0)},has({_:{data:e,setupState:n,accessCache:t,ctx:a,appContext:i,props:s,type:o}},r){let l;return!!(t[r]||e!==J&&r[0]!=="$"&&F(e,r)||Mt(n,r)||F(s,r)||F(a,r)||F(Hn,r)||F(i.config.globalProperties,r)||(l=o.__cssModules)&&l[r])},defineProperty(e,n,t){return t.get!=null?e._.accessCache[n]=0:F(t,"value")&&this.set(e,n,t.value,null),Reflect.defineProperty(e,n,t)}};function Ra(e){return S(e)?e.reduce((n,t)=>(n[t]=null,n),{}):e}let Kt=!0;function qo(e){const n=Fi(e),t=e.proxy,a=e.ctx;Kt=!1,n.beforeCreate&&Pa(n.beforeCreate,e,"bc");const{data:i,computed:s,methods:o,watch:r,provide:l,inject:u,created:d,beforeMount:m,mounted:B,beforeUpdate:q,updated:W,activated:y,deactivated:v,beforeDestroy:x,beforeUnmount:R,destroyed:Q,unmounted:P,render:ee,renderTracked:Ve,renderTriggered:De,errorCaptured:Je,serverPrefetch:Kn,expose:an,inheritAttrs:Cn,components:Yn,directives:$n,filters:xt}=n;if(u&&Io(u,a,null),o)for(const $ in o){const K=o[$];G(K)&&(a[$]=K.bind(t))}if(i){const $=i.call(t,t);U($)&&(e.data=Fn($))}if(Kt=!0,s)for(const $ in s){const K=s[$],sn=G(K)?K.bind(t,t):G(K.get)?K.get.bind(t,t):Re,Xn=!G(K)&&G(K.set)?K.set.bind(t):Re,on=un({get:sn,set:Xn});Object.defineProperty(a,$,{enumerable:!0,configurable:!0,get:()=>on.value,set:we=>on.value=we})}if(r)for(const $ in r)zi(r[$],a,t,$);if(l){const $=G(l)?l.call(t):l;Reflect.ownKeys($).forEach(K=>{oo(K,$[K])})}d&&Pa(d,e,"c");function oe($,K){S(K)?K.forEach(sn=>$(sn.bind(t))):K&&$(K.bind(t))}if(oe(fo,m),oe(yo,B),oe(wo,q),oe(bo,W),oe(po,y),oe(mo,v),oe(To,Je),oe(Bo,Ve),oe(Co,De),oe(vo,R),oe(Ao,P),oe(ko,Kn),S(an))if(an.length){const $=e.exposed||(e.exposed={});an.forEach(K=>{Object.defineProperty($,K,{get:()=>t[K],set:sn=>t[K]=sn,enumerable:!0})})}else e.exposed||(e.exposed={});ee&&e.render===Re&&(e.render=ee),Cn!=null&&(e.inheritAttrs=Cn),Yn&&(e.components=Yn),$n&&(e.directives=$n),Kn&&Oi(e)}function Io(e,n,t=Re){S(e)&&(e=Yt(e));for(const a in e){const i=e[a];let s;U(i)?"default"in i?s=ot(i.from||a,i.default,!0):s=ot(i.from||a):s=ot(i),se(s)?Object.defineProperty(n,a,{enumerable:!0,configurable:!0,get:()=>s.value,set:o=>s.value=o}):n[a]=s}}function Pa(e,n,t){Be(S(e)?e.map(a=>a.bind(n.proxy)):e.bind(n.proxy),n,t)}function zi(e,n,t,a){let i=a.includes(".")?Mi(t,a):()=>t[a];if(X(e)){const s=n[e];G(s)&&Rt(i,s)}else if(G(e))Rt(i,e.bind(t));else if(U(e))if(S(e))e.forEach(s=>zi(s,n,t,a));else{const s=G(e.handler)?e.handler.bind(t):n[e.handler];G(s)&&Rt(i,s,e)}}function Fi(e){const n=e.type,{mixins:t,extends:a}=n,{mixins:i,optionsCache:s,config:{optionMergeStrategies:o}}=e.appContext,r=s.get(n);let l;return r?l=r:!i.length&&!t&&!a?l=n:(l={},i.length&&i.forEach(u=>pt(l,u,o,!0)),pt(l,n,o)),U(n)&&s.set(n,l),l}function pt(e,n,t,a=!1){const{mixins:i,extends:s}=n;s&&pt(e,s,t,!0),i&&i.forEach(o=>pt(e,o,t,!0));for(const o in n)if(!(a&&o==="expose")){const r=Wo[o]||t&&t[o];e[o]=r?r(e[o],n[o]):n[o]}return e}const Wo={data:Ma,props:Ha,emits:Ha,methods:In,computed:In,beforeCreate:re,created:re,beforeMount:re,mounted:re,beforeUpdate:re,updated:re,beforeDestroy:re,beforeUnmount:re,destroyed:re,unmounted:re,activated:re,deactivated:re,errorCaptured:re,serverPrefetch:re,components:In,directives:In,watch:Eo,provide:Ma,inject:_o};function Ma(e,n){return n?e?function(){return ne(G(e)?e.call(this,this):e,G(n)?n.call(this,this):n)}:n:e}function _o(e,n){return In(Yt(e),Yt(n))}function Yt(e){if(S(e)){const n={};for(let t=0;t<e.length;t++)n[e[t]]=e[t];return n}return e}function re(e,n){return e?[...new Set([].concat(e,n))]:n}function In(e,n){return e?ne(Object.create(null),e,n):n}function Ha(e,n){return e?S(e)&&S(n)?[...new Set([...e,...n])]:ne(Object.create(null),Ra(e),Ra(n??{})):n}function Eo(e,n){if(!e)return n;if(!n)return e;const t=ne(Object.create(null),e);for(const a in n)t[a]=re(e[a],n[a]);return t}function Ni(){return{app:null,config:{isNativeTag:ai,performance:!1,globalProperties:{},optionMergeStrategies:{},errorHandler:void 0,warnHandler:void 0,compilerOptions:{}},mixins:[],components:{},directives:{},provides:Object.create(null),optionsCache:new WeakMap,propsCache:new WeakMap,emitsCache:new WeakMap}}let So=0;function Ro(e,n){return function(a,i=null){G(a)||(a=ne({},a)),i!=null&&!U(i)&&(i=null);const s=Ni(),o=new WeakSet,r=[];let l=!1;const u=s.app={_uid:So++,_component:a,_props:i,_container:null,_context:s,_instance:null,version:ur,get config(){return s.config},set config(d){},use(d,...m){return o.has(d)||(d&&G(d.install)?(o.add(d),d.install(u,...m)):G(d)&&(o.add(d),d(u,...m))),u},mixin(d){return s.mixins.includes(d)||s.mixins.push(d),u},component(d,m){return m?(s.components[d]=m,u):s.components[d]},directive(d,m){return m?(s.directives[d]=m,u):s.directives[d]},mount(d,m,B){if(!l){const q=u._ceVNode||je(a,i);return q.appContext=s,B===!0?B="svg":B===!1&&(B=void 0),e(q,d,B),l=!0,u._container=d,d.__vue_app__=u,Dt(q.component)}},onUnmount(d){r.push(d)},unmount(){l&&(Be(r,u._instance,16),e(null,u._container),delete u._container.__vue_app__)},provide(d,m){return s.provides[d]=m,u},runWithContext(d){const m=wn;wn=u;try{return d()}finally{wn=m}}};return u}}let wn=null;const Po=(e,n)=>n==="modelValue"||n==="model-value"?e.modelModifiers:e[`${n}Modifiers`]||e[`${ke(n)}Modifiers`]||e[`${tn(n)}Modifiers`];function Mo(e,n,...t){if(e.isUnmounted)return;const a=e.vnode.props||J;let i=t;const s=n.startsWith("update:"),o=s&&Po(a,n.slice(7));o&&(o.trim&&(i=t.map(d=>X(d)?d.trim():d)),o.number&&(i=i.map(ta)));let r,l=a[r=qt(n)]||a[r=qt(ke(n))];!l&&s&&(l=a[r=qt(tn(n))]),l&&Be(l,e,6,i);const u=a[r+"Once"];if(u){if(!e.emitted)e.emitted={};else if(e.emitted[r])return;e.emitted[r]=!0,Be(u,e,6,i)}}const Ho=new WeakMap;function Li(e,n,t=!1){const a=t?Ho:n.emitsCache,i=a.get(e);if(i!==void 0)return i;const s=e.emits;let o={},r=!1;if(!G(e)){const l=u=>{const d=Li(u,n,!0);d&&(r=!0,ne(o,d))};!t&&n.mixins.length&&n.mixins.forEach(l),e.extends&&l(e.extends),e.mixins&&e.mixins.forEach(l)}return!s&&!r?(U(e)&&a.set(e,null),null):(S(s)?s.forEach(l=>o[l]=null):ne(o,s),U(e)&&a.set(e,o),o)}function Bt(e,n){return!e||!yt(n)?!1:(n=n.slice(2),n=n==="Once"?n:n.replace(/Once$/,""),F(e,n[0].toLowerCase()+n.slice(1))||F(e,tn(n))||F(e,n))}function Oa(e){const{type:n,vnode:t,proxy:a,withProxy:i,propsOptions:[s],slots:o,attrs:r,emit:l,render:u,renderCache:d,props:m,data:B,setupState:q,ctx:W,inheritAttrs:y}=e,v=dt(e);let x,R;try{if(t.shapeFlag&4){const P=i||a,ee=P;x=Ee(u.call(ee,P,d,m,q,B,W)),R=r}else{const P=n;x=Ee(P.length>1?P(m,{attrs:r,slots:o,emit:l}):P(m,null)),R=n.props?r:Oo(r)}}catch(P){gn.length=0,kt(P,e,1),x=je(Te)}let Q=x;if(R&&y!==!1){const P=Object.keys(R),{shapeFlag:ee}=Q;P.length&&ee&7&&(s&&P.some(wt)&&(R=Go(R,s)),Q=vn(Q,R,!1,!0))}if(t.dirs&&(Q=vn(Q,null,!1,!0),Q.dirs=Q.dirs?Q.dirs.concat(t.dirs):t.dirs),t.transition){const P=Ct(Q.type)&&Hi(Q)||Q;Rn(P,t.transition)}return x=Q,dt(v),x}function Qi(e,n=!0){let t;for(let a=0;a<e.length;a++){const i=e[a];if(fa(i)){if(i.type!==Te||i.children==="v-if"){if(t)return;t=i}}else return}return t}const Oo=e=>{let n;for(const t in e)(t==="class"||t==="style"||yt(t))&&((n||(n={}))[t]=e[t]);return n},Go=(e,n)=>{const t={};for(const a in e)(!wt(a)||!(a.slice(9)in n))&&(t[a]=e[a]);return t};function zo(e,n,t){const{props:a,children:i,component:s}=e,{props:o,children:r,patchFlag:l}=n,u=s.emitsOptions;if(n.dirs||n.transition)return!0;if(t&&l>=0){if(l&1024)return!0;if(l&16)return a?Ga(a,o,u):!!o;if(l&8){const d=n.dynamicProps;for(let m=0;m<d.length;m++){const B=d[m];if(ji(o,a,B)&&!Bt(u,B))return!0}}}else return(i||r)&&(!r||!r.$stable)?!0:a===o?!1:a?o?Ga(a,o,u):!0:!!o;return!1}function Ga(e,n,t){const a=Object.keys(n);if(a.length!==Object.keys(e).length)return!0;for(let i=0;i<a.length;i++){const s=a[i];if(!F(e,s)||ji(n,e,s)&&!Bt(t,s))return!0}return!1}function ji(e,n,t){const a=e[t],i=n[t];return t==="style"&&U(a)&&U(i)?!kn(a,i):a!==i}function Fo({vnode:e,parent:n,suspense:t},a){for(;n;){const i=n.subTree;if(i.suspense&&i.suspense.activeBranch===e&&(i.suspense.vnode.el=i.el=a,e=i),i===e)(e=n.vnode).el=a,n=n.parent;else break}t&&t.activeBranch===e&&(t.vnode.el=a)}const Ui={},Vi=()=>Object.create(Ui),Ji=e=>Object.getPrototypeOf(e)===Ui;function No(e,n,t,a=!1){const i={},s=Vi();e.propsDefaults=Object.create(null),Ki(e,n,i,s);for(const o in e.propsOptions[0])o in i||(i[o]=void 0);t?e.props=a?i:js(i):e.type.props?e.props=i:e.props=s,e.attrs=s}function Lo(e,n,t,a){const{props:i,attrs:s,vnode:{patchFlag:o}}=e,r=L(i),[l]=e.propsOptions;let u=!1;if((a||o>0)&&!(o&16)){if(o&8){const d=e.vnode.dynamicProps;for(let m=0;m<d.length;m++){let B=d[m];if(Bt(e.emitsOptions,B))continue;const q=n[B];if(l)if(F(s,B))q!==s[B]&&(s[B]=q,u=!0);else{const W=ke(B);i[W]=$t(l,r,W,q,e,!1)}else q!==s[B]&&(s[B]=q,u=!0)}}}else{Ki(e,n,i,s)&&(u=!0);let d;for(const m in r)(!n||!F(n,m)&&((d=tn(m))===m||!F(n,d)))&&(l?t&&(t[m]!==void 0||t[d]!==void 0)&&(i[m]=$t(l,r,m,void 0,e,!0)):delete i[m]);if(s!==r)for(const m in s)(!n||!F(n,m))&&(delete s[m],u=!0)}u&&Le(e.attrs,"set","")}function Ki(e,n,t,a){const[i,s]=e.propsOptions;let o=!1,r;if(n)for(let l in n){if(_n(l))continue;const u=n[l];let d;i&&F(i,d=ke(l))?!s||!s.includes(d)?t[d]=u:(r||(r={}))[d]=u:Bt(e.emitsOptions,l)||(!(l in a)||u!==a[l])&&(a[l]=u,o=!0)}if(s){const l=L(t),u=r||J;for(let d=0;d<s.length;d++){const m=s[d];t[m]=$t(i,l,m,u[m],e,!F(u,m))}}return o}function $t(e,n,t,a,i,s){const o=e[t];if(o!=null){const r=F(o,"default");if(r&&a===void 0){const l=o.default;if(o.type!==Function&&!o.skipFactory&&G(l)){const{propsDefaults:u}=i;if(t in u)a=u[t];else{const d=Jn(i);a=u[t]=l.call(null,n),d()}}else a=l;i.ce&&i.ce._setProp(t,a)}o[0]&&(s&&!r?a=!1:o[1]&&(a===""||a===tn(t))&&(a=!0))}return a}const Qo=new WeakMap;function Yi(e,n,t=!1){const a=t?Qo:n.propsCache,i=a.get(e);if(i)return i;const s=e.props,o={},r=[];let l=!1;if(!G(e)){const d=m=>{l=!0;const[B,q]=Yi(m,n,!0);ne(o,B),q&&r.push(...q)};!t&&n.mixins.length&&n.mixins.forEach(d),e.extends&&d(e.extends),e.mixins&&e.mixins.forEach(d)}if(!s&&!l)return U(e)&&a.set(e,dn),dn;if(S(s))for(let d=0;d<s.length;d++){const m=ke(s[d]);za(m)&&(o[m]=J)}else if(s)for(const d in s){const m=ke(d);if(za(m)){const B=s[d],q=o[m]=S(B)||G(B)?{type:B}:ne({},B),W=q.type;let y=!1,v=!0;if(S(W))for(let x=0;x<W.length;++x){const R=W[x],Q=G(R)&&R.name;if(Q==="Boolean"){y=!0;break}else Q==="String"&&(v=!1)}else y=G(W)&&W.name==="Boolean";q[0]=y,q[1]=v,(y||F(q,"default"))&&r.push(m)}}const u=[o,r];return U(e)&&a.set(e,u),u}function za(e){return e[0]!=="$"&&!_n(e)}const ma=e=>e==="_"||e==="_ctx"||e==="$stable",ga=e=>S(e)?e.map(Ee):[Ee(e)],jo=(e,n,t)=>{if(n._n)return n;const a=so((...i)=>ga(n(...i)),t);return a._c=!1,a},$i=(e,n,t)=>{const a=e._ctx;for(const i in e){if(ma(i))continue;const s=e[i];if(G(s))n[i]=jo(i,s,a);else if(s!=null){const o=ga(s);n[i]=()=>o}}},Xi=(e,n)=>{const t=ga(n);e.slots.default=()=>t},Zi=(e,n,t)=>{for(const a in n)(t||!ma(a))&&(e[a]=n[a])},Uo=(e,n,t)=>{const a=e.slots=Vi();if(e.vnode.shapeFlag&32){const i=n._;i?(Zi(a,n,t),t&&li(a,"_",i,!0)):$i(n,a)}else n&&Xi(e,n)},Vo=(e,n,t)=>{const{vnode:a,slots:i}=e;let s=!0,o=J;if(a.shapeFlag&32){const r=n._;r?t&&r===1?s=!1:Zi(i,n,t):(s=!n.$stable,$i(n,i)),o=n}else n&&(Xi(e,n),o={default:1});if(s)for(const r in i)!ma(r)&&o[r]==null&&delete i[r]},le=Zo;function Jo(e){return Ko(e)}function Ko(e,n){const t=vt();t.__VUE__=!0;const{insert:a,remove:i,patchProp:s,createElement:o,createText:r,createComment:l,setText:u,setElementText:d,parentNode:m,nextSibling:B,setScopeId:q=Re,insertStaticContent:W}=e,y=(c,h,p,b=null,g=null,w=null,C=void 0,k=null,A=!!h.dynamicChildren)=>{if(c===h)return;c&&!xn(c,h)&&(b=Zn(c),we(c,g,w,!0),c=null),h.patchFlag===-2&&(A=!1,h.dynamicChildren=null),h.dynamicChildren&&c&&c.dynamicChildren&&c.dynamicChildren.hasOnce&&(h.dynamicChildren===dn&&(h.dynamicChildren=[]),h.dynamicChildren.hasOnce=!0);const{type:f,ref:I,shapeFlag:T}=h;switch(f){case Tt:v(c,h,p,b);break;case Te:x(c,h,p,b);break;case Ot:c==null&&R(h,p,b,C);break;case N:Yn(c,h,p,b,g,w,C,k,A);break;default:T&1?ee(c,h,p,b,g,w,C,k,A):T&6?$n(c,h,p,b,g,w,C,k,A):(T&64||T&128)&&f.process(c,h,p,b,g,w,C,k,A,Tn)}I!=null&&g?Pn(I,c&&c.ref,w,h||c,!h):I==null&&c&&c.ref!=null&&Pn(c.ref,null,w,c,!0)},v=(c,h,p,b)=>{if(c==null)a(h.el=r(h.children),p,b);else{const g=h.el=c.el;h.children!==c.children&&u(g,h.children)}},x=(c,h,p,b)=>{c==null?a(h.el=l(h.children||""),p,b):h.el=c.el},R=(c,h,p,b)=>{[c.el,c.anchor]=W(c.children,h,p,b,c.el,c.anchor)},Q=({el:c,anchor:h},p,b)=>{let g;for(;c&&c!==h;)g=B(c),a(c,p,b),c=g;a(h,p,b)},P=({el:c,anchor:h})=>{let p;for(;c&&c!==h;)p=B(c),i(c),c=p;i(h)},ee=(c,h,p,b,g,w,C,k,A)=>{if(h.type==="svg"?C="svg":h.type==="math"&&(C="mathml"),c==null)Ve(h,p,b,g,w,C,k,A);else{const f=c.el&&c.el._isVueCE?c.el:null;try{f&&f._beginPatch(),Kn(c,h,g,w,C,k,A)}finally{f&&f._endPatch()}}},Ve=(c,h,p,b,g,w,C,k)=>{let A,f;const{props:I,shapeFlag:T,transition:_,dirs:M}=c;if(A=c.el=o(c.type,w,I&&I.is,I),T&8?d(A,c.children):T&16&&Je(c.children,A,null,b,g,Ht(c,w),C,k),M&&rn(c,null,b,"created"),De(A,c,c.scopeId,C,b),I){for(const V in I)V!=="value"&&!_n(V)&&s(A,V,null,I[V],w,b);"value"in I&&s(A,"value",null,I.value,w),(f=I.onVnodeBeforeMount)&&Ie(f,b,c)}M&&rn(c,null,b,"beforeMount");const z=Yo(g,_);z?_.beforeEnter(A):_&&!_.persisted&&(A[Xo]=!0),a(A,h,p),((f=I&&I.onVnodeMounted)||z||M)&&le(()=>{try{f&&Ie(f,b,c),z&&_.enter(A),M&&rn(c,null,b,"mounted")}finally{}},g)},De=(c,h,p,b,g)=>{if(p&&q(c,p),b)for(let w=0;w<b.length;w++)q(c,b[w]);if(g){let w=g.subTree;if(h===w||ts(w.type)&&(w.ssContent===h||w.ssFallback===h)){const C=g.vnode;De(c,C,C.scopeId,C.slotScopeIds,g.parent)}}},Je=(c,h,p,b,g,w,C,k,A=0)=>{for(let f=A;f<c.length;f++){const I=c[f]=k?Ne(c[f]):Ee(c[f]);y(null,I,h,p,b,g,w,C,k)}},Kn=(c,h,p,b,g,w,C)=>{const k=h.el=c.el;let{patchFlag:A,dynamicChildren:f,dirs:I}=h;A|=c.patchFlag&16;const T=c.props||J,_=h.props||J;let M;if(p&&ln(p,!1),(M=_.onVnodeBeforeUpdate)&&Ie(M,p,h,c),I&&rn(h,c,p,"beforeUpdate"),p&&ln(p,!0),f&&(!c.dynamicChildren||c.dynamicChildren.length!==f.length)&&(A=0,C=!1,f=null),(T.innerHTML&&_.innerHTML==null||T.textContent&&_.textContent==null)&&d(k,""),f?an(c.dynamicChildren,f,k,p,b,Ht(h,g),w):C||K(c,h,k,null,p,b,Ht(h,g),w,!1),A>0){if(A&16)Cn(k,T,_,p,g);else if(A&2&&T.class!==_.class&&s(k,"class",null,_.class,g),A&4&&s(k,"style",T.style,_.style,g),A&8){const z=h.dynamicProps;for(let V=0;V<z.length;V++){const j=z[V],Z=T[j],te=_[j];(te!==Z||j==="value")&&s(k,j,Z,te,g,p)}}A&1&&c.children!==h.children&&d(k,h.children)}else!C&&f==null&&Cn(k,T,_,p,g);((M=_.onVnodeUpdated)||I)&&le(()=>{M&&Ie(M,p,h,c),I&&rn(h,c,p,"updated")},b)},an=(c,h,p,b,g,w,C)=>{for(let k=0;k<h.length;k++){const A=c[k],f=h[k],I=A.el||On(A),T=I&&(A.type===N||!xn(A,f)||A.shapeFlag&198)?m(I):p;y(A,f,T,null,b,g,w,C,!0)}},Cn=(c,h,p,b,g)=>{if(h!==p){if(h!==J)for(const w in h)!_n(w)&&!(w in p)&&s(c,w,h[w],null,g,b);for(const w in p){if(_n(w))continue;const C=p[w],k=h[w];C!==k&&w!=="value"&&s(c,w,k,C,g,b)}"value"in p&&s(c,"value",h.value,p.value,g)}},Yn=(c,h,p,b,g,w,C,k,A)=>{const f=h.el=c?c.el:r(""),I=h.anchor=c?c.anchor:r("");let{patchFlag:T,dynamicChildren:_,slotScopeIds:M}=h;M&&(k=k?k.concat(M):M),c==null?(a(f,p,b),a(I,p,b),Je(h.children||[],p,I,g,w,C,k,A)):T>0&&T&64&&_&&c.dynamicChildren&&c.dynamicChildren.length===_.length?(an(c.dynamicChildren,_,p,g,w,C,k),(h.key!=null||g&&h===g.subTree)&&es(c,h,!0)):K(c,h,p,I,g,w,C,k,A)},$n=(c,h,p,b,g,w,C,k,A)=>{h.slotScopeIds=k,c==null?h.shapeFlag&512?g.ctx.activate(h,p,b,C,A):xt(h,p,b,g,w,C,A):ya(c,h,A)},xt=(c,h,p,b,g,w,C)=>{const k=c.component=sr(c,b,g);if(pa(c)&&(k.ctx.renderer=Tn),rr(k,!1,C),k.asyncDep){if(g&&g.registerDep(k,oe,C,w),!c.el){const A=k.subTree=je(Te);x(null,A,h,p),c.placeholder=A.el}}else oe(k,c,h,p,g,w,C)},ya=(c,h,p)=>{const b=h.component=c.component;if(zo(c,h,p))if(b.asyncDep&&!b.asyncResolved){h.el=c.el,h.placeholder=c.placeholder,$(b,h,p);return}else b.next=h,b.update();else h.el=c.el,h.placeholder=c.placeholder,b.vnode=h},oe=(c,h,p,b,g,w,C)=>{const k=()=>{if(c.isMounted){let{next:T,bu:_,u:M,parent:z,vnode:V}=c;{const xe=ns(c);if(xe){T&&(T.el=V.el,$(c,T,C)),xe.asyncDep.then(()=>{const Ge=()=>{c.job.flags&8||(g&&g.pendingBranch?le(Ge,g):f())};Ge.flags=48,le(Ge,g)});return}}let j=T,Z;ln(c,!1),T?(T.el=V.el,$(c,T,C)):T=V,_&&st(_),(Z=T.props&&T.props.onVnodeBeforeUpdate)&&Ie(Z,z,T,V),ln(c,!0);const te=Oa(c),be=c.subTree;c.subTree=te,y(be,te,m(be.el||On(be)),Zn(be),c,g,w),T.el=te.el,j===null&&Fo(c,te.el),M&&le(M,g),(Z=T.props&&T.props.onVnodeUpdated)&&le(()=>Ie(Z,z,T,V),g)}else{let T;const{el:_,props:M}=h,{bm:z,m:V,parent:j,root:Z,type:te}=c,be=Mn(h);ln(c,!1),z&&st(z),!be&&(T=M&&M.onVnodeBeforeMount)&&Ie(T,j,h),ln(c,!0);{Z.ce&&Z.ce._hasShadowRoot()&&Z.ce._injectChildStyle(te,c.parent?c.parent.type:void 0);const xe=c.subTree=Oa(c);y(null,xe,p,b,c,g,w),h.el=xe.el}if(V&&le(V,g),!be&&(T=M&&M.onVnodeMounted)){const xe=h;le(()=>Ie(T,j,xe),g)}(h.shapeFlag&256||j&&Mn(j.vnode)&&j.vnode.shapeFlag&256)&&c.a&&le(c.a,g),c.isMounted=!0,h=p=b=null}};c.scope.on();const A=c.effect=new pi(k);c.scope.off();const f=c.update=A.run.bind(A),I=c.job=A.runIfDirty.bind(A);I.i=c,I.id=c.uid,A.scheduler=()=>da(I),ln(c,!0),f()},$=(c,h,p)=>{h.component=c;const b=c.vnode.props;c.vnode=h,c.next=null,Lo(c,h.props,b,p),Vo(c,h.children,p),Me(),_i(c),He()},K=(c,h,p,b,g,w,C,k,A=!1)=>{const f=c&&c.children,I=c?c.shapeFlag:0,T=h.children,{patchFlag:_,shapeFlag:M}=h;if(_>0){if(_&128){Xn(f,T,p,b,g,w,C,k,A);return}else if(_&256){sn(f,T,p,b,g,w,C,k,A);return}}M&8?(I&16&&Bn(f,g,w),T!==f&&d(p,T)):I&16?M&16?Xn(f,T,p,b,g,w,C,k,A):Bn(f,g,w,!0):(I&8&&d(p,""),M&16&&Je(T,p,b,g,w,C,k,A))},sn=(c,h,p,b,g,w,C,k,A)=>{c=c||dn,h=h||dn;const f=c.length,I=h.length,T=Math.min(f,I);let _;for(_=0;_<T;_++){const M=h[_]=A?Ne(h[_]):Ee(h[_]);y(c[_],M,p,null,g,w,C,k,A)}f>I?Bn(c,g,w,!0,!1,T):Je(h,p,b,g,w,C,k,A,T)},Xn=(c,h,p,b,g,w,C,k,A)=>{let f=0;const I=h.length;let T=c.length-1,_=I-1;for(;f<=T&&f<=_;){const M=c[f],z=h[f]=A?Ne(h[f]):Ee(h[f]);if(xn(M,z))y(M,z,p,null,g,w,C,k,A);else break;f++}for(;f<=T&&f<=_;){const M=c[T],z=h[_]=A?Ne(h[_]):Ee(h[_]);if(xn(M,z))y(M,z,p,null,g,w,C,k,A);else break;T--,_--}if(f>T){if(f<=_){const M=_+1,z=M<I?h[M].el:b;for(;f<=_;)y(null,h[f]=A?Ne(h[f]):Ee(h[f]),p,z,g,w,C,k,A),f++}}else if(f>_)for(;f<=T;)we(c[f],g,w,!0),f++;else{const M=f,z=f,V=new Map;for(f=z;f<=_;f++){const ue=h[f]=A?Ne(h[f]):Ee(h[f]);ue.key!=null&&V.set(ue.key,f)}let j,Z=0;const te=_-z+1;let be=!1,xe=0;const Ge=new Array(te);for(f=0;f<te;f++)Ge[f]=0;for(f=M;f<=T;f++){const ue=c[f];if(Z>=te){we(ue,g,w,!0);continue}let qe;if(ue.key!=null)qe=V.get(ue.key);else for(j=z;j<=_;j++)if(Ge[j-z]===0&&xn(ue,h[j])){qe=j;break}qe===void 0?we(ue,g,w,!0):(Ge[qe-z]=f+1,qe>=xe?xe=qe:be=!0,y(ue,h[qe],p,null,g,w,C,k,A),Z++)}const Aa=be?$o(Ge):dn;for(j=Aa.length-1,f=te-1;f>=0;f--){const ue=z+f,qe=h[ue],ka=h[ue+1],Ca=ue+1<I?ka.el||On(ka):b;Ge[f]===0?y(null,qe,p,Ca,g,w,C,k,A):be&&(j<0||f!==Aa[j]?on(qe,p,Ca,2):j--)}}},on=(c,h,p,b,g=null)=>{const{el:w,type:C,transition:k,children:A,shapeFlag:f}=c;if(f&6){on(c.component.subTree,h,p,b);return}if(f&128){c.suspense.move(h,p,b);return}if(f&64){C.move(c,h,p,Tn);return}if(C===N){a(w,h,p);for(let T=0;T<A.length;T++)on(A[T],h,p,b);a(c.anchor,h,p);return}if(C===Ot){Q(c,h,p);return}if(b!==2&&f&1&&k)if(b===0)k.persisted&&!w[Pt]?a(w,h,p):(k.beforeEnter(w),a(w,h,p),le(()=>k.enter(w),g));else{const{leave:T,delayLeave:_,afterLeave:M}=k,z=()=>{c.ctx.isUnmounted?i(w):a(w,h,p)},V=()=>{const j=w._isLeaving||!!w[Pt];w._isLeaving&&w[Pt](!0),k.persisted&&!j?z():T(w,()=>{z(),M&&M()})};_?_(w,z,V):V()}else a(w,h,p)},we=(c,h,p,b=!1,g=!1)=>{const{type:w,props:C,ref:k,children:A,dynamicChildren:f,shapeFlag:I,patchFlag:T,dirs:_,cacheIndex:M,memo:z}=c;if((T===-2||f&&f.hasOnce)&&(g=!1),k!=null&&(Me(),Pn(k,null,p,c,!0),He()),M!=null&&(!c.ctx||c.ctx===h)&&(h.renderCache[M]=void 0),I&256&&h.ctx.deactivate(c))return;const V=I&1&&_,j=!Mn(c);let Z;if(j&&(Z=C&&C.onVnodeBeforeUnmount)&&Ie(Z,h,c),I&6)ps(c.component,p,b);else{if(I&128){c.suspense.unmount(p,b);return}V&&rn(c,null,h,"beforeUnmount"),I&64?c.type.remove(c,h,p,Tn,b):f&&!f.hasOnce&&(w!==N||T>0&&T&64)?Bn(f,h,p,!1,!0):(w===N&&T&384||!g&&I&16)&&Bn(A,h,p),b&&wa(c)}const te=z!=null&&M==null;(j&&(Z=C&&C.onVnodeUnmounted)||V||te)&&le(()=>{Z&&Ie(Z,h,c),V&&rn(c,null,h,"unmounted"),te&&(c.el=null)},p)},wa=c=>{const{type:h,el:p,anchor:b,transition:g}=c,w=h===N;if(w&&!g){ba(p,b);return}if(h===Ot){P(c),g&&!g.persisted&&g.afterLeave&&g.afterLeave();return}const C=w?Vt(c):c,k=()=>{w?m(p)&&ba(p,b):i(p),g&&!g.persisted&&g.afterLeave&&g.afterLeave()};if(C&&C.shapeFlag&1&&g&&!g.persisted){const{leave:A,delayLeave:f}=g,I=C.el,T=()=>A(I,k);f?f(I,k,T):T()}else k()},ba=(c,h)=>{let p;for(;c!==h;)p=B(c),i(c),c=p;i(h)},ps=(c,h,p)=>{const{bum:b,scope:g,job:w,subTree:C,um:k,m:A,a:f}=c;Fa(A),Fa(f),b&&st(b),g.stop(),w?(w.flags|=8,we(C,c,h,p)):C&&(C.transition=c.vnode.transition,we(C,c,h,p)),k&&le(k,h);const I=()=>{c.isUnmounted=!0};I.flags=16,le(I,h)},Bn=(c,h,p,b=!1,g=!1,w=0)=>{for(let C=w;C<c.length;C++)we(c[C],h,p,b,g)},Zn=c=>{if(c.shapeFlag&6)return Zn(c.component.subTree);if(c.shapeFlag&128)return c.suspense.next();const h=B(c.anchor||c.el),p=h&&h[ho];return p?B(p):h},va=(c,h,p)=>{const b=c&&h._vnode?void 0:c&&c.component?c.component.uid:ir();io(()=>{c==null?h._vnode&&we(h._vnode,null,null,!0):y(h._vnode||null,c,h,null,null,null,p),h._vnode=c},b)},Tn={p:y,um:we,m:on,r:wa,mt:xt,mc:Je,pc:K,pbc:an,n:Zn,o:e};return{render:va,hydrate:void 0,createApp:Ro(va)}}function Ht({type:e,props:n},t){return t==="svg"&&e==="foreignObject"||t==="mathml"&&e==="annotation-xml"&&n&&n.encoding&&n.encoding.includes("html")?void 0:t}function ln({effect:e,job:n},t){t?(e.flags|=32,n.flags|=4):(e.flags&=-33,n.flags&=-5)}function Yo(e,n){return(!e||e&&!e.pendingBranch)&&n&&!n.persisted}function es(e,n,t=!1){const a=e.children,i=n.children;if(S(a)&&S(i))for(let s=0;s<a.length;s++){const o=a[s];let r=i[s];r.shapeFlag&1&&!r.dynamicChildren&&((r.patchFlag<=0||r.patchFlag===32)&&(r=i[s]=Ne(i[s]),r.el=o.el),!t&&r.patchFlag!==-2&&es(o,r)),r.type===Tt&&(r.patchFlag===-1&&(r=i[s]=Ne(r)),r.el=o.el),r.type===Te&&!r.el&&(r.el=o.el)}}function $o(e){const n=e.slice(),t=[0];let a,i,s,o,r;const l=e.length;for(a=0;a<l;a++){const u=e[a];if(u!==0){if(i=t[t.length-1],e[i]<u){n[a]=i,t.push(a);continue}for(s=0,o=t.length-1;s<o;)r=s+o>>1,e[t[r]]<u?s=r+1:o=r;u<e[t[s]]&&(s>0&&(n[a]=t[s-1]),t[s]=a)}}for(s=t.length,o=t[s-1];s-- >0;)t[s]=o,o=n[o];return t}function ns(e){const n=e.subTree.component;if(n)return n.asyncDep&&!n.asyncResolved?n:ns(n)}function Fa(e){if(e)for(let n=0;n<e.length;n++)e[n].flags|=8}function On(e){if(e.placeholder)return e.placeholder;const n=e.component;if(n)return On(n.subTree);const t=e.suspense;return t&&t.activeBranch?On(t.activeBranch):null}const ts=e=>e.__isSuspense,Xo=Symbol("_deferredEnter");function Zo(e,n){n&&n.pendingBranch?S(e)?n.effects.push(...e):n.effects.push(e):ao(e)}const N=Symbol.for("v-fgt"),Tt=Symbol.for("v-txt"),Te=Symbol.for("v-cmt"),Ot=Symbol.for("v-stc"),gn=[];let me=null;function E(e=!1){gn.push(me=e?null:[])}function as(){gn.pop(),me=gn[gn.length-1]||null}let Qn=1;function Na(e,n=!1){Qn+=e,e<0&&me&&n&&(me.hasOnce=!0)}function is(e){return e.dynamicChildren=Qn>0?me||dn:null,as(),Qn>0&&me&&me.push(e),e}function H(e,n,t,a,i,s){return is(D(e,n,t,a,i,s,!0))}function rt(e,n,t,a,i){return is(je(e,n,t,a,i,!0))}function fa(e){return e?e.__v_isVNode===!0:!1}function xn(e,n){return e.type===n.type&&e.key===n.key}const ss=({key:e})=>e??null,lt=({ref:e,ref_key:n,ref_for:t})=>(typeof e=="number"&&(e=""+e),e!=null?X(e)||se(e)||G(e)?{i:ge,r:e,k:n,f:!!t}:e:null);function D(e,n=null,t=null,a=0,i=null,s=e===N?0:1,o=!1,r=!1){const l={__v_isVNode:!0,__v_skip:!0,type:e,props:n,key:n&&ss(n),ref:n&&lt(n),scopeId:Ri,slotScopeIds:null,children:t,component:null,suspense:null,ssContent:null,ssFallback:null,dirs:null,transition:null,el:null,anchor:null,target:null,targetStart:null,targetAnchor:null,staticCount:0,shapeFlag:s,patchFlag:a,dynamicProps:i,dynamicChildren:null,appContext:null,ctx:ge};return r?(mt(l,t),s&128&&e.normalize(l)):t&&(l.shapeFlag|=X(t)?8:16),Qn>0&&!o&&me&&(l.patchFlag>0||s&6)&&l.patchFlag!==32&&me.push(l),l}const je=er;function er(e,n=null,t=null,a=0,i=null,s=!1){if((!e||e===Do)&&(e=Te),fa(e)){const r=vn(e,n,!0);return t&&mt(r,t),Qn>0&&!s&&me&&(r.shapeFlag&6?me[me.indexOf(e)]=r:me.push(r)),r.patchFlag=-2,r}if(dr(e)&&(e=e.__vccOpts),n){n=nr(n);let{class:r,style:l}=n;r&&!X(r)&&(n.class=pe(r)),U(l)&&(ha(l)&&!S(l)&&(l=ne({},l)),n.style=aa(l))}const o=X(e)?1:ts(e)?128:Ct(e)?64:U(e)?4:G(e)?2:0;return D(e,n,t,a,i,o,s,!0)}function nr(e){return e?ha(e)?ne({},e):Ji(e)?ne({},e[cs]||e):e:null}function vn(e,n,t=!1,a=!1){const{props:i,ref:s,patchFlag:o,children:r,transition:l}=e,u=n?tr(i||{},n):i,d={__v_isVNode:!0,__v_skip:!0,type:e.type,props:u,key:u&&ss(u),ref:n&&n.ref?t&&s?S(s)?s.concat(lt(n)):[s,lt(n)]:lt(n):s,scopeId:e.scopeId,slotScopeIds:e.slotScopeIds,children:r,target:e.target,targetStart:e.targetStart,targetAnchor:e.targetAnchor,staticCount:e.staticCount,shapeFlag:e.shapeFlag,patchFlag:n&&e.type!==N?o===-1?16:o|16:o,dynamicProps:e.dynamicProps,dynamicChildren:e.dynamicChildren,appContext:e.appContext,dirs:e.dirs,transition:l,component:e.component,suspense:e.suspense,ssContent:e.ssContent&&vn(e.ssContent),ssFallback:e.ssFallback&&vn(e.ssFallback),placeholder:e.placeholder,el:e.el,anchor:e.anchor,ctx:e.ctx,ce:e.ce,cacheIndex:e.cacheIndex};return l&&a&&Rn(d,l.clone(d)),d}function Xe(e=" ",n=0){return je(Tt,null,e,n)}function de(e="",n=!1){return n?(E(),rt(Te,null,e)):je(Te,null,e)}function Ee(e){return e==null||typeof e=="boolean"?je(Te):S(e)?je(N,null,e.slice()):fa(e)?Ne(e):je(Tt,null,String(e))}function Ne(e){return e.el===null&&e.patchFlag!==-1||e.memo?e:vn(e)}function mt(e,n){let t=0;const{shapeFlag:a}=e;if(n==null)n=null;else if(S(n))t=16;else if(typeof n=="object")if(a&65){const i=n.default;i&&(i._c&&(i._d=!1),mt(e,i()),i._c&&(i._d=!0));return}else{t=32;const i=n._;!i&&!Ji(n)?n._ctx=ge:i===3&&ge&&(ge.slots._===1?n._=1:(n._=2,e.patchFlag|=1024))}else if(G(n)){if(a&65){mt(e,{default:n});return}n={default:n,_ctx:ge},t=32}else n=String(n),a&64?(t=16,n=[Xe(n)]):t=8;e.children=n,e.shapeFlag|=t}function tr(...e){const n={};for(let t=0;t<e.length;t++){const a=e[t];for(const i in a)if(i==="class")n.class!==a.class&&(n.class=pe([n.class,a.class]));else if(i==="style")n.style=aa([n.style,a.style]);else if(yt(i)){const s=n[i],o=a[i];o&&s!==o&&!(S(s)&&s.includes(o))?n[i]=s?[].concat(s,o):o:o==null&&s==null&&!wt(i)&&(n[i]=o)}else i!==""&&(n[i]=a[i])}return n}function Ie(e,n,t,a=null){Be(e,n,7,[t,a])}const ar=Ni();let os=0;function ir(){return os}function sr(e,n,t){const a=e.type,i=(n?n.appContext:e.appContext)||ar,s={uid:os++,vnode:e,type:a,parent:n,appContext:i,root:null,next:null,subTree:null,effect:null,update:null,job:null,scope:new xs(!0),render:null,proxy:null,exposed:null,exposeProxy:null,withProxy:null,provides:n?n.provides:Object.create(i.provides),ids:n?n.ids:["",0,0],accessCache:null,renderCache:[],components:null,directives:null,propsOptions:Yi(a,i),emitsOptions:Li(a,i),emit:null,emitted:null,propsDefaults:J,inheritAttrs:a.inheritAttrs,ctx:J,data:J,props:J,attrs:J,slots:J,refs:J,setupState:J,setupContext:null,suspense:t,suspenseId:t?t.pendingId:0,asyncDep:null,asyncResolved:!1,isMounted:!1,isUnmounted:!1,isDeactivated:!1,bc:null,c:null,bm:null,m:null,bu:null,u:null,um:null,bum:null,da:null,a:null,rtg:null,rtc:null,ec:null,sp:null};return s.ctx={_:s},s.root=n?n.root:s,s.emit=Mo.bind(null,s),e.ce&&e.ce(s),s}let he=null;const or=()=>he||ge;let gt,jn;{const e=vt(),n=(t,a)=>{let i;return(i=e[t])||(i=e[t]=[]),i.push(a),s=>{i.length>1?i.forEach(o=>o(s)):i[0](s)}};gt=n("__VUE_INSTANCE_SETTERS__",t=>he=t),jn=n("__VUE_SSR_SETTERS__",t=>Un=t)}const Jn=e=>{const n=he;return gt(e),e.scope.on(),()=>{e.scope.off(),gt(n)}},La=()=>{he&&he.scope.off(),gt(null)};function rs(e){return e.vnode.shapeFlag&4}let Un=!1;function rr(e,n=!1,t=!1){n&&jn(n);const{props:a,children:i}=e.vnode,s=rs(e);No(e,a,s,n),Uo(e,i,t||n);const o=s?lr(e,n):void 0;return n&&jn(!1),o}function lr(e,n){const t=e.type;e.accessCache=Object.create(null),e.proxy=new Proxy(e.ctx,xo);const{setup:a}=t;if(a){Me();const i=e.setupContext=a.length>1?hr(e):null,s=Jn(e),o=Vn(a,e,0,[e.props,i]),r=ii(o);if(He(),s(),(r||e.sp)&&!Mn(e)&&Oi(e),r){if(o.then(La,La),n)return o.then(l=>{jn(!0);try{Qa(e,l,n)}finally{jn(!1)}}).catch(l=>{kt(l,e,0,void 0,!0),e.ssrRender=(u,d)=>d("<!---->")});e.asyncDep=o}else Qa(e,o)}else ls(e)}function Qa(e,n,t){G(n)?e.type.__ssrInlineRender?e.ssrRender=n:e.render=n:U(n)&&(e.setupState=qi(n)),ls(e)}function ls(e,n,t){const a=e.type;e.render||(e.render=a.render||Re);{const i=Jn(e);Me();try{qo(e)}finally{He(),i()}}}const cs=Symbol(),cr={get(e,n){return ie(e,"get",""),n===cs?e:e[n]}};function hr(e){const n=t=>{e.exposed=t||{}};return{attrs:new Proxy(e.attrs,cr),slots:e.slots,emit:e.emit,expose:n}}function Dt(e){return e.exposed?e.exposeProxy||(e.exposeProxy=new Proxy(qi(Us(e.exposed)),{get(n,t){if(t in n)return n[t];if(t in Hn)return Hn[t](e)},has(n,t){return t in n||t in Hn}})):e.proxy}function dr(e){return G(e)&&"__vccOpts"in e}const un=(e,n)=>$s(e,n,Un),ur="3.5.46";/**
 * @vue/runtime-dom v3.5.46
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
-**/let Xt;const Qa=typeof window<"u"&&window.trustedTypes;if(Qa)try{Xt=Qa.createPolicy("vue",{createHTML:e=>e})}catch{}const hs=Xt?e=>Xt.createHTML(e):e=>e,pr="http://www.w3.org/2000/svg",mr="http://www.w3.org/1998/Math/MathML",ze=typeof document<"u"?document:null,Ua=ze&&ze.createElement("template"),gr={insert:(e,n,t)=>{n.insertBefore(e,t||null)},remove:e=>{const n=e.parentNode;n&&n.removeChild(e)},createElement:(e,n,t,a)=>{const i=n==="svg"?ze.createElementNS(pr,e):n==="mathml"?ze.createElementNS(mr,e):t?ze.createElement(e,{is:t}):ze.createElement(e);return e==="select"&&a&&a.multiple!=null&&i.setAttribute("multiple",a.multiple),i},createText:e=>ze.createTextNode(e),createComment:e=>ze.createComment(e),setText:(e,n)=>{e.nodeValue=n},setElementText:(e,n)=>{e.textContent=n},parentNode:e=>e.parentNode,nextSibling:e=>e.nextSibling,querySelector:e=>ze.querySelector(e),setScopeId(e,n){e.setAttribute(n,"")},insertStaticContent(e,n,t,a,i,s){const o=t?t.previousSibling:n.lastChild;if(i&&(i===s||i.nextSibling))for(;n.insertBefore(i.cloneNode(!0),t),!(i===s||!(i=i.nextSibling)););else{Ua.innerHTML=hs(a==="svg"?`<svg>${e}</svg>`:a==="mathml"?`<math>${e}</math>`:e);const r=Ua.content;if(a==="svg"||a==="mathml"){const l=r.firstChild;for(;l.firstChild;)r.appendChild(l.firstChild);r.removeChild(l)}n.insertBefore(r,t)}return[o?o.nextSibling:n.firstChild,t?t.previousSibling:n.lastChild]}},fr=Symbol("_vtc");function yr(e,n,t){const a=e[fr];a&&(n=(n?[n,...a]:[...a]).join(" ")),n==null?e.removeAttribute("class"):t?e.setAttribute("class",n):e.className=n}const Va=Symbol("_vod"),wr=Symbol("_vsh"),br=Symbol(""),vr=/(?:^|;)\s*display\s*:/;function Ar(e,n,t){const a=e.style,i=X(t);let s=!1;if(t&&!i){if(n)if(X(n))for(const o of n.split(";")){const r=o.slice(0,o.indexOf(":")).trim();t[r]==null&&Wn(a,r,"")}else for(const o in n)t[o]==null&&Wn(a,o,"");for(const o in t){o==="display"&&(s=!0);const r=t[o];r!=null?Cr(e,o,!X(n)&&n?n[o]:void 0,r)||Wn(a,o,r):Wn(a,o,"")}}else if(i){if(n!==t){const o=a[br];o&&(t+=";"+o),a.cssText=t,s=vr.test(t)}}else n&&e.removeAttribute("style");Va in e&&((!i||n!==t)&&(e[Va]=s?a.display:""),e[wr]&&(a.display="none"))}const at=/\s*!important$/;function Wn(e,n,t){if(S(t))t.forEach(a=>Wn(e,n,a));else if(t==null&&(t=""),n.startsWith("--"))at.test(t)?e.setProperty(n,t.replace(at,""),"important"):e.setProperty(n,t);else{const a=kr(e,n);at.test(t)?e.setProperty(nn(a),t.replace(at,""),"important"):e[a]=t}}const Ja=["Webkit","Moz","ms"],Ot={};function kr(e,n){const t=Ot[n];if(t)return t;let a=Ae(n);if(a!=="filter"&&a in e)return Ot[n]=a;a=ri(a);for(let i=0;i<Ja.length;i++){const s=Ja[i]+a;if(s in e)return Ot[n]=s}return n}function Cr(e,n,t,a){return e.tagName==="TEXTAREA"&&(n==="width"||n==="height")&&X(a)&&t===a}const Ka="http://www.w3.org/1999/xlink";function Ya(e,n,t,a,i,s=Bs(n)){a&&n.startsWith("xlink:")?t==null?e.removeAttributeNS(Ka,n.slice(6,n.length)):e.setAttributeNS(Ka,n,t):t==null||s&&!ci(t)?e.removeAttribute(n):e.setAttribute(n,s?"":Pe(t)?String(t):t)}function $a(e,n,t,a,i){if(n==="innerHTML"||n==="textContent"){t!=null&&(e[n]=n==="innerHTML"?hs(t):t);return}const s=e.tagName;if(n==="value"&&s!=="PROGRESS"&&!s.includes("-")){const r=s==="OPTION"?e.getAttribute("value")||"":e.value,l=t==null?e.type==="checkbox"?"on":"":String(t);(r!==l||!("_value"in e))&&(e.value=l),t==null&&e.removeAttribute(n),e._value=t;return}let o=!1;if(t===""||t==null){const r=typeof e[n];r==="boolean"?t=ci(t):t==null&&r==="string"?(t="",o=!0):r==="number"&&(t=0,o=!0)}try{e[n]=t}catch{}o&&e.removeAttribute(i||n)}function hn(e,n,t,a){e.addEventListener(n,t,a)}function Br(e,n,t,a){e.removeEventListener(n,t,a)}const Xa=Symbol("_vei");function Tr(e,n,t,a,i=null){const s=e[Xa]||(e[Xa]={}),o=s[n];if(a&&o)o.value=a;else{const[r,l]=qr(n);if(a){const u=s[n]=_r(a,i);hn(e,r,u,l)}else o&&(Br(e,r,o,l),s[n]=void 0)}}const Dr=/(Once|Passive|Capture)$/,xr=/^on:?(?:Once|Passive|Capture)$/;function qr(e){let n,t;for(;(t=e.match(Dr))&&!xr.test(e);)n||(n={}),e=e.slice(0,e.length-t[1].length),n[t[1].toLowerCase()]=!0;return[e[2]===":"?e.slice(3):nn(e.slice(2)),n]}let Ft=0;const Ir=Promise.resolve(),Wr=()=>Ft||(Ir.then(()=>Ft=0),Ft=Date.now());function _r(e,n){const t=a=>{if(!a._vts)a._vts=Date.now();else if(a._vts<=t.attached)return;const i=t.value;if(S(i)){const s=a.stopImmediatePropagation;a.stopImmediatePropagation=()=>{s.call(a),a._stopped=!0};const o=i.slice(),r=[a];for(let l=0;l<o.length&&!a._stopped;l++){const u=o[l];u&&Ce(u,n,5,r)}}else Ce(i,n,5,[a])};return t.value=e,t.attached=Wr(),t}const Za=e=>e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&e.charCodeAt(2)>96&&e.charCodeAt(2)<123,Sr=(e,n,t,a,i,s)=>{const o=i==="svg";n==="class"?yr(e,a,o):n==="style"?Ar(e,t,a):yt(n)?wt(n)||Tr(e,n,t,a,s):(n[0]==="."?(n=n.slice(1),!0):n[0]==="^"?(n=n.slice(1),!1):Er(e,n,a,o))?($a(e,n,a),!e.tagName.includes("-")&&(n==="value"||n==="checked"||n==="selected")&&Ya(e,n,a,o,s,n!=="value")):e._isVueCE&&(Rr(e,n)||e._def.__asyncLoader&&(/[A-Z]/.test(n)||!X(a)))?$a(e,Ae(n),a,s,n):(n==="true-value"?e._trueValue=a:n==="false-value"&&(e._falseValue=a),Ya(e,n,a,o))};function Er(e,n,t,a){if(a)return!!(n==="innerHTML"||n==="textContent"||n in e&&Za(n)&&H(t));if(n==="spellcheck"||n==="draggable"||n==="translate"||n==="autocorrect"||n==="sandbox"&&e.tagName==="IFRAME"||n==="form"||n==="list"&&e.tagName==="INPUT"||n==="type"&&e.tagName==="TEXTAREA")return!1;if(n==="width"||n==="height"){const i=e.tagName;if(i==="IMG"||i==="VIDEO"||i==="CANVAS"||i==="SOURCE")return!1}return Za(n)&&X(t)?!1:n in e}function Rr(e,n){const t=e._def.props;if(!t)return!1;const a=Ae(n);return Array.isArray(t)?t.some(i=>Ae(i)===a):Object.keys(t).some(i=>Ae(i)===a)}const ft=e=>{const n=e.props["onUpdate:modelValue"]||!1;return S(n)?t=>st(n,t):n};function Pr(e){e.target.composing=!0}function ei(e){const n=e.target;n.composing&&(n.composing=!1,n.dispatchEvent(new Event("input")))}const pn=Symbol("_assign"),it=Symbol("_initialValue");function zt(e,n,t){return n&&(e=e.trim()),t&&(e=ta(e)),e}const ds={created(e,{modifiers:{lazy:n,trim:t,number:a}},i){e.parentNode&&(e.type==="text"?e[it]=e.defaultValue.replace(/[\r\n]/g,""):e.type==="textarea"&&(e[it]=e.defaultValue.replace(/\r\n?/g,`
-`))),e[pn]=ft(i);const s=a||i.props&&i.props.type==="number";hn(e,n?"change":"input",o=>{o.target.composing||e[pn](zt(e.value,t,s))}),(t||s)&&hn(e,"change",()=>{e.value=zt(e.value,t,s)}),n||(hn(e,"compositionstart",Pr),hn(e,"compositionend",ei),hn(e,"change",ei))},mounted(e,{value:n,modifiers:{trim:t,number:a}}){const i=n??"",s=e[it];delete e[it],s!==void 0&&(e.type==="text"||e.type==="textarea")&&e.value!==s?e[pn](zt(e.value,t,a)):e.value=i},beforeUpdate(e,{value:n,oldValue:t,modifiers:{lazy:a,trim:i,number:s}},o){if(e[pn]=ft(o),e.composing)return;const r=(s||e.type==="number")&&!/^0\d/.test(e.value)?ta(e.value):e.value,l=n??"";if(r===l)return;const u=e.getRootNode();(u instanceof Document||u instanceof ShadowRoot)&&u.activeElement===e&&e.type!=="range"&&(a&&n===t||i&&e.value.trim()===l)||(e.value=l)}},Mr={deep:!0,created(e,n,t){e[pn]=ft(t),hn(e,"change",()=>{const a=e._modelValue,i=Hr(e),s=e.checked,o=e[pn];if(S(a)){const r=hi(a,i),l=r!==-1;if(s&&!l)o(a.concat(i));else if(!s&&l){const u=[...a];u.splice(r,1),o(u)}}else if(bn(a)){const r=new Set(a);s?r.add(i):r.delete(i),o(r)}else o(us(e,s))})},mounted:ni,beforeUpdate(e,n,t){e[pn]=ft(t),ni(e,n,t)}};function ni(e,{value:n,oldValue:t},a){e._modelValue=n;let i;if(S(n))i=hi(n,a.props.value)>-1;else if(bn(n))i=n.has(a.props.value);else{if(n===t)return;i=kn(n,us(e,!0))}e.checked!==i&&(e.checked=i)}function Hr(e){return"_value"in e?e._value:e.value}function us(e,n){const t=n?"_trueValue":"_falseValue";return t in e?e[t]:n}const Gr={esc:"escape",space:" ",up:"arrow-up",left:"arrow-left",right:"arrow-right",down:"arrow-down",delete:"backspace"},Or=(e,n)=>{const t=e._withKeys||(e._withKeys={}),a=n.join(".");return t[a]||(t[a]=i=>{if(!("key"in i))return;const s=nn(i.key);if(n.some(o=>o===s||Gr[o]===s))return e(i)})},Fr=ne({patchProp:Sr},gr);let ti;function zr(){return ti||(ti=Jo(Fr))}const Nr=(...e)=>{const n=zr().createApp(...e),{mount:t}=n;return n.mount=a=>{const i=jr(a);if(!i)return;const s=n._component;!H(s)&&!s.render&&!s.template&&(s.template=i.innerHTML),i.nodeType===1&&(i.textContent="");const o=t(i,!1,Lr(i));return i instanceof Element&&(i.removeAttribute("v-cloak"),i.setAttribute("data-v-app","")),o},n};function Lr(e){if(e instanceof SVGElement)return"svg";if(typeof MathMLElement=="function"&&e instanceof MathMLElement)return"mathml"}function jr(e){return X(e)?document.querySelector(e):e}const qn=[{n:1,type:"Reading",title:"14_Reading_Theater and Drama",date:"2026-11-07",status:"ok",dup:null,body:`เนื้อหา (Passage)
+**/let Xt;const ja=typeof window<"u"&&window.trustedTypes;if(ja)try{Xt=ja.createPolicy("vue",{createHTML:e=>e})}catch{}const hs=Xt?e=>Xt.createHTML(e):e=>e,pr="http://www.w3.org/2000/svg",mr="http://www.w3.org/1998/Math/MathML",Fe=typeof document<"u"?document:null,Ua=Fe&&Fe.createElement("template"),gr={insert:(e,n,t)=>{n.insertBefore(e,t||null)},remove:e=>{const n=e.parentNode;n&&n.removeChild(e)},createElement:(e,n,t,a)=>{const i=n==="svg"?Fe.createElementNS(pr,e):n==="mathml"?Fe.createElementNS(mr,e):t?Fe.createElement(e,{is:t}):Fe.createElement(e);return e==="select"&&a&&a.multiple!=null&&i.setAttribute("multiple",a.multiple),i},createText:e=>Fe.createTextNode(e),createComment:e=>Fe.createComment(e),setText:(e,n)=>{e.nodeValue=n},setElementText:(e,n)=>{e.textContent=n},parentNode:e=>e.parentNode,nextSibling:e=>e.nextSibling,querySelector:e=>Fe.querySelector(e),setScopeId(e,n){e.setAttribute(n,"")},insertStaticContent(e,n,t,a,i,s){const o=t?t.previousSibling:n.lastChild;if(i&&(i===s||i.nextSibling))for(;n.insertBefore(i.cloneNode(!0),t),!(i===s||!(i=i.nextSibling)););else{Ua.innerHTML=hs(a==="svg"?`<svg>${e}</svg>`:a==="mathml"?`<math>${e}</math>`:e);const r=Ua.content;if(a==="svg"||a==="mathml"){const l=r.firstChild;for(;l.firstChild;)r.appendChild(l.firstChild);r.removeChild(l)}n.insertBefore(r,t)}return[o?o.nextSibling:n.firstChild,t?t.previousSibling:n.lastChild]}},fr=Symbol("_vtc");function yr(e,n,t){const a=e[fr];a&&(n=(n?[n,...a]:[...a]).join(" ")),n==null?e.removeAttribute("class"):t?e.setAttribute("class",n):e.className=n}const Va=Symbol("_vod"),wr=Symbol("_vsh"),br=Symbol(""),vr=/(?:^|;)\s*display\s*:/;function Ar(e,n,t){const a=e.style,i=X(t);let s=!1;if(t&&!i){if(n)if(X(n))for(const o of n.split(";")){const r=o.slice(0,o.indexOf(":")).trim();t[r]==null&&Wn(a,r,"")}else for(const o in n)t[o]==null&&Wn(a,o,"");for(const o in t){o==="display"&&(s=!0);const r=t[o];r!=null?Cr(e,o,!X(n)&&n?n[o]:void 0,r)||Wn(a,o,r):Wn(a,o,"")}}else if(i){if(n!==t){const o=a[br];o&&(t+=";"+o),a.cssText=t,s=vr.test(t)}}else n&&e.removeAttribute("style");Va in e&&((!i||n!==t)&&(e[Va]=s?a.display:""),e[wr]&&(a.display="none"))}const at=/\s*!important$/;function Wn(e,n,t){if(S(t))t.forEach(a=>Wn(e,n,a));else if(t==null&&(t=""),n.startsWith("--"))at.test(t)?e.setProperty(n,t.replace(at,""),"important"):e.setProperty(n,t);else{const a=kr(e,n);at.test(t)?e.setProperty(tn(a),t.replace(at,""),"important"):e[a]=t}}const Ja=["Webkit","Moz","ms"],Gt={};function kr(e,n){const t=Gt[n];if(t)return t;let a=ke(n);if(a!=="filter"&&a in e)return Gt[n]=a;a=ri(a);for(let i=0;i<Ja.length;i++){const s=Ja[i]+a;if(s in e)return Gt[n]=s}return n}function Cr(e,n,t,a){return e.tagName==="TEXTAREA"&&(n==="width"||n==="height")&&X(a)&&t===a}const Ka="http://www.w3.org/1999/xlink";function Ya(e,n,t,a,i,s=Bs(n)){a&&n.startsWith("xlink:")?t==null?e.removeAttributeNS(Ka,n.slice(6,n.length)):e.setAttributeNS(Ka,n,t):t==null||s&&!ci(t)?e.removeAttribute(n):e.setAttribute(n,s?"":Pe(t)?String(t):t)}function $a(e,n,t,a,i){if(n==="innerHTML"||n==="textContent"){t!=null&&(e[n]=n==="innerHTML"?hs(t):t);return}const s=e.tagName;if(n==="value"&&s!=="PROGRESS"&&!s.includes("-")){const r=s==="OPTION"?e.getAttribute("value")||"":e.value,l=t==null?e.type==="checkbox"?"on":"":String(t);(r!==l||!("_value"in e))&&(e.value=l),t==null&&e.removeAttribute(n),e._value=t;return}let o=!1;if(t===""||t==null){const r=typeof e[n];r==="boolean"?t=ci(t):t==null&&r==="string"?(t="",o=!0):r==="number"&&(t=0,o=!0)}try{e[n]=t}catch{}o&&e.removeAttribute(i||n)}function hn(e,n,t,a){e.addEventListener(n,t,a)}function Br(e,n,t,a){e.removeEventListener(n,t,a)}const Xa=Symbol("_vei");function Tr(e,n,t,a,i=null){const s=e[Xa]||(e[Xa]={}),o=s[n];if(a&&o)o.value=a;else{const[r,l]=qr(n);if(a){const u=s[n]=_r(a,i);hn(e,r,u,l)}else o&&(Br(e,r,o,l),s[n]=void 0)}}const Dr=/(Once|Passive|Capture)$/,xr=/^on:?(?:Once|Passive|Capture)$/;function qr(e){let n,t;for(;(t=e.match(Dr))&&!xr.test(e);)n||(n={}),e=e.slice(0,e.length-t[1].length),n[t[1].toLowerCase()]=!0;return[e[2]===":"?e.slice(3):tn(e.slice(2)),n]}let zt=0;const Ir=Promise.resolve(),Wr=()=>zt||(Ir.then(()=>zt=0),zt=Date.now());function _r(e,n){const t=a=>{if(!a._vts)a._vts=Date.now();else if(a._vts<=t.attached)return;const i=t.value;if(S(i)){const s=a.stopImmediatePropagation;a.stopImmediatePropagation=()=>{s.call(a),a._stopped=!0};const o=i.slice(),r=[a];for(let l=0;l<o.length&&!a._stopped;l++){const u=o[l];u&&Be(u,n,5,r)}}else Be(i,n,5,[a])};return t.value=e,t.attached=Wr(),t}const Za=e=>e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&e.charCodeAt(2)>96&&e.charCodeAt(2)<123,Er=(e,n,t,a,i,s)=>{const o=i==="svg";n==="class"?yr(e,a,o):n==="style"?Ar(e,t,a):yt(n)?wt(n)||Tr(e,n,t,a,s):(n[0]==="."?(n=n.slice(1),!0):n[0]==="^"?(n=n.slice(1),!1):Sr(e,n,a,o))?($a(e,n,a),!e.tagName.includes("-")&&(n==="value"||n==="checked"||n==="selected")&&Ya(e,n,a,o,s,n!=="value")):e._isVueCE&&(Rr(e,n)||e._def.__asyncLoader&&(/[A-Z]/.test(n)||!X(a)))?$a(e,ke(n),a,s,n):(n==="true-value"?e._trueValue=a:n==="false-value"&&(e._falseValue=a),Ya(e,n,a,o))};function Sr(e,n,t,a){if(a)return!!(n==="innerHTML"||n==="textContent"||n in e&&Za(n)&&G(t));if(n==="spellcheck"||n==="draggable"||n==="translate"||n==="autocorrect"||n==="sandbox"&&e.tagName==="IFRAME"||n==="form"||n==="list"&&e.tagName==="INPUT"||n==="type"&&e.tagName==="TEXTAREA")return!1;if(n==="width"||n==="height"){const i=e.tagName;if(i==="IMG"||i==="VIDEO"||i==="CANVAS"||i==="SOURCE")return!1}return Za(n)&&X(t)?!1:n in e}function Rr(e,n){const t=e._def.props;if(!t)return!1;const a=ke(n);return Array.isArray(t)?t.some(i=>ke(i)===a):Object.keys(t).some(i=>ke(i)===a)}const ft=e=>{const n=e.props["onUpdate:modelValue"]||!1;return S(n)?t=>st(n,t):n};function Pr(e){e.target.composing=!0}function ei(e){const n=e.target;n.composing&&(n.composing=!1,n.dispatchEvent(new Event("input")))}const pn=Symbol("_assign"),it=Symbol("_initialValue");function Ft(e,n,t){return n&&(e=e.trim()),t&&(e=ta(e)),e}const ds={created(e,{modifiers:{lazy:n,trim:t,number:a}},i){e.parentNode&&(e.type==="text"?e[it]=e.defaultValue.replace(/[\r\n]/g,""):e.type==="textarea"&&(e[it]=e.defaultValue.replace(/\r\n?/g,`
+`))),e[pn]=ft(i);const s=a||i.props&&i.props.type==="number";hn(e,n?"change":"input",o=>{o.target.composing||e[pn](Ft(e.value,t,s))}),(t||s)&&hn(e,"change",()=>{e.value=Ft(e.value,t,s)}),n||(hn(e,"compositionstart",Pr),hn(e,"compositionend",ei),hn(e,"change",ei))},mounted(e,{value:n,modifiers:{trim:t,number:a}}){const i=n??"",s=e[it];delete e[it],s!==void 0&&(e.type==="text"||e.type==="textarea")&&e.value!==s?e[pn](Ft(e.value,t,a)):e.value=i},beforeUpdate(e,{value:n,oldValue:t,modifiers:{lazy:a,trim:i,number:s}},o){if(e[pn]=ft(o),e.composing)return;const r=(s||e.type==="number")&&!/^0\d/.test(e.value)?ta(e.value):e.value,l=n??"";if(r===l)return;const u=e.getRootNode();(u instanceof Document||u instanceof ShadowRoot)&&u.activeElement===e&&e.type!=="range"&&(a&&n===t||i&&e.value.trim()===l)||(e.value=l)}},Mr={deep:!0,created(e,n,t){e[pn]=ft(t),hn(e,"change",()=>{const a=e._modelValue,i=Hr(e),s=e.checked,o=e[pn];if(S(a)){const r=hi(a,i),l=r!==-1;if(s&&!l)o(a.concat(i));else if(!s&&l){const u=[...a];u.splice(r,1),o(u)}}else if(bn(a)){const r=new Set(a);s?r.add(i):r.delete(i),o(r)}else o(us(e,s))})},mounted:ni,beforeUpdate(e,n,t){e[pn]=ft(t),ni(e,n,t)}};function ni(e,{value:n,oldValue:t},a){e._modelValue=n;let i;if(S(n))i=hi(n,a.props.value)>-1;else if(bn(n))i=n.has(a.props.value);else{if(n===t)return;i=kn(n,us(e,!0))}e.checked!==i&&(e.checked=i)}function Hr(e){return"_value"in e?e._value:e.value}function us(e,n){const t=n?"_trueValue":"_falseValue";return t in e?e[t]:n}const Or={esc:"escape",space:" ",up:"arrow-up",left:"arrow-left",right:"arrow-right",down:"arrow-down",delete:"backspace"},Gr=(e,n)=>{const t=e._withKeys||(e._withKeys={}),a=n.join(".");return t[a]||(t[a]=i=>{if(!("key"in i))return;const s=tn(i.key);if(n.some(o=>o===s||Or[o]===s))return e(i)})},zr=ne({patchProp:Er},gr);let ti;function Fr(){return ti||(ti=Jo(zr))}const Nr=(...e)=>{const n=Fr().createApp(...e),{mount:t}=n;return n.mount=a=>{const i=Qr(a);if(!i)return;const s=n._component;!G(s)&&!s.render&&!s.template&&(s.template=i.innerHTML),i.nodeType===1&&(i.textContent="");const o=t(i,!1,Lr(i));return i instanceof Element&&(i.removeAttribute("v-cloak"),i.setAttribute("data-v-app","")),o},n};function Lr(e){if(e instanceof SVGElement)return"svg";if(typeof MathMLElement=="function"&&e instanceof MathMLElement)return"mathml"}function Qr(e){return X(e)?document.querySelector(e):e}const qn=[{n:1,type:"Reading",title:"14_Reading_Theater and Drama",date:"2026-11-07",status:"ok",dup:null,body:`เนื้อหา (Passage)
 Theater and drama have existed for thousands of years and were first developed in ancient civilizations
 such as Greece. Early Greek plays were performed during religious festivals to honor the gods and were
 usually held in large outdoor theaters. These performances included music, dancing, and storytelling.
@@ -12479,7 +12479,293 @@ optimistic.
 Answer: The professor genuinely tries to help Sarah see the opera show anyway.
 
 5. เหตุใดอาจารย์จึงแนะนำให้ซาราห์เป็นอาสาสมัครที่โรงละคร
-เฉลย: อาจารย์พยายามช่วยให้ซาราห์ได้ดูโอเปร่าอย่างจริงใจ`},{n:51,type:"Listening",title:"TOEFL_Listening_Spring Festival",date:"2026-05-11",status:"pending",dup:null},{n:52,type:"Reading",title:"1_TOEFL Reading_Polar animals",date:"2026-05-11",status:"ok",dup:null,body:`เนื้อหา (Passage)
+เฉลย: อาจารย์พยายามช่วยให้ซาราห์ได้ดูโอเปร่าอย่างจริงใจ`},{n:51,type:"Listening",title:"TOEFL_Listening_Spring Festival",date:"2026-05-11",status:"ok",dup:null,body:`บทสนทนา (Dialogue)
+Jake: Hey, I'm really excited about the spring festival coming up. Have you decided what part you want
+to help with?
+
+เจค: เฮ้ ฉันตื่นเต้นกับเทศกาลฤดูใบไม้ผลิที่กำลังจะมาถึงมาก เธอตัดสินใจหรือยังว่าอยากช่วยส่วนไหน
+
+
+Emily: Yeah, I was thinking about helping with the decorations. I have some great ideas for making the
+place look really festive. What about you?
+
+เอมิลี่: ใช่ ฉันกำลังคิดจะช่วยเรื่องการตกแต่ง ฉันมีไอเดียดีๆ มากที่จะทำให้สถานที่ดูรื่นเริงจริงๆ แล้วคุณล่ะ
+Jake: I'm planning to help organize the game activities. We need to make sure there's something fun for
+everyone. Do you have any decoration ideas in mind already?
+
+เจค: ฉันวางแผนจะช่วยจัดกิจกรรมเกม เราต้องมั่นใจว่ามีอะไรสนุกสำหรับทุกคน คุณมีไอเดียตกแต่งอะไรในใจ
+แล้วไหม
+Emily: Absolutely. I was thinking we could have a floral theme with lots of colorful flowers and
+streamers. We could also set up some fairy lights around the main stage area to make it look magical,
+especially in the evening.
+
+เอมิลี่: แน่นอน ฉันคิดว่าเราทำธีมดอกไม้ได้ มีดอกไม้สีสันและริบบิ้นเยอะๆ เรายังติดไฟประดับรอบบริเวณเวที
+หลักให้ดูมหัศจรรย์ โดยเฉพาะตอนเย็น
+Jake: That sounds perfect. The fairy lights will definitely add a nice touch. For the games, I'm thinking
+we should have a mix of classic carnival games and some new ones. We could set up a ring toss, a
+beanbag toss, and maybe even a dunk tank.
+
+เจค: ฟังดูสมบูรณ์แบบ ไฟประดับจะเพิ่มความน่ารักแน่นอน ส่วนเกม ฉันคิดว่าเราควรมีทั้งเกมคาร์นิวัลแบบ
+คลาสสิกและเกมใหม่ๆ บางอย่าง เราตั้งเกมโยนห่วง เกมโยนถุงถั่ว และอาจมีถังแช่น้ำ (dunk tank) ด้วย
+Emily: A dunk tank would be awesome. I'm sure a lot of people would want to try that. What about
+prizes and games? We should have some cool stuff to give away.
+
+เอมิลี่: ถังแช่น้ำจะเจ๋งมาก ฉันมั่นใจว่าหลายคนอยากลอง แล้วของรางวัลล่ะ เราควรมีของเจ๋งๆ ไว้แจก
+Jake: Definitely. I was thinking we could give out small toys, gift cards, and maybe some school
+merchandise, like t-shirts and water bottles. We could also have a grand prize raffle at the end of the
+day.
+
+เจค: แน่นอน ฉันคิดว่าเราแจกของเล่นเล็กๆ บัตรของขวัญ และสินค้าโรงเรียนบางอย่าง เช่น เสื้อยืดและขวดน้ำ
+เรายังมีการจับรางวัลใหญ่ตอนท้ายวัน
+Emily: That's a great idea. It would keep people excited throughout the event. Speaking of which, do we
+have a schedule for the performances on the main stage?
+
+เอมิลี่: เป็นความคิดที่ดีมาก จะทำให้คนตื่นเต้นตลอดงาน พูดถึงเรื่องนั้น เรามีตารางการแสดงบนเวทีหลักไหม
+Jake: We're still finalizing it, but we have a few student bands lined up to play, and there will be a dance
+performance by the cheerleading squad. We're also planning to have a talent show. So students can
+sign up to perform their own acts.
+
+เจค: ยังสรุปอยู่ แต่มีวงดนตรีนักเรียนหลายวงที่ตกลงเล่น และมีการเต้นโดยทีมเชียร์ลีดเดอร์ เรายังวางแผน
+จัดการแสดงความสามารถพิเศษ ให้นักเรียนลงชื่อแสดงเอง
+Emily: That sounds like a lot of fun. We should make sure to promote the talent show so we get lots of
+participants. Do we have a plan for food and drinks?
+
+เอมิลี่: ฟังดูสนุกมาก เราควรโปรโมตการแสดงความสามารถพิเศษให้มีผู้เข้าร่วมมากๆ เรามีแผนเรื่องอาหารและ
+เครื่องดื่มไหม
+
+
+Jake: Yes. We're going to have several food trucks on site. There will be a variety of options like burgers,
+tacos, and even some vegan choices. We'll also have a booth selling snacks and drinks so no one goes
+hungry.
+
+เจค: มี เราจะมีรถขายอาหารหลายคันในงาน มีตัวเลือกหลากหลาย เช่น เบอร์เกอร์ ทาโก้ และอาหารมังสวิรัติ
+เรายังมีซุ้มขายขนมและเครื่องดื่มเพื่อไม่ให้ใครหิว
+Emily: Awesome. It sounds like we've got everything covered. Is there anything else we need to think
+about?
+
+เอมิลี่: ยอดเยี่ยม ฟังดูเหมือนเรามีทุกอย่างครบ มีอะไรอื่นที่ต้องคิดอีกไหม
+Jake: We should probably set up a volunteer schedule so we know who's doing what and when. And we
+need to make sure we have enough tables and chairs for people to sit and eat.
+
+เจค: เราควรตั้งตารางอาสาสมัครเพื่อรู้ว่าใครทำอะไรเมื่อไหร่ และต้องมั่นใจว่ามีโต๊ะและเก้าอี้พอสำหรับให้คน
+นั่งกิน
+Emily: Good point. I'll start working on the volunteer schedule, and you can handle the tables and
+chairs. We're going to make this the best spring festival our school has ever had.
+
+เอมิลี่: ประเด็นดี ฉันจะเริ่มทำตารางอาสาสมัคร ส่วนคุณจัดการโต๊ะกับเก้าอี้ เราจะทำให้เป็นเทศกาลฤดูใบไม้ผลิ
+ที่ดีที่สุดที่โรงเรียนเคยมี
+Jake: I'm sure we will. I can't wait to see everything come together. It's going to be an amazing day.
+
+เจค: ฉันมั่นใจว่าทำได้ รอไม่ไหวที่จะเห็นทุกอย่างรวมกัน มันจะเป็นวันที่ยอดเยี่ยม`,qs:[{kind:"raw",ok:!1,q:`Question 1:
+What does Emily plan to help with at the spring festival?`,opts:[["A","Organizing the games"],["B","Decorating the venue"],["C","Managing the food trucks"],["D","Setting up the raffle Correct Answer: B. Decorating the venue"]],ans:null,th:`คำถามที่ 1 เอมิลี่วางแผนจะช่วยเรื่องอะไรในเทศกาลฤดูใบไม้ผลิ
+เฉลย: B. ตกแต่งสถานที่`,ans_text:null,raw:`Question 1:
+What does Emily plan to help with at the spring festival?
+A. Organizing the games
+B. Decorating the venue
+C. Managing the food trucks
+D. Setting up the raffle
+Correct Answer: B. Decorating the venue
+
+คำถามที่ 1 เอมิลี่วางแผนจะช่วยเรื่องอะไรในเทศกาลฤดูใบไม้ผลิ
+เฉลย: B. ตกแต่งสถานที่`},{kind:"raw",ok:!1,q:`Question 2:
+What decoration idea does Emily suggest?`,opts:[["A","Balloons and banners"],["B","A floral theme with fairy lights"],["C","A stage with fireworks"],["D","Lanterns and confetti Correct Answer: B. A floral theme with fairy lights"]],ans:null,th:`คำถามที่ 2 เอมิลี่เสนอไอเดียตกแต่งอะไร
+เฉลย: B. ธีมดอกไม้พร้อมไฟประดับ`,ans_text:null,raw:`Question 2:
+What decoration idea does Emily suggest?
+A. Balloons and banners
+B. A floral theme with fairy lights
+C. A stage with fireworks
+D. Lanterns and confetti
+Correct Answer: B. A floral theme with fairy lights
+
+คำถามที่ 2 เอมิลี่เสนอไอเดียตกแต่งอะไร
+เฉลย: B. ธีมดอกไม้พร้อมไฟประดับ
+
+`},{kind:"raw",ok:!1,q:`Question 3:
+What type of games does Jake want to include?`,opts:[["A","Board games and trivia quizzes"],["B","Outdoor sports competitions"],["C","Classic carnival games and new activities"],["D","Video games and arcade machines Correct Answer: C. Classic carnival games and new activities"]],ans:null,th:`คำถามที่ 3 เจคอยากมีเกมประเภทใด
+เฉลย: C. เกมคาร์นิวัลแบบคลาสสิกและกิจกรรมใหม่ๆ`,ans_text:null,raw:`Question 3:
+What type of games does Jake want to include?
+A. Board games and trivia quizzes
+B. Outdoor sports competitions
+C. Classic carnival games and new activities
+D. Video games and arcade machines
+Correct Answer: C. Classic carnival games and new activities
+
+คำถามที่ 3 เจคอยากมีเกมประเภทใด
+เฉลย: C. เกมคาร์นิวัลแบบคลาสสิกและกิจกรรมใหม่ๆ`},{kind:"raw",ok:!1,q:`Question 4:
+What performances are planned for the main stage?`,opts:[["A","A teacher play, a band competition, and a speech contest"],["B","Student bands, cheerleading dance, and a talent show"],["C","A professional concert and fireworks show"],["D","Choir singing and a cooking demonstration Correct Answer: B. Student bands, cheerleading dance, and a talent show"]],ans:null,th:`คำถามที่ 4 มีการแสดงอะไรวางแผนไว้บนเวทีหลัก
+เฉลย: B. วงดนตรีนักเรียน การเต้นของทีมเชียร์ลีดเดอร์ และการแสดงความสามารถพิเศษ`,ans_text:null,raw:`Question 4:
+What performances are planned for the main stage?
+A. A teacher play, a band competition, and a speech contest
+B. Student bands, cheerleading dance, and a talent show
+C. A professional concert and fireworks show
+D. Choir singing and a cooking demonstration
+Correct Answer: B. Student bands, cheerleading dance, and
+a talent show
+
+คำถามที่ 4 มีการแสดงอะไรวางแผนไว้บนเวทีหลัก
+เฉลย: B. วงดนตรีนักเรียน การเต้นของทีมเชียร์ลีดเดอร์ และการแสดงความสามารถพิเศษ`},{kind:"raw",ok:!1,q:`Question 5:
+What is one of the final things Jake and Emily agree they need
+to prepare?`,opts:[["A","A security team and tickets"],["B","A volunteer schedule and enough tables/chairs"],["C","Fireworks and stage lights"],["D","More performers for the talent show Correct Answer: B. A volunteer schedule and enough tables/chairs"]],ans:null,th:`คำถามที่ 5 สิ่งใดหนึ่งที่เจคกับเอมิลี่เห็นพ้องว่าต้องเตรียมในช่วงสุดท้าย
+เฉลย: B. ตารางอาสาสมัครและโต๊ะ/เก้าอี้ให้พอ`,ans_text:null,raw:`Question 5:
+What is one of the final things Jake and Emily agree they need
+to prepare?
+A. A security team and tickets
+B. A volunteer schedule and enough tables/chairs
+C. Fireworks and stage lights
+D. More performers for the talent show
+Correct Answer: B. A volunteer schedule and enough
+tables/chairs
+
+คำถามที่ 5 สิ่งใดหนึ่งที่เจคกับเอมิลี่เห็นพ้องว่าต้องเตรียมในช่วงสุดท้าย
+เฉลย: B. ตารางอาสาสมัครและโต๊ะ/เก้าอี้ให้พอ`},{kind:"raw",ok:!1,q:`Question 6:
+Why does Emily think a raffle is a good idea?`,opts:[["A","It will make the event more formal."],["B","It will encourage students to donate money."],["C","It will keep people excited until the end of the day."],["D","It will help reduce the cost of prizes. Correct Answer: C. It will keep people excited until the end of the day."]],ans:null,th:`คำถามที่ 6 เหตุใดเอมิลี่จึงคิดว่าการจับรางวัลเป็นความคิดที่ดี
+เฉลย: C. ทำให้คนตื่นเต้นจนจบวัน`,ans_text:null,raw:`Question 6:
+Why does Emily think a raffle is a good idea?
+A. It will make the event more formal.
+B. It will encourage students to donate money.
+C. It will keep people excited until the end of the day.
+D. It will help reduce the cost of prizes.
+Correct Answer: C. It will keep people excited until the end
+of the day.
+
+คำถามที่ 6 เหตุใดเอมิลี่จึงคิดว่าการจับรางวัลเป็นความคิดที่ดี
+เฉลย: C. ทำให้คนตื่นเต้นจนจบวัน
+
+`},{kind:"raw",ok:!1,q:`Question 7:
+What kinds of prizes does Jake suggest giving out?`,opts:[["A","Electronics, jewelry, and cash"],["B","Toys, gift cards, and school merchandise"],["C","Free concert tickets and travel coupons"],["D","Books, stationery, and food vouchers Correct Answer: B. Toys, gift cards, and school merchandise"]],ans:null,th:`คำถามที่ 7 เจคเสนอรางวัลประเภทใด
+เฉลย: B. ของเล่น บัตรของขวัญ และสินค้าโรงเรียน`,ans_text:null,raw:`Question 7:
+What kinds of prizes does Jake suggest giving out?
+A. Electronics, jewelry, and cash
+B. Toys, gift cards, and school merchandise
+C. Free concert tickets and travel coupons
+D. Books, stationery, and food vouchers
+Correct Answer: B. Toys, gift cards, and school merchandise
+
+คำถามที่ 7 เจคเสนอรางวัลประเภทใด
+เฉลย: B. ของเล่น บัตรของขวัญ และสินค้าโรงเรียน`},{kind:"raw",ok:!1,q:`Question 8:
+What type of food will be available at the festival?`,opts:[["A","Only traditional school cafeteria food"],["B","A variety of food trucks, including vegan options"],["C","Home-cooked meals prepared by parents"],["D","Packaged snacks brought by students Correct Answer: B. A variety of food trucks, including vegan options"]],ans:null,th:`คำถามที่ 8 จะมีอาหารประเภทใดในเทศกาล
+เฉลย: B. รถขายอาหารหลากหลายรวมถึงตัวเลือกมังสวิรัติ`,ans_text:null,raw:`Question 8:
+What type of food will be available at the festival?
+A. Only traditional school cafeteria food
+B. A variety of food trucks, including vegan options
+C. Home-cooked meals prepared by parents
+D. Packaged snacks brought by students
+Correct Answer: B. A variety of food trucks, including vegan
+options
+
+คำถามที่ 8 จะมีอาหารประเภทใดในเทศกาล
+เฉลย: B. รถขายอาหารหลากหลายรวมถึงตัวเลือกมังสวิรัติ`},{kind:"raw",ok:!1,q:`Question 9:
+What is the overall tone of Jake and Emily’s conversation?`,opts:[["A","Serious and argumentative"],["B","Excited and cooperative"],["C","Nervous and doubtful"],["D","Formal and distant Correct Answer: B. Excited and cooperative"]],ans:null,th:`คำถามที่ 9 น้ำเสียงโดยรวมของบทสนทนาเจคกับเอมิลี่เป็นอย่างไร
+เฉลย: B. ตื่นเต้นและร่วมมือกัน`,ans_text:null,raw:`Question 9:
+What is the overall tone of Jake and Emily’s conversation?
+A. Serious and argumentative
+B. Excited and cooperative
+C. Nervous and doubtful
+D. Formal and distant
+Correct Answer: B. Excited and cooperative
+
+คำถามที่ 9 น้ำเสียงโดยรวมของบทสนทนาเจคกับเอมิลี่เป็นอย่างไร
+เฉลย: B. ตื่นเต้นและร่วมมือกัน
+
+`}],qa_raw:`Question 1:
+What does Emily plan to help with at the spring festival?
+A. Organizing the games
+B. Decorating the venue
+C. Managing the food trucks
+D. Setting up the raffle
+Correct Answer: B. Decorating the venue
+
+คำถามที่ 1 เอมิลี่วางแผนจะช่วยเรื่องอะไรในเทศกาลฤดูใบไม้ผลิ
+เฉลย: B. ตกแต่งสถานที่
+Question 2:
+What decoration idea does Emily suggest?
+A. Balloons and banners
+B. A floral theme with fairy lights
+C. A stage with fireworks
+D. Lanterns and confetti
+Correct Answer: B. A floral theme with fairy lights
+
+คำถามที่ 2 เอมิลี่เสนอไอเดียตกแต่งอะไร
+เฉลย: B. ธีมดอกไม้พร้อมไฟประดับ
+
+
+Question 3:
+What type of games does Jake want to include?
+A. Board games and trivia quizzes
+B. Outdoor sports competitions
+C. Classic carnival games and new activities
+D. Video games and arcade machines
+Correct Answer: C. Classic carnival games and new activities
+
+คำถามที่ 3 เจคอยากมีเกมประเภทใด
+เฉลย: C. เกมคาร์นิวัลแบบคลาสสิกและกิจกรรมใหม่ๆ
+Question 4:
+What performances are planned for the main stage?
+A. A teacher play, a band competition, and a speech contest
+B. Student bands, cheerleading dance, and a talent show
+C. A professional concert and fireworks show
+D. Choir singing and a cooking demonstration
+Correct Answer: B. Student bands, cheerleading dance, and
+a talent show
+
+คำถามที่ 4 มีการแสดงอะไรวางแผนไว้บนเวทีหลัก
+เฉลย: B. วงดนตรีนักเรียน การเต้นของทีมเชียร์ลีดเดอร์ และการแสดงความสามารถพิเศษ
+Question 5:
+What is one of the final things Jake and Emily agree they need
+to prepare?
+A. A security team and tickets
+B. A volunteer schedule and enough tables/chairs
+C. Fireworks and stage lights
+D. More performers for the talent show
+Correct Answer: B. A volunteer schedule and enough
+tables/chairs
+
+คำถามที่ 5 สิ่งใดหนึ่งที่เจคกับเอมิลี่เห็นพ้องว่าต้องเตรียมในช่วงสุดท้าย
+เฉลย: B. ตารางอาสาสมัครและโต๊ะ/เก้าอี้ให้พอ
+Question 6:
+Why does Emily think a raffle is a good idea?
+A. It will make the event more formal.
+B. It will encourage students to donate money.
+C. It will keep people excited until the end of the day.
+D. It will help reduce the cost of prizes.
+Correct Answer: C. It will keep people excited until the end
+of the day.
+
+คำถามที่ 6 เหตุใดเอมิลี่จึงคิดว่าการจับรางวัลเป็นความคิดที่ดี
+เฉลย: C. ทำให้คนตื่นเต้นจนจบวัน
+
+
+Question 7:
+What kinds of prizes does Jake suggest giving out?
+A. Electronics, jewelry, and cash
+B. Toys, gift cards, and school merchandise
+C. Free concert tickets and travel coupons
+D. Books, stationery, and food vouchers
+Correct Answer: B. Toys, gift cards, and school merchandise
+
+คำถามที่ 7 เจคเสนอรางวัลประเภทใด
+เฉลย: B. ของเล่น บัตรของขวัญ และสินค้าโรงเรียน
+Question 8:
+What type of food will be available at the festival?
+A. Only traditional school cafeteria food
+B. A variety of food trucks, including vegan options
+C. Home-cooked meals prepared by parents
+D. Packaged snacks brought by students
+Correct Answer: B. A variety of food trucks, including vegan
+options
+
+คำถามที่ 8 จะมีอาหารประเภทใดในเทศกาล
+เฉลย: B. รถขายอาหารหลากหลายรวมถึงตัวเลือกมังสวิรัติ
+Question 9:
+What is the overall tone of Jake and Emily’s conversation?
+A. Serious and argumentative
+B. Excited and cooperative
+C. Nervous and doubtful
+D. Formal and distant
+Correct Answer: B. Excited and cooperative
+
+คำถามที่ 9 น้ำเสียงโดยรวมของบทสนทนาเจคกับเอมิลี่เป็นอย่างไร
+เฉลย: B. ตื่นเต้นและร่วมมือกัน`},{n:52,type:"Reading",title:"1_TOEFL Reading_Polar animals",date:"2026-05-11",status:"ok",dup:null,body:`เนื้อหา (Passage)
 There are two polar regions in the world: the Antarctic in the south and the Arctic in the north. While
 each of the two poles have significant similarities, they also have major differences such as animal life.
 Each continent’s species has features that help them survive in the extreme weather conditions of their
@@ -12868,14 +13154,14 @@ can't believe I missed the chance.
 
 ซาราห์: อาจารย์คะ หนูหวังมากว่าจะได้ดูโอเปร่าสุดสัปดาห์นี้ แต่ตั๋วขายหมดแล้ว หนูไม่อยากเชื่อว่าพลาด
 โอกาส
-
-
 Professor: Oh no, that’s disappointing! You were really excited about it, weren’t you?
 
 อาจารย์: โอ๊ะ น่าผิดหวังจัง เธอตื่นเต้นมากใช่ไหม
 Sarah: Yes, I was. I’m really bummed out about it.
 
 ซาราห์: ใช่ค่ะ หนูผิดหวังมากเลย
+
+
 Professor: I understand. But you know, there’s still a way you might be able to see the performance.
 Have you thought about volunteering?
 
@@ -12910,6 +13196,8 @@ Sarah: You’re probably right. Maybe I’ll look into it and see what the optio
 เฉลย (ต้นฉบับ): พลาดตั๋วโอเปร่า`,ans_text:"Missing the ticket opera.",raw:null},{kind:"open",ok:!1,q:"2. Why can't the student get a ticket to the opera?",opts:[],ans:null,th:`2. เหตุใดนักศึกษาจึงซื้อตั๋วโอเปร่าไม่ได้
 เฉลย: ตั๋วขายหมดแล้ว`,ans_text:"The tickets are all sold out.",raw:null},{kind:"open",ok:!1,q:"3. How does Sarah feel about not getting a ticket?",opts:[],ans:null,th:`3. ซาราห์รู้สึกอย่างไรที่ไม่ได้ตั๋ว
 เฉลย: ผิดหวัง
+
+
 4. [question about dialogue 2] What is the student's name?
 Answer: Sarah
 
@@ -12929,13 +13217,13 @@ Answer: The tickets are all sold out.
 
 2. เหตุใดนักศึกษาจึงซื้อตั๋วโอเปร่าไม่ได้
 เฉลย: ตั๋วขายหมดแล้ว
-
-
 3. How does Sarah feel about not getting a ticket?
 Answer: Disappointed
 
 3. ซาราห์รู้สึกอย่างไรที่ไม่ได้ตั๋ว
 เฉลย: ผิดหวัง
+
+
 4. [question about dialogue 2] What is the student's name?
 Answer: Sarah
 
@@ -12973,8 +13261,6 @@ manage it.
 Student: Oh, I see. How can I help out with the charity drive?
 
 นักศึกษา: อ้อ ค่ะ หนูช่วยโครงการการกุศลได้อย่างไรคะ
-
-
 Staff: It would be really helpful if you could write a column about it for the school newspaper. That way,
 more people will know how to contribute.
 
@@ -12983,6 +13269,8 @@ more people will know how to contribute.
 Student: Sure, I’d be happy to do that. How will I get updates on what’s happening?
 
 นักศึกษา: ได้ค่ะ ยินดีเลย แล้วหนูจะได้รับข่าวความคืบหน้าอย่างไรคะ
+
+
 Staff: I’ll keep you updated by email. Just make sure to keep me in the loop as well.
 
 เจ้าหน้าที่: ฉันจะแจ้งทางอีเมล แต่ขอให้เธอแจ้งฉันด้วยเช่นกัน
@@ -13037,8 +13325,6 @@ Answer: updated information
 
 4. ประโยค “Keep me in the loop” มีนัยว่าอย่างไร
 เฉลย: ข้อมูลที่อัปเดต
-
-
 5. How do we manage this used furniture?
 Answer: give the used furniture to school.
 
@@ -13049,6 +13335,8 @@ Answer: To wait until there is more storage space available.
 
 6. เมื่อได้รับบริจาคทุกเดือน พวกเขาจะทำอย่างไรกับเฟอร์นิเจอร์
 เฉลย: รอจนมีที่เก็บเพียงพอ
+
+
 7. How does the staff feel toward the student's involvement in the charity drive?
 Answer: Positive
 
@@ -13803,8 +14091,6 @@ Answer: as a voluntary worker.
 
 1. ปี 1993 แดน เพียร์แมนไปเอกวาดอร์ในฐานะอะไร
 เฉลย: C. อาสาสมัคร
-
-
 2) Dan’s neighbour was successful in business because he
 A employed carpenters from the area.
 B was the most skilled craftsman in the town.
@@ -13813,6 +14099,8 @@ Answer: found it easy to reach customers.
 
 2. เพื่อนบ้านของแดนประสบความสำเร็จในธุรกิจเพราะ
 เฉลย: C. เข้าถึงลูกค้าได้ง่าย
+
+
 3) Dan says the charity relies on
 A getting enough bicycles to send regularly.
 B finding new areas which need the bicycles.
@@ -13847,8 +14135,6 @@ Answer: computers
 
 7. ขณะนี้องค์กรการกุศลหวังจะซื้ออะไร
 เฉลย: คอมพิวเตอร์
-
-
 Questions 8 - 10
 Choose THREE letters A - G.
 Which THREE things can the general public do to help the charity Pedal Power?
@@ -13890,8 +14176,6 @@ C roads will cost ten times more to build.
 
 23. ศาสตราจารย์เสนอว่าในอีกห้าปีข้างหน้า…
 (ไม่มีเฉลย)
-
-
 24 The student believes that highways
 A encourage a higher standard of driving.
 B result in lower levels of pollution.
@@ -14879,6 +15163,8 @@ Answer: A, B, D
 Professor: Hello, Student A. How can I help you today?
 
 อาจารย์: สวัสดี นักศึกษา A มีอะไรให้ช่วยวันนี้
+
+
 Student A: Hi, Professor. I wanted to discuss my science project with you. I feel a bit nervous about
 presenting it.
 
@@ -14913,8 +15199,6 @@ Professor: That sounds very effective. What’s your next step after this discus
 Student A: I think I’ll look for research related to wind energy to strengthen my presentation.
 
 นักศึกษา A: หนูคิดว่าจะหางานวิจัยเกี่ยวกับพลังงานลมเพื่อให้การนำเสนอแข็งแรงขึ้นค่ะ
-
-
 Professor: Excellent plan. Do you feel better about it now?
 
 อาจารย์: แผนยอดเยี่ยม ตอนนี้รู้สึกดีขึ้นไหม
@@ -14936,6 +15220,8 @@ energy over fossil fuels. You’ll do great!
 เฉลย: ประเด็นสำคัญของการแปลงพลังงานและข้อได้เปรียบของพลังงานลมเหนือเชื้อเพลิงฟอสซิล`,ans_text:"The key aspects of energy conversion and the advantages of wind energy over fossil fuels.",raw:null},{kind:"open",ok:!1,q:"8. Where does the student plan to finalize the presentation?",opts:[],ans:null,th:`8. นักศึกษาวางแผนจะทำการนำเสนอให้เสร็จที่ไหน
 เฉลย: ที่ห้องสมุด [หมายเหตุ: บทสนทนาไม่ได้พูดถึงเรื่องนี้ เฉลยตามต้นฉบับ]`,ans_text:"At the library.",raw:null},{kind:"open",ok:!1,q:"9. Why did the student choose wind energy as a topic?",opts:[],ans:null,th:`9. เหตุใดนักศึกษาจึงเลือกพลังงานลมเป็นหัวข้อ
 เฉลย: เป็นเรื่องใหม่ น่าสนใจ สะอาด และเป็นมิตรต่อสิ่งแวดล้อม
+
+
 10.What does the professor think about the project idea?
 Answer: He finds it interesting and effective.
 
@@ -14996,8 +15282,6 @@ wind energy over fossil fuels.
 
 7. อาจารย์แนะนำให้นักศึกษามุ่งเน้นอะไร
 เฉลย: ประเด็นสำคัญของการแปลงพลังงานและข้อได้เปรียบของพลังงานลมเหนือเชื้อเพลิงฟอสซิล
-
-
 8. Where does the student plan to finalize the presentation?
 Answer: At the library.
 
@@ -15008,6 +15292,8 @@ Answer: It’s new, interesting, clean, and environmentally friendly.
 
 9. เหตุใดนักศึกษาจึงเลือกพลังงานลมเป็นหัวข้อ
 เฉลย: เป็นเรื่องใหม่ น่าสนใจ สะอาด และเป็นมิตรต่อสิ่งแวดล้อม
+
+
 10.What does the professor think about the project idea?
 Answer: He finds it interesting and effective.
 
@@ -15042,8 +15328,6 @@ Emily: Hmm, let’s decorate the venue first. What do you think?
 John: That sounds perfect! How about hanging fairy lights and paper lanterns?
 
 จอห์น: เยี่ยมเลย แขวนไฟประดับกับโคมกระดาษดีไหม
-
-
 Emily: Great idea! Can you help me set up the lights?
 
 เอมิลี่: ไอเดียดี ช่วยฉันติดไฟได้ไหม
@@ -15053,6 +15337,8 @@ John: Sure! And can you help me paint the signs for the food truck stalls?
 Emily: Absolutely! By the way, what kind of food should we include?
 
 เอมิลี่: ได้แน่นอน ว่าแต่เราจะมีอาหารประเภทไหนบ้าง
+
+
 John: How about sushi, burgers, and some local snacks?
 
 จอห์น: ซูชิ เบอร์เกอร์ และขนมท้องถิ่นเป็นไง
@@ -15091,9 +15377,7 @@ She suggests decorating the venue.`,opts:[],ans:null,th:`1. สิ่งแร�
 She suggests decorating the venue.
 
 1. สิ่งแรกที่เอมิลี่เสนอสำหรับเทศกาลคืออะไร
-เฉลย: เสนอให้ตกแต่งสถานที่
-
-`},{kind:"raw",ok:!1,q:`2. What does John suggest for decorations?
+เฉลย: เสนอให้ตกแต่งสถานที่`},{kind:"raw",ok:!1,q:`2. What does John suggest for decorations?
 He suggests hanging fairy lights and paper lanterns.`,opts:[],ans:null,th:`2. จอห์นเสนอเครื่องตกแต่งอะไร
 เฉลย: แขวนไฟประดับและโคมกระดาษ`,ans_text:null,raw:`2. What does John suggest for decorations?
 He suggests hanging fairy lights and paper lanterns.
@@ -15105,7 +15389,9 @@ John will set up the lights.`,opts:[],ans:null,th:`3. ใครจะติด�
 John will set up the lights.
 
 3. ใครจะติดไฟ
-เฉลย: จอห์น`},{kind:"raw",ok:!1,q:`4. What does John ask Emily to help with?
+เฉลย: จอห์น
+
+`},{kind:"raw",ok:!1,q:`4. What does John ask Emily to help with?
 He asks Emily to help paint the signs for the food truck stalls.`,opts:[],ans:null,th:`4. จอห์นขอให้เอมิลี่ช่วยอะไร
 เฉลย: ช่วยทาสีป้ายสำหรับแผงรถขายอาหาร`,ans_text:null,raw:`4. What does John ask Emily to help with?
 He asks Emily to help paint the signs for the food truck stalls.
@@ -15163,14 +15449,11 @@ She asks if he is as excited as she is.
 11. เอมิลี่ถามจอห์นเรื่องเทศกาลว่าอะไร
 เฉลย: ถามว่าเขาตื่นเต้นเท่าเธอไหม
 
-
 `}],qa_raw:`1. What is the first thing Emily suggests for the festival?
 She suggests decorating the venue.
 
 1. สิ่งแรกที่เอมิลี่เสนอสำหรับเทศกาลคืออะไร
 เฉลย: เสนอให้ตกแต่งสถานที่
-
-
 2. What does John suggest for decorations?
 He suggests hanging fairy lights and paper lanterns.
 
@@ -15181,6 +15464,8 @@ John will set up the lights.
 
 3. ใครจะติดไฟ
 เฉลย: จอห์น
+
+
 4. What does John ask Emily to help with?
 He asks Emily to help paint the signs for the food truck stalls.
 
@@ -15224,6 +15509,8 @@ She asks if he is as excited as she is.
 Man: Hey, do you know when the riding in the park opens?
 
 ผู้ชาย: เฮ้ รู้ไหมว่าการขี่ในสวนสาธารณะเปิดกี่โมง
+
+
 Woman: Yes, it opens at 10:00 am.
 
 ผู้หญิง: รู้ เปิดตอน 10.00 น.
@@ -15278,6 +15565,8 @@ Answer £95
 
 12. ตั๋ว Family Fast-line Track ราคาเท่าไหร่ถ้าจองออนไลน์
 เฉลย: £95
+
+
 13. What is suggested when you plan to go to the lake in the park?
 Answer Go there in summer
 
@@ -15310,8 +15599,6 @@ Dave: Good, good.
 Jean: Wait a second, I’m not calling you in Canada, right? You’re back now, aren’t you?
 
 ฌอง: เดี๋ยวนะ ฉันไม่ได้โทรหาคุณที่แคนาดาใช่ไหม คุณกลับมาแล้วใช่ไหม
-
-
 Dave: Yeah, I got back two days ago.
 
 เดฟ: ใช่ กลับมาเมื่อสองวันก่อน
@@ -15325,6 +15612,8 @@ same country now.
 
 เดฟ: คุณเสียเงินมหาศาลกับสายทางไกล ไม่เป็นไร ผมรู้ จริงๆ ผมจะไม่รับโทรศัพท์ตอนอยู่ที่นั่นถ้าเห็นว่าสายมา
 จากอังกฤษ แต่ไม่ต้องกังวล ตอนนี้เราอยู่ประเทศเดียวกันแล้ว
+
+
 Jean: Yeah. So, how was the trip? Did you meet your long-lost uncle?
 
 ฌอง: ใช่ แล้วทริปเป็นไง ได้พบลุงที่ไม่ได้เจอกันนานไหม
@@ -15359,8 +15648,6 @@ bedroom. I had to pinch myself to prove I wasn’t dreaming.
 Jean: Sounds pretty cool. So, what’s it like? The city, I mean. I’ve always wanted to go to Canada.
 
 ฌอง: ฟังดูเจ๋งมาก แล้วเมืองเป็นยังไง ฉันอยากไปแคนาดาเสมอ
-
-
 Dave: It’s nice. I mean, it’s another big, vibrant, modern city. But it’s really clean, and there’s lots of
 parks. One of the things I liked was the multiculturalism. We visited Chinatown, Little Italy, Greektown,
 Little India … umm, I can’t remember the others but it was sort of a new area every three or four
@@ -15378,6 +15665,8 @@ restaurants, shops, cinemas and stuff all underground. In the middle of the down
 
 เดฟ: จริง! ผมถามเรื่องนี้ เรียกว่า PATH มีร้านอาหาร ร้านค้า โรงภาพยนตร์ และอื่นๆ ใต้ดินยาวเกือบ 30
 กิโลเมตร กลางย่านใจกลางเมือง
+
+
 Jean: Amazing
 
 ฌอง: น่าทึ่ง
@@ -15411,8 +15700,6 @@ Dave: That was great too. He lives outside of Toronto, in a cottage by a lake. R
 unspoiled nature.
 
 เดฟ: ก็ดีเยี่ยมเหมือนกัน ลุงอยู่นอกโทรอนโต ในกระท่อมริมทะเลสาบ ธรรมชาติสงบและไม่ถูกทำลายจริงๆ
-
-
 Jean: I’m dying to see photos. You want to meet up soon? Or are you too jet lagged still?
 
 ฌอง: อยากดูรูปจะแย่ อยากเจอกันเร็วๆ ไหม หรือยังเพลียจากเจ็ตแล็กอยู่
@@ -15427,7 +15714,9 @@ b. would be worried something had happened.
 c. would think it was a work call.
 
 1. หากเดฟอยู่ต่างประเทศและเห็นสายโทรศัพท์จากคนที่บ้าน เขา…
-[ต้นฉบับไม่มีเฉลย — ตรวจจากบทสนทนา: a. จะไม่รับสาย]`},{kind:"raw",ok:!1,q:`2. When he first arrived in Toronto, Dave was a bit worried
+[ต้นฉบับไม่มีเฉลย — ตรวจจากบทสนทนา: a. จะไม่รับสาย]
+
+`},{kind:"raw",ok:!1,q:`2. When he first arrived in Toronto, Dave was a bit worried
 about ...`,opts:[["A","contacting his uncle."],["B","his accommodation."],["C","being mugged."]],ans:null,th:`2. เมื่อเดฟมาถึงโทรอนโตครั้งแรก เขากังวลเรื่อง…
 [ตรวจจากบทสนทนา: b. ที่พักของเขา]`,ans_text:null,raw:`2. When he first arrived in Toronto, Dave was a bit worried
 about ...
@@ -15457,9 +15746,7 @@ b. shopping.
 c. meeting of different cultures.
 
 5. เขาชอบเป็นพิเศษ…
-[ตรวจจากบทสนทนา: c. การพบกันของวัฒนธรรมที่แตกต่าง]
-
-`},{kind:"raw",ok:!1,q:"6. Dave thought the PATH was particularly good ...",opts:[["A","as a shortcut when walking around the city."],["B","for tasting many different types of food all in one place."],["C","for keeping warm."]],ans:null,th:`6. เดฟคิดว่า PATH ดีเป็นพิเศษ…
+[ตรวจจากบทสนทนา: c. การพบกันของวัฒนธรรมที่แตกต่าง]`},{kind:"raw",ok:!1,q:"6. Dave thought the PATH was particularly good ...",opts:[["A","as a shortcut when walking around the city."],["B","for tasting many different types of food all in one place."],["C","for keeping warm."]],ans:null,th:`6. เดฟคิดว่า PATH ดีเป็นพิเศษ…
 [ตรวจจากบทสนทนา: c. เพื่อรักษาความอบอุ่น]`,ans_text:null,raw:`6. Dave thought the PATH was particularly good ...
 a. as a shortcut when walking around the city.
 b. for tasting many different types of food all in one place.
@@ -15473,7 +15760,9 @@ b. can feel much lower because of the wind.
 c. was unusually low for that time of year.
 
 7. อุณหภูมิ…
-[ตรวจจากบทสนทนา: b. รู้สึกต่ำกว่าจริงมากเพราะลม]`},{kind:"raw",ok:!1,q:"8. Dave’s uncle lives ...",opts:[["A","in the suburbs of the city."],["B","in an area that was more beautiful before it was affected by development work."],["C","in a small house next to a lake."]],ans:null,th:`8. ลุงของเดฟอาศัยอยู่…
+[ตรวจจากบทสนทนา: b. รู้สึกต่ำกว่าจริงมากเพราะลม]
+
+`},{kind:"raw",ok:!1,q:"8. Dave’s uncle lives ...",opts:[["A","in the suburbs of the city."],["B","in an area that was more beautiful before it was affected by development work."],["C","in a small house next to a lake."]],ans:null,th:`8. ลุงของเดฟอาศัยอยู่…
 [ตรวจจากบทสนทนา: c. ในบ้านหลังเล็กติดทะเลสาบ (ในบทสนทนาคือกระท่อมริมทะเลสาบ)]`,ans_text:null,raw:`8. Dave’s uncle lives ...
 a. in the suburbs of the city.
 b. in an area that was more beautiful before it was affected by
@@ -15491,6 +15780,8 @@ c. would think it was a work call.
 
 1. หากเดฟอยู่ต่างประเทศและเห็นสายโทรศัพท์จากคนที่บ้าน เขา…
 [ต้นฉบับไม่มีเฉลย — ตรวจจากบทสนทนา: a. จะไม่รับสาย]
+
+
 2. When he first arrived in Toronto, Dave was a bit worried
 about ...
 a. contacting his uncle.
@@ -15520,8 +15811,6 @@ c. meeting of different cultures.
 
 5. เขาชอบเป็นพิเศษ…
 [ตรวจจากบทสนทนา: c. การพบกันของวัฒนธรรมที่แตกต่าง]
-
-
 6. Dave thought the PATH was particularly good ...
 a. as a shortcut when walking around the city.
 b. for tasting many different types of food all in one place.
@@ -15536,6 +15825,8 @@ c. was unusually low for that time of year.
 
 7. อุณหภูมิ…
 [ตรวจจากบทสนทนา: b. รู้สึกต่ำกว่าจริงมากเพราะลม]
+
+
 8. Dave’s uncle lives ...
 a. in the suburbs of the city.
 b. in an area that was more beautiful before it was affected by
@@ -15543,7 +15834,340 @@ development work.
 c. in a small house next to a lake.
 
 8. ลุงของเดฟอาศัยอยู่…
-[ตรวจจากบทสนทนา: c. ในบ้านหลังเล็กติดทะเลสาบ (ในบทสนทนาคือกระท่อมริมทะเลสาบ)]`},{n:83,type:"Reading",title:"10_Reading_Lack of sleep",date:"2026-04-30",status:"pending",dup:null},{n:84,type:"Reading",title:"11_Reading_The Eiffel tower",date:"2026-04-30",status:"pending",dup:null},{n:85,type:"Listening",title:"12_Listening_Video games",date:"2026-04-30",status:"ok",dup:null,body:`บทสนทนา (Dialogue)
+[ตรวจจากบทสนทนา: c. ในบ้านหลังเล็กติดทะเลสาบ (ในบทสนทนาคือกระท่อมริมทะเลสาบ)]`},{n:83,type:"Reading",title:"10_Reading_Lack of sleep",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+Section A It is estimated that the average man or woman needs between seven-and-a-half and eight
+hours' sleep a night. Some can manage on a lot less. Baroness Thatcher, for example, was reported to
+be able to get by on four hours' sleep a night when she was Prime Minister of Britain. Dr Jill Wilkinson,
+senior lecturer in psychology at Surrey University and co-author of 'Psychology in Counselling and
+Therapeutic Practice', states that healthy individuals sleeping less than five hours or even as little as
+two hours in every 24 hours are rare, but represent a sizeable minority.
+
+ส่วน A คาดว่าผู้ชายหรือผู้หญิงเฉลี่ยต้องการนอนระหว่างเจ็ดชั่วโมงครึ่งถึงแปดชั่วโมงต่อคืน บางคนอยู่ได้ด้วย
+น้อยกว่านั้นมาก เช่น บารอนเนสแทตเชอร์ ซึ่งมีรายงานว่าอยู่ได้ด้วยการนอนเพียงสี่ชั่วโมงต่อคืนขณะเป็นนายก
+รัฐมนตรีอังกฤษ ดร.จิลล์ วิลกินสัน อาจารย์อาวุโสด้านจิตวิทยาที่มหาวิทยาลัยเซอร์รีย์และผู้ร่วมเขียน
+‘Psychology in Counselling and Therapeutic Practice’ ระบุว่าบุคคลสุขภาพดีที่นอนน้อยกว่าห้าชั่วโมง หรือ
+แม้เพียงสองชั่วโมงใน 24 ชั่วโมง เป็นเรื่องหายาก แต่เป็นชนกลุ่มน้อยที่มีนัยสำคัญ
+Section B The latest beliefs are that the main purposes of sleep are to enable the body to rest and
+replenish, allowing time for repairs to take place and for tissue to be regenerated. One supporting piece
+of evidence for this rest-and¬repair theory is that production of the growth hormone somatotropin,
+which helps tissue to regenerate, peaks while we are asleep. Lack of sleep, however, can compromise
+the immune system, muddle thinking, cause depression, promote anxiety and encourage irritability.
+
+ส่วน B ความเชื่อล่าสุดคือจุดประสงค์หลักของการนอนคือให้ร่างกายได้พักและเติมพลัง ให้เวลาซ่อมแซมและ
+สร้างเนื้อเยื่อใหม่ หลักฐานสนับสนุนทฤษฎีพักและซ่อมแซมนี้อย่างหนึ่งคือการผลิตฮอร์โมนการเจริญเติบโตโซมา
+โทโทรปิน ซึ่งช่วยสร้างเนื้อเยื่อใหม่ สูงสุดขณะหลับ อย่างไรก็ตาม การนอนไม่พออาจทำลายระบบภูมิคุ้มกัน
+ทำให้ความคิดสับสน ก่อให้เกิดภาวะซึมเศร้า เพิ่มความวิตกกังวล และกระตุ้นความหงุดหงิด
+
+
+Section C Researchers in San Diego deprived a group of men of sleep between Sam and lam on just
+one night, and found that levels of their bodies' natural defences against viral infections had fallen
+significantly when measured the following morning. 'Sleep is essential for our physical and emotional
+well-being and there are few aspects of daily living that are not disrupted by the lack of it', says
+Professor William Regelson of Virginia University, a specialist in insomnia. 'Because it can seriously
+undermine the functioning of the immune system, sufferers are vulnerable to infection.'
+
+ส่วน C นักวิจัยในซานดิเอโกไม่ให้ผู้ชายกลุ่มหนึ่งนอนระหว่างตีสามถึงตีหนึ่งเพียงคืนเดียว พบว่าระดับการ
+ป้องกันธรรมชาติของร่างกายต่อการติดเชื้อไวรัสลดลงอย่างมีนัยสำคัญเมื่อวัดในเช้าวันถัดมา ศาสตราจารย์วิล
+เลียม เรเกลสัน แห่งมหาวิทยาลัยเวอร์จิเนีย ผู้เชี่ยวชาญโรคนอนไม่หลับ กล่าวว่า “การนอนจำเป็นต่อความเป็น
+อยู่ที่ดีทั้งทางกายและอารมณ์ และมีด้านน้อยมากของการใช้ชีวิตประจำวันที่ไม่ถูกรบกวนจากการขาดการนอน
+เพราะอาจบั่นทอนการทำงานของระบบภูมิคุ้มกันอย่างรุนแรง ผู้ที่ประสบปัญหานี้จึงเสี่ยงต่อการติดเชื้อ”
+Section D For many people, lack of sleep is rarely a matter of choice. Some have problems getting to
+sleep, others with staying asleep until the morning. Despite popular belief that sleep is one long event,
+research shows that, in an average night, there are five stages of sleep and four cycles, during which
+the sequence of stages is repeated. In the first light phase, the heart rate and blood pressure go down
+and the muscles relax. In the next two stages, sleep gets progressively deeper. In stage four, usually
+reached after an hour, the slumber is so deep that, if awoken, the sleeper would be confused and
+disorientated. It is in this phase that sleep-walking can occur, with an average episode lasting no more
+than 15 minutes. In the fifth stage, the rapid eye movement (REM) stage, the heartbeat quickly gets
+back to normal levels, brain activity accelerates to daytime heights and above and the eyes move
+constantly beneath closed lids as if the sleeper is looking at something. During this stage, the body is
+almost paralysed. This REM phase is also the time when we dream.
+
+ส่วน D สำหรับหลายคน การนอนไม่พอแทบไม่ใช่เรื่องของการเลือก บางคนมีปัญหาในการเริ่มหลับ บางคนมี
+ปัญหาในการหลับต่อจนเช้า แม้ความเชื่อทั่วไปว่าการนอนเป็นเหตุการณ์ยาว งานวิจัยแสดงว่าในคืนเฉลี่ยมีห้า
+ระยะของการนอนและสี่วงจร ซึ่งลำดับของระยะต่างๆ ทำซ้ำ ในระยะหลับตื้นแรก อัตราการเต้นของหัวใจและ
+ความดันโลหิตลดลงและกล้ามเนื้อคลายตัว ในสองระยะถัดไป การนอนลึกขึ้นเรื่อยๆ ในระยะที่สี่ ซึ่งมักถึงหลัง
+หนึ่งชั่วโมง การหลับลึกมากจนถ้าถูกปลุก ผู้หลับจะสับสนและสูญเสียทิศทาง ระยะนี้เป็นช่วงที่เดินละเมออาจเกิด
+ขึ้น โดยเหตุการณ์เฉลี่ยไม่เกิน 15 นาที ในระยะที่ห้าซึ่งเป็นระยะการเคลื่อนไหวตาเร็ว (REM) หัวใจเต้นกลับสู่
+ระดับปกติอย่างรวดเร็ว กิจกรรมของสมองเร่งขึ้นถึงระดับกลางวันและเกินกว่า และตาเคลื่อนไหวต่อเนื่องใต้
+เปลือกตาที่ปิดราวกับผู้หลับกำลังมองบางสิ่ง ระหว่างระยะนี้ ร่างกายเกือบเป็นอัมพาต ระยะ REM นี้ยังเป็นเวลาที่
+เราฝัน
+Section E Sleeping patterns change with age, which is why many people over 60 develop insomnia. In
+America, that age group consumes almost half the sleep medication on the market. One theory for the
+age-related change is that it is due to hormonal changes. The temperature rise occurs at daybreak in
+the young, but at three or four in the morning in the elderly. Age aside, it is estimated that roughly one
+in three people suffer some kind of sleep disturbance. Causes can be anything from pregnancy and
+stress to alcohol and heart disease. Smoking is a known handicap to sleep, with one survey showing
+that ex-smokers got to sleep in 18 minutes rather than their earlier average of 52 minutes.
+
+ส่วน E รูปแบบการนอนเปลี่ยนไปตามอายุ ซึ่งเป็นเหตุผลที่หลายคนอายุเกิน 60 เป็นโรคนอนไม่หลับ ในอเมริกา
+กลุ่มอายุนี้ใช้ยานอนหลับเกือบครึ่งหนึ่งของที่มีในตลาด ทฤษฎีหนึ่งเกี่ยวกับการเปลี่ยนตามอายุคือเกิดจากการ
+เปลี่ยนแปลงของฮอร์โมน อุณหภูมิที่เพิ่มขึ้นเกิดตอนรุ่งสางในคนหนุ่มสาว แต่ตอนตีสามหรือตีสี่ในผู้สูงอายุ นอก
+เหนือจากอายุ คาดว่าประมาณหนึ่งในสามของผู้คนประสบปัญหาการนอนรูปแบบใดรูปแบบหนึ่ง สาเหตุอาจเป็น
+อะไรก็ได้ ตั้งแต่การตั้งครรภ์และความเครียดไปจนถึงแอลกอฮอล์และโรคหัวใจ การสูบบุหรี่เป็นอุปสรรคต่อการ
+นอนที่รู้กันดี โดยการสำรวจหนึ่งพบว่าผู้ที่เลิกบุหรี่หลับภายใน 18 นาที แทนที่จะเฉลี่ย 52 นาทีเดิม
+
+
+Section F Apart from self-help therapy such as regular exercise, there are psychological treatments,
+including relaxation training and therapy aimed at getting rid of pre-sleep worries and anxieties. There
+is also sleep reduction therapy, where the aim is to improve sleep quality by strictly regulating the time
+people go to bed and when they get up. Medication is regarded by many as a last resort and often
+takes the form of sleeping pills, normally benzodiazepines, which are minor tranquillizers.
+
+ส่วน F นอกจากการบำบัดช่วยตนเอง เช่น ออกกำลังกายสม่ำเสมอ ยังมีการรักษาทางจิตวิทยา รวมถึงการฝึก
+ผ่อนคลายและการบำบัดที่มุ่งกำจัดความกังวลก่อนนอน นอกจากนี้ยังมีการบำบัดแบบลดการนอน ซึ่งมีเป้าหมาย
+ปรับปรุงคุณภาพการนอนด้วยการควบคุมเวลาเข้านอนและตื่นอย่างเข้มงวด ยาเป็นทางเลือกสุดท้ายในความเห็น
+ของหลายคน และมักอยู่ในรูปยานอนหลับ ซึ่งโดยปกติเป็นเบนโซไดอะซีปีน ยาสงบประสาทอย่างอ่อน
+Section G Professor Regelson advocates the use of melatonin for treating sleep disorders. Melatonin is
+a naturally secreted hormone, located in the pineal gland deep inside the brain. The main function of
+the hormone is to control the body's biological clock, so we know when to sleep and when to wake. The
+gland detects light reaching it through the eye; when there is no light, it secretes the melatonin into
+the bloodstream, lowering the body temperature and helping to induce sleep. Melatonin pills contain a
+synthetic version of the hormone and are commonly used for jet lag as well as for sleep disturbance.
+John Nicholls, sales manager of one of America's largest health food shops, claims that sales of the pill
+have increased dramatically. He explains that it is sold in capsules, tablets, lozenges and mixed with
+herbs. It is not. effective for all insomniacs, but many users have weaned themselves off sleeping
+tablets as a result of its application.
+
+ส่วน G ศาสตราจารย์เรเกลสันสนับสนุนการใช้เมลาโทนินรักษาความผิดปกติของการนอน เมลาโทนินเป็น
+ฮอร์โมนที่หลั่งตามธรรมชาติ อยู่ในต่อมไพเนียลลึกในสมอง หน้าที่หลักของฮอร์โมนคือควบคุมนาฬิ กาชีวภาพ
+ของร่างกาย เพื่อให้เรารู้ว่าเมื่อใดควรหลับและตื่น ต่อมตรวจจับแสงที่เข้าถึงผ่านตา เมื่อไม่มีแสง จะหลั่งเมลาโท
+นินเข้ากระแสเลือด ลดอุณหภูมิร่างกายและช่วยให้หลับ เม็ดเมลาโทนินมีฮอร์โมนสังเคราะห์ และใช้กันทั่วไป
+สำหรับอาการเจ็ตแล็กและความผิดปกติของการนอน จอห์น นิโคลส์ ผู้จัดการฝ่ายขายของร้านอาหารสุขภาพที่
+ใหญ่ที่สุดแห่งหนึ่งในอเมริกา อ้างว่ายอดขายเม็ดนี้เพิ่มขึ้นอย่างมาก เขาอธิบายว่าขายเป็นแคปซูล เม็ด ยาอม
+และผสมกับสมุนไพร ไม่ได้ผลกับผู้นอนไม่หลับทุกคน แต่ผู้ใช้จำนวนมากเลิกใช้ยานอนหลับได้เพราะการใช้เมลา
+โทนิน`,qs:[{kind:"mcq",ok:!0,q:`1. What does Dr. Jill Wilkinson say about individuals who sleep less than five hours in
+24 hours?`,opts:[["A","They are extremely unhealthy."],["B","They represent a rare but significant minority."],["C","They are as common as those who sleep more."],["D","They rarely suffer from insomnia."]],ans:"B",th:`1. ดร.จิลล์ วิลกินสันกล่าวอย่างไรเกี่ยวกับบุคคลที่นอนน้อยกว่าห้าชั่วโมงใน 24 ชั่วโมง
+เฉลย: B. เป็นชนกลุ่มน้อยที่หายากแต่มีนัยสำคัญ`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"2. What is one purpose of sleep mentioned in Section B?",opts:[["A","To increase hormone production during the day."],["B","To enable tissue regeneration and repair."],["C","To prevent the body from overheating."],["D","To reduce exposure to viral infections."]],ans:"B",th:`2. จุดประสงค์ของการนอนอย่างหนึ่งที่กล่าวในส่วน B คืออะไร
+เฉลย: B. ทำให้เนื้อเยื่อสร้างใหม่และซ่อมแซมได้`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`3. According to Section C, what did the San Diego study reveal about sleep
+deprivation?`,opts:[["A","It had no impact on participants' immune systems."],["B","It caused confusion and disorientation in participants."],["C","It reduced natural defenses against viral infections."],["D","It disrupted participants' sleep cycles for a week."]],ans:"C",th:`3. ตามส่วน C การศึกษาที่ซานดิเอโกเผยอะไรเกี่ยวกับการอดนอน
+เฉลย: C. ลดการป้องกันตามธรรมชาติต่อการติดเชื้อไวรัส`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"4. During which stage of sleep do rapid eye movements (REM) occur?",opts:[["A","Stage 1"],["B","Stage 3"],["C","Stage 4"],["D","Stage 5"]],ans:"D",th:`4. การเคลื่อนไหวตาเร็ว (REM) เกิดขึ้นในระยะใดของการนอน
+เฉลย: D. ระยะที่ 5`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:"5. Why do sleep patterns change with age, according to Section E?",opts:[["A","Older people have fewer REM cycles during sleep."],["B","Hormonal changes affect body temperature regulation."],["C","They are more prone to stress-related insomnia."],["D","They tend to consume more sleeping pills."]],ans:null,th:`5. เหตุใดรูปแบบการนอนจึงเปลี่ยนตามอายุ ตามส่วน E
+เฉลย: B. การเปลี่ยนแปลงของฮอร์โมนกระทบการควบคุมอุณหภูมิร่างกาย`,ans_text:null,raw:`5. Why do sleep patterns change with age, according to Section E?
+A. Older people have fewer REM cycles during sleep.
+B. Hormonal changes affect body temperature regulation.
+C. They are more prone to stress-related insomnia.
+D. They tend to consume more sleeping pills.
+
+5. เหตุใดรูปแบบการนอนจึงเปลี่ยนตามอายุ ตามส่วน E
+เฉลย: B. การเปลี่ยนแปลงของฮอร์โมนกระทบการควบคุมอุณหภูมิร่างกาย
+
+`}],qa_raw:`1. What does Dr. Jill Wilkinson say about individuals who sleep less than five hours in
+24 hours?
+A. They are extremely unhealthy.
+B. They represent a rare but significant minority.
+C. They are as common as those who sleep more.
+D. They rarely suffer from insomnia.
+Answer: B
+
+1. ดร.จิลล์ วิลกินสันกล่าวอย่างไรเกี่ยวกับบุคคลที่นอนน้อยกว่าห้าชั่วโมงใน 24 ชั่วโมง
+เฉลย: B. เป็นชนกลุ่มน้อยที่หายากแต่มีนัยสำคัญ
+
+
+2. What is one purpose of sleep mentioned in Section B?
+A. To increase hormone production during the day.
+B. To enable tissue regeneration and repair.
+C. To prevent the body from overheating.
+D. To reduce exposure to viral infections.
+Answer: B
+
+2. จุดประสงค์ของการนอนอย่างหนึ่งที่กล่าวในส่วน B คืออะไร
+เฉลย: B. ทำให้เนื้อเยื่อสร้างใหม่และซ่อมแซมได้
+3. According to Section C, what did the San Diego study reveal about sleep
+deprivation?
+A. It had no impact on participants' immune systems.
+B. It caused confusion and disorientation in participants.
+C. It reduced natural defenses against viral infections.
+D. It disrupted participants' sleep cycles for a week.
+Answer: C
+
+3. ตามส่วน C การศึกษาที่ซานดิเอโกเผยอะไรเกี่ยวกับการอดนอน
+เฉลย: C. ลดการป้องกันตามธรรมชาติต่อการติดเชื้อไวรัส
+4. During which stage of sleep do rapid eye movements (REM) occur?
+A. Stage 1
+B. Stage 3
+C. Stage 4
+D. Stage 5
+Answer: D
+
+4. การเคลื่อนไหวตาเร็ว (REM) เกิดขึ้นในระยะใดของการนอน
+เฉลย: D. ระยะที่ 5
+5. Why do sleep patterns change with age, according to Section E?
+A. Older people have fewer REM cycles during sleep.
+B. Hormonal changes affect body temperature regulation.
+C. They are more prone to stress-related insomnia.
+D. They tend to consume more sleeping pills.
+
+5. เหตุใดรูปแบบการนอนจึงเปลี่ยนตามอายุ ตามส่วน E
+เฉลย: B. การเปลี่ยนแปลงของฮอร์โมนกระทบการควบคุมอุณหภูมิร่างกาย`},{n:84,type:"Reading",title:"11_Reading_The Eiffel tower",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+A. High above the city of Paris, the Eiffel Tower looks over the thousands of tourists that visit her each
+day. One of the greatest sites in Paris, the Eiffel Tower was erected in 1889 for the great Paris
+Exposition. Alexandre Gustave Eiffel, who also designed the Statue of Liberty, put his design-forward
+amongst 700 other designs and Eiffel’s design was chosen collectively without any further thought. The
+decision was made to build this radical creation and two years later it was completed. Eiffel had
+originally decided to build the tower in Barcelona, for the Universal Exposition of 1888, but organizers
+and planners in Barcelona thought it was a bizarre and expensive construction, which did not fit into
+the design of the city.
+
+A. เหนือกรุงปารีส หอไอเฟลมองลงมายังนักท่องเที่ยวหลายพันคนที่มาเยือนทุกวัน หนึ่งในสถานที่ที่ยิ่งใหญ่ที่สุด
+ของปารีส หอไอเฟลสร้างขึ้นเมื่อปี 1889 สำหรับงานนิทรรศการปารีสครั้งใหญ่ อเล็กซองดร์ กุสตาฟ ไอเฟล ผู้
+ออกแบบเทพีเสรีภาพด้วย เสนอแบบของเขาท่ามกลางแบบอื่น 700 แบบ และแบบของไอเฟลถูกเลือกร่วมกันโดย
+ไม่ต้องคิดมาก มีการตัดสินใจสร้างผลงานสุดโต่งนี้ และสองปีต่อมาก็แล้วเสร็จ ไอเฟลเดิมตั้งใจสร้างหอที่บาร์เซ
+โลนาสำหรับงานนิทรรศการสากลปี 1888 แต่ผู้จัดงานและนักวางแผนในบาร์เซโลนามองว่าเป็นโครงสร้าง
+ประหลาดและแพงที่ไม่เข้ากับการออกแบบของเมือง
+B. After the design and build of the Eiffel Tower were confirmed for Paris, a petition was signed by over
+300 names to fight against the building of this project. These names included Parisian architects,
+engineers and famous citizens of Paris. Eiffel was heavily castigated for his design and was accused of
+designing something for its appearance and artistic appeal with no regard to engineering; opponents to
+the building claimed that the design did not have sufficient stability to withstand the high winds its
+height would be exposed to. But Eiffel and his team of ex bridge builders understood the importance of
+wind forces, and the shape of the tower was largely decided by a mathematical calculation involving
+wind resistance.
+
+B. หลังการออกแบบและการสร้างหอไอเฟลที่ปารีสได้รับการยืนยัน มีการลงชื่อในคำร้องโดยผู้ลงนามกว่า 300
+คนเพื่อต่อต้านโครงการนี้ รายชื่อรวมสถาปนิก วิศวกร และพลเมืองมีชื่อเสียงของปารีส ไอเฟลถูกวิจารณ์อย่าง
+หนักสำหรับการออกแบบและถูกกล่าวหาว่าออกแบบเพื่อรูปลักษณ์และความงามเชิงศิลป์โดยไม่คำนึงถึง
+วิศวกรรม ผู้ต่อต้านอ้างว่าแบบไม่มีเสถียรภาพพอจะทนลมแรงที่ความสูงของหอต้องเผชิญ แต่ไอเฟลและทีมซึ่ง
+เป็นอดีตผู้สร้างสะพานเข้าใจความสำคัญของแรงลม และรูปทรงของหอส่วนใหญ่ถูกกำหนดจากการคำนวณทาง
+คณิตศาสตร์เกี่ยวกับแรงต้านลม
+C. French painters, sculptures and writers did not see the beauty in the tower and referred to it as
+useless and monstrous. However, the Eiffel tower was admired by many notable people (Rousseau was
+particularly impressed) and construction began in 1887 and was soon completed by the end of 1889. In
+1909 it was almost demolished because of the expiration of its 20-year lease but was saved due to its
+antennas used for telegraphy at the time, With such a difficult beginning to the Tower. It is now
+internationally recognized and is a symbol of Paris completely accepted and valued by its French
+Citizens.
+
+C. จิตรกร ประติมากร และนักเขียนชาวฝรั่งเศสไม่เห็นความงามของหอและเรียกว่าไร้ประโยชน์และน่าเกลียด
+น่ากลัว อย่างไรก็ตาม หอไอเฟลได้รับการชื่นชมจากผู้มีชื่อเสียงหลายคน (รุสโซประทับใจเป็นพิเศษ) และการ
+ก่อสร้างเริ่มในปี 1887 และเสร็จสิ้นในไม่ช้าก่อนสิ้นปี 1889 ในปี 1909 เกือบถูกรื้อเพราะสัญญาเช่า 20 ปีหมด
+อายุ แต่รอดมาได้เพราะเสาอากาศที่ใช้สำหรับโทรเลขในเวลานั้น หลังจากจุดเริ่มต้นที่ยากลำบากเช่นนี้ ปัจจุบัน
+หอเป็นที่รู้จักระดับนานาชาติและเป็นสัญลักษณ์ของปารีสที่พลเมืองฝรั่งเศสยอมรับและเห็นคุณค่าอย่างสมบูรณ์
+
+
+D. It took 300 workers and 15,000 pieces of iron to complete this massive landmark which now stands
+at 320 meters tall. With three different levels, the third and highest level offers panoramic views of the
+City of Paris and sits 276 meters above the ground. Today all three levels of the Eiffel Tower are
+observatory platforms. The first level offers a souvenir kiosk, gallery and restaurant. The second level
+offers telescopes, shops and another restaurant with even more spectacular views, the third offers a
+gallery featuring the history of the Eiffel Tower; a wax reproduction of Gustave Eiffel and his original
+office restoration. Although stairs are still available, lifts commonly take passengers to all three of
+these levels.
+
+D. ใช้คนงาน 300 คนและเหล็ก 15,000 ชิ้นเพื่อสร้างสถานที่สำคัญขนาดมหึมานี้ ซึ่งปัจจุบันสูง 320 เมตร มีสาม
+ระดับ ระดับที่สามซึ่งสูงที่สุดให้ทัศนียภาพรอบกรุงปารีสและอยู่สูงจากพื้น 276 เมตร ปัจจุบันทั้งสามระดับเป็น
+แท่นชมวิว ระดับแรกมีร้านของที่ระลึก แกลเลอรี และร้านอาหาร ระดับสองมีกล้องโทรทรรศน์ ร้านค้า และร้าน
+อาหารอีกแห่งที่วิวงดงามยิ่งกว่า ระดับสามมีแกลเลอรีประวัติศาสตร์ของหอไอเฟล หุ่นขี้ผึ้งของกุสตาฟ ไอเฟล
+และห้องทำงานเดิมที่บูรณะแล้ว แม้ยังมีบันได แต่ลิฟต์มักพาผู้โดยสารไปทั้งสามระดับ
+E. On a dear day, you can see as far as 67 kilometres across Paris. More than 300,000,000 people have
+visited the Tower since its completion in 1889 making it one of the most visited monuments in Europe.
+Every seven years, the Eiffel Tower is repainted with 50 to 60 tonnes of paint to protect its framework
+from rust. So that the Eiffel Tower appears the same colour at each level when viewing it from the
+ground up, the Tower is painted in three different shades of the same colour. The bottom painted with
+the darkest brown and the lightest at the top of the tower. At the time of its completion, the Eiffel Tower
+was the world’s tallest structure until New York’s Chrysler building was completed in 1930.
+
+E. ในวันที่ท้องฟ้าแจ่มใส มองเห็นไกลถึง 67 กิโลเมตรทั่วปารีส มีผู้เยี่ยมชมหอกว่า 300 ล้านคนนับตั้งแต่สร้าง
+เสร็จในปี 1889 ทำให้เป็นหนึ่งในอนุสรณ์สถานที่มีผู้เยี่ยมชมมากที่สุดในยุโรป ทุกเจ็ดปี หอไอเฟลถูกทาสีใหม่ด้วย
+สี 50 ถึง 60 ตันเพื่อปกป้องโครงสร้างจากสนิม เพื่อให้หอดูเป็นสีเดียวกันในทุกระดับเมื่อมองจากพื้นขึ้นไป จึงทา
+สามเฉดของสีเดียวกัน ด้านล่างสุดทาสีน้ำตาลเข้มที่สุดและด้านบนอ่อนที่สุด ขณะสร้างเสร็จ หอไอเฟลเป็น
+โครงสร้างที่สูงที่สุดในโลกจนกระทั่งอาคารไครสเลอร์ในนิวยอร์กสร้างเสร็จในปี 1930
+F. Today more than 500 hundred people operate the day to day running of the Eiffel Tower. Each and
+every day the Eiffel Towers 335 spotlights and 20,000 bulbs create a glistening effect and at night the
+Eiffel Tower lights up the city of Paris and is a sight not to be missed by anyone. The Tower lights up
+every evening from sunset to 1am, coupled with the lighthouse on the top that sends out its light
+beams during the same hours. As recognizable as a night time picture of the Tower is, rulings made in
+the early 1990s actually made copyrighted the illuminated image, Unless it is taken as part of a wider
+panoramic view, the image is protected under French law. The argument is that the arrangements and
+display of the lighting constitutes an original visual creation, much as a major work of art, and thus
+should be entitled to the same degree of protection, The ruling was and remains highly controversial,
+with concerns that an innocent tourist taking a photograph of the tower at night is potentially
+breaching copyright.
+
+F. ปัจจุบันมีผู้ปฏิบัติงานดูแลหอไอเฟลประจำวันมากกว่า 500 คน ทุกวัน สปอตไลต์ 335 ดวงและหลอดไฟ
+20,000 ดวงของหอสร้างเอฟเฟกต์ระยิบระยับ และตอนกลางคืนหอไอเฟลส่องสว่างทั่วกรุงปารีส เป็นภาพที่ไม่ควร
+พลาด หอเปิดไฟทุกเย็นตั้งแต่พระอาทิตย์ตกถึงตีหนึ่ง พร้อมประภาคารบนยอดที่ส่งลำแสงในเวลาเดียวกัน แม้
+ภาพกลางคืนของหอเป็นที่รู้จักมาก แต่คำตัดสินช่วงต้นทศวรรษ 1990 ทำให้ภาพที่มีไฟส่องสว่างมีลิขสิทธิ์ เว้นแต่
+ถ่ายเป็นส่วนหนึ่งของทัศนียภาพกว้าง ภาพนั้นได้รับการคุ้มครองตามกฎหมายฝรั่งเศส เหตุผลคือการจัดวางและ
+การแสดงแสงไฟถือเป็นงานสร้างสรรค์ทางทัศนศิลป์ต้นฉบับ เช่นเดียวกับงานศิลปะสำคัญ จึงควรได้รับการ
+คุ้มครองระดับเดียวกัน คำตัดสินยังเป็นที่ถกเถียงอย่างมาก โดยกังวลว่านักท่องเที่ยวผู้บริสุทธิ์ที่ถ่ายภาพหอตอน
+กลางคืนอาจละเมิดลิขสิทธิ์`,qs:[],qa_raw:`1.Who designed the Eiffel Tower?
+Answer: Alexandre Gustave Eiffel
+
+1. ใครเป็นผู้ออกแบบหอไอเฟล
+เฉลย: อเล็กซองดร์ กุสตาฟ ไอเฟล
+2.What year was the Eiffel Tower completed?
+Answer: 1889
+
+2. หอไอเฟลสร้างเสร็จในปีใด
+เฉลย: 1889
+3.Where was the Eiffel Tower originally intended to be built?
+Answer: Barcelona
+
+3. เดิมตั้งใจสร้างหอไอเฟลที่ไหน
+เฉลย: บาร์เซโลนา
+4.Why was the Eiffel Tower almost demolished in 1909?
+Answer: Because its 20-year lease expired
+
+4. เหตุใดหอไอเฟลเกือบถูกรื้อในปี 1909
+เฉลย: เพราะสัญญาเช่า 20 ปีหมดอายุ
+5.How many levels does the Eiffel Tower have?
+Answer: Three
+
+5. หอไอเฟลมีกี่ระดับ
+เฉลย: สามระดับ
+6.What can you find on the first level of the Eiffel Tower?
+Answer: A souvenir kiosk, gallery, and restaurant
+
+6. ที่ระดับแรกของหอไอเฟลมีอะไร
+เฉลย: ร้านของที่ระลึก แกลเลอรี และร้านอาหาร
+7.What is featured on the third level of the Eiffel Tower?
+Answer: A gallery about its history, a wax figure of Gustave Eiffel, and a restored office
+
+7. ที่ระดับสามของหอไอเฟลมีอะไร
+เฉลย: แกลเลอรีประวัติศาสตร์ หุ่นขี้ผึ้งของกุสตาฟ ไอเฟล และห้องทำงานที่บูรณะแล้ว
+8.How far can you see from the Eiffel Tower on a clear day?
+Answer: 67 kilometers
+
+8. ในวันที่ท้องฟ้าแจ่มใส มองเห็นไกลจากหอไอเฟลเท่าใด
+เฉลย: 67 กิโลเมตร
+9.How often is the Eiffel Tower repainted?
+Answer: Every seven years
+
+9. หอไอเฟลทาสีใหม่บ่อยแค่ไหน
+เฉลย: ทุกเจ็ดปี
+
+
+10.Why is the Eiffel Tower painted in three shades of the same color?
+Answer: To appear the same color from the ground up
+
+10. เหตุใดจึงทาหอไอเฟลสามเฉดของสีเดียวกัน
+เฉลย: เพื่อให้ดูเป็นสีเดียวกันเมื่อมองจากพื้นขึ้นไป
+11.What was the world’s tallest structure before the Chrysler Building?
+Answer: The Eiffel Tower
+
+11. ก่อนอาคารไครสเลอร์ โครงสร้างใดสูงที่สุดในโลก
+เฉลย: หอไอเฟล
+12.How many workers built the Eiffel Tower?
+Answer: 300
+
+12. มีคนงานกี่คนสร้างหอไอเฟล
+เฉลย: 300
+13.What protects the Eiffel Tower’s framework from rust?
+Answer: Repainting with 50-60 tonnes of paint
+
+13. อะไรปกป้องโครงสร้างของหอไอเฟลจากสนิม
+เฉลย: การทาสีใหม่ด้วยสี 50–60 ตัน
+14.What is controversial about photographing the Eiffel Tower at night?
+Answer: The illuminated image is copyrighted.
+
+14. อะไรเป็นข้อถกเถียงเรื่องการถ่ายภาพหอไอเฟลตอนกลางคืน
+เฉลย: ภาพที่มีไฟส่องสว่างมีลิขสิทธิ์
+15.The word “icon” is the closest in meaning to:
+Answer: symbol
+
+15. คำว่า “icon” ใกล้เคียงที่สุดกับ
+เฉลย: symbol (สัญลักษณ์)`,no_qs:!0},{n:85,type:"Listening",title:"12_Listening_Video games",date:"2026-04-30",status:"ok",dup:null,body:`บทสนทนา (Dialogue)
 Man: Hey, have you played Warrior yet? It’s that new action-adventure game everyone’s been talking
 about.
 
@@ -15566,8 +16190,6 @@ makes the game feel more personal and strategic. What about you?
 
 ผู้ชาย: มี ชอบเล่นโหมดส่วนตัว ให้ปรับแต่งตัวละครและอาวุธได้ ทำให้เกมรู้สึกเป็นส่วนตัวและมีกลยุทธ์มากขึ้น
 แล้วคุณล่ะ
-
-
 Woman: I’m more into the story-driven mode. It really lets me dive into the narrative, and I get to focus
 on character development. Speaking of which, have you upgraded your computer yet? The graphics
 are amazing, but they’re a bit demanding on older systems.
@@ -15582,6 +16204,8 @@ want to miss out on the full experience.
 Woman: Yeah, it’s worth it. So, what do you think about the game overall?
 
 ผู้หญิง: ใช่ คุ้มค่า แล้วคุณคิดอย่างไรกับเกมโดยรวม
+
+
 Man: Honestly, it’s tough but really fun. I love the sense of accomplishment after completing a
 challenging level. What about you?
 
@@ -15620,8 +16244,6 @@ Answer: It improves the graphics quality.
 
 4. ผู้หญิงพูดอะไรเกี่ยวกับการอัปเกรดคอมพิวเตอร์
 เฉลย: ช่วยเพิ่มคุณภาพกราฟิก
-
-
 5. How do both speakers feel about the game overall?
 Answer: It’s tough but enjoyable.
 
@@ -15637,6 +16259,8 @@ Answer: It’s one of the game’s best features.
 
 7. ผู้พูดมีความเห็นอย่างไรเกี่ยวกับเนื้อเรื่อง
 เฉลย: เป็นหนึ่งในจุดเด่นที่สุดของเกม
+
+
 8. What is the name of the video game they are discussing?
 Answer: Warrior
 
@@ -15667,8 +16291,6 @@ Man: Absolutely! It really set the mood. By the way, wasn’t the ending such a 
 wouldn’t make it, but wow!
 
 ผู้ชาย: แน่นอน! ช่วยสร้างบรรยากาศมาก ว่าแต่ตอนจบพลิกมากไหม ผมคิดว่าพระเอกไม่รอด แต่ว้าว!
-
-
 Woman: Totally unexpected. I guess that’s what made it so exciting. It’s been a while since I enjoyed a
 movie this much.
 
@@ -15713,8 +16335,6 @@ Answer: They are leaving the cinema after watching an action movie.
 
 7. ผู้พูดอยู่ในสถานการณ์ใด
 เฉลย: พวกเขากำลังออกจากโรงภาพยนตร์หลังดูหนังแอ็กชัน
-
-
 How do both speakers feel overall about the movie?
 Answer: Both enjoyed the movie, with the man impressed by the effects and the woman
 excited about the intense scenes and soundtrack.
@@ -15759,8 +16379,6 @@ Anna: Let’s go with pop rock. And maybe some podcasts, too, for when we want t
 Jake: Sounds like a plan! I’m really excited for this trip.
 
 เจค: เห็นด้วย ฉันตื่นเต้นกับทริปนี้มาก
-
-
 Anna: Me too! It’s going to be so much fun!
 
 แอนนา: ฉันก็เหมือนกัน! มันจะสนุกมากแน่ๆ!`,qs:[{kind:"raw",ok:!1,q:"1. What are Anna and Jake discussing?",opts:[["A","A school project"],["B","A road trip"],["C","A new restaurant"],["D","A concert"]],ans:null,th:`1. แอนนากับเจคกำลังคุยเรื่องอะไร
@@ -15771,7 +16389,9 @@ c) A new restaurant
 d) A concert
 
 1. แอนนากับเจคกำลังคุยเรื่องอะไร
-[ต้นฉบับไม่มีเฉลย — ตรวจจากบทสนทนา: b ทริปถนน]`},{kind:"raw",ok:!1,q:"2. Where are they going first?",opts:[["A","A mountain"],["B","A lake"],["C","An ocean view"],["D","A campsite"]],ans:null,th:`2. พวกเขาจะไปที่ไหนก่อน
+[ต้นฉบับไม่มีเฉลย — ตรวจจากบทสนทนา: b ทริปถนน]
+
+`},{kind:"raw",ok:!1,q:"2. Where are they going first?",opts:[["A","A mountain"],["B","A lake"],["C","An ocean view"],["D","A campsite"]],ans:null,th:`2. พวกเขาจะไปที่ไหนก่อน
 [ตรวจจากบทสนทนา: c จุดชมวิวทะเล]`,ans_text:null,raw:`2. Where are they going first?
 a) A mountain
 b) A lake
@@ -15803,9 +16423,7 @@ c) Extra clothes and snacks
 d) A flashlight and a backpack
 
 5. เจคเตรียมอะไรสำหรับการตั้งแคมป์
-[ตรวจจากบทสนทนา: b เต็นท์ ถุงนอน และอุปกรณ์ทำอาหาร]
-
-`},{kind:"raw",ok:!1,q:"6. What does Anna bring to make sleeping more comfortable?",opts:[["A","A tent"],["B","A sleeping bag"],["C","A big blanket"],["D","A pillow"]],ans:null,th:`6. แอนนาเอาอะไรมาให้นอนสบายขึ้น
+[ตรวจจากบทสนทนา: b เต็นท์ ถุงนอน และอุปกรณ์ทำอาหาร]`},{kind:"raw",ok:!1,q:"6. What does Anna bring to make sleeping more comfortable?",opts:[["A","A tent"],["B","A sleeping bag"],["C","A big blanket"],["D","A pillow"]],ans:null,th:`6. แอนนาเอาอะไรมาให้นอนสบายขึ้น
 [ตรวจจากบทสนทนา: c ผ้าห่มผืนใหญ่]`,ans_text:null,raw:`6. What does Anna bring to make sleeping more comfortable?
 a) A tent
 b) A sleeping bag
@@ -15821,7 +16439,9 @@ c) Classical
 d) Country
 
 7. แอนนาอยากดาวน์โหลดเพลงประเภทใด
-[ตรวจจากบทสนทนา: b ป๊ อปร็อก]`},{kind:"raw",ok:!1,q:"8. How do Anna and Jake feel about the trip?",opts:[["A","Nervous"],["B","Excited"],["C","Tired"],["D","Worried"]],ans:null,th:`8. แอนนากับเจครู้สึกอย่างไรกับทริป
+[ตรวจจากบทสนทนา: b ป๊ อปร็อก]
+
+`},{kind:"raw",ok:!1,q:"8. How do Anna and Jake feel about the trip?",opts:[["A","Nervous"],["B","Excited"],["C","Tired"],["D","Worried"]],ans:null,th:`8. แอนนากับเจครู้สึกอย่างไรกับทริป
 [ตรวจจากบทสนทนา: b ตื่นเต้น]`,ans_text:null,raw:`8. How do Anna and Jake feel about the trip?
 a) Nervous
 b) Excited
@@ -15849,6 +16469,8 @@ d) A concert
 
 1. แอนนากับเจคกำลังคุยเรื่องอะไร
 [ต้นฉบับไม่มีเฉลย — ตรวจจากบทสนทนา: b ทริปถนน]
+
+
 2. Where are they going first?
 a) A mountain
 b) A lake
@@ -15881,8 +16503,6 @@ d) A flashlight and a backpack
 
 5. เจคเตรียมอะไรสำหรับการตั้งแคมป์
 [ตรวจจากบทสนทนา: b เต็นท์ ถุงนอน และอุปกรณ์ทำอาหาร]
-
-
 6. What does Anna bring to make sleeping more comfortable?
 a) A tent
 b) A sleeping bag
@@ -15899,6 +16519,8 @@ d) Country
 
 7. แอนนาอยากดาวน์โหลดเพลงประเภทใด
 [ตรวจจากบทสนทนา: b ป๊ อปร็อก]
+
+
 8. How do Anna and Jake feel about the trip?
 a) Nervous
 b) Excited
@@ -15924,8 +16546,6 @@ about the recent music festival she attended. Welcome, Anna!
 Anna: Hello! Thank you for having me.
 
 แอนนา: สวัสดีค่ะ ขอบคุณที่เชิญนะคะ
-
-
 Interviewer: I heard you recently attended a music festival. How did you feel about the new album that
 was released at the event?
 
@@ -15945,6 +16565,8 @@ to new releases from our favorite artists.
 Interviewer: Speaking of music styles, do you have a favorite genre?
 
 ผู้สัมภาษณ์: พูดถึงแนวดนตรี คุณมีแนวโปรดไหม
+
+
 Anna: I really enjoy indie rock, but I'm open to other genres as well.
 
 แอนนา: หนูชอบอินดี้ร็อกมากค่ะ แต่ก็เปิดรับแนวอื่นด้วย
@@ -15993,6 +16615,8 @@ D) Pop
 
 3. แอนนาชอบดนตรีประเภทใด
 [ตรวจจากบทสนทนา: B อินดี้ร็อก]
+
+
 4.What food did Anna mention enjoying at the festival?
 A) Pizza
 B) Burgers
@@ -16017,8 +16641,6 @@ D) She didn’t mention anything about the food.
 
 6. แอนนาบรรยายการผสมผสานระหว่างดนตรีกับอาหารอย่างไร
 [ตรวจจากบทสนทนา: B เพลิดเพลินทั้งดนตรีและอาหาร]
-
-
 7.What does Anna say about her openness to different music genres?
 A) She listens only to indie rock.
 B) She enjoys indie rock but is open to other genres.
@@ -16043,6 +16665,8 @@ D) The new album releases.
 
 9. ข้อใดไม่ได้กล่าวถึงโดยแอนนาเกี่ยวกับเทศกาล
 [ตรวจจากบทสนทนา: C ราคาตั๋ว]
+
+
 10.Why was Anna excited about the new album release?
 A) The music had a fresh and creative sound.
 B) It reminded her of an older album she liked.
@@ -16050,7 +16674,491 @@ C) She had been waiting for the album for years.
 D) The album was performed live by her favorite singer.
 
 10. เหตุใดแอนนาจึงตื่นเต้นกับการปล่อยอัลบั้มใหม่
-[ตรวจจากบทสนทนา: A ดนตรีมีเสียงสดใหม่และสร้างสรรค์]`,no_qs:!0},{n:90,type:"Reading",title:"17_Reading_Bees",date:"2026-04-30",status:"pending",dup:null},{n:91,type:"Reading",title:"21_2Reading_Polar Regions",date:"2026-04-30",status:"pending",dup:null},{n:92,type:"Reading",title:"21_1Reading_Polar Regions",date:"2026-04-30",status:"pending",dup:null},{n:93,type:"Reading",title:"Reading_2_Bicycles From Push to Pedal",date:"2026-04-30",status:"pending",dup:null},{n:94,type:"Reading",title:"22_Reading _ Esports",date:"2026-04-30",status:"pending",dup:null},{n:95,type:"Reading",title:"Reading_The Impact of Artificial Intelligence on Society",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+[ตรวจจากบทสนทนา: A ดนตรีมีเสียงสดใหม่และสร้างสรรค์]`,no_qs:!0},{n:90,type:"Reading",title:"17_Reading_Bees",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+1. Worker bees are between 8-19mm in length. They are divided into three distinct parts; head, thorax,
+abdomen. They have an almost completely black head, a thorax that is golden brown and black with
+patches of orange, and yellow bands can be easily seen on the abdomen. At the front of the head are
+two antennae for sensing their environment. They have four single wings. The largest are called
+forewings and the smallest hindwings. The hind legs are specialized for collecting pollen - each leg is
+flattened to form a pollen basket near the end of each leg.
+
+1. ผึ้งงานมีความยาวระหว่าง 8–19 มิลลิเมตร ลำตัวแบ่งเป็นสามส่วนชัดเจน คือหัว อก และท้อง หัวเกือบสีดำ
+สนิท อกสีน้ำตาลทองและดำมีลายสีส้มเป็นหย่อมๆ และเห็นแถบสีเหลืองบนท้องได้ง่าย ด้านหน้าของหัวมีหนวด
+สองเส้นไว้รับรู้สิ่งแวดล้อม มีปีกเดี่ยวสี่ปีก ปีกที่ใหญ่ที่สุดเรียกปีกคู่หน้า และเล็กที่สุดเรียกปีกคู่หลัง ขาหลังมี
+ลักษณะพิเศษสำหรับเก็บเรณู แต่ละขาแบนเป็นตะกร้าเรณูใกล้ปลายขา
+
+
+2. Love them or hate them, we need bees to pollinate many important food crops, including most fruit
+and vegetables. Bee pollinated crops are important sources of vitamins A and C, and minerals like
+calcium. By pollinating attractive wildflowers like bluebells and poppies, bees also help support the
+natural environment that people love – benefitting us culturally and economically, as well as
+ecologically. Calculations from the University of Reading show that £510 million of annual total crop
+sales in the UK are pollinated by bees and other insects.
+
+2. จะรักหรือเกลียดก็ตาม เราต้องการผึ้งเพื่อผสมเกสรพืชอาหารสำคัญหลายชนิด รวมถึงผลไม้และผักส่วนใหญ่
+พืชที่ผึ้งผสมเกสรเป็นแหล่งวิตามิน A และ C และแร่ธาตุอย่างแคลเซียมที่สำคัญ ด้วยการผสมเกสรดอกไม้ป่าที่
+สวยงามอย่างบลูเบลล์และป๊ อปปี้ ผึ้งยังช่วยค้ำจุนสิ่งแวดล้อมธรรมชาติที่ผู้คนรัก ให้ประโยชน์ทั้งทางวัฒนธรรม
+เศรษฐกิจ และนิเวศวิทยา การคำนวณของมหาวิทยาลัยเรดดิงแสดงว่ายอดขายพืชผลรวมต่อปีในสหราช
+อาณาจักร 510 ล้านปอนด์ ได้รับการผสมเกสรจากผึ้งและแมลงอื่น
+3. What would happen if there were suddenly no more bees to pollinate these crops? This is a question
+being asked by farmers, beekeepers, and scientists because bees are now dying in their millions and
+they want to know why.
+
+3. จะเกิดอะไรขึ้นถ้าจู่ๆ ไม่มีผึ้งผสมเกสรพืชเหล่านี้อีกต่อไป เป็นคำถามที่เกษตรกร ผู้เลี้ยงผึ้ง และนักวิทยาศาสตร์
+กำลังถาม เพราะขณะนี้ผึ้งกำลังตายนับล้านตัวและพวกเขาอยากรู้เหตุผล
+4. It’s widely recognized now that changes in agriculture are the main cause of bee decline across
+Europe. For example, hay meadows, which are full of many different plant species, have declined by 97
+per cent since the 1930s, removing an important source of food for bees.
+
+4. ปัจจุบันเป็นที่ยอมรับกว้างขวางว่าการเปลี่ยนแปลงในเกษตรกรรมเป็นสาเหตุหลักของการลดลงของผึ้งทั่วยุโรป
+ตัวอย่างเช่น ทุ่งหญ้าหมัก ซึ่งเต็มไปด้วยพืชหลากหลายชนิด ลดลง 97 เปอร์เซ็นต์ตั้งแต่ทศวรรษ 1930 ทำให้สูญ
+เสียแหล่งอาหารสำคัญของผึ้ง
+5. This has happened because of the trend towards growing the same crop (monocultures) over large
+fields. This has reduced the diversity of flowers available and resulted in the removal of hedges.
+Species that have more specialized food needs, like the Shrill Carder Bee, have been particularly hard
+hit. It is now listed as an endangered species.
+
+5. สิ่งนี้เกิดขึ้นเพราะแนวโน้มการปลูกพืชชนิดเดียวกัน (monocultures) ในพื้นที่ทุ่งใหญ่ ทำให้ความหลากหลาย
+ของดอกไม้ลดลงและมีการรื้อแนวรั้วต้นไม้ สปีชีส์ที่มีความต้องการอาหารเฉพาะทางมากกว่า เช่นผึ้ง Shrill
+Carder ได้รับผลกระทบรุนแรงเป็นพิเศษ ปัจจุบันถูกจัดเป็นสปีชีส์ใกล้สูญพันธุ์
+6. With less hedge’s bees find it more difficult to move between feeding and nesting sites. This is
+because hedges act as corridors for bees to move along, but with less hedge’s movement becomes
+more difficult.
+
+6. เมื่อมีแนวรั้วน้อยลง ผึ้งเคลื่อนที่ระหว่างแหล่งอาหารกับแหล่งทำรังได้ยากขึ้น เพราะแนวรั้วทำหน้าที่เป็นทาง
+เดินให้ผึ้งเคลื่อนที่ แต่เมื่อรั้วลดลง การเคลื่อนที่ก็ยากขึ้น
+7. Pests and diseases are also a major threat to honey bees and other managed bees. The Varroa mite
+is thought to be one of the main causes of native honey bee loss. The impact on wild bees is harder to
+assess but ‘spill-over’ of diseases and pests between wild and managed bees has increasingly been
+observed.
+
+7. ศัตรูพืชและโรคก็เป็นภัยคุกคามสำคัญต่อผึ้งน้ำหวานและผึ้งที่มนุษย์จัดการอื่นๆ ไรวาร์โรอาเชื่อว่าเป็นหนึ่งใน
+สาเหตุหลักของการสูญเสียผึ้งน้ำหวานพื้นเมือง ผลกระทบต่อผึ้งป่าประเมินได้ยากกว่า แต่พบ “การลามข้าม” ของ
+โรคและศัตรูพืชระหว่างผึ้งป่ากับผึ้งที่จัดการเพิ่มขึ้นเรื่อยๆ
+
+
+8. Climate change has an effect as it can alter the timing of plant flowering, or the time that bees come
+out of hibernation, which means bees may emerge before there is enough food available.
+
+8. การเปลี่ยนแปลงสภาพภูมิอากาศมีผลเพราะอาจเปลี่ยนช่วงเวลาออกดอกของพืชหรือเวลาที่ผึ้งตื่นจากการ
+จำศีล หมายความว่าผึ้งอาจออกมาก่อนที่จะมีอาหารเพียงพอ
+1. Pollination of Crops Bees help pollinate many essential food crops, including fruits and vegetables.
+These crops provide important vitamins (A & C) and minerals (calcium) for human health. 2. Economic
+Benefits Bee pollination contributes to £510 million annually in crop sales in the UK. It supports farmers
+by increasing crop yields and ensuring food security. 3. Environmental Benefits Bees help pollinate
+wildflowers like bluebells and poppies, which support biodiversity.They contribute to maintaining
+natural ecosystems that other wildlife depends on. 4. Cultural and Aesthetic Value Flowers pollinated
+by bees enhance landscapes and gardens, benefiting tourism and recreation.Many people appreciate
+bees for their role in nature and tradition.
+
+บันทึกสรุป (ส่วนที่ 1: ความสำคัญของผึ้ง) 1. การผสมเกสรพืช: ผึ้งช่วยผสมเกสรพืชอาหารจำเป็นหลายชนิด รวม
+ถึงผลไม้และผัก พืชเหล่านี้ให้วิตามิน (A และ C) และแร่ธาตุ (แคลเซียม) แก่สุขภาพมนุษย์ 2. ประโยชน์ทาง
+เศรษฐกิจ: การผสมเกสรของผึ้งมีส่วนต่อยอดขายพืชผล 510 ล้านปอนด์ต่อปีในสหราชอาณาจักร สนับสนุน
+เกษตรกรด้วยการเพิ่มผลผลิตและรับรองความมั่นคงทางอาหาร 3. ประโยชน์ต่อสิ่งแวดล้อม: ผึ้งช่วยผสมเกสร
+ดอกไม้ป่า เช่น บลูเบลล์และป๊ อปปี้ ซึ่งสนับสนุนความหลากหลายทางชีวภาพ และช่วยรักษาระบบนิเวศธรรมชาติ
+ที่สัตว์ป่าอื่นพึ่งพา 4. คุณค่าทางวัฒนธรรมและสุนทรียะ: ดอกไม้ที่ผึ้งผสมเกสรเสริมภูมิทัศน์และสวน เป็น
+ประโยชน์ต่อการท่องเที่ยวและนันทนาการ หลายคนชื่นชมผึ้งในบทบาทในธรรมชาติและประเพณี
+1. Decline in Bee Population Bees are dying in millions, which threatens global food production. Many
+species, such as the Shrill Carder Bee, are now endangered due to habitat loss. 2. Loss of Pollination
+Without bees, many fruits and vegetables will struggle to grow, affecting food supply.This could lead to
+higher food prices and economic losses for farmers. 3. Environmental Disruption A decline in bees
+means fewer wildflowers and less biodiversity.This affects other wildlife, as many species depend on
+flowers and plants pollinated by bees. 4. Causes of Bee Decline Agricultural changes (monoculture
+farming, loss of hedges). Pests & diseases (e.g., Varroa mites spreading among bees). Climate change,
+which disrupts the timing of flowering and hibernation.
+
+บันทึกสรุป (ส่วนที่ 2: การลดลงของผึ้ง) 1. ประชากรผึ้งลดลง: ผึ้งตายเป็นล้านตัว คุกคามการผลิตอาหารทั่วโลก
+หลายสปีชีส์ เช่น ผึ้ง Shrill Carder ใกล้สูญพันธุ์เพราะสูญเสียถิ่นอาศัย 2. การสูญเสียการผสมเกสร: หากไม่มีผึ้ง
+ผลไม้และผักหลายชนิดจะเติบโตลำบาก กระทบอุปทานอาหาร อาจนำไปสู่ราคาอาหารสูงขึ้นและความสูญเสีย
+ทางเศรษฐกิจของเกษตรกร 3. การรบกวนสิ่งแวดล้อม: ผึ้งที่ลดลงหมายถึงดอกไม้ป่าน้อยลงและความหลากหลาย
+ทางชีวภาพต่ำลง กระทบสัตว์ป่าอื่นที่พึ่งดอกไม้และพืชที่ผึ้งผสมเกสร 4. สาเหตุของการลดลงของผึ้ง: การ
+เปลี่ยนแปลงทางเกษตร (การปลูกพืชเชิงเดี่ยว การสูญเสียแนวรั้ว) • ศัตรูพืชและโรค (เช่น ไรวาร์โรอาแพร่ใน
+ผึ้ง) • การเปลี่ยนแปลงสภาพภูมิอากาศที่รบกวนเวลาออกดอกและจำศีล`,qs:[{kind:"raw",ok:!1,q:`1. Apart from pollinating crops how else do bees help us?
+A economically
+B culturally
+C ecologically
+D all of the above`,opts:[],ans:null,th:`1. นอกจากผสมเกสรพืชผล ผึ้งช่วยเราอย่างไรอีก
+[ต้นฉบับไม่มีเฉลย — ตรวจจากเนื้อหา: D ทุกข้อข้างต้น (เศรษฐกิจ วัฒนธรรม และนิเวศวิทยา ตามย่อหน้า 2)]`,ans_text:null,raw:`1. Apart from pollinating crops how else do bees help us?
+A economically
+B culturally
+C ecologically
+D all of the above
+
+1. นอกจากผสมเกสรพืชผล ผึ้งช่วยเราอย่างไรอีก
+[ต้นฉบับไม่มีเฉลย — ตรวจจากเนื้อหา: D ทุกข้อข้างต้น (เศรษฐกิจ วัฒนธรรม และนิเวศวิทยา ตามย่อหน้า 2)]
+
+`},{kind:"raw",ok:!1,q:`2. Why have the variety of flowers available for bees to pollinate fallen ?
+A conservation measures
+B less hedges
+C fertilizers
+D urban development`,opts:[],ans:null,th:`2. เหตุใดความหลากหลายของดอกไม้ที่ผึ้งผสมเกสรได้จึงลดลง
+[ตรวจจากเนื้อหา: B แนวรั้วที่ลดลง (ตามย่อหน้า 5 สาเหตุหลักคือการปลูกพืชเชิงเดี่ยวและการรื้อรั้ว)]`,ans_text:null,raw:`2. Why have the variety of flowers available for bees to pollinate fallen ?
+A conservation measures
+B less hedges
+C fertilizers
+D urban development
+
+2. เหตุใดความหลากหลายของดอกไม้ที่ผึ้งผสมเกสรได้จึงลดลง
+[ตรวจจากเนื้อหา: B แนวรั้วที่ลดลง (ตามย่อหน้า 5 สาเหตุหลักคือการปลูกพืชเชิงเดี่ยวและการรื้อรั้ว)]`},{kind:"raw",ok:!1,q:`3. There are many reasons for the decline in bees but what is one of the major
+reasons for shrinking numbers of native honey bees?
+A Varroa mites
+B spill-over
+C managed bees
+D hard to assess`,opts:[],ans:null,th:`3. เหตุผลสำคัญข้อหนึ่งที่ทำให้จำนวนผึ้งน้ำหวานพื้นเมืองลดลงคืออะไร
+[ตรวจจากเนื้อหา: A ไรวาร์โรอา]`,ans_text:null,raw:`3. There are many reasons for the decline in bees but what is one of the major
+reasons for shrinking numbers of native honey bees?
+A Varroa mites
+B spill-over
+C managed bees
+D hard to assess
+
+3. เหตุผลสำคัญข้อหนึ่งที่ทำให้จำนวนผึ้งน้ำหวานพื้นเมืองลดลงคืออะไร
+[ตรวจจากเนื้อหา: A ไรวาร์โรอา]`},{kind:"raw",ok:!1,q:`4. Why might bees end their hibernation at a different time?
+A to pollinate more flowers
+B to get more food
+C climate change
+D to emerge with other bees`,opts:[],ans:null,th:`4. เหตุใดผึ้งอาจเลิกจำศีลในเวลาต่างไป
+[ตรวจจากเนื้อหา: C การเปลี่ยนแปลงสภาพภูมิอากาศ]
+5.What is the primary role of worker bees' hind legs?
+A. To help them fly faster
+B. To sense their environment
+C. To collect pollen
+D. To defend the hive
+
+5. หน้าที่หลักของขาหลังของผึ้งงานคืออะไร
+[ตรวจจากเนื้อหา: C เก็บเรณู]
+6.What is one of the consequences of hedge removal for bees?
+A. It makes it harder for bees to find food and nesting sites
+B. It increases the number of bees in urban areas
+C. It helps bees fly longer distances more efficiently
+D. It leads to better honey production
+
+6. ผลอย่างหนึ่งของการรื้อรั้วต่อผึ้งคืออะไร
+[ตรวจจากเนื้อหา: A ทำให้ผึ้งหาอาหารและแหล่งทำรังได้ยากขึ้น]
+
+
+7.According to the passage, why are bees important to humans?
+A. They provide direct financial benefits to farmers
+B. They help pollinate crops essential for human nutrition
+C. They contribute to the ecological balance by pollinating wildflowers
+D. They are kept as pets for their intelligence
+Answer: A, B, and C
+
+7. ตามบทอ่าน เหตุใดผึ้งจึงสำคัญต่อมนุษย์
+เฉลย (ตามต้นฉบับ): A, B และ C (ให้ประโยชน์ทางการเงินแก่เกษตรกร ช่วยผสมเกสรพืชผลจำเป็น และช่วย
+สมดุลนิเวศด้วยการผสมเกสรดอกไม้ป่า)
+8. [question 8 is an image in the file and cannot be read]
+
+(ข้อ 8 ในต้นฉบับเป็นภาพ อ่านข้อความไม่ได้)`,ans_text:null,raw:`4. Why might bees end their hibernation at a different time?
+A to pollinate more flowers
+B to get more food
+C climate change
+D to emerge with other bees
+
+4. เหตุใดผึ้งอาจเลิกจำศีลในเวลาต่างไป
+[ตรวจจากเนื้อหา: C การเปลี่ยนแปลงสภาพภูมิอากาศ]
+5.What is the primary role of worker bees' hind legs?
+A. To help them fly faster
+B. To sense their environment
+C. To collect pollen
+D. To defend the hive
+
+5. หน้าที่หลักของขาหลังของผึ้งงานคืออะไร
+[ตรวจจากเนื้อหา: C เก็บเรณู]
+6.What is one of the consequences of hedge removal for bees?
+A. It makes it harder for bees to find food and nesting sites
+B. It increases the number of bees in urban areas
+C. It helps bees fly longer distances more efficiently
+D. It leads to better honey production
+
+6. ผลอย่างหนึ่งของการรื้อรั้วต่อผึ้งคืออะไร
+[ตรวจจากเนื้อหา: A ทำให้ผึ้งหาอาหารและแหล่งทำรังได้ยากขึ้น]
+
+
+7.According to the passage, why are bees important to humans?
+A. They provide direct financial benefits to farmers
+B. They help pollinate crops essential for human nutrition
+C. They contribute to the ecological balance by pollinating wildflowers
+D. They are kept as pets for their intelligence
+Answer: A, B, and C
+
+7. ตามบทอ่าน เหตุใดผึ้งจึงสำคัญต่อมนุษย์
+เฉลย (ตามต้นฉบับ): A, B และ C (ให้ประโยชน์ทางการเงินแก่เกษตรกร ช่วยผสมเกสรพืชผลจำเป็น และช่วย
+สมดุลนิเวศด้วยการผสมเกสรดอกไม้ป่า)
+8. [question 8 is an image in the file and cannot be read]
+
+(ข้อ 8 ในต้นฉบับเป็นภาพ อ่านข้อความไม่ได้)
+
+`}],qa_raw:`1. Apart from pollinating crops how else do bees help us?
+A economically
+B culturally
+C ecologically
+D all of the above
+
+1. นอกจากผสมเกสรพืชผล ผึ้งช่วยเราอย่างไรอีก
+[ต้นฉบับไม่มีเฉลย — ตรวจจากเนื้อหา: D ทุกข้อข้างต้น (เศรษฐกิจ วัฒนธรรม และนิเวศวิทยา ตามย่อหน้า 2)]
+
+
+2. Why have the variety of flowers available for bees to pollinate fallen ?
+A conservation measures
+B less hedges
+C fertilizers
+D urban development
+
+2. เหตุใดความหลากหลายของดอกไม้ที่ผึ้งผสมเกสรได้จึงลดลง
+[ตรวจจากเนื้อหา: B แนวรั้วที่ลดลง (ตามย่อหน้า 5 สาเหตุหลักคือการปลูกพืชเชิงเดี่ยวและการรื้อรั้ว)]
+3. There are many reasons for the decline in bees but what is one of the major
+reasons for shrinking numbers of native honey bees?
+A Varroa mites
+B spill-over
+C managed bees
+D hard to assess
+
+3. เหตุผลสำคัญข้อหนึ่งที่ทำให้จำนวนผึ้งน้ำหวานพื้นเมืองลดลงคืออะไร
+[ตรวจจากเนื้อหา: A ไรวาร์โรอา]
+4. Why might bees end their hibernation at a different time?
+A to pollinate more flowers
+B to get more food
+C climate change
+D to emerge with other bees
+
+4. เหตุใดผึ้งอาจเลิกจำศีลในเวลาต่างไป
+[ตรวจจากเนื้อหา: C การเปลี่ยนแปลงสภาพภูมิอากาศ]
+5.What is the primary role of worker bees' hind legs?
+A. To help them fly faster
+B. To sense their environment
+C. To collect pollen
+D. To defend the hive
+
+5. หน้าที่หลักของขาหลังของผึ้งงานคืออะไร
+[ตรวจจากเนื้อหา: C เก็บเรณู]
+6.What is one of the consequences of hedge removal for bees?
+A. It makes it harder for bees to find food and nesting sites
+B. It increases the number of bees in urban areas
+C. It helps bees fly longer distances more efficiently
+D. It leads to better honey production
+
+6. ผลอย่างหนึ่งของการรื้อรั้วต่อผึ้งคืออะไร
+[ตรวจจากเนื้อหา: A ทำให้ผึ้งหาอาหารและแหล่งทำรังได้ยากขึ้น]
+
+
+7.According to the passage, why are bees important to humans?
+A. They provide direct financial benefits to farmers
+B. They help pollinate crops essential for human nutrition
+C. They contribute to the ecological balance by pollinating wildflowers
+D. They are kept as pets for their intelligence
+Answer: A, B, and C
+
+7. ตามบทอ่าน เหตุใดผึ้งจึงสำคัญต่อมนุษย์
+เฉลย (ตามต้นฉบับ): A, B และ C (ให้ประโยชน์ทางการเงินแก่เกษตรกร ช่วยผสมเกสรพืชผลจำเป็น และช่วย
+สมดุลนิเวศด้วยการผสมเกสรดอกไม้ป่า)
+8. [question 8 is an image in the file and cannot be read]
+
+(ข้อ 8 ในต้นฉบับเป็นภาพ อ่านข้อความไม่ได้)`},{n:91,type:"Reading",title:"21_2Reading_Polar Regions",date:"2026-04-30",status:"pending",dup:null},{n:92,type:"Reading",title:"21_1Reading_Polar Regions",date:"2026-04-30",status:"pending",dup:null},{n:93,type:"Reading",title:"Reading_2_Bicycles From Push to Pedal",date:"2026-04-30",status:"pending",dup:null},{n:94,type:"Reading",title:"22_Reading _ Esports",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+Last summer over 12,000 fans were at Wembley Arena in London, shouting and cheering. Thousands
+more were watching online. But this wasn’t a football, basketball or tennis match. It was esports, or
+competitive computer gaming. The prize money for the winners: £3 million.
+
+1 ฤดูร้อนที่แล้ว แฟนๆ กว่า 12,000 คนอยู่ที่เวมบลีย์อารีนาในลอนดอน ตะโกนและเชียร์ ผู้คนอีกหลายพันคนดู
+ออนไลน์ แต่นี่ไม่ใช่การแข่งฟุตบอล บาสเกตบอล หรือเทนนิส มันคืออีสปอร์ต หรือการเล่นเกมคอมพิวเตอร์
+แข่งขัน เงินรางวัลสำหรับผู้ชนะคือ 3 ล้านปอนด์
+Millions of people in the UK play games for fun. Some of them have become professional gamers,
+playing games as their full-time job. Did you know that football teams such as West Ham and
+Manchester City employ esports players? They send them around the world to compete in football
+video game competitions. It’s not easy being a professional gamer, though. They practice for ten or
+more hours a day, five or six days a week. They do exercises like typing something and trying to type it
+faster and faster. They also study videos of other players and plan ways to beat them.
+
+2 ผู้คนนับล้านในสหราชอาณาจักรเล่นเกมเพื่อความสนุก บางคนกลายเป็นนักเล่นเกมอาชีพ เล่นเกมเป็นงาน
+ประจำ คุณรู้ไหมว่าทีมฟุตบอลอย่างเวสต์แฮมและแมนเชสเตอร์ซิตี้จ้างนักอีสปอร์ต พวกเขาส่งไปทั่วโลกเพื่อ
+แข่งขันเกมวิดีโอฟุตบอล แต่การเป็นนักเล่นเกมอาชีพไม่ง่าย พวกเขาฝึกวันละสิบชั่วโมงขึ้นไป ห้าหรือหกวันต่อ
+สัปดาห์ ทำแบบฝึกหัด เช่น พิมพ์บางอย่างแล้วพยายามพิมพ์ให้เร็วขึ้นเรื่อยๆ พวกเขายังศึกษาวิดีโอผู้เล่นอื่นและ
+วางแผนวิธีเอาชนะ
+As well as playing games, many people like watching them too. You can watch games on video sites
+like Twitch and YouTube and in the UK there’s a TV channel showing esports 24 hours a day. They can
+be exciting to watch: just like other sports, there are close games, last-minute victories and amazing
+performances. Sometimes online viewers can interact with the game. For example, some games
+rename characters in the game with the names of online viewers!
+
+3 นอกจากเล่นเกม หลายคนยังชอบดูการแข่งเกม คุณดูเกมได้ในเว็บไซต์วิดีโออย่าง Twitch และ YouTube และ
+ในสหราชอาณาจักรมีช่องทีวีที่ฉายอีสปอร์ต 24 ชั่วโมง การแข่งเหล่านี้ดูตื่นเต้นได้ เหมือนกีฬาอื่นๆ มีเกมสูสี
+ชัยชนะนาทีสุดท้าย และผลงานที่น่าทึ่ง บางครั้งผู้ชมออนไลน์โต้ตอบกับเกมได้ เช่น บางเกมตั้งชื่อตัวละครในเกม
+ตามชื่อผู้ชมออนไลน์!
+
+
+But are esports really sports? Are players athletes? Some say no. Esports players don’t need to run,
+jump, throw or do big physical actions. At the moment, the UK government classifies esports as kinds
+of games, not as sports.
+
+4 แต่อีสปอร์ตเป็นกีฬาจริงหรือ ผู้เล่นเป็นนักกีฬาไหม บางคนว่าไม่ ผู้เล่นอีสปอร์ตไม่ต้องวิ่ง กระโดด ขว้าง หรือ
+ทำกิจกรรมทางกายขนาดใหญ่ ปัจจุบัน รัฐบาลสหราชอาณาจักรจัดอีสปอร์ตเป็นประเภทเกม ไม่ใช่กีฬา
+But others say yes: esports are sports. Players do need some physical skills, especially hand–eye
+coordination, reflexes, accuracy and timing. If darts, snooker and shooting are classified as sports, then
+perhaps esports should be too. In fact, the governments of China and South Korea do classify esports
+as sports, and they will be an official medal sport in the Asian Games starting from 2022. Next step: the
+Olympics?
+
+5 แต่คนอื่นว่าใช่ อีสปอร์ตคือกีฬา ผู้เล่นต้องมีทักษะทางกายบ้าง โดยเฉพาะการประสานมือกับตา รีเฟล็กซ์
+ความแม่นยำ และจังหวะเวลา ถ้าปาลูกดอก สนุกเกอร์ และยิงปืนถูกจัดเป็นกีฬา อีสปอร์ตก็อาจควรเป็นเช่นกัน
+แท้จริงแล้ว รัฐบาลจีนและเกาหลีใต้จัดอีสปอร์ตเป็นกีฬา และจะเป็นกีฬาที่มีเหรียญอย่างเป็นทางการในเอเชียน
+เกมส์ตั้งแต่ปี 2022 ก้าวต่อไป: โอลิมปิกหรือเปล่า
+For many esports fans and players, though, the most important thing is that esports are growing in
+popularity and importance. If esports are not as important as sports at the moment, they definitely will
+be in the near future.
+
+6 แต่สำหรับแฟนและผู้เล่นอีสปอร์ตจำนวนมาก สิ่งสำคัญที่สุดคืออีสปอร์ตกำลังเติบโตในด้านความนิยมและ
+ความสำคัญ ถ้าตอนนี้อีสปอร์ตยังไม่สำคัญเท่ากีฬา ก็จะสำคัญแน่นอนในอนาคตอันใกล้`,qs:[{kind:"mcq",ok:!0,q:"Question 1 What is the main purpose of the passage?",opts:[["A","To explain how video games are harmful to young people."],["B","To describe how esports are growing and becoming more recognized."],["C","To argue that esports should not be considered real sports."],["D","To promote a new esports competition in London."]],ans:"B",th:`คำถามที่ 1 จุดประสงค์หลักของบทอ่านคืออะไร
+เฉลย: B. อธิบายว่าอีสปอร์ตเติบโตและได้รับการยอมรับมากขึ้นอย่างไร`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 2
+According to the passage, what happened at Wembley Arena last summer?`,opts:[["A","A major football match took place."],["B","A large esports event was held with thousands of fans watching."],["C","The UK government declared esports an official sport."],["D","A new video game was released by a famous company."]],ans:"B",th:`คำถามที่ 2 ตามบทอ่าน เกิดอะไรขึ้นที่เวมบลีย์อารีนาฤดูร้อนที่แล้ว
+เฉลย: B. จัดงานอีสปอร์ตขนาดใหญ่ที่มีผู้ชมหลายพันคน`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 3
+In paragraph 2, the word "practice" is closest in meaning to:`,opts:[["A","Compete"],["B","Train"],["C","Win"],["D","Promote"]],ans:"B",th:`คำถามที่ 3 ในย่อหน้า 2 คำว่า “practice” ใกล้เคียงที่สุดกับ
+เฉลย: B. Train (ฝึก)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 4
+How do professional esports players train?`,opts:[["A","By playing games casually in their free time."],["B","By watching other players’ videos and analyzing strategies."],["C","By running and lifting weights to improve their strength."],["D","By attending university esports courses."]],ans:"B",th:`คำถามที่ 4 นักอีสปอร์ตอาชีพฝึกอย่างไร
+เฉลย: B. ดูวิดีโอผู้เล่นอื่นและวิเคราะห์กลยุทธ์`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 5
+What can be inferred about esports fans?`,opts:[["A","They only watch games online and do not attend live events."],["B","They enjoy watching esports because of the excitement, just like traditional sports."],["C","Esports fans do not support the idea of making esports an Olympic sport."],["D","Most esports fans are professional gamers themselves."]],ans:"B",th:`คำถามที่ 5 อนุมานอะไรได้เกี่ยวกับแฟนอีสปอร์ต
+เฉลย: B. พวกเขาสนุกกับการดูอีสปอร์ตเพราะความตื่นเต้น เหมือนกีฬาแบบดั้งเดิม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 6
+In paragraph 5, the word "accuracy" is closest in meaning to:`,opts:[["A","Strength"],["B","Precision"],["C","Popularity"],["D","Intelligence"]],ans:"B",th:`คำถามที่ 6 ในย่อหน้า 5 คำว่า “accuracy” ใกล้เคียงที่สุดกับ
+เฉลย: B. Precision (ความแม่นยำ)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 7
+Why does the passage mention China and South Korea?`,opts:[["A","To show that some countries officially recognize esports as sports."],["B","To argue that esports are only popular in Asia."],["C","To suggest that esports are not growing worldwide."],["D","To highlight that esports are banned in these countries."]],ans:"A",th:`คำถามที่ 7 เหตุใดบทอ่านจึงกล่าวถึงจีนและเกาหลีใต้
+เฉลย: A. เพื่อแสดงว่าบางประเทศยอมรับอีสปอร์ตเป็นกีฬาอย่างเป็นทางการ`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 8
+What does the passage suggest about the future of esports?`,opts:[["A","Esports will soon be banned in most countries."],["B","Esports will continue to grow and may become part of the Olympics."],["C","Esports will always be less important than traditional sports."],["D","The popularity of esports will decline in the future."]],ans:"B",th:`คำถามที่ 8 บทอ่านบอกเป็นนัยอะไรเกี่ยวกับอนาคตของอีสปอร์ต
+เฉลย: B. อีสปอร์ตจะเติบโตต่อและอาจเป็นส่วนหนึ่งของโอลิมปิก`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 9
+Why is being a professional esports player not easy?`,opts:[["A","They must practice for more than 10 hours a day."],["B","They have to pay a large amount of money to enter competitions."],["C","They need a government license to compete."],["D","They must own very expensive gaming equipment."]],ans:"A",th:`คำถามที่ 9 เหตุใดการเป็นนักอีสปอร์ตอาชีพจึงไม่ง่าย
+เฉลย: A. ต้องฝึกมากกว่า 10 ชั่วโมงต่อวัน`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 10
+Why do some people believe esports should be considered a sport?`,opts:[["A","Because esports players need to move their bodies a lot"],["B","Because esports require hand-eye coordination, reflexes, and precision"],["C","Because esports are more popular than football"],["D","Because esports is the only sport played on a computer"]],ans:"B",th:`คำถามที่ 10 เหตุใดบางคนจึงเชื่อว่าอีสปอร์ตควรถือเป็นกีฬา
+เฉลย: B. เพราะอีสปอร์ตต้องการการประสานมือกับตา รีเฟล็กซ์ และความแม่นยำ`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 11
+Based on the article, in which type of event might esports be included
+in the future?`,opts:[["A","The Olympic Games"],["B","Fitness sports"],["C","Entertainment-only competitions"],["D","School and university sports"]],ans:"A",th:`คำถามที่ 11 ตามบทความ อีสปอร์ตอาจถูกรวมในงานประเภทใดในอนาคต
+เฉลย: A. การแข่งขันโอลิมปิก`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 12
+Which statement best summarizes the future of esports?`,opts:[["A","Esports might decline in popularity in the next few years."],["B","Esports will gain more recognition and grow rapidly."],["C","Esports will likely be banned in many countries."],["D","Esports is just a temporary trend that will disappear."]],ans:"B",th:`คำถามที่ 12 ข้อใดสรุปอนาคตของอีสปอร์ตได้ดีที่สุด
+เฉลย: B. อีสปอร์ตจะได้รับการยอมรับมากขึ้นและเติบโตอย่างรวดเร็ว`,ans_text:null,raw:null}],qa_raw:`Question 1 What is the main purpose of the passage?
+A) To explain how video games are harmful to young people.
+B) To describe how esports are growing and becoming more recognized.
+C) To argue that esports should not be considered real sports.
+D) To promote a new esports competition in London.
+Answer: B) To describe how esports are growing and becoming more recognized.
+
+คำถามที่ 1 จุดประสงค์หลักของบทอ่านคืออะไร
+เฉลย: B. อธิบายว่าอีสปอร์ตเติบโตและได้รับการยอมรับมากขึ้นอย่างไร
+Question 2
+According to the passage, what happened at Wembley Arena last summer?
+A) A major football match took place.
+B) A large esports event was held with thousands of fans watching.
+C) The UK government declared esports an official sport.
+D) A new video game was released by a famous company.
+Answer: B) A large esports event was held with thousands of fans watching.
+
+คำถามที่ 2 ตามบทอ่าน เกิดอะไรขึ้นที่เวมบลีย์อารีนาฤดูร้อนที่แล้ว
+เฉลย: B. จัดงานอีสปอร์ตขนาดใหญ่ที่มีผู้ชมหลายพันคน
+
+
+Question 3
+In paragraph 2, the word "practice" is closest in meaning to:
+A) Compete
+B) Train
+C) Win
+D) Promote
+Answer: B) Train
+
+คำถามที่ 3 ในย่อหน้า 2 คำว่า “practice” ใกล้เคียงที่สุดกับ
+เฉลย: B. Train (ฝึก)
+Question 4
+How do professional esports players train?
+A) By playing games casually in their free time.
+B) By watching other players’ videos and analyzing strategies.
+C) By running and lifting weights to improve their strength.
+D) By attending university esports courses.
+Answer: B) By watching other players’ videos and analyzing strategies.
+
+คำถามที่ 4 นักอีสปอร์ตอาชีพฝึกอย่างไร
+เฉลย: B. ดูวิดีโอผู้เล่นอื่นและวิเคราะห์กลยุทธ์
+Question 5
+What can be inferred about esports fans?
+A) They only watch games online and do not attend live events.
+B) They enjoy watching esports because of the excitement, just like
+traditional sports.
+C) Esports fans do not support the idea of making esports an Olympic sport.
+D) Most esports fans are professional gamers themselves.
+Answer: B) They enjoy watching esports because of the excitement,
+just like traditional sports.
+
+คำถามที่ 5 อนุมานอะไรได้เกี่ยวกับแฟนอีสปอร์ต
+เฉลย: B. พวกเขาสนุกกับการดูอีสปอร์ตเพราะความตื่นเต้น เหมือนกีฬาแบบดั้งเดิม
+Question 6
+In paragraph 5, the word "accuracy" is closest in meaning to:
+A) Strength
+B) Precision
+C) Popularity
+D) Intelligence
+Answer: B) Precision
+
+คำถามที่ 6 ในย่อหน้า 5 คำว่า “accuracy” ใกล้เคียงที่สุดกับ
+เฉลย: B. Precision (ความแม่นยำ)
+
+
+Question 7
+Why does the passage mention China and South Korea?
+A) To show that some countries officially recognize esports as sports.
+B) To argue that esports are only popular in Asia.
+C) To suggest that esports are not growing worldwide.
+D) To highlight that esports are banned in these countries.
+Answer: A) To show that some countries officially recognize esports as sports.
+
+คำถามที่ 7 เหตุใดบทอ่านจึงกล่าวถึงจีนและเกาหลีใต้
+เฉลย: A. เพื่อแสดงว่าบางประเทศยอมรับอีสปอร์ตเป็นกีฬาอย่างเป็นทางการ
+Question 8
+What does the passage suggest about the future of esports?
+A) Esports will soon be banned in most countries.
+B) Esports will continue to grow and may become part of the Olympics.
+C) Esports will always be less important than traditional sports.
+D) The popularity of esports will decline in the future.
+Answer: B) Esports will continue to grow and may become part of the Olympics.
+
+คำถามที่ 8 บทอ่านบอกเป็นนัยอะไรเกี่ยวกับอนาคตของอีสปอร์ต
+เฉลย: B. อีสปอร์ตจะเติบโตต่อและอาจเป็นส่วนหนึ่งของโอลิมปิก
+Question 9
+Why is being a professional esports player not easy?
+A) They must practice for more than 10 hours a day.
+B) They have to pay a large amount of money to enter competitions.
+C) They need a government license to compete.
+D) They must own very expensive gaming equipment.
+Answer: A) They must practice for more than 10 hours a day.
+
+คำถามที่ 9 เหตุใดการเป็นนักอีสปอร์ตอาชีพจึงไม่ง่าย
+เฉลย: A. ต้องฝึกมากกว่า 10 ชั่วโมงต่อวัน
+Question 10
+Why do some people believe esports should be considered a sport?
+A) Because esports players need to move their bodies a lot
+B) Because esports require hand-eye coordination, reflexes, and precision
+C) Because esports are more popular than football
+D) Because esports is the only sport played on a computer
+Answer: B) Because esports require hand-eye coordination, reflexes, and precision
+
+คำถามที่ 10 เหตุใดบางคนจึงเชื่อว่าอีสปอร์ตควรถือเป็นกีฬา
+เฉลย: B. เพราะอีสปอร์ตต้องการการประสานมือกับตา รีเฟล็กซ์ และความแม่นยำ
+
+
+Question 11
+Based on the article, in which type of event might esports be included
+in the future?
+A) The Olympic Games
+B) Fitness sports
+C) Entertainment-only competitions
+D) School and university sports
+Answer: A) The Olympic Games
+
+คำถามที่ 11 ตามบทความ อีสปอร์ตอาจถูกรวมในงานประเภทใดในอนาคต
+เฉลย: A. การแข่งขันโอลิมปิก
+Question 12
+Which statement best summarizes the future of esports?
+A) Esports might decline in popularity in the next few years.
+B) Esports will gain more recognition and grow rapidly.
+C) Esports will likely be banned in many countries.
+D) Esports is just a temporary trend that will disappear.
+Answer: B) Esports will gain more recognition and grow rapidly.
+
+คำถามที่ 12 ข้อใดสรุปอนาคตของอีสปอร์ตได้ดีที่สุด
+เฉลย: B. อีสปอร์ตจะได้รับการยอมรับมากขึ้นและเติบโตอย่างรวดเร็ว`},{n:95,type:"Reading",title:"Reading_The Impact of Artificial Intelligence on Society",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
 Artificial Intelligence (AI) has revolutionized various aspects of modern society. From healthcare to
 education, AI-powered systems have enhanced efficiency, accuracy, and accessibility. In healthcare, AI
 assists doctors in diagnosing diseases by analyzing vast amounts of medical data, leading to faster and
@@ -16063,6 +17171,8 @@ entertainment, AI enhances content recommendations, creating more engaging user 
 แพทย์ปริมาณมาก นำไปสู่การรักษาที่เร็วและแม่นยำกว่า ในการศึกษา ระบบสอนที่ขับเคลื่อนด้วย AI ให้
 ประสบการณ์การเรียนเฉพาะบุคคล ช่วยนักเรียนเข้าใจวิชาที่ซับซ้อนดีขึ้น นอกจากนี้ ในความบันเทิง AI
 ปรับปรุงการแนะนำเนื้อหา สร้างประสบการณ์ผู้ใช้ที่น่าสนใจยิ่งขึ้น
+
+
 Despite these benefits, AI also presents significant challenges. One major concern is its impact on the
 job market. Automation powered by AI has replaced many routine jobs, raising fears of unemployment
 for workers in certain industries. However, AI has also created new opportunities in fields such as data
@@ -16075,8 +17185,6 @@ unfair or discriminatory outcomes.
 ก็ตาม AI ก็สร้างโอกาสใหม่ในสาขาเช่นวิทยาศาสตร์ข้อมูล หุ่นยนต์ และความปลอดภัยไซเบอร์ อีกความท้าทาย
 คือการตัดสินใจเชิงจริยธรรม ระบบ AI หากไม่ได้รับการกำกับดูแลอย่างเหมาะสม อาจเกิดอคติตามข้อมูลที่ใช้ฝึก
 ซึ่งอาจนำไปสู่ผลที่ไม่เป็นธรรมหรือเลือกปฏิบัติ
-
-
 Governments and organizations must take a proactive approach to ensure that AI is developed and
 implemented responsibly. Policies should focus on upskilling workers to adapt to AI-driven changes and
 enforcing strict guidelines to prevent misuse. Ethical AI frameworks should be established to ensure
@@ -16123,6 +17231,8 @@ Answer: B
 
 2. ตามย่อหน้า 1 AI ส่งผลต่อการศึกษาอย่างไร
 เฉลย: B. ช่วยนักเรียนด้วยประสบการณ์การเรียนเฉพาะบุคคล
+
+
 3. The word "enhances" in paragraph 1 is closest in meaning to:
 A) Improves
 B) Ignores
@@ -16132,8 +17242,6 @@ Answer: A
 
 3. คำว่า “enhances” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
 เฉลย: A. Improves (ปรับปรุง)
-
-
 4. Which of the following is NOT mentioned as a benefit of AI in the passage?
 A) Healthcare
 B) Entertainment
@@ -16173,6 +17281,8 @@ Answer: C
 
 7. ความท้าทายเกี่ยวกับ AI ที่กล่าวถึงในบทความคืออะไร
 เฉลย: C. AI อาจนำไปสู่การสูญเสียงานในบางอุตสาหกรรม
+
+
 8. What can be inferred about the role of governments in AI development?
 A) Governments should ban AI to prevent job loss
 B) Governments should create policies to regulate AI development
@@ -16182,8 +17292,6 @@ Answer: B
 
 8. อนุมานอะไรได้เกี่ยวกับบทบาทของรัฐบาลในการพัฒนา AI
 เฉลย: B. รัฐบาลควรสร้างนโยบายกำกับการพัฒนา AI
-
-
 9. Which of the following best describes the organization of the passage?
 A) It first presents the challenges of AI, then discusses the benefits
 B) It first presents the benefits of AI, then discusses the challenges
@@ -16222,8 +17330,6 @@ resistance to the complete authority of Rome would be met with fierce and deadly
 สม่ำเสมอของกฎหมายในจักรวรรดิ และประมวลความประพฤติเดียวกันสำหรับทหาร สุดท้าย มีการควบคุมทาง
 จิตวิทยาที่ไม่ชัดเจนนัก รวมถึงความรู้แน่ชัดว่าการต่อต้านอำนาจเบ็ดเสร็จของโรมจะได้รับผลที่ดุเดือดและถึง
 ตาย
-
-
 The foundation of this Roman preoccupation with uniformity may lay in its history. Unlike the Greek
 civilization, which was an amalgam of various city states, each with its own distinctive qualities, Roman
 civilization grew out of one independent entity. Plus, whereas Greek power was expanded through
@@ -16238,6 +17344,8 @@ remains: Greece was a seafaring power and Roman power ruled the land.
 ทหารราบจำนวนมากเข้าสู่ดินแดนใหม่เพื่อพิชิต แน่นอนว่ามีผู้นำอย่างอเล็กซานเดอร์มหาราชที่พิชิตดินแดนมาก
 เช่นกัน แต่ความต่างสำคัญระหว่างสองวัฒนธรรมยังคงอยู่ คือกรีซเป็นมหาอำนาจทางทะเลและอำนาจโรมัน
 ครองแผ่นดิน
+
+
 This lust for territorial dominance on the part of the Roman Empire can be seen at the foundation of
 many of its societal priorities. The prime directive of Roman society, it seemed, was the organization,
 exploitation, and defense of its acquired territory. Most likely this high regard for the land can be traced
@@ -16484,8 +17592,6 @@ instead. They’re more relaxing.
 Anna: That sounds better. I don’t want to get too scared first thing in the morning.
 
 แอนนา: ฟังดีกว่า ฉันไม่อยากกลัวมากตั้งแต่เช้า
-
-
 Tom: Agreed. Let’s meet at 9:00 a.m. sharp, so we can beat the crowds.
 
 ทอม: เห็นด้วย นัดเจอกัน 9.00 น. ตรงเวลาเพื่อเลี่ยงคนเยอะ
@@ -16542,8 +17648,6 @@ D. Parking garage
 
 3. พวกเขาจะไปที่ไหนก่อนไปสวนสนุก
 เฉลย: C. คาเฟ่ใกล้สถานี
-
-
 4. What will they bring with them?
 A. Snacks
 B. Sunglasses
@@ -16564,6 +17668,8 @@ D. Haunted house
 
 5. ทอมเสนอเครื่องเล่นอะไรแทนรถไฟเหาะ
 เฉลย: C. เครื่องเล่นน้ำ
+
+
 6. Did they find parking close to the amusement park?
 A. No, it’s far away
 B. Yes, very close
@@ -16593,7 +17699,285 @@ D. Sleepy
 ✅ Answer: B. Excited
 
 8. ความรู้สึกอื่นที่แอนนาแสดงเกี่ยวกับทริปคืออะไร
-เฉลย: B. ตื่นเต้น`},{n:99,type:"Reading",title:"Reading_Space Exploration",date:"2026-04-30",status:"pending",dup:null},{n:100,type:"Listening",title:"11_Listening_ A Creepy New Series",date:"2026-04-30",status:"ok",dup:null,body:`บทสนทนา (Dialogue)
+เฉลย: B. ตื่นเต้น`},{n:99,type:"Reading",title:"Reading_Space Exploration",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+Space exploration has long interested humanity, changing from early observations of the heavens to
+advanced missions that travel through the solar system and beyond. The desire to understand the
+universe is driven by a mix of scientific curiosity, technological progress, and the basic human desire to
+explore the unknown. Early civilizations, like the Babylonians and Greeks, laid the foundation for
+astronomy by developing simple tools to observe heavenly bodies. However, it wasn't until the mid20th century that space exploration moved from theory to practice, marked by key events like the
+launch of Sputnik 1 by the Soviet Union in 1957. This event not only started the space age but also
+sparked a global race for technological leadership, leading to many advancements in various fields.
+
+1 การสำรวจอวกาศเป็นที่สนใจของมนุษยชาติมานาน เปลี่ยนจากการสังเกตท้องฟ้าในยุคแรกสู่ภารกิจขั้นสูงที่
+เดินทางผ่านระบบสุริยะและไกลกว่า ความปรารถนาที่จะเข้าใจเอกภพขับเคลื่อนด้วยการผสมผสานระหว่างความ
+อยากรู้ทางวิทยาศาสตร์ ความก้าวหน้าทางเทคโนโลยี และความปรารถนาพื้นฐานของมนุษย์ที่จะสำรวจสิ่งที่ไม่รู้
+อารยธรรมยุคแรก เช่น บาบิโลนและกรีก วางรากฐานดาราศาสตร์ด้วยการพัฒนาเครื่องมืออย่างง่ายเพื่อสังเกต
+เทห์ฟ้า อย่างไรก็ตาม จนกระทั่งกลางศตวรรษที่ 20 การสำรวจอวกาศจึงเปลี่ยนจากทฤษฎีสู่การปฏิบัติ โดดเด่น
+ด้วยเหตุการณ์สำคัญ เช่น การปล่อยสปุตนิก 1 โดยสหภาพโซเวียตในปี 1957 เหตุการณ์นี้ไม่เพียงเริ่มยุคอวกาศ
+แต่ยังจุดประกายการแข่งขันระดับโลกเพื่อความเป็นผู้นำด้านเทคโนโลยี นำไปสู่ความก้าวหน้ามากมายในหลาย
+สาขา
+The technological progress that made space exploration possible is impressive and varied. The
+development of rocket technology, especially the work of innovators like Konstantin Tsiolkovsky, Robert
+Goddard, and Wernher von Braun, allowed humanity to break free from Earth's gravity. The Saturn V
+rocket, which took the Apollo missions to the Moon, remains one of the most powerful rockets ever
+built, showcasing the engineering skill of its time. Also, the rise of computer technology has changed
+mission planning and execution. Modern spacecraft come equipped with advanced navigation systems,
+enabling precise movements and data collection. For instance, the Mars Rover missions have given us
+valuable insights into the Martian environment, revealing signs of past water and the potential for alien
+life, raising questions about the possibility of extraterrestrial organisms.
+
+2 ความก้าวหน้าทางเทคโนโลยีที่ทำให้การสำรวจอวกาศเป็นไปได้นั้นน่าประทับใจและหลากหลาย การพัฒนา
+เทคโนโลยีจรวด โดยเฉพาะผลงานของนักนวัตกรรมอย่างคอนสแตนติน ซีออลคอฟสกี โรเบิร์ต ก็อดดาร์ด และ
+แวร์นเฮอร์ ฟอน บราวน์ ทำให้มนุษยชาติหลุดพ้นแรงโน้มถ่วงของโลกได้ จรวดแซตเทิร์น 5 ซึ่งนำภารกิจอะ
+พอลโลไปดวงจันทร์ ยังเป็นหนึ่งในจรวดที่ทรงพลังที่สุดเท่าที่เคยสร้าง แสดงทักษะวิศวกรรมของยุคนั้น นอกจากนี้
+การเติบโตของเทคโนโลยีคอมพิวเตอร์เปลี่ยนการวางแผนและดำเนินภารกิจ ยานอวกาศสมัยใหม่ติดตั้งระบบ
+นำทางขั้นสูง ช่วยให้เคลื่อนที่และรวบรวมข้อมูลได้แม่นยำ ตัวอย่างเช่น ภารกิจรถสำรวจดาวอังคารให้ข้อมูลเชิง
+ลึกเกี่ยวกับสภาพแวดล้อมของดาวอังคาร เผยสัญญาณของน้ำในอดีตและศักยภาพของสิ่งมีชีวิตต่างดาว ก่อให้
+เกิดคำถามเรื่องความเป็นไปได้ของสิ่งมีชีวิตนอกโลก
+
+
+Despite these advancements, space exploration comes with challenges and risks that can't be ignored.
+The harsh conditions of space, including extreme temperatures, radiation, and microgravity, pose
+serious threats to both human and robotic missions. The tragic loss of the Space Shuttle Challenger in
+1986 and Columbia in 2003 serves as clear reminders of the dangers of space travel. But the financial
+costs of space missions are high, often requiring billions of dollars in funding. Governments and private
+companies must assign significant resources to support research, development, and operational costs.
+As a result, discussions about whether to prioritize space exploration or address urgent issues on Earth,
+like poverty and climate change, continue to be a hot topic among policymakers and the public.
+
+3 แม้มีความก้าวหน้าเหล่านี้ การสำรวจอวกาศก็มาพร้อมความท้าทายและความเสี่ยงที่มองข้ามไม่ได้ สภาพ
+รุนแรงของอวกาศ ทั้งอุณหภูมิสุดขั้ว รังสี และสภาวะไร้น้ำหนัก เป็นภัยคุกคามร้ายแรงต่อทั้งภารกิจมนุษย์และ
+หุ่นยนต์ การสูญเสียกระสวยอวกาศแชลเลนเจอร์ในปี 1986 และโคลัมเบียในปี 2003 เป็นเครื่องเตือนใจชัดเจน
+ถึงอันตรายของการเดินทางอวกาศ ต้นทุนทางการเงินของภารกิจอวกาศก็สูง มักต้องใช้เงินทุนหลายพันล้าน
+ดอลลาร์ รัฐบาลและบริษัทเอกชนต้องจัดสรรทรัพยากรมากเพื่อรองรับการวิจัย พัฒนา และค่าดำเนินงาน ผลคือ
+การถกเถียงว่าควรให้ความสำคัญกับการสำรวจอวกาศหรือแก้ปัญหาเร่งด่วนบนโลก เช่น ความยากจนและการ
+เปลี่ยนแปลงสภาพภูมิอากาศ ยังเป็นหัวข้อร้อนในหมู่ผู้กำหนดนโยบายและสาธารณชน
+In recent years, the environment of space exploration has changed dramatically with the rise of private
+companies. Organizations like SpaceX, Blue Origin, and Virgin Galactic have entered the field,
+challenging traditional government-led space programs. SpaceX's Falcon 9 rocket has successfully
+lowered launch costs and increased the frequency of missions, while its Crew Dragon spacecraft has
+transported astronauts to the International Space Station (ISS). This shift towards business involvement
+has sparked discussions about the future of space exploration, including the potential for partnerships
+between public and private sectors and the role of private companies in long-term missions to Mars
+and beyond. While the involvement of private entities may speed up innovation and lower costs, it also
+raises questions about regulation, safety, and fair access to the benefits of space exploration.
+
+4 ในช่วงไม่กี่ปีที่ผ่านมา สภาพแวดล้อมของการสำรวจอวกาศเปลี่ยนไปอย่างมากด้วยการเติบโตของบริษัท
+เอกชน องค์กรอย่างสเปซเอ็กซ์ บลูออริจิน และเวอร์จินกาแลกติกเข้าสู่วงการ ท้าทายโครงการอวกาศที่รัฐบาล
+นำแบบดั้งเดิม จรวดฟอลคอน 9 ของสเปซเอ็กซ์ลดต้นทุนการปล่อยและเพิ่มความถี่ของภารกิจได้สำเร็จ ขณะที่
+ยานครูว์ดรากอนขนส่งนักบินอวกาศไปยังสถานีอวกาศนานาชาติ (ISS) การเปลี่ยนไปสู่การมีส่วนร่วมของภาค
+ธุรกิจจุดประกายการอภิปรายเรื่องอนาคตของการสำรวจอวกาศ รวมถึงศักยภาพของความร่วมมือระหว่างภาค
+รัฐและเอกชน และบทบาทของบริษัทเอกชนในภารกิจระยะยาวไปดาวอังคารและไกลกว่า แม้การมีส่วนร่วมของ
+ภาคเอกชนอาจเร่งนวัตกรรมและลดต้นทุน ก็ก่อให้เกิดคำถามเรื่องการกำกับดูแล ความปลอดภัย และการเข้าถึง
+ประโยชน์ของการสำรวจอวกาศอย่างเป็นธรรม
+
+
+The scientific benefits of space exploration are significant and varied, providing insights that go beyond
+our planet. Research done in microgravity environments, like the ISS, has led to advancements in many
+fields, including medicine, materials science, and environmental monitoring. For example, studies on
+how microgravity affects human health have shed light on muscle loss and bone density reduction,
+which could help in treating osteoporosis on Earth. Additionally, space telescopes like the Hubble Space
+Telescope have broadened our understanding of the universe, revealing the existence of exoplanets
+and deepening our knowledge of cosmic events. These discoveries not only enhance our scientific
+understanding but also inspire future generations to pursue careers in science, technology,
+engineering, and mathematics (STEM), fostering a culture of innovation.
+
+5 ประโยชน์ทางวิทยาศาสตร์ของการสำรวจอวกาศมีนัยสำคัญและหลากหลาย ให้ข้อมูลเชิงลึกที่ไปไกลกว่าโลก
+ของเรา งานวิจัยในสภาพไร้น้ำหนัก เช่นที่ ISS นำไปสู่ความก้าวหน้าในหลายสาขา รวมถึงการแพทย์ วัสดุ
+ศาสตร์ และการเฝ้าติดตามสิ่งแวดล้อม ตัวอย่างเช่น การศึกษาว่าสภาวะไร้น้ำหนักกระทบสุขภาพมนุษย์อย่างไร
+ได้เผยเรื่องการสูญเสียกล้ามเนื้อและการลดลงของความหนาแน่นกระดูก ซึ่งอาจช่วยรักษาโรคกระดูกพรุนบน
+โลก นอกจากนี้ กล้องโทรทรรศน์อวกาศอย่างฮับเบิลขยายความเข้าใจเอกภพของเรา เผยการมีอยู่ของดาว
+เคราะห์นอกระบบสุริยะและเพิ่มความรู้เรื่องเหตุการณ์จักรวาล การค้นพบเหล่านี้ไม่เพียงเสริมความเข้าใจทาง
+วิทยาศาสตร์ แต่ยังสร้างแรงบันดาลใจให้คนรุ่นต่อไปประกอบอาชีพด้านวิทยาศาสตร์ เทคโนโลยี วิศวกรรม และ
+คณิตศาสตร์ (STEM) ส่งเสริมวัฒนธรรมแห่งนวัตกรรม
+As humanity stands on the edge of a new era in space exploration, the consequences of our efforts in
+the cosmos are both exciting and challenging. The idea of establishing a human presence on Mars
+raises important questions about protecting other planets and the risk of polluting alien environments.
+Furthermore, the search for alien life continues to drive many missions, sparking theoretical debates
+about our place in the universe. While our technological abilities to explore distant worlds are
+improving, it's essential to think about the broader consequences of our actions in space. The future of
+space exploration promises incredible discoveries, yet it also requires a responsible approach to ensure
+that our quest for knowledge does not compromise ethical considerations and the preservation of the
+cosmos. As we explore further into the unknown, many questions remain unanswered, inviting ongoing
+inquiry into the nature of our universe and our role within it.
+
+6 เมื่อมนุษยชาติยืนอยู่บนขอบของยุคใหม่ของการสำรวจอวกาศ ผลลัพธ์จากความพยายามของเราในจักรวาลทั้ง
+น่าตื่นเต้นและท้าทาย แนวคิดการสถาปนาการปรากฏตัวของมนุษย์บนดาวอังคารก่อให้เกิดคำถามสำคัญเรื่อง
+การปกป้องดาวเคราะห์ดวงอื่นและความเสี่ยงที่จะปนเปื้อนสภาพแวดล้อมต่างดาว นอกจากนี้ การค้นหาสิ่งมีชีวิต
+ต่างดาวยังขับเคลื่อนภารกิจมากมาย ก่อให้เกิดการถกเถียงเชิงทฤษฎีเรื่องที่อยู่ของเราในเอกภพ แม้ความ
+สามารถทางเทคโนโลยีในการสำรวจโลกไกลของเรากำลังพัฒนา สิ่งสำคัญคือต้องคิดถึงผลกระทบที่กว้างขึ้นของ
+การกระทำของเราในอวกาศ อนาคตของการสำรวจอวกาศสัญญาถึงการค้นพบอันน่าทึ่ง แต่ก็ต้องใช้แนวทางที่
+รับผิดชอบเพื่อให้แน่ใจว่าการแสวงหาความรู้ของเราไม่ละเมิดข้อพิจารณาด้านจริยธรรมและการรักษาจักรวาล
+เมื่อเราสำรวจลึกเข้าไปสู่สิ่งที่ไม่รู้ ยังมีคำถามมากมายไม่ได้รับคำตอบ เชิญชวนให้สืบค้นต่อไปเกี่ยวกับธรรมชาติ
+ของเอกภพและบทบาทของเราในนั้น`,qs:[{kind:"raw",ok:!1,q:"1. The launch of the Apollo missions",opts:[],ans:null,th:"",ans_text:null,raw:"1. The launch of the Apollo missions"},{kind:"raw",ok:!1,q:"2. The development of rocket technology",opts:[],ans:null,th:"",ans_text:null,raw:"2. The development of rocket technology"},{kind:"raw",ok:!1,q:"3. The launch of Sputnik 1",opts:[],ans:null,th:"",ans_text:null,raw:"3. The launch of Sputnik 1"},{kind:"open",ok:!1,q:"4. The establishment of NASA",opts:[],ans:"C",th:`1. ตามย่อหน้า 1 เหตุการณ์ใดเป็นจุดเริ่มต้นของยุคอวกาศ
+เฉลย: C. การปล่อยสปุตนิก 1`,ans_text:"C.",raw:null},{kind:"raw",ok:!1,q:`2. In paragraph 1, each of the following is mentioned as a reason for humanity's
+interest in space exploration EXCEPT:`,opts:[],ans:null,th:"",ans_text:null,raw:`2. In paragraph 1, each of the following is mentioned as a reason for humanity's
+interest in space exploration EXCEPT:`},{kind:"raw",ok:!1,q:"1. Scientific curiosity",opts:[],ans:null,th:"",ans_text:null,raw:"1. Scientific curiosity"},{kind:"raw",ok:!1,q:"2. Technological progress",opts:[],ans:null,th:"",ans_text:null,raw:"2. Technological progress"},{kind:"raw",ok:!1,q:"3. The desire to conquer other planets",opts:[],ans:null,th:"",ans_text:null,raw:"3. The desire to conquer other planets"},{kind:"open",ok:!1,q:"4. The basic human desire to explore the unknown",opts:[],ans:"C",th:`2. ในย่อหน้า 1 ทุกข้อเป็นเหตุผลที่มนุษยชาติสนใจการสำรวจอวกาศ ยกเว้น
+เฉลย: C. ความปรารถนาที่จะพิชิตดาวเคราะห์ดวงอื่น
+3.What can be inferred from paragraph 2 about the role of computer
+technology in space exploration?`,ans_text:"C.",raw:null},{kind:"raw",ok:!1,q:"1. It has made space missions less complex.",opts:[],ans:null,th:"",ans_text:null,raw:"1. It has made space missions less complex."},{kind:"raw",ok:!1,q:"2. It has improved the accuracy of mission planning.",opts:[],ans:null,th:"",ans_text:null,raw:"2. It has improved the accuracy of mission planning."},{kind:"raw",ok:!1,q:"3. It has replaced the need for rocket technology.",opts:[],ans:null,th:"",ans_text:null,raw:"3. It has replaced the need for rocket technology."},{kind:"open",ok:!1,q:"4. It has limited the exploration of Mars.",opts:[],ans:"B",th:`3. อนุมานอะไรได้จากย่อหน้า 2 เกี่ยวกับบทบาทของเทคโนโลยีคอมพิวเตอร์
+เฉลย: B. ปรับปรุงความแม่นยำของการวางแผนภารกิจ
+4.In paragraph 2, the word "innovators" is closest in meaning to:`,ans_text:"B.",raw:null},{kind:"raw",ok:!1,q:"1. Creators",opts:[],ans:null,th:"",ans_text:null,raw:"1. Creators"},{kind:"raw",ok:!1,q:"2. Investors",opts:[],ans:null,th:"",ans_text:null,raw:"2. Investors"},{kind:"raw",ok:!1,q:"3. Critics",opts:[],ans:null,th:"",ans_text:null,raw:"3. Critics"},{kind:"open",ok:!1,q:"4. Observers",opts:[],ans:"A",th:`4. ในย่อหน้า 2 คำว่า “innovators” ใกล้เคียงที่สุดกับ
+เฉลย: A. Creators (ผู้สร้างสรรค์)
+
+
+5.Why does the author mention the tragic loss of the Space Shuttle Challenger
+and Columbia in paragraph 3?`,ans_text:"A.",raw:null},{kind:"raw",ok:!1,q:"1. To highlight the financial costs of space missions",opts:[],ans:null,th:"",ans_text:null,raw:"1. To highlight the financial costs of space missions"},{kind:"raw",ok:!1,q:"2. To illustrate the dangers associated with space travel",opts:[],ans:null,th:"",ans_text:null,raw:"2. To illustrate the dangers associated with space travel"},{kind:"raw",ok:!1,q:"3. To emphasise the importance of robotic missions",opts:[],ans:null,th:"",ans_text:null,raw:"3. To emphasise the importance of robotic missions"},{kind:"open",ok:!1,q:"4. To argue against further space exploration",opts:[],ans:"B",th:`5. เหตุใดผู้เขียนจึงกล่าวถึงการสูญเสียแชลเลนเจอร์และโคลัมเบียในย่อหน้า 3
+เฉลย: B. เพื่อแสดงอันตรายที่เกี่ยวข้องกับการเดินทางอวกาศ
+6.Which of the following sentences best expresses the essential information in
+the following text from paragraph 4?
+"The rise of private companies in space exploration has changed the landscape,
+leading to discussions about partnerships and the implications for future
+missions."
+1.`,ans_text:"B.",raw:null},{kind:"raw",ok:!1,q:"1. Private companies are now leading space exploration efforts.",opts:[],ans:null,th:"",ans_text:null,raw:"1. Private companies are now leading space exploration efforts."},{kind:"raw",ok:!1,q:`2. The involvement of private companies has sparked discussions
+about the future of space exploration.`,opts:[],ans:null,th:"",ans_text:null,raw:`2. The involvement of private companies has sparked discussions
+about the future of space exploration.`},{kind:"raw",ok:!1,q:"3. Government-led space programmes are no longer relevant.",opts:[],ans:null,th:"",ans_text:null,raw:"3. Government-led space programmes are no longer relevant."},{kind:"open",ok:!1,q:"4. SpaceX has monopolised the space exploration industry.",opts:[],ans:"B",th:`6. ข้อใดสื่อสาระสำคัญของข้อความในย่อหน้า 4 ได้ดีที่สุด “การเติบโตของบริษัทเอกชนในการสำรวจอวกาศ
+เปลี่ยนภูมิทัศน์ นำไปสู่การอภิปรายเรื่องความร่วมมือและผลต่อภารกิจในอนาคต”
+เฉลย: B. การมีส่วนร่วมของบริษัทเอกชนจุดประกายการอภิปรายเรื่องอนาคตของการสำรวจอวกาศ`,ans_text:"B.",raw:null},{kind:"raw",ok:!1,q:`7. Directions: An introductory sentence for a brief summary of paragraph 5 is
+provided below. Complete the summary by selecting the TWO answer choices
+that express the most important ideas in the paragraph.`,opts:[],ans:null,th:"",ans_text:null,raw:`7. Directions: An introductory sentence for a brief summary of paragraph 5 is
+provided below. Complete the summary by selecting the TWO answer choices
+that express the most important ideas in the paragraph.`},{kind:"raw",ok:!1,q:`1. Space exploration has led to significant scientific advancements in
+various fields.`,opts:[],ans:null,th:"",ans_text:null,raw:`1. Space exploration has led to significant scientific advancements in
+various fields.`},{kind:"raw",ok:!1,q:`1. Research in microgravity has provided insights into human
+health.`,opts:[],ans:null,th:"",ans_text:null,raw:`1. Research in microgravity has provided insights into human
+health.`},{kind:"raw",ok:!1,q:"2. Space exploration is primarily focused on finding alien life.",opts:[],ans:null,th:"",ans_text:null,raw:"2. Space exploration is primarily focused on finding alien life."},{kind:"raw",ok:!1,q:`3. The Hubble Space Telescope has revealed the existence of
+exoplanets.`,opts:[],ans:null,th:"",ans_text:null,raw:`3. The Hubble Space Telescope has revealed the existence of
+exoplanets.`},{kind:"raw",ok:!1,q:"4. Space exploration has little impact on future generations.",opts:[],ans:"A",th:`7. คำถามสรุป (เลือก 2) ประโยคนำ: “การสำรวจอวกาศนำไปสู่ความก้าวหน้าทางวิทยาศาสตร์ที่สำคัญในหลาย
+สาขา”
+เฉลย: A. งานวิจัยในสภาวะไร้น้ำหนักให้ข้อมูลเชิงลึกเรื่องสุขภาพมนุษย์ • C. กล้องฮับเบิลเผยการมีอยู่ของดาว
+เคราะห์นอกระบบสุริยะ (A, C)
+
+
+8.What is the main purpose of paragraph 6?`,ans_text:null,raw:`4. Space exploration has little impact on future generations.
+Answer: A, C
+
+7. คำถามสรุป (เลือก 2) ประโยคนำ: “การสำรวจอวกาศนำไปสู่ความก้าวหน้าทางวิทยาศาสตร์ที่สำคัญในหลาย
+สาขา”
+เฉลย: A. งานวิจัยในสภาวะไร้น้ำหนักให้ข้อมูลเชิงลึกเรื่องสุขภาพมนุษย์ • C. กล้องฮับเบิลเผยการมีอยู่ของดาว
+เคราะห์นอกระบบสุริยะ (A, C)
+
+
+8.What is the main purpose of paragraph 6?`},{kind:"raw",ok:!1,q:"1. To discuss the technological advancements in space exploration",opts:[],ans:null,th:"",ans_text:null,raw:"1. To discuss the technological advancements in space exploration"},{kind:"raw",ok:!1,q:"2. To highlight the ethical considerations of exploring other planets",opts:[],ans:null,th:"",ans_text:null,raw:"2. To highlight the ethical considerations of exploring other planets"},{kind:"raw",ok:!1,q:"3. To outline the history of space exploration",opts:[],ans:null,th:"",ans_text:null,raw:"3. To outline the history of space exploration"},{kind:"open",ok:!1,q:"4. To describe the benefits of private companies in space missions",opts:[],ans:"B",th:`8. จุดประสงค์หลักของย่อหน้า 6 คืออะไร
+เฉลย: B. เน้นข้อพิจารณาด้านจริยธรรมของการสำรวจดาวเคราะห์ดวงอื่น`,ans_text:"B.",raw:null},{kind:"raw",ok:!1,q:`9. In paragraph 6, there is a missing sentence. The paragraph shows four
+letters (A), (B), (C), (D)that indicate where the following sentence could be
+added.
+"These considerations are crucial as we venture into uncharted territories."
+Where would the sentence best fit?`,opts:[],ans:null,th:"",ans_text:null,raw:`9. In paragraph 6, there is a missing sentence. The paragraph shows four
+letters (A), (B), (C), (D)that indicate where the following sentence could be
+added.
+"These considerations are crucial as we venture into uncharted territories."
+Where would the sentence best fit?`},{kind:"raw",ok:!1,q:"1. Option A",opts:[],ans:null,th:"",ans_text:null,raw:"1. Option A"},{kind:"raw",ok:!1,q:"2. Option B",opts:[],ans:null,th:"",ans_text:null,raw:"2. Option B"},{kind:"raw",ok:!1,q:"3. Option C",opts:[],ans:null,th:"",ans_text:null,raw:"3. Option C"},{kind:"open",ok:!1,q:"4. Option D",opts:[],ans:"D",th:`9. แทรกประโยค “ข้อพิจารณาเหล่านี้จำเป็นอย่างยิ่งเมื่อเราเข้าสู่ดินแดนที่ยังไม่เคยสำรวจ” ที่ตำแหน่ง (A)–(D)
+ใด
+เฉลย: D. ตัวเลือก D`,ans_text:"D.",raw:null}],qa_raw:`1.According to paragraph 1, what event marked the beginning of
+the space age?
+1. The launch of the Apollo missions
+2. The development of rocket technology
+3. The launch of Sputnik 1
+4. The establishment of NASA
+Answer: C.
+
+1. ตามย่อหน้า 1 เหตุการณ์ใดเป็นจุดเริ่มต้นของยุคอวกาศ
+เฉลย: C. การปล่อยสปุตนิก 1
+2. In paragraph 1, each of the following is mentioned as a reason for humanity's
+interest in space exploration EXCEPT:
+1. Scientific curiosity
+2. Technological progress
+3. The desire to conquer other planets
+4. The basic human desire to explore the unknown
+Answer: C.
+
+2. ในย่อหน้า 1 ทุกข้อเป็นเหตุผลที่มนุษยชาติสนใจการสำรวจอวกาศ ยกเว้น
+เฉลย: C. ความปรารถนาที่จะพิชิตดาวเคราะห์ดวงอื่น
+3.What can be inferred from paragraph 2 about the role of computer
+technology in space exploration?
+1. It has made space missions less complex.
+2. It has improved the accuracy of mission planning.
+3. It has replaced the need for rocket technology.
+4. It has limited the exploration of Mars.
+Answer: B.
+
+3. อนุมานอะไรได้จากย่อหน้า 2 เกี่ยวกับบทบาทของเทคโนโลยีคอมพิวเตอร์
+เฉลย: B. ปรับปรุงความแม่นยำของการวางแผนภารกิจ
+4.In paragraph 2, the word "innovators" is closest in meaning to:
+1. Creators
+2. Investors
+3. Critics
+4. Observers
+Answer: A.
+
+4. ในย่อหน้า 2 คำว่า “innovators” ใกล้เคียงที่สุดกับ
+เฉลย: A. Creators (ผู้สร้างสรรค์)
+
+
+5.Why does the author mention the tragic loss of the Space Shuttle Challenger
+and Columbia in paragraph 3?
+1. To highlight the financial costs of space missions
+2. To illustrate the dangers associated with space travel
+3. To emphasise the importance of robotic missions
+4. To argue against further space exploration
+Answer: B.
+
+5. เหตุใดผู้เขียนจึงกล่าวถึงการสูญเสียแชลเลนเจอร์และโคลัมเบียในย่อหน้า 3
+เฉลย: B. เพื่อแสดงอันตรายที่เกี่ยวข้องกับการเดินทางอวกาศ
+6.Which of the following sentences best expresses the essential information in
+the following text from paragraph 4?
+"The rise of private companies in space exploration has changed the landscape,
+leading to discussions about partnerships and the implications for future
+missions."
+1.
+1. Private companies are now leading space exploration efforts.
+2. The involvement of private companies has sparked discussions
+about the future of space exploration.
+3. Government-led space programmes are no longer relevant.
+4. SpaceX has monopolised the space exploration industry.
+Answer: B.
+
+6. ข้อใดสื่อสาระสำคัญของข้อความในย่อหน้า 4 ได้ดีที่สุด “การเติบโตของบริษัทเอกชนในการสำรวจอวกาศ
+เปลี่ยนภูมิทัศน์ นำไปสู่การอภิปรายเรื่องความร่วมมือและผลต่อภารกิจในอนาคต”
+เฉลย: B. การมีส่วนร่วมของบริษัทเอกชนจุดประกายการอภิปรายเรื่องอนาคตของการสำรวจอวกาศ
+7. Directions: An introductory sentence for a brief summary of paragraph 5 is
+provided below. Complete the summary by selecting the TWO answer choices
+that express the most important ideas in the paragraph.
+1. Space exploration has led to significant scientific advancements in
+various fields.
+1. Research in microgravity has provided insights into human
+health.
+2. Space exploration is primarily focused on finding alien life.
+3. The Hubble Space Telescope has revealed the existence of
+exoplanets.
+4. Space exploration has little impact on future generations.
+Answer: A, C
+
+7. คำถามสรุป (เลือก 2) ประโยคนำ: “การสำรวจอวกาศนำไปสู่ความก้าวหน้าทางวิทยาศาสตร์ที่สำคัญในหลาย
+สาขา”
+เฉลย: A. งานวิจัยในสภาวะไร้น้ำหนักให้ข้อมูลเชิงลึกเรื่องสุขภาพมนุษย์ • C. กล้องฮับเบิลเผยการมีอยู่ของดาว
+เคราะห์นอกระบบสุริยะ (A, C)
+
+
+8.What is the main purpose of paragraph 6?
+1. To discuss the technological advancements in space exploration
+2. To highlight the ethical considerations of exploring other planets
+3. To outline the history of space exploration
+4. To describe the benefits of private companies in space missions
+Answer: B.
+
+8. จุดประสงค์หลักของย่อหน้า 6 คืออะไร
+เฉลย: B. เน้นข้อพิจารณาด้านจริยธรรมของการสำรวจดาวเคราะห์ดวงอื่น
+9. In paragraph 6, there is a missing sentence. The paragraph shows four
+letters (A), (B), (C), (D)that indicate where the following sentence could be
+added.
+"These considerations are crucial as we venture into uncharted territories."
+Where would the sentence best fit?
+1. Option A
+2. Option B
+3. Option C
+4. Option D
+Answer: D.
+
+9. แทรกประโยค “ข้อพิจารณาเหล่านี้จำเป็นอย่างยิ่งเมื่อเราเข้าสู่ดินแดนที่ยังไม่เคยสำรวจ” ที่ตำแหน่ง (A)–(D)
+ใด
+เฉลย: D. ตัวเลือก D`},{n:100,type:"Listening",title:"11_Listening_ A Creepy New Series",date:"2026-04-30",status:"ok",dup:null,body:`บทสนทนา (Dialogue)
 Jake: Hey, Emma! Have you seen that new thriller series Dark Secrets on Streamflix? It’s been trending
 all week.
 
@@ -16611,6 +17995,8 @@ people without them knowing? It’s so disturbing.
 Jake: Well, that’s what makes it thrilling! You never know what he’s going to do next.
 
 เจค: นั่นแหละที่ทำให้ตื่นเต้น! ไม่รู้เลยว่าเขาจะทำอะไรต่อไป
+
+
 Emma: Ugh, exactly! I kept checking my window last night because I felt like someone was watching
 me.
 
@@ -16634,8 +18020,6 @@ d) A horror book they are reading together
 
 1. บทสนทนานี้ส่วนใหญ่เกี่ยวกับอะไร
 [ต้นฉบับไม่มีเฉลย — ตรวจจากบทสนทนา: b ซีรีส์ระทึกขวัญใหม่บน Streamflix]
-
-
 2.How does Emma feel about the series?
 a) Excited and entertained
 b) Bored and uninterested
@@ -16660,6 +18044,8 @@ d) The loud background music
 
 4. ส่วนใดของซีรีส์ที่ทำให้เอมมาอึดอัด
 [ตรวจจากบทสนทนา: b การที่ตัวเอกแอบดูผู้คน]
+
+
 5.What did Emma do after watching the show?
 a) She immediately went to sleep
 b) She started another episode
@@ -16684,8 +18070,6 @@ d) She will write a review about the show
 
 7. เอมมาตัดสินใจอย่างไรตอนท้ายบทสนทนา
 [ตรวจจากบทสนทนา: b ชอบดูอะไรที่น่ากลัวน้อยกว่า]
-
-
 8.What does Jake say about the quality of the series?
 a) It is poorly made
 b) It is too scary to be enjoyable
@@ -16728,8 +18112,6 @@ a better shot at Med school.
 
 ลอเรน คลี: หนูเรียนไปหลายวิชาแล้วค่ะ หนูคิดว่าถ้าเปลี่ยนเอก จะช่วยดันเกรดเฉลี่ยให้ดีขึ้นและมีโอกาสเข้า
 แพทย์มากขึ้น
-
-
 Professor : Oh, You believe the non-science courses are easier? Perhaps you're right. What is your GPA?
 
 อาจารย์: อ๋อ เธอเชื่อว่าวิชานอกวิทยาศาสตร์ง่ายกว่า บางทีเธออาจพูดถูก เกรดเฉลี่ยเท่าไหร่
@@ -16753,6 +18135,8 @@ exactly how many and which courses I would need. If I switched my major to say h
 บางคนเรียนหลังจบแล้วด้วยซ้ำ และหนูตรวจสอบแล้วว่าถ้าเปลี่ยนเอกจะต้องเรียนกี่วิชา เพราะวิทยาลัยเริ่มใช้
 โปรแกรมให้คำปรึกษาใหม่ หนูใช้ลิงก์ “what if” บนเว็บไซต์วิทยาลัยดูได้ชัดว่าต้องเรียนกี่วิชาและวิชาอะไรหาก
 เปลี่ยนไปเอกประวัติศาสตร์หรือธุรกิจ
+
+
 Professor : And how many required courses. Would you have left for each of those?
 
 อาจารย์: แล้วแต่ละเอกเหลือวิชาบังคับกี่วิชา
@@ -16775,9 +18159,7 @@ D. To consult about switching majors.
 Answer : D. To consult about switching majors.
 
 1. เหตุใดนักศึกษาจึงไปพบอาจารย์
-เฉลย: D. เพื่อปรึกษาเรื่องเปลี่ยนสาขาวิชาเอก
-
-`},{kind:"raw",ok:!1,q:"2. What is stated about science prerequisite?",opts:[["A","The student thinks they are more difficult than other subjects."],["B","She has seven or eight left to take."],["C","If she takes them, they will bring up her GPA."],["D","She has already taken many of them."]],ans:null,th:`2. กล่าวอะไรเกี่ยวกับวิชาพื้นฐานวิทยาศาสตร์
+เฉลย: D. เพื่อปรึกษาเรื่องเปลี่ยนสาขาวิชาเอก`},{kind:"raw",ok:!1,q:"2. What is stated about science prerequisite?",opts:[["A","The student thinks they are more difficult than other subjects."],["B","She has seven or eight left to take."],["C","If she takes them, they will bring up her GPA."],["D","She has already taken many of them."]],ans:null,th:`2. กล่าวอะไรเกี่ยวกับวิชาพื้นฐานวิทยาศาสตร์
 เฉลย (ต้นฉบับมี 2 ข้อ): A. นักศึกษาคิดว่ายากกว่าวิชาอื่น • D. เธอเรียนไปหลายวิชาแล้ว [หมายเหตุ: โจทย์ข้อ
 นี้ถามหาคำตอบเดียว แต่ต้นฉบับเฉลยสองข้อ]`,ans_text:null,raw:`2. What is stated about science prerequisite?
 A. The student thinks they are more difficult than other subjects.
@@ -16799,7 +18181,9 @@ D. That she wouldn’t be able to complete all the coursework.
 Answer : B. That medical school prefer science major applicants.
 
 3. อาจารย์สันนิษฐานผิดเรื่องอะไร
-เฉลย: B. ว่าโรงเรียนแพทย์ชอบผู้สมัครที่เป็นเอกวิทยาศาสตร์`},{kind:"mcq",ok:!0,q:"4. What does Lauren say about medical school admission requirements?",opts:[["A","They prefer students with a science major"],["B","They only accept students with a GPA higher than 3.5"],["C","They mainly look at GPA, entrance exams, and prerequisite courses"],["D","They require applicants to take extra business courses"]],ans:"C",th:`4. ลอเรนพูดอะไรเกี่ยวกับข้อกำหนดการรับเข้าโรงเรียนแพทย์
+เฉลย: B. ว่าโรงเรียนแพทย์ชอบผู้สมัครที่เป็นเอกวิทยาศาสตร์
+
+`},{kind:"mcq",ok:!0,q:"4. What does Lauren say about medical school admission requirements?",opts:[["A","They prefer students with a science major"],["B","They only accept students with a GPA higher than 3.5"],["C","They mainly look at GPA, entrance exams, and prerequisite courses"],["D","They require applicants to take extra business courses"]],ans:"C",th:`4. ลอเรนพูดอะไรเกี่ยวกับข้อกำหนดการรับเข้าโรงเรียนแพทย์
 เฉลย: C) ส่วนใหญ่ดูเกรดเฉลี่ย ผลสอบเข้า และวิชาพื้นฐานที่ต้องเรียน`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:"5. What does the student say about the “What if?” link?",opts:[["A","She is not sure the professor knows about it."],["B","It told her many courses she needs if she switches major."],["C","She can use it in place of conferring with an advisor."],["D","It is a new program for business and history majors"]],ans:null,th:`5. นักศึกษาพูดอะไรเกี่ยวกับลิงก์ “What if?”
 เฉลย: B. บอกว่าต้องเรียนกี่วิชาหากเปลี่ยนเอก`,ans_text:null,raw:`5. What does the student say about the “What if?” link?
 A. She is not sure the professor knows about it.
@@ -16826,8 +18210,6 @@ Answer : D. To consult about switching majors.
 
 1. เหตุใดนักศึกษาจึงไปพบอาจารย์
 เฉลย: D. เพื่อปรึกษาเรื่องเปลี่ยนสาขาวิชาเอก
-
-
 2. What is stated about science prerequisite?
 A. The student thinks they are more difficult than other subjects.
 B. She has seven or eight left to take.
@@ -16849,6 +18231,8 @@ Answer : B. That medical school prefer science major applicants.
 
 3. อาจารย์สันนิษฐานผิดเรื่องอะไร
 เฉลย: B. ว่าโรงเรียนแพทย์ชอบผู้สมัครที่เป็นเอกวิทยาศาสตร์
+
+
 4. What does Lauren say about medical school admission requirements?
 A) They prefer students with a science major
 B) They only accept students with a GPA higher than 3.5
@@ -16876,8 +18260,6 @@ Answer: C) By using an online advising program on the college website
 
 6. ลอเรนตรวจสอบจำนวนวิชาที่ต้องเรียนสำหรับเอกใหม่อย่างไร
 เฉลย: C) ใช้โปรแกรมให้คำปรึกษาออนไลน์บนเว็บไซต์วิทยาลัย
-
-
 7. What does Professor Brown advise Lauren to do if she decides to switch majors?
 A) Take additional business courses to improve her resume
 B) Ensure she completes all required pre-med courses on time
@@ -16896,6 +18278,8 @@ Answer: B) She believes these majors might be easier and help raise her GPA
 
 8. เหตุใดลอเรนจึงพิจารณาเปลี่ยนไปเอกประวัติศาสตร์หรือธุรกิจ
 เฉลย: B) เธอเชื่อว่าสองเอกนี้น่าจะง่ายกว่าและช่วยดันเกรดเฉลี่ย
+
+
 9. How many required courses would Lauren need to take if she switched to a history
 major?
 A) Five
@@ -16925,8 +18309,6 @@ majors
 
 11. ลอเรนชื่นชมอะไรเกี่ยวกับโปรแกรมให้คำปรึกษาใหม่ของวิทยาลัย
 เฉลย: B) ให้นักศึกษาเห็นชัดว่าต้องเรียนวิชาอะไรสำหรับเอกต่างๆ
-
-
 12. What is Lauren’s current academic standing?
 A) A first-semester sophomore
 B) A second-semester junior
@@ -16939,6 +18321,8 @@ Answer: C) A first-semester junior
 Professor: Hi, how can I help you today?
 
 อาจารย์: สวัสดี วันนี้มีอะไรให้ช่วย
+
+
 Student: Hi, Professor. I’m currently majoring in science, but, honestly, my workload is getting a bit
 overwhelming. I was thinking of taking a history course next semester to balance things out.
 
@@ -16971,8 +18355,6 @@ theories on light and optics.
 อาจารย์: แน่นอน จริงๆ หัวข้อบางเรื่องในประวัติศาสตร์อาจทับซ้อนกับความสนใจทางวิทยาศาสตร์ของเธอ เช่น
 ถ้าเธอเรียนวิทยาศาสตร์เรื่องแสง เธอจะสนุกกับการเรียนรู้พัฒนาการทางประวัติศาสตร์ของทฤษฎีเกี่ยวกับแสง
 และทัศนศาสตร์
-
-
 Student: Oh, I hadn’t thought of that. That sounds really interesting.
 
 นักศึกษา: อ๋อ หนูไม่เคยคิดเรื่องนั้นเลย ฟังดูน่าสนใจมากค่ะ
@@ -16991,6 +18373,8 @@ or classmates if you’re struggling.
 
 อาจารย์: เป็นความกังวลที่สมเหตุสมผล เธอต้องบริหารเวลาให้ดี จัดลำดับความสำคัญของงาน แบ่งงานเป็นส่วน
 ที่จัดการได้ และอย่าลังเลที่จะขอความช่วยเหลือจากอาจารย์หรือเพื่อนร่วมชั้นถ้าลำบาก
+
+
 Student: Thanks for the advice. I think I’ll go ahead and enroll in the history course.
 
 นักศึกษา: ขอบคุณสำหรับคำแนะนำค่ะ หนูคิดว่าจะไปลงทะเบียนเรียนวิชาประวัติศาสตร์
@@ -17030,8 +18414,6 @@ Answer: By prioritizing tasks, managing time well, and asking for help when need
 
 5. อาจารย์แนะนำให้จัดการงานที่ล้นมืออย่างไร
 เฉลย: จัดลำดับความสำคัญของงาน บริหารเวลาให้ดี และขอความช่วยเหลือเมื่อจำเป็น
-
-
 6. What skill does the professor say is important for both history and science?
 Answer: Research and the ability to critically analyze information.
 
@@ -17048,6 +18430,8 @@ Answer: It shows how history and science can intersect in meaningful ways.
 
 8. เหตุใดความสนใจของนักศึกษาในประวัติศาสตร์ของแสงจึงสำคัญ
 เฉลย: แสดงว่าประวัติศาสตร์และวิทยาศาสตร์เชื่อมโยงกันได้อย่างมีความหมาย
+
+
 9. What final recommendation does the professor give to the student?
 Answer: To enroll in the history course because it will provide valuable skills and a new
 perspective.
@@ -17069,6 +18453,8 @@ streaming services like Apple Music, Amazon Music, and Tidal.
 บริการสตรีมเพลงเปิดตัวในกลางทศวรรษ 2000 และ (ตามต้นฉบับ “weighted 2008” ซึ่งน่าจะหมายถึงปี 2008)
 บริการสตรีมเพลงยอดนิยมแห่งแรกชื่อ Spottily (น่าจะหมายถึง Spotify) เปิดตัวในปีนั้น บริษัทอื่นอีกมากก็เปิด
 บริการสตรีมของตนเอง เช่น Apple Music, Amazon Music และ Tidal
+
+
 One of the biggest advantages of music streaming is convenience. Users don't need to download files
 on their devices. They can access a huge range from their phones, computers, or tablets. This service
 brings many advantages to people, musicians, and even what options to help people discover new
@@ -17163,6 +18549,8 @@ Answer: B.
 
 1. คำว่า “debut” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
 เฉลย: b) Beginning (จุดเริ่มต้น)
+
+
 2. According to paragraph 1, what is the main reason
 music streaming is popular today?
 a) It provides better sound quality than CDs.
@@ -17193,8 +18581,6 @@ Answer: A.
 
 4. คำว่า “convenience” ในย่อหน้า 3 ใกล้เคียงที่สุดกับ
 เฉลย: a) Comfort (ความสะดวกสบาย)
-
-
 5. What can be inferred about the music industry from
 paragraph 4?
 a) The cost of streaming services has remained the same.
@@ -17215,6 +18601,8 @@ Answer: B.
 
 6. ตามย่อหน้า 5 เหตุใดศิลปินบางคนจึงโต้ว่าการสตรีมไม่เป็นธรรม
 เฉลย: b) จ่ายเงินนักดนตรีน้อยมากต่อการสตรีมแต่ละครั้ง
+
+
 7. The phrase “here to stay” in paragraph 6 means:
 a) Music streaming will soon disappear.
 b) Music streaming will continue in the future.
@@ -17234,8 +18622,6 @@ Answer: C.
 
 8. ผู้เขียนเสนอว่าการสตรีมเพลงจะเป็นอย่างไรในอนาคต
 เฉลย: c) จะพัฒนาต่อไปด้วยเทคโนโลยีใหม่
-
-
 9. Which of the following best expresses the essential
 information in the highlighted sentence in paragraph 4?
 “These services have changed drastically since their beginning.”
@@ -17248,6 +18634,8 @@ Answer: B.
 9. ข้อใดสื่อสาระสำคัญของประโยคที่ไฮไลต์ในย่อหน้า 4 ได้ดีที่สุด “These services have changed drastically
 since their beginning.”
 เฉลย: b) บริการสตรีมผ่านการเปลี่ยนแปลงอย่างมีนัยสำคัญ
+
+
 10. Directions: An introductory sentence for a brief
 summary of the passage is provided below. Complete
 the summary by selecting the THREE answer choices
@@ -17283,6 +18671,8 @@ professions.
 เกิดการเปลี่ยนแปลงครั้งใหญ่ในตลาดแรงงาน แม้ AI เปลี่ยนแปลงหลายอาชีพด้วยการทำกระบวนการอัตโนมัติ
 และเสริมความสามารถมนุษย์ แต่ก็ก่อให้เกิดข้อกังวลเรื่องการแทนที่งานและผลกระทบด้านจริยธรรม บทความนี้
 เจาะลึกผลบวกและผลลบของ AI ต่ออาชีพต่างๆ
+
+
 One significant advantage of AI lies in its ability to automate repetitive, time-consuming tasks. For
 instance, in the healthcare sector, AI algorithms can analyze vast amounts of medical data and provide
 accurate diagnoses, thus streamlining the diagnostic process and freeing up doctors’ time for more
@@ -17314,8 +18704,6 @@ security for analysts, traders, and other financial professionals.
 โดยเฉพาะในภาคส่วนที่ระบบอัตโนมัติแทนแรงงานมนุษย์ได้ ในอุตสาหกรรมขนส่ง การมาถึงของยานยนต์ไร้คน
 ขับอาจทำให้คนขับอาชีพนับล้านล้าสมัย นอกจากนี้ การพึ่งพาอัลกอริทึม AI ที่เพิ่มขึ้นในภาคการเงินก่อให้เกิด
 คำถามเรื่องความมั่นคงในงานของนักวิเคราะห์ เทรดเดอร์ และมืออาชีพด้านการเงินอื่นๆ
-
-
 Another negative aspect of AI is the ethical implications of relying on algorithms for decision-making.
 For example, the use of AI in recruitment processes might perpetuate biases present in the data,
 leading to unfair treatment of certain groups. Moreover, the growing prevalence of AI in surveillance
@@ -17372,8 +18760,6 @@ Answer A.
 
 3. ข้อกังวลใดเกิดจากการพึ่งพาอัลกอริทึม AI ที่เพิ่มขึ้นในภาคการเงิน
 เฉลย: A. การแทนที่งานของมืออาชีพด้านการเงิน
-
-
 4. What is one of the potential drawbacks of using AI in
 recruitment processes?
 A. Improved candidate selection
@@ -17384,6 +18770,8 @@ Answer C.
 
 4. ข้อเสียอย่างหนึ่งของการใช้ AI ในกระบวนการสรรหาบุคลากรคืออะไร
 เฉลย: C. การปฏิบัติที่ไม่เป็นธรรมต่อบางกลุ่มจากอคติในข้อมูล
+
+
 5. In the context of AI’s impact on different professions,
 which concern is associated with the increasing prevalence
 of AI in surveillance and security systems?
@@ -17416,8 +18804,6 @@ Woman: Right. The story itself is great too — there are so many unexpected twi
 Man: Yeah, I thought the characters were really strong. You can actually believe their emotions.
 
 ผู้ชาย: ใช่ ผมว่าตัวละครแข็งแรงมาก เชื่อได้จริงๆ ว่าความรู้สึกของพวกเขาจริง
-
-
 Woman: That’s true. They’re realistic, not overacted like in some horror shows.
 
 ผู้หญิง: จริง พวกเขาสมจริง ไม่เล่นเวอร์เหมือนรายการสยองขวัญบางเรื่อง
@@ -17436,6 +18822,8 @@ Woman: Me too. It’s creepy but fascinating — kind of genius writing, honestl
 Man: I agree. Do you know if there’s going to be another season?
 
 ผู้ชาย: เห็นด้วย รู้ไหมว่าจะมีซีซันใหม่ไหม
+
+
 Woman: I hope so! The ending was such a cliffhanger — they can’t just stop there.
 
 ผู้หญิง: หวังว่าจะมี! ตอนจบค้างคามาก พวกเขาหยุดแค่นั้นไม่ได้หรอก
@@ -17477,8 +18865,6 @@ D. Confusing and unrealistic
 
 2. ผู้หญิงบรรยายซีรีส์อย่างไร
 เฉลย: B. น่าขนลุกแต่น่าสนใจ
-
-
 3. What genre best describes Mystery Manor?
 A. Romance
 B. Comedy
@@ -17500,6 +18886,8 @@ D. The costumes
 
 4. ผู้หญิงชอบอะไรเป็นพิเศษเกี่ยวกับซีรีส์
 เฉลย: C. เพลงและบรรยากาศ
+
+
 5. What does the man like about the series?
 A. The lighting and camera angles
 B. The soundtrack
@@ -17531,8 +18919,6 @@ D. Average
 
 7. ผู้หญิงใช้คำใดบรรยายบทเขียน
 เฉลย: B. Genius (อัจฉริยะ)
-
-
 8. What can be inferred about the ending of the series?
 A. It’s very clear and satisfying
 B. It leaves a cliffhanger for the next season
@@ -17553,6 +18939,8 @@ D. They are not important to the story
 
 9. บทสนทนาบอกเป็นนัยอะไรเกี่ยวกับตัวละคร
 เฉลย: B. แข็งแรงและน่าเชื่อถือ
+
+
 10. What best describes the overall tone of the
 conversation?
 A. Negative and disappointed
@@ -17579,8 +18967,6 @@ Messenger) was widely circulated and brought him fame.
 ความคิดทางดาราศาสตร์ด้วยการใช้ประโยชน์จากความแปลกใหม่และความตื่นตะลึงของการสังเกตด้วยกล้อง
 รายงานการสังเกตของกาลิเลโอในหนังสือ Sidereus Nuncius (สารจากดวงดาว) แพร่หลายและทำให้เขามีชื่อ
 เสียง
-
-
 By Galileo’s time, glass lenses had been in use for about 300 years. Their origins are not clear, but with
 them, eyeglass makers could correct defects of vision. In 1609 Galileo heard that a Dutchman had
 constructed a spyglass that made distant objects appear to be nearby. Although Galileo had little
@@ -17598,6 +18984,8 @@ perceive reality.
 ดาราศาสตร์ทันที ภายในไม่กี่สัปดาห์ในปี 1609 และ 1610 เขาค้นพบทางดาราศาสตร์หลายอย่างซึ่งเป็นจุดเริ่ม
 ต้นยุคใหม่ของดาราศาสตร์ แม้กาลิเลโอไม่ใช่คนแรกที่สร้างกล้องโทรทรรศน์ แต่เขาเป็นคนแรกที่รับรู้ว่ากล้อง
 เพิ่มพลังในการรับรู้ความจริงของเรา
+
+
 When Galileo turned his telescope to the Moon, he saw that the Moon’s surface does not conform to
 Aristotle’s ideal for a perfect heavenly body. Rather than being smooth and spherical, it is rough, with
 chains of mountains and valleys and many craters. Galileo then determined the height of a lunar
@@ -17613,8 +19001,6 @@ change.
 20,000 ฟุต) จากนั้นกาลิเลโอมองดาว เครื่องมือของเขาแยกแถบจางๆ ของทางช้างเผือกเป็นดาวนับไม่ถ้วน
 มากกว่าที่แยกแยะได้ด้วยตาเปล่า การสังเกตนี้หักล้างความคิดแบบอริสโตเติลที่ว่าท้องฟ้ามีจำนวนดาวคงที่ที่
 เปลี่ยนไม่ได้
-
-
 Then Galileo hit on what he considered to be his most important discovery —four new “planets.”
 Actually they were not new planets but rather were the four brightest moons of Jupiter. (At least
 seventeen moons are now known.) To his amazement, Galileo found that these four bodies revolved
@@ -17639,6 +19025,8 @@ observed it with a telescope.
 ก่อนคริสตกาล สังเกตดาวพฤหัสบดีหลายครั้ง ในหนังสือเล่มหนึ่ง คังเต๋อกล่าวว่าดาวพฤหัสบดีดู “มีดาวสีแดงอ่อน
 ดวงเล็กติดอยู่” นี่อาจบันทึกดวงจันทร์ที่สว่างที่สุดของดาวพฤหัสบดี ซึ่งภายใต้สภาพที่เหมาะอาจมองเห็นด้วยตา
 เปล่า หากเป็นเช่นนั้น คังเต๋อบันทึกดวงจันทร์นี้ราว 2,000 ปีก่อนที่กาลิเลโอสังเกตด้วยกล้อง
+
+
 Galileo’s Sidereus Nuncius was published on March 12, 1610, in Latin. Because it attracted immediate
 attention from scholars in many countries, it was quickly reprinted and read by intellectuals all over
 Europe. These telescopic discoveries, especially the news of Jupiter’s moons, not only brought fame to
@@ -17770,6 +19158,8 @@ somebody else.
 
 2. ตามย่อหน้า 2 ข้อใดจริงเกี่ยวกับอุปกรณ์ออปติกของกาลิเลโอ
 เฉลย: D. สร้างตามแบบอุปกรณ์ที่คนอื่นสร้างไว้
+
+
 3. The phrase “conform to” in paragraph 3 is closest in
 meaning to
 A. match
@@ -17791,8 +19181,6 @@ Answer: C. Lunar mountains are short in height.
 
 4. ข้อใดไม่ได้กล่าวถึงในย่อหน้า 3 ว่าเป็นความคิดแบบอริสโตเติลที่ถูกหักล้างด้วยการสังเกตของกาลิเลโอ
 เฉลย: C. ภูเขาบนดวงจันทร์มีความสูงต่ำ
-
-
 5. According to paragraph 4, what did Galileo discover by
 calculating the orbital periods of Jupiter’s satellites?
 A. That Jupiter’s satellites were not all moons
@@ -17817,6 +19205,8 @@ Answer: C. record the existence of one of Jupiter’s moons
 
 6. ตามย่อหน้า 4 นักดาราศาสตร์จีน คังเต๋อ อาจเป็นหนึ่งในคนแรกที่
 เฉลย: C. บันทึกการมีอยู่ของดวงจันทร์ดวงหนึ่งของดาวพฤหัสบดี
+
+
 7. Why does the author mention that, in Galileo’s time,
 "The art of lens-making was just beginning, and many lenses
 produced ghost images"?
@@ -18046,8 +19436,6 @@ Female: Sounds great. And after that?
 Male: Let’s drive up to the ocean view point. It’s a nice place to relax and have a picnic.
 
 ผู้ชาย: ขับขึ้นไปจุดชมวิวทะเลกัน เป็นที่ที่ดีสำหรับพักผ่อนและปิกนิก
-
-
 Female: Perfect. I’ll prepare the snacks and drinks. What are you packing?
 
 ผู้หญิง: เยี่ยมเลย ฉันจะเตรียมของว่างและเครื่องดื่ม คุณจะเอาอะไรไปบ้าง
@@ -18066,6 +19454,8 @@ Female: I made a mix of classic, rock, and pop, plus a few short podcasts to kee
 Male: Nice. When should we leave on Saturday?
 
 ผู้ชาย: ดีมาก เราจะออกกี่โมงวันเสาร์
+
+
 Female: Let’s leave at 7 a.m. You’re driving, right?
 
 ผู้หญิง: ออก 7 โมงเช้านะคะ คุณขับใช่ไหม
@@ -18101,8 +19491,6 @@ Answer B.
 
 2. พวกเขาจะทำอะไรที่จุดชมวิวทะเล
 เฉลย: B. ปิกนิก
-
-
 3. What does the man prepare to bring?
 A. Blanket and sunscreen
 B. Towels and camera
@@ -18121,6 +19509,8 @@ Answer B.
 
 4. ผู้หญิงเอาอะไรไป
 เฉลย: B. ผ้าห่มเพิ่ม ครีมกันแดด สเปรย์กันแมลง
+
+
 5. What type of entertainment do they choose?
 A. Only pop songs
 B. Rock playlist
@@ -18148,8 +19538,6 @@ Answer C.
 
 7. ใครขับก่อน
 เฉลย: C. ผู้ชาย
-
-
 8. What time will they leave on Saturday?
 A. 5 a.m.
 B. 6 a.m.
@@ -18400,8 +19788,6 @@ ending, but they really caught me off guard.
 
 มาร์ก: เห็นด้วย และพลิกเรื่องตอนจบล่ะ ผมประหลาดใจมาก ผมคิดว่าจะเป็นตอนจบที่คาดเดาได้ แต่พวกเขา
 ทำให้ผมตกใจจริงๆ
-
-
 Sarah: It definitely went beyond my expectations. Do you think there will be a sequel or a second
 season?
 
@@ -18429,6 +19815,8 @@ Answer: B
 1. ผู้พูดกำลังคุยเรื่องอะไรเป็นหลัก
 เฉลย: B. หนังที่ทั้งสองดู [หมายเหตุ: บทสนทนาพูดถึงซีรีส์ทีวี ไม่ใช่ภาพยนตร์ แต่ตัวเลือกในต้นฉบับใกล้เคียง
 ที่สุด]
+
+
 2. What was the man particularly surprised by?
 A. The length of the episodes.
 B. The acting of the supporting cast.
@@ -18447,8 +19835,6 @@ Answer: B
 
 3. ผู้หญิงชอบอะไรมากที่สุดในซีรีส์
 เฉลย: B. ตัวเอกที่แข็งแกร่งและมุ่งมั่น
-
-
 4. What is the speakers' opinion regarding a sequel?
 A. They think it is unlikely to happen.
 B. They feel the story is complete and doesn't need one.
@@ -19127,7 +20513,287 @@ D. A financial reward system
 Answer: B. An unending and harmful sequence of events
 
 12. วลี “vicious cycle” ในย่อหน้า 4 น่าจะหมายถึง
-เฉลย: B. ลำดับเหตุการณ์ที่เป็นอันตรายและไม่สิ้นสุด`},{n:115,type:"Reading",title:"8_Reading_Endangered Languages",date:"2026-04-30",status:"pending",dup:null},{n:116,type:"Reading",title:"6_Reading_The Remarkable Migration of Monarch Butterflies",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+เฉลย: B. ลำดับเหตุการณ์ที่เป็นอันตรายและไม่สิ้นสุด`},{n:115,type:"Reading",title:"8_Reading_Endangered Languages",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+Around the world, people communicate in more than 7,000 languages. However, linguists estimate that
+nearly 40 percent of these languages are endangered and may disappear within the next few
+generations. Many of these languages are spoken by small communities, often with no written form. As
+globalization accelerates, major languages dominate education, media, and technology, making it
+increasingly difficult for minority languages to survive. This situation has motivated researchers and
+communities to pay closer attention to language preservation.
+
+ย่อหน้า 1 ทั่วโลกผู้คนสื่อสารกันด้วยภาษามากกว่า 7,000 ภาษา อย่างไรก็ตาม นักภาษาศาสตร์ประมาณว่าเกือบ
+40 เปอร์เซ็นต์ของภาษาเหล่านี้ใกล้สูญหายและอาจหายไปภายในไม่กี่รุ่นข้างหน้า หลายภาษาใช้พูดโดยชุมชน
+เล็กๆ มักไม่มีรูปแบบการเขียน เมื่อโลกาภิวัตน์เร่งตัว ภาษาหลักครองการศึกษา สื่อ และเทคโนโลยี ทำให้ภาษา
+ของชนกลุ่มน้อยอยู่รอดได้ยากขึ้น สถานการณ์นี้กระตุ้นให้นักวิจัยและชุมชนใส่ใจการอนุรักษ์ภาษามากขึ้น
+One major reason languages disappear is economic pressure. In many regions, speaking a global or
+national language provides better job opportunities and access to higher education. As a result, parents
+often encourage their children to learn widely spoken languages rather than their native tongue. In
+some cases, children grow up using multiple languages but gradually stop using the endangered one at
+home. This shift may happen unintentionally, but over time it weakens intergenerational language
+transmission.
+
+ย่อหน้า 2 เหตุผลสำคัญข้อหนึ่งที่ภาษาหายไปคือแรงกดดันทางเศรษฐกิจ ในหลายภูมิภาค การพูดภาษาสากล
+หรือภาษาประจำชาติให้โอกาสงานที่ดีกว่าและการเข้าถึงการศึกษาระดับสูง ผลคือพ่อแม่มักสนับสนุนให้ลูกเรียน
+ภาษาที่ใช้กันแพร่หลายแทนภาษาแม่ ในบางกรณี เด็กเติบโตโดยใช้หลายภาษาแต่ค่อยๆ เลิกใช้ภาษาที่ใกล้
+สูญหายที่บ้าน การเปลี่ยนนี้อาจเกิดโดยไม่ตั้งใจ แต่เมื่อเวลาผ่านไปจะทำให้การถ่ายทอดภาษาข้ามรุ่นอ่อนแอลง
+The loss of a language is closely connected to the loss of knowledge about the environment, traditional
+medicine, and cultural practices. Many endangered languages contain precise vocabulary for local
+plants, animals, and ecological systems. This vocabulary reflects generations of observation and
+interaction with nature. When a language disappears, such practical and cultural knowledge is often
+permanently lost, leading to a decline in cultural diversity and human understanding of the natural
+world.
+
+ย่อหน้า 3 การสูญเสียภาษาเกี่ยวข้องอย่างใกล้ชิดกับการสูญเสียความรู้เกี่ยวกับสิ่งแวดล้อม ยาแผนโบราณ และ
+แนวปฏิบัติทางวัฒนธรรม ภาษาที่ใกล้สูญหายหลายภาษามีคำศัพท์ที่แม่นยำสำหรับพืช สัตว์ และระบบนิเวศใน
+ท้องถิ่น คำศัพท์นี้สะท้อนการสังเกตและปฏิสัมพันธ์กับธรรมชาติตลอดหลายรุ่น เมื่อภาษาหายไป ความรู้เชิง
+ปฏิบัติและวัฒนธรรมดังกล่าวมักสูญหายถาวร นำไปสู่ความหลากหลายทางวัฒนธรรมและความเข้าใจของ
+มนุษย์ต่อโลกธรรมชาติที่ลดลง
+To prevent languages from disappearing, governments and institutions have begun to take action.
+Some governments support bilingual education programs that allow children to learn endangered
+languages in schools alongside national languages. Community-based projects, teacher training, and
+the development of learning materials also play an important role. Through formal education and policy
+support, endangered languages can be revitalized and passed on to future generations.
+
+ย่อหน้า 4 เพื่อป้องกันภาษาไม่ให้หายไป รัฐบาลและสถาบันเริ่มลงมือทำ บางรัฐบาลสนับสนุนโครงการการศึกษา
+สองภาษา ให้เด็กเรียนภาษาที่ใกล้สูญหายในโรงเรียนควบคู่กับภาษาประจำชาติ โครงการที่ชุมชนเป็นฐาน การ
+ฝึกอบรมครู และการพัฒนาสื่อการเรียนก็มีบทบาทสำคัญ ผ่านการศึกษาที่เป็นทางการและการสนับสนุนด้าน
+นโยบาย ภาษาที่ใกล้สูญหายสามารถฟื้ นฟูและส่งต่อให้คนรุ่นหลังได้`,qs:[{kind:"mcq",ok:!0,q:`Question 1
+According to paragraph 1, approximately what percentage of
+the world’s languages are endangered?`,opts:[["A","20 percent"],["B","30 percent"],["C","40 percent"],["D","70 percent"]],ans:"C",th:`คำถามที่ 1 ตามย่อหน้า 1 ภาษาของโลกประมาณกี่เปอร์เซ็นต์ใกล้สูญหาย
+เฉลย: C. 40 เปอร์เซ็นต์`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 2
+According to paragraph 2, how do many parents influence their
+children’s language use?`,opts:[["A","They prevent children from learning more than one language"],["B","They require children to use only their native language"],["C","They encourage children to learn widely spoken languages"],["D","They avoid teaching languages at home"]],ans:"C",th:`คำถามที่ 2 ตามย่อหน้า 2 พ่อแม่หลายคนมีอิทธิพลต่อการใช้ภาษาของลูกอย่างไร
+เฉลย: C. สนับสนุนให้เด็กเรียนภาษาที่ใช้กันแพร่หลาย`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 3 (NOT Mentioned)
+Which of the following is NOT mentioned in the first two
+sentences of paragraph 2?`,opts:[["A","Economic pressure"],["B","Job opportunities"],["C","Higher education"],["D","Government language laws"]],ans:"D",th:`คำถามที่ 3 (ไม่ได้กล่าวถึง) ข้อใดไม่ได้กล่าวถึงในสองประโยคแรกของย่อหน้า 2
+เฉลย: D. กฎหมายภาษาของรัฐบาล`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 4 (Inference)
+It can be inferred from paragraph 2 that languages often
+disappear because:`,opts:[["A","Children refuse to learn them"],["B","Schools ban minority languages"],["C","They are used less across generations"],["D","They are too complex to maintain"]],ans:"C",th:`คำถามที่ 4 (การอนุมาน) อนุมานได้จากย่อหน้า 2 ว่าภาษามักสูญหายเพราะ
+เฉลย: C. ถูกใช้น้อยลงตามรุ่น`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 5 (Sentence Insertion)
+Where would the following sentence best fit in paragraph 3?
+This vocabulary is rarely recorded in written form.`,opts:[["A","Before the first sentence"],["B","After the second sentence"],["C","After the third sentence"],["D","At the end of the paragraph"]],ans:"C",th:`คำถามที่ 5 (แทรกประโยค) ประโยค “คำศัพท์นี้ไม่ค่อยถูกบันทึกเป็นลายลักษณ์อักษร” เหมาะที่ตำแหน่งใดใน
+ย่อหน้า 3
+เฉลย: C. หลังประโยคที่สาม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 6
+According to paragraph 3, what usually happens when a
+language disappears?`,opts:[["A","New cultural traditions are created"],["B","Scientific knowledge increases"],["C","Traditional knowledge is often lost"],["D","Environmental awareness improves"]],ans:"C",th:`คำถามที่ 6 ตามย่อหน้า 3 โดยปกติจะเกิดอะไรขึ้นเมื่อภาษาหายไป
+เฉลย: C. ความรู้แบบดั้งเดิมมักสูญหาย`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 7 (Best Essential Information)
+Which of the following best expresses the essential information
+in the highlighted sentence below?
+When a language disappears, such practical and cultural
+knowledge is often permanently lost.`,opts:[["A","Languages are closely related to modern science"],["B","Cultural knowledge can easily be replaced"],["C","Language loss often leads to irreversible knowledge loss"],["D","Knowledge loss affects only small communities"]],ans:"C",th:`คำถามที่ 7 (ข้อมูลสำคัญที่สุด) ข้อใดสื่อสาระสำคัญของประโยคที่ไฮไลต์ “When a language disappears, such
+practical and cultural knowledge is often permanently lost.”
+เฉลย: C. การสูญเสียภาษามักนำไปสู่การสูญเสียความรู้ที่ย้อนกลับไม่ได้`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 8 (Vocabulary – Paragraph 1)
+The word “motivated” in paragraph 1 is closest in meaning
+to:`,opts:[["A","Celebration"],["B","Empowering"],["C","Documentary"],["D","Encouraged"]],ans:"D",th:`คำถามที่ 8 (คำศัพท์ ย่อหน้า 1) คำว่า “motivated” ใกล้เคียงที่สุดกับ
+เฉลย: D. Encouraged (กระตุ้น/สนับสนุน)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 9 (Vocabulary – Paragraph 3)
+The word “precise” in paragraph 3 is closest in meaning to:`,opts:[["A","Translate"],["B","Accurate"],["C","Decorative"],["D","Temporary"]],ans:"B",th:`คำถามที่ 9 (คำศัพท์ ย่อหน้า 3) คำว่า “precise” ใกล้เคียงที่สุดกับ
+เฉลย: B. Accurate (แม่นยำ)`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`Question 10 (Summary – Choose 3 Answers)
+An effective summary of the passage would include which
+THREE of the following statements?`,opts:[["A","Many languages are at risk of disappearing worldwide"],["B","Economic and social factors contribute to language loss"],["C","Endangered languages contain valuable cultural knowledge"],["D","Technology alone can save all languages"],["E","Governments and schools can help preserve languages"],["F","Learning one language is better than learning many ✅ Correct Answers: A, B, E"]],ans:null,th:`คำถามที่ 10 (สรุป เลือก 3 ข้อ)
+เฉลย: A. หลายภาษากำลังเสี่ยงสูญหายทั่วโลก • B. ปัจจัยทางเศรษฐกิจและสังคมมีส่วนต่อการสูญเสียภาษา • E.
+รัฐบาลและโรงเรียนช่วยอนุรักษ์ภาษาได้ (A, B, E)`,ans_text:null,raw:`Question 10 (Summary – Choose 3 Answers)
+An effective summary of the passage would include which
+THREE of the following statements?
+A. Many languages are at risk of disappearing worldwide
+B. Economic and social factors contribute to language loss
+C. Endangered languages contain valuable cultural knowledge
+D. Technology alone can save all languages
+E. Governments and schools can help preserve languages
+F. Learning one language is better than learning many
+
+✅ Correct Answers: A, B, E
+
+คำถามที่ 10 (สรุป เลือก 3 ข้อ)
+เฉลย: A. หลายภาษากำลังเสี่ยงสูญหายทั่วโลก • B. ปัจจัยทางเศรษฐกิจและสังคมมีส่วนต่อการสูญเสียภาษา • E.
+รัฐบาลและโรงเรียนช่วยอนุรักษ์ภาษาได้ (A, B, E)`},{kind:"raw",ok:!1,q:`Question 11 (Drag & Drop – Categorization)
+Directions: Classify the following into the correct category.
+Causes of Language Loss (Paragraph 2)
+• Economic pressure
+• Better job opportunities
+• Parents encouraging global languages
+Language Preservation Efforts (Paragraph 4)
+• Bilingual education programs
+• Teaching endangered languages in schools
+✅ Correct Classification as above`,opts:[],ans:null,th:`คำถามที่ 11 (ลากและวาง จัดประเภท)
+สาเหตุของการสูญเสียภาษา (ย่อหน้า 2): แรงกดดันทางเศรษฐกิจ • โอกาสงานที่ดีกว่า • พ่อแม่สนับสนุนภาษา
+สากล
+ความพยายามอนุรักษ์ภาษา (ย่อหน้า 4): โครงการการศึกษาสองภาษา • สอนภาษาที่ใกล้สูญหายในโรงเรียน`,ans_text:null,raw:`Question 11 (Drag & Drop – Categorization)
+Directions: Classify the following into the correct category.
+Causes of Language Loss (Paragraph 2)
+• Economic pressure
+• Better job opportunities
+• Parents encouraging global languages
+Language Preservation Efforts (Paragraph 4)
+• Bilingual education programs
+• Teaching endangered languages in schools
+
+✅ Correct Classification as above
+
+คำถามที่ 11 (ลากและวาง จัดประเภท)
+สาเหตุของการสูญเสียภาษา (ย่อหน้า 2): แรงกดดันทางเศรษฐกิจ • โอกาสงานที่ดีกว่า • พ่อแม่สนับสนุนภาษา
+สากล
+ความพยายามอนุรักษ์ภาษา (ย่อหน้า 4): โครงการการศึกษาสองภาษา • สอนภาษาที่ใกล้สูญหายในโรงเรียน`},{kind:"mcq",ok:!0,q:`Question 12 (Main Idea)
+What is the main purpose of the passage?`,opts:[["A","To compare global languages"],["B","To explain how children learn languages"],["C","To discuss why languages are endangered and how they can be preserved"],["D","To promote one specific language"]],ans:"C",th:`คำถามที่ 12 (ใจความสำคัญ) จุดประสงค์หลักของบทอ่านคืออะไร
+เฉลย: C. อภิปรายว่าเหตุใดภาษาจึงใกล้สูญหายและจะอนุรักษ์ได้อย่างไร`,ans_text:null,raw:null}],qa_raw:`Question 1
+According to paragraph 1, approximately what percentage of
+the world’s languages are endangered?
+A. 20 percent
+B. 30 percent
+C. 40 percent
+D. 70 percent
+
+✅ Answer: C
+
+คำถามที่ 1 ตามย่อหน้า 1 ภาษาของโลกประมาณกี่เปอร์เซ็นต์ใกล้สูญหาย
+เฉลย: C. 40 เปอร์เซ็นต์
+Question 2
+According to paragraph 2, how do many parents influence their
+children’s language use?
+A. They prevent children from learning more than one language
+B. They require children to use only their native language
+C. They encourage children to learn widely spoken
+languages
+D. They avoid teaching languages at home
+
+✅ Answer: C
+
+คำถามที่ 2 ตามย่อหน้า 2 พ่อแม่หลายคนมีอิทธิพลต่อการใช้ภาษาของลูกอย่างไร
+เฉลย: C. สนับสนุนให้เด็กเรียนภาษาที่ใช้กันแพร่หลาย
+Question 3 (NOT Mentioned)
+Which of the following is NOT mentioned in the first two
+sentences of paragraph 2?
+A. Economic pressure
+B. Job opportunities
+C. Higher education
+D. Government language laws
+
+✅ Answer: D
+
+คำถามที่ 3 (ไม่ได้กล่าวถึง) ข้อใดไม่ได้กล่าวถึงในสองประโยคแรกของย่อหน้า 2
+เฉลย: D. กฎหมายภาษาของรัฐบาล
+Question 4 (Inference)
+It can be inferred from paragraph 2 that languages often
+disappear because:
+A. Children refuse to learn them
+B. Schools ban minority languages
+C. They are used less across generations
+D. They are too complex to maintain
+
+✅ Answer: C
+
+คำถามที่ 4 (การอนุมาน) อนุมานได้จากย่อหน้า 2 ว่าภาษามักสูญหายเพราะ
+เฉลย: C. ถูกใช้น้อยลงตามรุ่น
+
+
+Question 5 (Sentence Insertion)
+Where would the following sentence best fit in paragraph 3?
+This vocabulary is rarely recorded in written form.
+A. Before the first sentence
+B. After the second sentence
+C. After the third sentence
+D. At the end of the paragraph
+
+✅ Answer: C
+
+คำถามที่ 5 (แทรกประโยค) ประโยค “คำศัพท์นี้ไม่ค่อยถูกบันทึกเป็นลายลักษณ์อักษร” เหมาะที่ตำแหน่งใดใน
+ย่อหน้า 3
+เฉลย: C. หลังประโยคที่สาม
+Question 6
+According to paragraph 3, what usually happens when a
+language disappears?
+A. New cultural traditions are created
+B. Scientific knowledge increases
+C. Traditional knowledge is often lost
+D. Environmental awareness improves
+
+✅ Answer: C
+
+คำถามที่ 6 ตามย่อหน้า 3 โดยปกติจะเกิดอะไรขึ้นเมื่อภาษาหายไป
+เฉลย: C. ความรู้แบบดั้งเดิมมักสูญหาย
+Question 7 (Best Essential Information)
+Which of the following best expresses the essential information
+in the highlighted sentence below?
+When a language disappears, such practical and cultural
+knowledge is often permanently lost.
+A. Languages are closely related to modern science
+B. Cultural knowledge can easily be replaced
+C. Language loss often leads to irreversible knowledge
+loss
+D. Knowledge loss affects only small communities
+
+✅ Answer: C
+
+คำถามที่ 7 (ข้อมูลสำคัญที่สุด) ข้อใดสื่อสาระสำคัญของประโยคที่ไฮไลต์ “When a language disappears, such
+practical and cultural knowledge is often permanently lost.”
+เฉลย: C. การสูญเสียภาษามักนำไปสู่การสูญเสียความรู้ที่ย้อนกลับไม่ได้
+Question 8 (Vocabulary – Paragraph 1)
+The word “motivated” in paragraph 1 is closest in meaning
+to:
+A. Celebration
+B. Empowering
+C. Documentary
+D. Encouraged
+
+✅ Answer: D
+
+คำถามที่ 8 (คำศัพท์ ย่อหน้า 1) คำว่า “motivated” ใกล้เคียงที่สุดกับ
+เฉลย: D. Encouraged (กระตุ้น/สนับสนุน)
+
+
+Question 9 (Vocabulary – Paragraph 3)
+The word “precise” in paragraph 3 is closest in meaning to:
+A. Translate
+B. Accurate
+C. Decorative
+D. Temporary
+
+✅ Answer: B
+
+คำถามที่ 9 (คำศัพท์ ย่อหน้า 3) คำว่า “precise” ใกล้เคียงที่สุดกับ
+เฉลย: B. Accurate (แม่นยำ)
+Question 10 (Summary – Choose 3 Answers)
+An effective summary of the passage would include which
+THREE of the following statements?
+A. Many languages are at risk of disappearing worldwide
+B. Economic and social factors contribute to language loss
+C. Endangered languages contain valuable cultural knowledge
+D. Technology alone can save all languages
+E. Governments and schools can help preserve languages
+F. Learning one language is better than learning many
+
+✅ Correct Answers: A, B, E
+
+คำถามที่ 10 (สรุป เลือก 3 ข้อ)
+เฉลย: A. หลายภาษากำลังเสี่ยงสูญหายทั่วโลก • B. ปัจจัยทางเศรษฐกิจและสังคมมีส่วนต่อการสูญเสียภาษา • E.
+รัฐบาลและโรงเรียนช่วยอนุรักษ์ภาษาได้ (A, B, E)
+Question 11 (Drag & Drop – Categorization)
+Directions: Classify the following into the correct category.
+Causes of Language Loss (Paragraph 2)
+• Economic pressure
+• Better job opportunities
+• Parents encouraging global languages
+Language Preservation Efforts (Paragraph 4)
+• Bilingual education programs
+• Teaching endangered languages in schools
+
+✅ Correct Classification as above
+
+คำถามที่ 11 (ลากและวาง จัดประเภท)
+สาเหตุของการสูญเสียภาษา (ย่อหน้า 2): แรงกดดันทางเศรษฐกิจ • โอกาสงานที่ดีกว่า • พ่อแม่สนับสนุนภาษา
+สากล
+ความพยายามอนุรักษ์ภาษา (ย่อหน้า 4): โครงการการศึกษาสองภาษา • สอนภาษาที่ใกล้สูญหายในโรงเรียน
+Question 12 (Main Idea)
+What is the main purpose of the passage?
+A. To compare global languages
+B. To explain how children learn languages
+C. To discuss why languages are endangered and how
+they can be preserved
+D. To promote one specific language
+
+✅ Answer: C
+
+คำถามที่ 12 (ใจความสำคัญ) จุดประสงค์หลักของบทอ่านคืออะไร
+เฉลย: C. อภิปรายว่าเหตุใดภาษาจึงใกล้สูญหายและจะอนุรักษ์ได้อย่างไร`},{n:116,type:"Reading",title:"6_Reading_The Remarkable Migration of Monarch Butterflies",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
 Every year, millions of monarch butterflies undertake one of the most extraordinary migrations in the
 natural world. Unlike bird migration, which is typically completed by the same individual traveling back
 and forth, monarch butterfly migration occurs across several generations. No single monarch butterfly
@@ -20053,7 +21719,297 @@ D. It occurs only in fish
 ✅ Answer: C
 
 คำถามที่ 6 ตามย่อหน้า 4 การวิวัฒน์ซ้ำๆ ของการเรืองแสงทางชีวภาพบ่งบอกอะไร
-เฉลย: C. ให้ประโยชน์ด้านการอยู่รอดอย่างมาก`},{n:120,type:"Reading",title:"12_Reading_The Evolution of the London Underground",date:"2026-04-30",status:"pending",dup:null},{n:121,type:"Reading",title:"10_Reading Neuroplasticity and brain adaptation",date:"2026-04-30",status:"pending",dup:null},{n:122,type:"Reading",title:"11_Reading_The Berlin Wall",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+เฉลย: C. ให้ประโยชน์ด้านการอยู่รอดอย่างมาก`},{n:120,type:"Reading",title:"12_Reading_The Evolution of the London Underground",date:"2026-04-30",status:"pending",dup:null},{n:121,type:"Reading",title:"10_Reading Neuroplasticity and brain adaptation",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+Neuroplasticity refers to the brain’s capacity to reorganize its structure and functions in response to
+experience, learning, or injury. Contrary to earlier beliefs that the adult brain is fixed, modern
+neuroscience has demonstrated that neural circuits remain adaptable throughout life. This adaptability
+allows the brain to modify synaptic connections, strengthen frequently used pathways, and weaken
+those that are rarely activated.
+
+ย่อหน้า 1 ความยืดหยุ่นของระบบประสาท (neuroplasticity) หมายถึงความสามารถของสมองในการจัดระเบียบ
+โครงสร้างและหน้าที่ใหม่เพื่อตอบสนองต่อประสบการณ์ การเรียนรู้ หรือการบาดเจ็บ ตรงข้ามกับความเชื่อก่อน
+หน้าว่าสมองผู้ใหญ่ตายตัว ประสาทวิทยาสมัยใหม่แสดงว่าวงจรประสาทยังคงปรับตัวได้ตลอดชีวิต ความ
+สามารถในการปรับตัวนี้ช่วยให้สมองปรับเปลี่ยนการเชื่อมต่อไซแนปส์ เสริมความแข็งแรงของเส้นทางที่ใช้บ่อย
+และทำให้เส้นทางที่ใช้น้อยอ่อนลง
+Age plays a significant role in neuroplastic change. During childhood, the brain exhibits a high degree
+of plasticity, enabling rapid learning and recovery from injury. However, plasticity does not disappear in
+adulthood. Although neural changes occur more slowly later in life, adults can still form new neural
+pathways through sustained practice, cognitive training, and rehabilitation after neurological damage.
+
+ย่อหน้า 2 อายุมีบทบาทสำคัญต่อการเปลี่ยนแปลงของความยืดหยุ่นทางประสาท ในวัยเด็ก สมองแสดงความ
+ยืดหยุ่นสูง ทำให้เรียนรู้และฟื้ นตัวจากการบาดเจ็บได้เร็ว อย่างไรก็ตาม ความยืดหยุ่นไม่ได้หายไปในวัยผู้ใหญ่
+แม้การเปลี่ยนแปลงทางประสาทเกิดช้าลงในช่วงปลายชีวิต ผู้ใหญ่ก็ยังสร้างเส้นทางประสาทใหม่ได้ผ่านการ
+ฝึกฝนต่อเนื่อง การฝึกทางความคิด และการฟื้ นฟูหลังความเสียหายทางระบบประสาท
+Environmental influences strongly affect brain adaptation. Exposure to stimulating environments—such
+as those involving social interaction, physical activity, and intellectual challenges— has been shown to
+enhance neural growth and connectivity. In contrast, prolonged stress or sensory deprivation may
+impair plastic processes. Importantly, these environmental effects interact with biological factors rather
+than functioning independently.
+
+ย่อหน้า 3 อิทธิพลของสิ่งแวดล้อมส่งผลต่อการปรับตัวของสมองอย่างมาก การได้รับสภาพแวดล้อมกระตุ้น เช่น ที่
+เกี่ยวกับปฏิสัมพันธ์ทางสังคม กิจกรรมทางกาย และความท้าทายทางปัญญา แสดงว่าเสริมการเติบโตและการ
+เชื่อมต่อของเซลล์ประสาท ในทางตรงข้าม ความเครียดที่ยาวนานหรือการขาดการกระตุ้นประสาทสัมผัสอาจ
+บั่นทอนกระบวนการยืดหยุ่น ที่สำคัญ ผลของสิ่งแวดล้อมเหล่านี้มีปฏิสัมพันธ์กับปัจจัยทางชีวภาพ ไม่ได้ทำงาน
+อย่างอิสระ
+
+
+Recent research suggests that neuroplasticity also plays a role in recovery from neurological disorders.
+Following brain injury, undamaged regions may assume functions previously controlled by impaired
+areas. However, neuroplastic adaptation does not provide immunity from disease or cognitive decline.
+Instead, it represents a dynamic process shaped by age, environment, and experience, highlighting
+both the brain’s resilience and its limitations.
+
+ย่อหน้า 4 งานวิจัยล่าสุดชี้ว่าความยืดหยุ่นของระบบประสาทยังมีบทบาทในการฟื้ นตัวจากความผิดปกติทางระบบ
+ประสาท หลังสมองบาดเจ็บ บริเวณที่ไม่ได้รับความเสียหายอาจรับหน้าที่ที่เดิมควบคุมโดยบริเวณที่บกพร่อง
+อย่างไรก็ตาม การปรับตัวของระบบประสาทไม่ได้ให้ภูมิคุ้มกันจากโรคหรือการเสื่อมของความคิด แต่เป็นกระ
+บวนการพลวัตที่ถูกหล่อหลอมด้วยอายุ สิ่งแวดล้อม และประสบการณ์ เน้นทั้งความยืดหยุ่นและข้อจำกัดของสมอง`,qs:[{kind:"mcq",ok:!0,q:`Question 1:
+What is the passage mainly about?`,opts:[["A","The limits of brain recovery after injury"],["B","The brain’s ability to change and adapt over time"],["C","The causes of neurological diseases"],["D","Differences between child and adult intelligence"]],ans:"B",th:`คำถามที่ 1 บทอ่านนี้เกี่ยวกับอะไรเป็นหลัก
+เฉลย: B. ความสามารถของสมองในการเปลี่ยนแปลงและปรับตัวตามเวลา`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 2:
+The word “reorganize” in paragraph 1 is closest in meaning
+to:`,opts:[["A","Repair"],["B","Rearrange"],["C","Remove"],["D","Replace"]],ans:"B",th:`คำถามที่ 2 คำว่า “reorganize” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
+เฉลย: B. Rearrange (จัดเรียงใหม่)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 3:
+According to paragraph 1, which change occurs in neural
+circuits?`,opts:[["A","All connections increase equally"],["B","Frequently used pathways are strengthened"],["C","Neurons stop forming after adulthood"],["D","Brain cells regenerate continuously"]],ans:"B",th:`คำถามที่ 3 ตามย่อหน้า 1 การเปลี่ยนแปลงใดเกิดในวงจรประสาท
+เฉลย: B. เส้นทางที่ใช้บ่อยถูกเสริมความแข็งแรง`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 4:
+According to paragraph 2, how does age affect neuroplasticity?`,opts:[["A","Plasticity completely stops in adulthood"],["B","Children and adults show the same rate of change"],["C","Plasticity is faster in childhood but still exists in adults"],["D","Adults cannot form new neural pathways"]],ans:"C",th:`คำถามที่ 4 ตามย่อหน้า 2 อายุส่งผลต่อความยืดหยุ่นของระบบประสาทอย่างไร
+เฉลย: C. ความยืดหยุ่นเร็วกว่าในวัยเด็กแต่ยังมีในผู้ใหญ่`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 5:
+The word “sustained” in paragraph 2 is closest in meaning to:`,opts:[["A","Brief"],["B","Continuous"],["C","Accidental"],["D","Irregular"]],ans:"B",th:`คำถามที่ 5 คำว่า “sustained” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
+เฉลย: B. Continuous (ต่อเนื่อง)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 6:
+Which environmental factor is mentioned as enhancing
+neuroplasticity?`,opts:[["A","Genetic immunity"],["B","Social interaction"],["C","Medication alone"],["D","Aging"]],ans:"B",th:`คำถามที่ 6 ปัจจัยด้านสิ่งแวดล้อมใดที่กล่าวถึงว่าเสริมความยืดหยุ่นของระบบประสาท
+เฉลย: B. ปฏิสัมพันธ์ทางสังคม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 7:
+Which of the following is NOT mentioned as influencing
+neuroplasticity?`,opts:[["A","Age"],["B","Environment"],["C","Experience"],["D","Immunity"]],ans:"D",th:`คำถามที่ 7 ข้อใดไม่ได้กล่าวถึงว่ามีอิทธิพลต่อความยืดหยุ่นของระบบประสาท
+เฉลย: D. ภูมิคุ้มกัน`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 8:
+The word “these” in paragraph 3 refers to:`,opts:[["A","Neural disorders"],["B","Environmental effects"],["C","Biological limitations"],["D","Brain injuries"]],ans:"B",th:`คำถามที่ 8 คำว่า “these” ในย่อหน้า 3 หมายถึง
+เฉลย: B. ผลของสิ่งแวดล้อม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 9:
+Where would the following sentence best fit?
+“This challenges the long-standing assumption that brain
+development ends in early adulthood.”`,opts:[["A","After sentence 1 in paragraph 1"],["B","After sentence 2 in paragraph 1"],["C","After sentence 1 in paragraph 2"],["D","After sentence 1 in paragraph 4"]],ans:"B",th:`คำถามที่ 9 ประโยค “สิ่งนี้ท้าทายสมมติฐานเก่าแก่ที่ว่าพัฒนาการของสมองสิ้นสุดในวัยผู้ใหญ่ตอนต้น” เหมาะที่
+ตำแหน่งใด
+เฉลย: B. หลังประโยคที่ 2 ในย่อหน้า 1
+Which THREE statements are supported by the
+passage?
+A. Neuroplasticity occurs only in children
+B. Adults can adapt their brains through practice
+C. Environment influences neural connectivity
+D. Neuroplasticity prevents all brain diseases
+E. Stress can negatively affect plasticity
+F. Plasticity functions independently of biology
+
+✅ Answers: B / C / E
+
+(ข้อ 10 ไม่มีเลขในต้นฉบับ) ข้อความสามข้อใดได้รับการสนับสนุนจากบทอ่าน
+เฉลย: B. ผู้ใหญ่ปรับตัวสมองได้ผ่านการฝึกฝน • C. สิ่งแวดล้อมมีอิทธิพลต่อการเชื่อมต่อของระบบประสาท • E.
+ความเครียดอาจส่งผลลบต่อความยืดหยุ่น (B, C, E)`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`Question 11: Table – Categorizing Information
+Factors Influencing
+Neuroplasticity (3)
+Outcomes of
+Neuroplasticity (2)
+Options:`,opts:[["A","Age"],["B","Environment"],["C","Experience"],["D","Functional reassignment"],["E","Cognitive immunity ✅ Left (3): A / B / C ✅ Right (2): D"]],ans:null,th:`คำถามที่ 11 ตาราง: จัดหมวดข้อมูล
+ปัจจัยที่มีอิทธิพลต่อความยืดหยุ่นของระบบประสาท (3): A. อายุ • B. สิ่งแวดล้อม • C. ประสบการณ์
+ผลลัพธ์ของความยืดหยุ่นของระบบประสาท (2): D. การมอบหมายหน้าที่ใหม่ (functional reassignment)
+(E. ภูมิคุ้มกันทางปัญญา ไม่ถูกใช้)
+Which THREE statements best summarize the passage?
+A. The brain remains capable of change throughout life
+B. Neuroplasticity eliminates cognitive decline
+C. Age and environment shape brain adaptation
+D. Neural recovery depends solely on genetics
+E. Brain regions can compensate for damaged areas
+
+✅ Correct Summary: A / C / E
+
+(ข้อ 12 ไม่มีเลขในต้นฉบับ) ข้อความสามข้อใดสรุปบทอ่านได้ดีที่สุด
+เฉลย: A. สมองยังเปลี่ยนแปลงได้ตลอดชีวิต • C. อายุและสิ่งแวดล้อมหล่อหลอมการปรับตัวของสมอง • E.
+บริเวณสมองสามารถชดเชยบริเวณที่เสียหายได้ (A, C, E)`,ans_text:null,raw:`Question 11: Table – Categorizing Information
+Factors Influencing
+Neuroplasticity (3)
+Outcomes of
+Neuroplasticity (2)
+Options:
+A. Age
+B. Environment
+C. Experience
+D. Functional reassignment
+E. Cognitive immunity
+
+✅ Left (3): A / B / C
+✅ Right (2): D
+
+คำถามที่ 11 ตาราง: จัดหมวดข้อมูล
+ปัจจัยที่มีอิทธิพลต่อความยืดหยุ่นของระบบประสาท (3): A. อายุ • B. สิ่งแวดล้อม • C. ประสบการณ์
+ผลลัพธ์ของความยืดหยุ่นของระบบประสาท (2): D. การมอบหมายหน้าที่ใหม่ (functional reassignment)
+(E. ภูมิคุ้มกันทางปัญญา ไม่ถูกใช้)
+Which THREE statements best summarize the passage?
+A. The brain remains capable of change throughout life
+B. Neuroplasticity eliminates cognitive decline
+C. Age and environment shape brain adaptation
+D. Neural recovery depends solely on genetics
+E. Brain regions can compensate for damaged areas
+
+✅ Correct Summary: A / C / E
+
+(ข้อ 12 ไม่มีเลขในต้นฉบับ) ข้อความสามข้อใดสรุปบทอ่านได้ดีที่สุด
+เฉลย: A. สมองยังเปลี่ยนแปลงได้ตลอดชีวิต • C. อายุและสิ่งแวดล้อมหล่อหลอมการปรับตัวของสมอง • E.
+บริเวณสมองสามารถชดเชยบริเวณที่เสียหายได้ (A, C, E)
+
+`}],qa_raw:`Question 1:
+What is the passage mainly about?
+A. The limits of brain recovery after injury
+B. The brain’s ability to change and adapt over time
+C. The causes of neurological diseases
+D. Differences between child and adult intelligence
+
+✅ Answer: B
+
+คำถามที่ 1 บทอ่านนี้เกี่ยวกับอะไรเป็นหลัก
+เฉลย: B. ความสามารถของสมองในการเปลี่ยนแปลงและปรับตัวตามเวลา
+Question 2:
+The word “reorganize” in paragraph 1 is closest in meaning
+to:
+A. Repair
+B. Rearrange
+C. Remove
+D. Replace
+
+✅ Answer: B
+
+คำถามที่ 2 คำว่า “reorganize” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
+เฉลย: B. Rearrange (จัดเรียงใหม่)
+Question 3:
+According to paragraph 1, which change occurs in neural
+circuits?
+A. All connections increase equally
+B. Frequently used pathways are strengthened
+C. Neurons stop forming after adulthood
+D. Brain cells regenerate continuously
+
+✅ Answer: B
+
+คำถามที่ 3 ตามย่อหน้า 1 การเปลี่ยนแปลงใดเกิดในวงจรประสาท
+เฉลย: B. เส้นทางที่ใช้บ่อยถูกเสริมความแข็งแรง
+
+
+Question 4:
+According to paragraph 2, how does age affect neuroplasticity?
+A. Plasticity completely stops in adulthood
+B. Children and adults show the same rate of change
+C. Plasticity is faster in childhood but still exists in adults
+D. Adults cannot form new neural pathways
+
+✅ Answer: C
+
+คำถามที่ 4 ตามย่อหน้า 2 อายุส่งผลต่อความยืดหยุ่นของระบบประสาทอย่างไร
+เฉลย: C. ความยืดหยุ่นเร็วกว่าในวัยเด็กแต่ยังมีในผู้ใหญ่
+Question 5:
+The word “sustained” in paragraph 2 is closest in meaning to:
+A. Brief
+B. Continuous
+C. Accidental
+D. Irregular
+
+✅ Answer: B
+
+คำถามที่ 5 คำว่า “sustained” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
+เฉลย: B. Continuous (ต่อเนื่อง)
+Question 6:
+Which environmental factor is mentioned as enhancing
+neuroplasticity?
+A. Genetic immunity
+B. Social interaction
+C. Medication alone
+D. Aging
+
+✅ Answer: B
+
+คำถามที่ 6 ปัจจัยด้านสิ่งแวดล้อมใดที่กล่าวถึงว่าเสริมความยืดหยุ่นของระบบประสาท
+เฉลย: B. ปฏิสัมพันธ์ทางสังคม
+Question 7:
+Which of the following is NOT mentioned as influencing
+neuroplasticity?
+A. Age
+B. Environment
+C. Experience
+D. Immunity
+
+✅ Answer: D
+
+คำถามที่ 7 ข้อใดไม่ได้กล่าวถึงว่ามีอิทธิพลต่อความยืดหยุ่นของระบบประสาท
+เฉลย: D. ภูมิคุ้มกัน
+
+
+Question 8:
+The word “these” in paragraph 3 refers to:
+A. Neural disorders
+B. Environmental effects
+C. Biological limitations
+D. Brain injuries
+
+✅ Answer: B
+
+คำถามที่ 8 คำว่า “these” ในย่อหน้า 3 หมายถึง
+เฉลย: B. ผลของสิ่งแวดล้อม
+Question 9:
+Where would the following sentence best fit?
+“This challenges the long-standing assumption that brain
+development ends in early adulthood.”
+A. After sentence 1 in paragraph 1
+B. After sentence 2 in paragraph 1
+C. After sentence 1 in paragraph 2
+D. After sentence 1 in paragraph 4
+
+✅ Answer: B
+
+คำถามที่ 9 ประโยค “สิ่งนี้ท้าทายสมมติฐานเก่าแก่ที่ว่าพัฒนาการของสมองสิ้นสุดในวัยผู้ใหญ่ตอนต้น” เหมาะที่
+ตำแหน่งใด
+เฉลย: B. หลังประโยคที่ 2 ในย่อหน้า 1
+Which THREE statements are supported by the
+passage?
+A. Neuroplasticity occurs only in children
+B. Adults can adapt their brains through practice
+C. Environment influences neural connectivity
+D. Neuroplasticity prevents all brain diseases
+E. Stress can negatively affect plasticity
+F. Plasticity functions independently of biology
+
+✅ Answers: B / C / E
+
+(ข้อ 10 ไม่มีเลขในต้นฉบับ) ข้อความสามข้อใดได้รับการสนับสนุนจากบทอ่าน
+เฉลย: B. ผู้ใหญ่ปรับตัวสมองได้ผ่านการฝึกฝน • C. สิ่งแวดล้อมมีอิทธิพลต่อการเชื่อมต่อของระบบประสาท • E.
+ความเครียดอาจส่งผลลบต่อความยืดหยุ่น (B, C, E)
+
+
+Question 11: Table – Categorizing Information
+Factors Influencing
+Neuroplasticity (3)
+Outcomes of
+Neuroplasticity (2)
+Options:
+A. Age
+B. Environment
+C. Experience
+D. Functional reassignment
+E. Cognitive immunity
+
+✅ Left (3): A / B / C
+✅ Right (2): D
+
+คำถามที่ 11 ตาราง: จัดหมวดข้อมูล
+ปัจจัยที่มีอิทธิพลต่อความยืดหยุ่นของระบบประสาท (3): A. อายุ • B. สิ่งแวดล้อม • C. ประสบการณ์
+ผลลัพธ์ของความยืดหยุ่นของระบบประสาท (2): D. การมอบหมายหน้าที่ใหม่ (functional reassignment)
+(E. ภูมิคุ้มกันทางปัญญา ไม่ถูกใช้)
+Which THREE statements best summarize the passage?
+A. The brain remains capable of change throughout life
+B. Neuroplasticity eliminates cognitive decline
+C. Age and environment shape brain adaptation
+D. Neural recovery depends solely on genetics
+E. Brain regions can compensate for damaged areas
+
+✅ Correct Summary: A / C / E
+
+(ข้อ 12 ไม่มีเลขในต้นฉบับ) ข้อความสามข้อใดสรุปบทอ่านได้ดีที่สุด
+เฉลย: A. สมองยังเปลี่ยนแปลงได้ตลอดชีวิต • C. อายุและสิ่งแวดล้อมหล่อหลอมการปรับตัวของสมอง • E.
+บริเวณสมองสามารถชดเชยบริเวณที่เสียหายได้ (A, C, E)`},{n:122,type:"Reading",title:"11_Reading_The Berlin Wall",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
 After World War II, Germany was divided into East Germany and West Germany, reflecting the political
 tensions of the Cold War. Berlin, although located entirely within East Germany, was also divided into
 eastern and western sectors. In 1961, the East German government constructed the Berlin Wall to
@@ -20065,6 +22021,8 @@ division between communism and democracy.
 ออกและตะวันตกเช่นกัน ในปี 1961 รัฐบาลเยอรมนีตะวันออกสร้างกำแพงเบอร์ลินเพื่อป้องกันพลเมืองหนีไป
 ตะวันตก กำแพงกลายเป็นสัญลักษณ์ทรงพลังของการแบ่งแยกอุดมการณ์ระหว่างคอมมิวนิสต์กับประชาธิปไตย
 อย่างรวดเร็ว
+
+
 The Berlin Wall was not a single structure but a complex system of barriers that included concrete
 walls, barbed wire, guard towers, and a “death strip.” East German border guards were ordered to stop
 escape attempts, sometimes using deadly force. Historians estimate that around 140 people lost their
@@ -20084,8 +22042,6 @@ and political reforms weakened the East German government’s control.
 ซ่อนในยานพาหนะ หรืออุปกรณ์บินที่ทำเอง ขณะเดียวกัน แรงกดดันทางการเมืองเพิ่มตลอดทศวรรษ 1980 เมื่อ
 การประท้วงแพร่ไปทั่วยุโรปตะวันออก ในปี 1989 การชุมนุมขนาดใหญ่และการปฏิรูปการเมืองทำให้การควบคุม
 ของรัฐบาลเยอรมนีตะวันออกอ่อนแอลง
-
-
 On November 9, 1989, a government announcement mistakenly suggested that travel restrictions were
 lifted immediately. Large crowds gathered at border checkpoints, and guards eventually opened the
 gates. The fall of the Berlin Wall marked a turning point in European history and led to the reunification
@@ -20153,6 +22109,8 @@ D. Military strategies during the Cold War
 
 คำถามที่ 1 บทความนี้เกี่ยวกับอะไรเป็นหลัก
 เฉลย: B. การก่อสร้าง ผลกระทบ และการล่มของกำแพงเบอร์ลิน
+
+
 Question 2
 According to paragraph 1, why was the Berlin Wall built
 in 1961?
@@ -20177,8 +22135,6 @@ D. Temporary
 
 คำถามที่ 3 คำว่า “ideological” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
 เฉลย: B. Political (ทางการเมือง)
-
-
 Question 4
 According to paragraph 2, approximately how many people
 died trying to cross the Berlin Wall?
@@ -20203,6 +22159,8 @@ D. Exposure to cold
 
 คำถามที่ 5 สาเหตุหลักของการเสียชีวิตของผู้ที่ตายที่กำแพงเบอร์ลินคืออะไร
 เฉลย: B. บาดแผลถูกยิง
+
+
 Question 6
 Which of the following was NOT part of the Berlin Wall security
 system?
@@ -20227,8 +22185,6 @@ D. Official travel permits
 
 คำถามที่ 7 ตามย่อหน้า 3 ชาวเยอรมันตะวันออกบางคนใช้วิธีใดหลบหนี
 เฉลย: C. อุโมงค์และยานพาหนะดัดแปลง
-
-
 Question 8
 What happened in 1989 that contributed to the fall of the
 Berlin Wall?
@@ -20253,6 +22209,8 @@ D. The division of political parties
 
 คำถามที่ 9 คำว่า “reunification” ในย่อหน้า 4 หมายถึง
 เฉลย: B. เยอรมนีกลับเป็นประเทศเดียวกันอีกครั้ง
+
+
 Question 10
 Which of the following statements is NOT mentioned in the
 passage?
@@ -20279,8 +22237,6 @@ D. At the beginning of paragraph 3
 
 คำถามที่ 11 แทรกประโยค “การเปิดจุดตรวจเปลี่ยนเส้นทางของประวัติศาสตร์ยุโรป”
 เฉลย: C. หลังประโยคที่สองของย่อหน้า 4
-
-
 Question 12
 What can be inferred from the passage about the Berlin Wall
 today?
@@ -20316,8 +22272,6 @@ aggregations that branches frequently break under their collective weight.
 สำคัญ คืออุณหภูมิเย็นแต่ไม่เยือกแข็งและความชื้นเพียงพอ ซึ่งทำให้ผีเสื้อรอดผ่านการจำศีลในฤดูหนาว น่าทึ่งที่
 มอนาร์คมารวมตัวกันเพียงสิบกว่าแห่งซึ่งครอบคลุมเพียงไม่กี่เฮกตาร์ ทั้งที่มาจากภูมิภาคกว้างใหญ่ พวกมันรวม
 กลุ่มแน่นจนกิ่งไม้มักหักด้วยน้ำหนักรวม
-
-
 The mechanisms underlying this extraordinary navigation remain incompletely understood, though
 researchers have identified several key elements. Monarchs possess a time- compensated sun
 compass, using the sun’s position combined with circadian rhythms to maintain proper southward
@@ -20334,6 +22288,8 @@ contribute to this complex navigational system.
 มนุษย์มองไม่เห็น ให้สัญญาณทิศทางแม้ในสภาพมีเมฆ การศึกษาทางพันธุกรรมชี้ว่าพฤติกรรมอพยพและความ
 สามารถนำทางถ่ายทอดทางพันธุกรรม แม้ยีนที่แน่นอนและวิธีที่เข้ารหัสจุดหมายทางภูมิศาสตร์ยังอยู่ระหว่าง
 ศึกษา นักวิทยาศาสตร์ตั้งสมมติฐานว่าสัญญาณสิ่งแวดล้อมอื่นอาจมีส่วนต่อระบบนำทางซับซ้อนนี้ด้วย
+
+
 The survival of this migration faces mounting threats. Deforestation in Mexican overwintering sites
 reduces available habitat, while herbicide use in the United States decimates milkweed populations—
 the sole host plant for monarch larvae. Climate change compounds these pressures by disrupting
@@ -20365,7 +22321,9 @@ C. Genetic inheritance
 D. Echolocation
 
 3. ข้อใดไม่ได้กล่าวถึงเกี่ยวกับระบบนำทาง
-[ตรวจจากเนื้อหา: D. การสะท้อนเสียง (echolocation)]`},{kind:"raw",ok:!1,q:"4. what can be inferred about the oyamel fir forests?",opts:[["A","They provide unique conditions essential for monarch survival"],["B","They exist throughout North America"],["C","They are too warm for monarchs"],["D","They are avoided by monarchs"]],ans:null,th:`4. อนุมานอะไรได้เกี่ยวกับป่าเฟอร์โอยาเมล
+[ตรวจจากเนื้อหา: D. การสะท้อนเสียง (echolocation)]
+
+`},{kind:"raw",ok:!1,q:"4. what can be inferred about the oyamel fir forests?",opts:[["A","They provide unique conditions essential for monarch survival"],["B","They exist throughout North America"],["C","They are too warm for monarchs"],["D","They are avoided by monarchs"]],ans:null,th:`4. อนุมานอะไรได้เกี่ยวกับป่าเฟอร์โอยาเมล
 [ตรวจจากเนื้อหา: A. ให้สภาพเฉพาะที่จำเป็นต่อการอยู่รอดของมอนาร์ค]`,ans_text:null,raw:`4. what can be inferred about the oyamel fir forests?
 A. They provide unique conditions essential for monarch
 survival
@@ -20396,8 +22354,6 @@ D. groups
 groups)
 [ต้นฉบับไม่มีโจทย์และเฉลย — ตัวเลือกบ่งบอกว่าถามเรื่องคำที่ถูกอ้างถึง (เช่น “ones” ในย่อหน้า 1) ตามบริบท
 น่าจะเป็น C. destinations แต่ไม่ยืนยัน]
-
-
 2. in paragraph 3: “These Particular forests”
 A. forests in eastern north America
 B. Any forest with fir trees
@@ -20413,6 +22369,8 @@ D. Echolocation
 
 3. ข้อใดไม่ได้กล่าวถึงเกี่ยวกับระบบนำทาง
 [ตรวจจากเนื้อหา: D. การสะท้อนเสียง (echolocation)]
+
+
 4. what can be inferred about the oyamel fir forests?
 A. They provide unique conditions essential for monarch
 survival
@@ -20447,6 +22405,8 @@ government.
 เลือกตั้งในที่สุด อย่างไรก็ตาม หลังหลายทศวรรษของการยื่นคำร้องอย่างสันติโดยแทบไม่ได้ผลทางกฎหมาย สตรี
 จำนวนมากรู้สึกผิดหวังกับวิธีดั้งเดิมเหล่านี้ เพราะรู้สึกว่าเสียงของพวกเธอถูกรัฐบาลที่ชายเป็นใหญ่เพิกเฉยอย่าง
 เป็นระบบ
+
+
 The landscape of the movement shifted dramatically in 1903 when Emmeline Pankhurst founded the
 Women's Social and Political Union (WSPU). This new organization introduced a militant approach that
 contrasted sharply with the earlier suffragist groups. Under the defiant motto “Deeds, not words,” the
@@ -20475,8 +22435,6 @@ of property ownership.
 ของประชาชน ซึ่งในที่สุดให้สิทธิเลือกตั้งแก่สตรี แม้จำกัดเฉพาะผู้ที่อายุเกิน 30 ปีและมีคุณสมบัติด้านทรัพย์สิน
 ตามกำหนด แม้เป็นชัยชนะครั้งใหญ่ แต่ก็ไม่ได้ทำให้เกิดความเท่าเทียมทางเพศเต็มที่ในการลงคะแนน เพราะ
 ผู้ชายยังเลือกตั้งได้เมื่ออายุ 21 ปีโดยไม่คำนึงถึงทรัพย์สิน
-
-
 It took another decade of continued advocacy for the suffrage movement to reach its ultimate
 conclusion. In 1928, the Equal Franchise Act was enacted, lowering the voting age for women to 21 and
 removing the property-based restrictions that had limited the 1918 legislation. This act ensured that
@@ -20565,8 +22523,6 @@ governmental change.
 
 2. ตามย่อหน้า 2 ความแตกต่างหลักระหว่าง WSPU กับกลุ่มสิทธิเลือกตั้งก่อนหน้าคืออะไร
 เฉลย: (C) WSPU ใช้ยุทธวิธีแข็งกร้าวเพื่อบีบให้รัฐบาลเปลี่ยนแปลง
-
-
 3. The phrase "Deeds, not words" in paragraph 2
 implies that the WSPU:
 (A) Value symbolic speeches over physical protest.
@@ -20580,6 +22536,8 @@ women’s voices be heard.
 
 3. วลี “Deeds, not words” ในย่อหน้า 2 บอกเป็นนัยว่า WSPU
 เฉลย: (B) เชื่อว่ามีเพียงการกระทำเท่านั้นที่ทำให้เสียงของสตรีถูกได้ยิน
+
+
 4. According to paragraph 3, what was a limitation of
 the Representation of the People Act in 1918?
 (A) It did not allow women to work in factories.
@@ -20604,8 +22562,6 @@ Answer: (D) Organizing armed military coups
 
 5. ข้อใดไม่ได้กล่าวถึงเป็นวิธีที่ “ซัฟฟราเจ็ตต์” ใช้
 เฉลย: (D) การจัดรัฐประหารด้วยอาวุธ
-
-
 6. Directions: Complete the table below by matching
 the descriptions to the correct group. (Drag and Drop)
 Select the correct phrases and place them under the
@@ -20640,8 +22596,6 @@ and platforms.
 อย่างรวดเร็วบนหน้าจอมือถือที่จำกัด แม้อีโมจิยุคแรกมีเฉพาะในญี่ปุ่น การขยายไปทั่วโลกเริ่มขึ้นเมื่อระบบดิจิทัล
 รับมาตรฐานการเข้ารหัสสากลที่เรียกว่ายูนิโค้ด ซึ่งทำให้อีโมจิแสดงผลได้สอดคล้องกันทั่วอุปกรณ์และ
 แพลตฟอร์ม
-
-
 Emoji began to gain widespread global popularity around 2005, when major technology companies
 integrated them into smartphones and messaging applications. The standardization of emoji through
 Unicode meant that a symbol sent from one device could be accurately interpreted on another. These
@@ -20736,7 +22690,9 @@ Answer: A, C, E
 
 8. คำถามสรุป (เลือก 3)
 เฉลย: A. อีโมจิถูกทำให้เป็นมาตรฐานผ่านยูนิโค้ด ทำให้ใช้ได้ทั่วโลก • C. อีโมจิทำหน้าที่เป็นเครื่องมือพาราลิ
-งกิวสติกในการสื่อสารดิจิทัล • E. นักวิชาการถกเถียงผลกระทบทางสังคมระยะยาวของอีโมจิ (A, C, E)`},{kind:"mcq",ok:!0,q:`12. Insert Sentence Question
+งกิวสติกในการสื่อสารดิจิทัล • E. นักวิชาการถกเถียงผลกระทบทางสังคมระยะยาวของอีโมจิ (A, C, E)
+
+`},{kind:"mcq",ok:!0,q:`12. Insert Sentence Question
 Where would the following sentence best fit?
 "This development allowed emoji to become part of
 international digital culture."`,opts:[["A","After the first sentence of paragraph 1"],["B","After the sentence describing Unicode adoption"],["C","At the beginning of paragraph 3"],["D","At the end of paragraph 4"]],ans:"B",th:`ข้อ 12 (ต้นฉบับ): แทรกประโยค “การพัฒนานี้ทำให้อีโมจิเป็นส่วนหนึ่งของวัฒนธรรมดิจิทัลระหว่างประเทศ”
@@ -20750,8 +22706,6 @@ Answer: B. A Japanese designer named Shigetaka Kurita
 
 1. ตามย่อหน้า 1 ใครสร้างอีโมจิเป็นคนแรก
 เฉลย: B. นักออกแบบชาวญี่ปุ่นชื่อชิเงทากะ คุริตะ
-
-
 2. Around which year did emoji begin to gain global popularity?
 A. 1995
 B. 1999
@@ -20790,6 +22744,8 @@ Answer: B. confusion
 
 5. คำว่า “ambiguity” ในย่อหน้า 3 ใกล้เคียงที่สุดกับ
 เฉลย: B. confusion (ความสับสน)
+
+
 6. Which of the following is NOT mentioned in the passage?
 A. Emoji were first developed in Japan.
 B. Unicode ensures consistency across devices.
@@ -20799,8 +22755,6 @@ Answer: C. Emoji completely replace written language.
 
 6. ข้อใดไม่ได้กล่าวถึงในบทความ
 เฉลย: C. อีโมจิมาแทนที่ภาษาเขียนทั้งหมด
-
-
 7. Drag & Drop (Match Emoji to Meaning)
 Match the emoji category with what they typically represent:
 Options:
@@ -20841,6 +22795,8 @@ Answer: A, C, E
 8. คำถามสรุป (เลือก 3)
 เฉลย: A. อีโมจิถูกทำให้เป็นมาตรฐานผ่านยูนิโค้ด ทำให้ใช้ได้ทั่วโลก • C. อีโมจิทำหน้าที่เป็นเครื่องมือพาราลิ
 งกิวสติกในการสื่อสารดิจิทัล • E. นักวิชาการถกเถียงผลกระทบทางสังคมระยะยาวของอีโมจิ (A, C, E)
+
+
 12. Insert Sentence Question
 Where would the following sentence best fit?
 "This development allowed emoji to become part of
@@ -20881,6 +22837,8 @@ ordinary citizens significant power in shaping government policy.
 ย่อหน้า 2 สถาบันการเมืองหลักของเอเธนส์คือสภาประชาชน หรือที่เรียกว่าเอกเคลเซีย พลเมืองชายทุกคนที่อายุ
 เกินสิบแปดปีเข้าร่วมได้ ในสภา พลเมืองพูดแสดงความคิดเห็นและลงคะแนนเรื่องสาธารณะได้ การตัดสินใจมัก
 ใช้เสียงข้างมาก ทำให้ประชาชนธรรมดามีอำนาจสำคัญในการกำหนดนโยบายรัฐ
+
+
 However, not everyone living in Athens was considered a citizen. To qualify, a person had to be male,
 free (not a slave), over eighteen years old, and born in Athens to Athenian parents. Women, slaves, and
 foreign residents known as metics were excluded from political participation. As a result, a large portion
@@ -20935,6 +22893,8 @@ Answer: B. prevented
 
 3. คำว่า “excluded” ในย่อหน้า 3 ใกล้เคียงที่สุดกับ
 เฉลย: B. prevented (ถูกกัน/ถูกห้าม)
+
+
 4. Who were allowed to participate in the Assembly?
 A. All residents of Athens
 B. Free men over 18 born in Athens
@@ -20953,8 +22913,6 @@ Answer: C. To promote equality and reduce corruption
 
 5. เหตุใดเอเธนส์จึงใช้การเลือกด้วยการจับสลาก
 เฉลย: C. เพื่อส่งเสริมความเท่าเทียมและลดการทุจริต
-
-
 6. Why do modern scholars question whether Athenian
 democracy was truly fair?
 A. Because citizens had too much power
@@ -20998,8 +22956,6 @@ comprehensive and efficient code tailored specifically to reading and writing.
 นี้พัฒนาสำหรับทหารฝรั่งเศส ใช้จุดนูนเพื่อให้อ่านข้อความในความมืดโดยไม่ต้องพูดออกเสียง แม้ระบบเดิมซับ
 ซ้อนและเทอะทะเกินกว่าจะใช้จริงในห้องเรียน แต่ก็เป็นแรงบันดาลใจให้เบรลล์สร้างรหัสที่ครอบคลุมและมี
 ประสิทธิภาพกว่าซึ่งออกแบบเพื่อการอ่านและเขียนโดยเฉพาะ
-
-
 Braille’s refined system is based on a six-dot cell arranged in two vertical columns of three dots each.
 By varying the combination of raised dots, it can represent the entire alphabet, mathematical symbols,
 musical notation, and even scientific formulas. This flexibility made the system not only practical but
@@ -21058,8 +23014,6 @@ Not ancient, not simple.
 
 2. คำว่า “comprehensive” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
 เฉลย: C. complete (สมบูรณ์/ครอบคลุม)
-
-
 3. According to paragraph 2, Braille was inspired by:
 A. a Roman alphabet system
 B. a military communication system
@@ -21081,6 +23035,8 @@ Clear factual detail in paragraph 3.
 
 4. ตามย่อหน้า 3 ช่องเบรลล์พื้นฐานประกอบด้วย
 เฉลย: C. หกจุด
+
+
 5. Why was the original military system unsuitable for
 classroom use?
 A. It required visual reading.
@@ -21104,8 +23060,6 @@ Paragraph 3 explains the six-dot structure and its uses.
 
 6. ข้อใดอธิบายการจัดโครงสร้างของย่อหน้า 3 ได้ดีที่สุด
 เฉลย: B. คำอธิบายโครงสร้างและการใช้งานของเบรลล์
-
-
 7. The word “cumbersome” in paragraph 2 is closest in
 meaning to:
 A. efficient
@@ -21141,8 +23095,6 @@ populations worldwide.
 ภูมิคุ้มกัน แนวคิดการฉีดวัคซีนมีมานานหลายศตวรรษ แต่จุดเริ่มต้นทางวิทยาศาสตร์มักเชื่อมโยงกับงานของ
 เอ็ดเวิร์ด เจนเนอร์ในปลายศตวรรษที่ 18 ในปี 1798 เจนเนอร์ตีพิมพ์ผลการค้นพบเกี่ยวกับการที่การสัมผัสโรค
 ฝีดาษวัวสามารถปกป้องมนุษย์จากไข้ทรพิษ ซึ่งเป็นโรคร้ายแรงที่ทำลายประชากรทั่วโลก
-
-
 The term “vaccine” originates from the Latin phrase variolae vaccinae, meaning “smallpox of the cow.”
 Jenner used this expression to describe cowpox, from which the word “vacca,” meaning cow, is derived.
 By adopting this terminology, Jenner established the foundation for modern immunology. Later, the
@@ -21170,6 +23122,8 @@ widespread immunization campaigns.
 ภูมิคุ้มกัน แทนที่จะใช้จุลชีพทั้งตัว พัฒนาการทางเทคโนโลยีเหล่านี้ปรับปรุงทั้งความปลอดภัยและประสิทธิผล
 ข้อมูลสถิติแสดงว่าหลังการนำวัคซีนมาใช้ อัตราการตายจากโรคเช่นไข้ทรพิษและโปลิโอลดลงอย่างมาก
 ตัวอย่างในสหรัฐฯ จำนวนผู้ป่วยโปลิโอลดลงอย่างมีนัยสำคัญหลังแคมเปญสร้างภูมิคุ้มกันอย่างกว้างขวาง
+
+
 Despite these successes, vaccination has been the subject of ongoing controversy. Since the earliest
 immunization efforts, some individuals and groups have expressed concerns regarding safety, ethics,
 cost, and personal liberty. Certain religious communities have opposed vaccination on doctrinal
@@ -21189,12 +23143,12 @@ illness and preventing death.
 meaning to:`,opts:[["A","failure"],["B","expense"],["C","beginning"],["D","controversy"]],ans:"C",th:`2. คำว่า “inception” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
 เฉลย: C. beginning (จุดเริ่มต้น)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`3. The word “confer” in paragraph 4 is closest in
 meaning to:`,opts:[["A","measure"],["B","remove"],["C","omission"],["D","provide"]],ans:"D",th:`3. คำว่า “confer” ในย่อหน้า 4 ใกล้เคียงที่สุดกับ
-เฉลย: D. provide (มอบให้)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`4. Why was the term “vaccine” adopted by Louis
+เฉลย: D. provide (มอบให้)
+
+✅`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`4. Why was the term “vaccine” adopted by Louis
 Pasteur?`,opts:[["A","To reduce medical costs"],["B","To celebrate and honor Jenner’s discovery"],["C","To describe bacterial infections"],["D","To promote political policies"]],ans:"B",th:`4. เหตุใดหลุยส์ ปาสเตอร์จึงใช้คำว่า “วัคซีน”
 เฉลย: B. เพื่อยกย่องและเป็นเกียรติแก่การค้นพบของเจนเนอร์`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:"5. The word “His” in paragraph 2 refers to:",opts:[["A","the boy"],["B","the cow"],["C","Jenner"],["D","the vaccine"]],ans:"C",th:`5. คำว่า “His” ในย่อหน้า 2 หมายถึง
-เฉลย: C. เจนเนอร์
-
-✅`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`6. According to the passage, early vaccines were
+เฉลย: C. เจนเนอร์`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`6. According to the passage, early vaccines were
 produced by:`,opts:[["A","genetic cloning only"],["B","computer simulation"],["C","weakened or killed pathogens"],["D","synthetic antibiotics"]],ans:"C",th:`6. ตามบทความ วัคซีนยุคแรกผลิตจาก
 เฉลย: C. เชื้อก่อโรคที่อ่อนฤทธิ์หรือถูกฆ่า
 
@@ -21235,7 +23189,9 @@ D. Mandatory vaccination violates personal freedom.
 ข้อมูลทางประวัติศาสตร์: A. เจนเนอร์ตีพิมพ์ผลการค้นพบในปี 1798 • C. ผู้ป่วยโปลิโอลดลงหลังแคมเปญฉีด
 วัคซีน • E. คำว่า vaccine มาจาก variolae vaccinae
 ข้อกล่าวอ้าง/ความเห็น: B. วัคซีนอาจไม่ปลอดภัยพอ • F. บางคนเชื่อว่าการทดลองทางคลินิกไม่เพียงพอ • D.
-การบังคับฉีดวัคซีนละเมิดเสรีภาพส่วนบุคคล`},{kind:"mcq",ok:!0,q:"12. Which statement is TRUE according to the passage?",opts:[["A","Vaccines always cause the disease they prevent."],["B","The term vaccine comes from a Latin word related to cows."],["C","Smallpox increased after vaccination programs."],["D","All religious groups support vaccination."]],ans:"B",th:`12. ข้อใดจริงตามบทความ
+การบังคับฉีดวัคซีนละเมิดเสรีภาพส่วนบุคคล
+
+`},{kind:"mcq",ok:!0,q:"12. Which statement is TRUE according to the passage?",opts:[["A","Vaccines always cause the disease they prevent."],["B","The term vaccine comes from a Latin word related to cows."],["C","Smallpox increased after vaccination programs."],["D","All religious groups support vaccination."]],ans:"B",th:`12. ข้อใดจริงตามบทความ
 เฉลย: B. คำว่า vaccine มาจากคำละตินที่เกี่ยวกับวัว`,ans_text:null,raw:null}],qa_raw:`1. What is a vaccine?
 A. A treatment that cures infectious diseases
 B. A biological preparation that stimulates immunity
@@ -21269,6 +23225,10 @@ Answer: D. provide
 
 3. คำว่า “confer” ในย่อหน้า 4 ใกล้เคียงที่สุดกับ
 เฉลย: D. provide (มอบให้)
+
+✅
+
+
 4. Why was the term “vaccine” adopted by Louis
 Pasteur?
 A. To reduce medical costs
@@ -21292,10 +23252,6 @@ Answer: C. Jenner
 
 5. คำว่า “His” ในย่อหน้า 2 หมายถึง
 เฉลย: C. เจนเนอร์
-
-✅
-
-
 6. According to the passage, early vaccines were
 produced by:
 A. genetic cloning only
@@ -21334,6 +23290,7 @@ Answer: C. Decline in smallpox and polio cases
 8. หลักฐานใดที่ให้ไว้สนับสนุนประสิทธิผลของวัคซีน
 เฉลย: C. จำนวนผู้ป่วยไข้ทรพิษและโปลิโอลดลง
 
+
 9. The word “experiment” in paragraph 2 most nearly
 means:
 A. a political debate
@@ -21346,7 +23303,6 @@ Answer: B. a scientific test conducted to discover facts
 เฉลย: B. การทดสอบทางวิทยาศาสตร์เพื่อค้นหาข้อเท็จจริง
 
 ✅
-
 
 10. What is the main idea of the passage?
 A. Vaccines are too expensive for global use
@@ -21384,6 +23340,8 @@ D. Mandatory vaccination violates personal freedom.
 วัคซีน • E. คำว่า vaccine มาจาก variolae vaccinae
 ข้อกล่าวอ้าง/ความเห็น: B. วัคซีนอาจไม่ปลอดภัยพอ • F. บางคนเชื่อว่าการทดลองทางคลินิกไม่เพียงพอ • D.
 การบังคับฉีดวัคซีนละเมิดเสรีภาพส่วนบุคคล
+
+
 12. Which statement is TRUE according to the passage?
 A. Vaccines always cause the disease they prevent.
 B. The term vaccine comes from a Latin word related to cows.
@@ -21428,6 +23386,8 @@ systems.
 เลียม สโตโคทำวิจัยบุกเบิกเกี่ยวกับภาษามืออเมริกัน (ASL) เขาแสดงว่า ASL มีองค์ประกอบทางภาษาที่ชัดเจน
 ได้แก่ รูปมือ ตำแหน่ง และการเคลื่อนไหว ซึ่งทำหน้าที่คล้ายหน่วยเสียงในภาษาพูด งานวิจัยนี้ให้หลักฐานเชิง
 ประจักษ์ว่าภาษามือเป็นระบบที่ซับซ้อนและมีกฎเกณฑ์
+
+
 Today, sign language linguistics is a well-established academic discipline. Scholars investigate how
 visual-spatial grammar operates, how meaning is constructed through facial expressions and body
 movement, and how sign languages vary across regions. Although historical prejudice once
@@ -21543,6 +23503,8 @@ language use
 
 3. เหตุใดจึงกล่าวถึงการประชุมนานาชาติปี 1880 ในย่อหน้า 2
 เฉลย: A. เพื่อแสดงจุดเปลี่ยนที่จำกัดการใช้ภาษามือ
+
+
 4. The word “persisted” in paragraph 3 is closest in
 meaning to:
 A. disappeared
@@ -21553,8 +23515,6 @@ Answer: B. continued
 
 4. คำว่า “persisted” ในย่อหน้า 3 ใกล้เคียงที่สุดกับ
 เฉลย: B. continued (คงอยู่ต่อ)
-
-
 5. Which of the following best describes William
 Stokoe’s contribution?
 A. He banned sign language in schools.
@@ -21631,7 +23591,207 @@ E. Historical prejudice limited the recognition of sign languages.
 
 8. สรุป: เลือกสามข้อที่แสดงสาระสำคัญของบทความ
 เฉลย: A. ภาษามือเป็นระบบภาษาที่เป็นอิสระและมีโครงสร้างของตนเอง • C. งานวิจัยของวิลเลียม สโตโคแสดง
-ความซับซ้อนเชิงโครงสร้างของ ASL • E. อคติทางประวัติศาสตร์จำกัดการยอมรับภาษามือ`},{n:130,type:"Reading",title:"14_Reading_The Evolution of Theatre and Drama",date:"2026-04-30",status:"pending",dup:null},{n:131,type:"Reading",title:"21_Reading_Plate Tectonics, Continental Crust, and Wegener’s Theory (202604-30)",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+ความซับซ้อนเชิงโครงสร้างของ ASL • E. อคติทางประวัติศาสตร์จำกัดการยอมรับภาษามือ`},{n:130,type:"Reading",title:"14_Reading_The Evolution of Theatre and Drama",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+The systematic evaluation of drama began in ancient Greece, primarily through the analytical lens of
+Aristotle. In 335 BCE, Aristotle’s Poetics established the foundational criteria for theatrical excellence.
+He argued that a "good" tragedy must adhere to specific unities of time and place, focusing on a
+protagonist of noble birth whose downfall is triggered by a fatal flaw. Central to this evaluation was the
+concept of catharsis— a term synonymous with emotional cleansing or the purging of intense feelings.
+For the Greeks, the success of a play was measured by its ability to evoke pity and fear, ultimately
+leaving the audience with a sense of spiritual and emotional renewal.
+
+[ย่อหน้า 1] การประเมินละครอย่างเป็นระบบเริ่มต้นในกรีกโบราณ โดยหลักผ่านมุมมองเชิงวิเคราะห์ของ
+อริสโตเติล ในปี 335 ก่อนคริสตกาล งาน Poetics ของอริสโตเติลวางเกณฑ์พื้นฐานของความเป็นเลิศทางการ
+แสดง เขาโต้ว่าโศกนาฏกรรมที่ “ดี” ต้องยึดหลักเอกภาพของเวลาและสถานที่เฉพาะ เน้นตัวเอกที่เป็นผู้สูงศักดิ์
+โดยกำเนิดซึ่งความล่มสลายถูกกระตุ้นด้วยข้อบกพร่องร้ายแรง แนวคิดหลักของการประเมินนี้คือ catharsis ซึ่ง
+เป็นคำพ้องกับการชำระล้างอารมณ์หรือการระบายความรู้สึกรุนแรง สำหรับชาวกรีก ความสำเร็จของละครวัด
+จากความสามารถในการกระตุ้นความสงสารและความกลัว ท้ายที่สุดทิ้งความรู้สึกฟื้ นฟูทางจิตวิญญาณและ
+อารมณ์ให้ผู้ชม
+As the centuries progressed, the transition from Classical Greek drama to Modernism introduced a
+radical shift in theatrical evaluation. While the ancients focused on the dictates of fate and the divine,
+Modern Theatre began to prioritize the human condition and social structures. This era saw the rise of
+Realism, a movement dedicated to the truthful representation of everyday life. Evaluators no longer
+looked for heroic grandeur; instead, they sought "verisimilitude"—the appearance of being true or real.
+Drama became a tool for dissecting the complexities of the mundane, moving away from the stylized
+masks of the past toward a more nuanced, psychological depth.
+
+[ย่อหน้า 2] เมื่อศตวรรษผ่านไป การเปลี่ยนผ่านจากละครกรีกคลาสสิกสู่ยุคโมเดิร์นนำการเปลี่ยนแปลงอย่าง
+รุนแรงในการประเมินละคร ขณะที่คนโบราณเน้นบัญชาของโชคชะตาและพระเจ้า โรงละครสมัยใหม่เริ่มให้
+ความสำคัญกับสภาพมนุษย์และโครงสร้างสังคม ยุคนี้เห็นการเติบโตของสัจนิยม (Realism) ซึ่งเป็นขบวนการที่
+อุทิศให้การนำเสนอชีวิตประจำวันอย่างตรงไปตรงมา ผู้ประเมินไม่แสวงหาความยิ่งใหญ่ของวีรบุรุษอีกต่อไป แต่
+มองหา “verisimilitude” คือความดูเหมือนจริง ละครกลายเป็นเครื่องมือผ่าความซับซ้อนของเรื่องสามัญ ห่างจาก
+หน้ากากเชิงสไตล์ของอดีตสู่ความลึกทางจิตวิทยาที่ละเอียดอ่อนกว่า
+This shift toward Realism brought a darker aesthetic to the stage. Modern playwrights often explore
+themes of existential anxiety, alienation, and internal conflict. Unlike the structured "purging" found in
+Aristotelian drama, modern works often leave the audience in a state of discomfort or reflection. The
+"darkness" in modern art is not merely for shock value; it is a calculated effort to mirror the fragmented
+nature of contemporary existence. Consequently, the evaluation of modern drama often hinges on how
+effectively a play captures these psychological tensions and the "unresolved" nature of human
+problems, contrasting sharply with the definitive moral resolutions of Greek plays.
+
+[ย่อหน้า 3] การเปลี่ยนไปสู่สัจนิยมนี้นำสุนทรียะที่มืดขึ้นสู่เวที นักเขียนบทละครสมัยใหม่มักสำรวจธีมเรื่องความ
+กังวลเชิงอัตถิภาวนิยม ความแปลกแยก และความขัดแย้งภายใน ต่างจาก “การชำระล้าง” ที่มีโครงสร้างใน
+ละครแบบอริสโตเติล ผลงานสมัยใหม่มักทิ้งผู้ชมไว้ในสภาพไม่สบายใจหรือครุ่นคิด “ความมืด” ในศิลปะสมัยใหม่
+ไม่ได้มีไว้เพียงสร้างความตกใจ แต่เป็นความพยายามที่คิดมาแล้วเพื่อสะท้อนลักษณะแตกกระจายของการดำรง
+อยู่ร่วมสมัย ดังนั้น การประเมินละครสมัยใหม่มักขึ้นกับว่าบทละครจับความตึงเครียดทางจิตใจและลักษณะ “ไม่
+คลี่คลาย” ของปัญหามนุษย์ได้ดีเพียงใด ต่างอย่างชัดเจนกับบทสรุปทางศีลธรรมที่ชัดเจนของละครกรีก
+
+
+The linguistic and structural differences between these eras also play a crucial role in drama
+evaluation. Greek theatre relied heavily on poetic meter and choral interludes, with many terms rooted
+in Greek etymology that emphasized ritual. In contrast, the development of European drama saw a
+significant influence of Latin in its formal documentation and the evolution of its dramatic vocabulary.
+Today, a comprehensive evaluation of theatre requires an understanding of both: the rigid, formalistic
+roots of the ancient world and the fluid, psychological realism of the modern stage. By comparing these
+two traditions, scholars can better appreciate how theatre has evolved from a religious rite into a
+complex psychological study.
+
+[ย่อหน้า 4] ความแตกต่างด้านภาษาและโครงสร้างระหว่างยุคเหล่านี้ก็มีบทบาทสำคัญในการประเมินละคร
+ละครกรีกพึ่งฉันทลักษณ์กวีและการแทรกของคณะนักร้องประสานเสียงอย่างมาก โดยหลายคำมีรากจาก
+นิรุกติศาสตร์กรีกที่เน้นพิธีกรรม ในทางตรงข้าม พัฒนาการของละครยุโรปได้รับอิทธิพลสำคัญของภาษาละติน
+ในเอกสารที่เป็นทางการและวิวัฒนาการของคำศัพท์ละคร ปัจจุบัน การประเมินละครอย่างครอบคลุมต้องเข้าใจ
+ทั้งสองด้าน คือรากเหง้าที่เคร่งครัดเชิงรูปแบบของโลกโบราณ และสัจนิยมทางจิตวิทยาที่ลื่นไหลของเวทีสมัย
+ใหม่ ด้วยการเปรียบเทียบสองธรรมเนียมนี้ นักวิชาการเข้าใจดีขึ้นว่าละครวิวัฒน์จากพิธีกรรมทางศาสนาเป็นการ
+ศึกษาจิตวิทยาที่ซับซ้อนอย่างไร`,qs:[{kind:"mcq",ok:!0,q:`1. The word "adhere to" in Paragraph 1 is closest in
+meaning to:`,opts:[["A","challenge"],["B","stick to"],["C","modify"],["D","create"]],ans:"B",th:`1. คำว่า “adhere to” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
+เฉลย: B. stick to (ยึดตาม)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`2. According to Paragraph 1, what was the primary goal
+of catharsis in Greek tragedy?`,opts:[["A","To educate the audience about the unities of time and place."],["B","To allow the audience to experience emotional purification."],["C","To praise the noble birth of the play’s protagonist."],["D","To provide a political critique of the Greek government."]],ans:"B",th:`2. ตามย่อหน้า 1 เป้าหมายหลักของ catharsis ในโศกนาฏกรรมกรีกคืออะไร
+เฉลย: B. ให้ผู้ชมได้ประสบการณ์การชำระล้างอารมณ์`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`3. In Paragraph 2, the author’s description of "Realism"
+suggests that it:`,opts:[["A","focused more on heroic legends than on ordinary people."],["B","preferred stylized masks over psychological complexity."],["C","aimed to portray life as it actually is, including its mundane aspects."],["D","was a movement that started in the Greek Classical era."]],ans:"C",th:`3. ในย่อหน้า 2 คำบรรยาย “Realism” ของผู้เขียนบอกเป็นนัยว่า
+เฉลย: C. มุ่งนำเสนอชีวิตตามที่เป็นจริง รวมถึงด้านสามัญ`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`4. Which of the following is NOT mentioned in
+Paragraph 3 as a characteristic of modern drama?`,opts:[["A","A sense of existential anxiety."],["B","A focus on internal, psychological conflict. |C. A clear moral resolution at the end of the play."],["D","A reflection of the fragmented nature of life."]],ans:"C",th:`4. ข้อใดไม่ได้กล่าวถึงในย่อหน้า 3 ว่าเป็นลักษณะของละครสมัยใหม่
+เฉลย: C. บทสรุปทางศีลธรรมที่ชัดเจนตอนจบ`,ans_text:null,raw:`4. Which of the following is NOT mentioned in
+Paragraph 3 as a characteristic of modern drama?
+A. A sense of existential anxiety.
+B. A focus on internal, psychological conflict.
+|C. A clear moral resolution at the end of the play.
+D. A reflection of the fragmented nature of life.
+Answer: C. A clear moral resolution at the end of the play.
+moral resolutions
+
+4. ข้อใดไม่ได้กล่าวถึงในย่อหน้า 3 ว่าเป็นลักษณะของละครสมัยใหม่
+เฉลย: C. บทสรุปทางศีลธรรมที่ชัดเจนตอนจบ`},{kind:"mcq",ok:!0,q:`5. Which of the following can be inferred from
+Paragraph 4 about the evolution of drama?`,opts:[["A","Modern drama has completely abandoned its Greek roots."],["B","Linguistic influences like Latin helped shape the way drama is documented."],["C","The chorus remains the most important element in modern evaluation."],["D","Ancient Greek theatre was more focused on psychology than on ritual."]],ans:"B",th:`5. อนุมานอะไรได้จากย่อหน้า 4 เกี่ยวกับวิวัฒนาการของละคร
+เฉลย: B. อิทธิพลทางภาษา เช่น ภาษาละติน ช่วยหล่อหลอมวิธีบันทึกละคร`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`6. Drag & Drop: Category Chart
+Directions: Select the phrases and match them to the correct
+era of theatre. (Two phrases will not be used).
+The Eras of Theatre:`,opts:[],ans:null,th:"",ans_text:null,raw:`6. Drag & Drop: Category Chart
+Directions: Select the phrases and match them to the correct
+era of theatre. (Two phrases will not be used).
+The Eras of Theatre:`},{kind:"raw",ok:!1,q:"1. Ancient Greek Theatre: __________, __________",opts:[],ans:null,th:"",ans_text:null,raw:"1. Ancient Greek Theatre: __________, __________"},{kind:"raw",ok:!1,q:`2. Modern Theatre: __________, __________
+Choices:
+• A. Use of poetic meter and choral interludes
+• B. Emphasis on "verisimilitude" and societal issues
+• C. Purging of emotions through catharsis
+• D. Focus on existential anxiety and unresolved endings
+• E. Digital sound amplification techniques
+• F. Primary focus on Latin religious scripts`,opts:[],ans:null,th:`6. ลากและวาง: แผนภูมิประเภท จับคู่วลีกับยุคของละคร (2 วลีไม่ถูกใช้)
+ละครกรีกโบราณ: A (ฉันทลักษณ์กวีและการแทรกของคณะนักร้อง), C (การชำระล้างอารมณ์ผ่าน catharsis)
+ละครสมัยใหม่: B (เน้น “verisimilitude” และประเด็นสังคม), D (เน้นความกังวลเชิงอัตถิภาวนิยมและตอนจบที่
+ไม่คลี่คลาย)`,ans_text:null,raw:`2. Modern Theatre: __________, __________
+Choices:
+• A. Use of poetic meter and choral interludes
+• B. Emphasis on "verisimilitude" and societal issues
+• C. Purging of emotions through catharsis
+• D. Focus on existential anxiety and unresolved endings
+• E. Digital sound amplification techniques
+• F. Primary focus on Latin religious scripts
+Answer: Drag & Drop:
+Ancient Greek Theatre:
+A (Poetic meter/Choral), C (Catharsis)
+Modern Theatre:
+B (Verisimilitude), D (Anxiety/Unresolved)
+
+6. ลากและวาง: แผนภูมิประเภท จับคู่วลีกับยุคของละคร (2 วลีไม่ถูกใช้)
+ละครกรีกโบราณ: A (ฉันทลักษณ์กวีและการแทรกของคณะนักร้อง), C (การชำระล้างอารมณ์ผ่าน catharsis)
+ละครสมัยใหม่: B (เน้น “verisimilitude” และประเด็นสังคม), D (เน้นความกังวลเชิงอัตถิภาวนิยมและตอนจบที่
+ไม่คลี่คลาย)
+
+`}],qa_raw:`1. The word "adhere to" in Paragraph 1 is closest in
+meaning to:
+A. challenge
+B. stick to
+C. modify
+D. create
+Answer: B. stick to
+
+1. คำว่า “adhere to” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
+เฉลย: B. stick to (ยึดตาม)
+2. According to Paragraph 1, what was the primary goal
+of catharsis in Greek tragedy?
+A. To educate the audience about the unities of time and place.
+B. To allow the audience to experience emotional purification.
+C. To praise the noble birth of the play’s protagonist.
+D. To provide a political critique of the Greek government.
+Answer: B. To allow the audience to experience emotional
+purification.
+
+2. ตามย่อหน้า 1 เป้าหมายหลักของ catharsis ในโศกนาฏกรรมกรีกคืออะไร
+เฉลย: B. ให้ผู้ชมได้ประสบการณ์การชำระล้างอารมณ์
+
+
+3. In Paragraph 2, the author’s description of "Realism"
+suggests that it:
+A. focused more on heroic legends than on ordinary people.
+B. preferred stylized masks over psychological complexity.
+C. aimed to portray life as it actually is, including its mundane
+aspects.
+D. was a movement that started in the Greek Classical era.
+Answer: C. aimed to portray life as it actually is, including
+its mundane aspects.
+
+3. ในย่อหน้า 2 คำบรรยาย “Realism” ของผู้เขียนบอกเป็นนัยว่า
+เฉลย: C. มุ่งนำเสนอชีวิตตามที่เป็นจริง รวมถึงด้านสามัญ
+4. Which of the following is NOT mentioned in
+Paragraph 3 as a characteristic of modern drama?
+A. A sense of existential anxiety.
+B. A focus on internal, psychological conflict.
+|C. A clear moral resolution at the end of the play.
+D. A reflection of the fragmented nature of life.
+Answer: C. A clear moral resolution at the end of the play.
+moral resolutions
+
+4. ข้อใดไม่ได้กล่าวถึงในย่อหน้า 3 ว่าเป็นลักษณะของละครสมัยใหม่
+เฉลย: C. บทสรุปทางศีลธรรมที่ชัดเจนตอนจบ
+5. Which of the following can be inferred from
+Paragraph 4 about the evolution of drama?
+A. Modern drama has completely abandoned its Greek roots.
+B. Linguistic influences like Latin helped shape the way drama
+is documented.
+C. The chorus remains the most important element in modern
+evaluation.
+D. Ancient Greek theatre was more focused on psychology than
+on ritual.
+Answer: B. Linguistic influences like Latin helped shape the
+way drama is documented.
+
+5. อนุมานอะไรได้จากย่อหน้า 4 เกี่ยวกับวิวัฒนาการของละคร
+เฉลย: B. อิทธิพลทางภาษา เช่น ภาษาละติน ช่วยหล่อหลอมวิธีบันทึกละคร
+
+
+6. Drag & Drop: Category Chart
+Directions: Select the phrases and match them to the correct
+era of theatre. (Two phrases will not be used).
+The Eras of Theatre:
+1. Ancient Greek Theatre: __________, __________
+2. Modern Theatre: __________, __________
+Choices:
+• A. Use of poetic meter and choral interludes
+• B. Emphasis on "verisimilitude" and societal issues
+• C. Purging of emotions through catharsis
+• D. Focus on existential anxiety and unresolved endings
+• E. Digital sound amplification techniques
+• F. Primary focus on Latin religious scripts
+Answer: Drag & Drop:
+Ancient Greek Theatre:
+A (Poetic meter/Choral), C (Catharsis)
+Modern Theatre:
+B (Verisimilitude), D (Anxiety/Unresolved)
+
+6. ลากและวาง: แผนภูมิประเภท จับคู่วลีกับยุคของละคร (2 วลีไม่ถูกใช้)
+ละครกรีกโบราณ: A (ฉันทลักษณ์กวีและการแทรกของคณะนักร้อง), C (การชำระล้างอารมณ์ผ่าน catharsis)
+ละครสมัยใหม่: B (เน้น “verisimilitude” และประเด็นสังคม), D (เน้นความกังวลเชิงอัตถิภาวนิยมและตอนจบที่
+ไม่คลี่คลาย)`},{n:131,type:"Reading",title:"21_Reading_Plate Tectonics, Continental Crust, and Wegener’s Theory (202604-30)",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
 Plate tectonics is the scientific theory that explains the large- scale movement of Earth’s lithosphere.
 According to this theory, the outer shell of the Earth is divided into several rigid plates that float on the
 semi-fluid asthenosphere beneath them. These plates move slowly over millions of years, causing
@@ -21644,6 +23804,8 @@ unrelated.
 ของเหลวด้านล่าง แผ่นเหล่านี้เคลื่อนช้าๆ ตลอดหลายล้านปี ก่อให้เกิดแผ่นดินไหว กิจกรรมภูเขาไฟ และการก่อ
 ตัวของเทือกเขา เพลตเทคโทนิกส์ให้กรอบที่ครอบคลุมเพื่อเข้าใจปรากฏการณ์ทางธรณีวิทยาที่ครั้งหนึ่งเคยถูก
 มองว่าไม่เกี่ยวข้องกัน
+
+
 The continental crust is one of the two main types of Earth’s crust, the other being oceanic crust.
 Continental crust is generally thicker and less dense than oceanic crust, allowing it to remain above sea
 level and form continents. It is primarily composed of granitic rocks and is much older than most
@@ -21761,6 +23923,8 @@ Answer: C
 
 1. ใจความสำคัญของบทความคืออะไร
 เฉลย: C. พัฒนาการของทฤษฎีเพลตเทคโทนิกส์และความเชื่อมโยงกับแนวคิดของเวเกเนอร์
+
+
 2. According to paragraph 1, plate tectonics explains:
 A. Only volcanic eruptions
 B. The age of the continental crust
@@ -21790,8 +23954,6 @@ Answer: C
 
 4. ตามย่อหน้า 2 เปลือกโลกทวีป
 เฉลย: C. โดยทั่วไปหนากว่าและมีความหนาแน่นน้อยกว่าเปลือกมหาสมุทร
-
-
 5. Why is continental crust important to scientists?
 A. It causes earthquakes
 B. It provides information about Earth’s geological history
@@ -21811,6 +23973,8 @@ Answer: A
 
 6. คำว่า “fragmented” ในย่อหน้า 3 ใกล้เคียงที่สุดกับ
 เฉลย: A. broken apart (แตกออกจากกัน)
+
+
 7. Which of the following was NOT mentioned as
 evidence supporting Wegener’s hypothesis?
 A. Matching coastlines of continents
@@ -24897,7 +27061,226 @@ Answer: (A), (C), (E)
 เฉลย: (A) อคติทางการรู้คิดอย่างการยึดเหนี่ยวและตัวล่อให้นักการตลาดนำทางผู้บริโภคด้วยการจัดการการรับรู้
 มูลค่า • (C) ตัวขับเคลื่อนทางอารมณ์ เช่น ความกลัวสูญเสียและความต้องการการยอมรับทางสังคม มักเอาชนะ
 การวิเคราะห์เชิงเหตุผล • (E) ข้อมูลขนาดใหญ่ทำให้การตลาดเชิงจิตวิทยามีประสิทธิผลเพิ่มขึ้นแต่ก่อให้เกิดข้อ
-กังวลด้านจริยธรรมใหม่ (A, C, E)`},{n:147,type:"Reading",title:"42_Reading_Digital Life in the Digital Age",date:"2026-04-30",status:"pending",dup:null},{n:148,type:"Reading",title:"42_Reading_The Psychology of Procrastination",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+กังวลด้านจริยธรรมใหม่ (A, C, E)`},{n:147,type:"Reading",title:"42_Reading_Digital Life in the Digital Age",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+In today’s digital age, people are constantly connected through the internet, smartphones, and social
+media platforms. Every action—whether sending messages, watching videos, or shopping online—
+creates a digital footprint. While these technologies offer convenience and efficiency, they also raise
+concerns about how personal information is used and stored. Many users are unaware of how much
+data they generate every day.
+
+ย่อหน้า 1 ในยุคดิจิทัลปัจจุบัน ผู้คนเชื่อมต่อกันตลอดเวลาผ่านอินเทอร์เน็ต สมาร์ทโฟน และแพลตฟอร์มโซเชีย
+ลมีเดีย ทุกการกระทำ ไม่ว่าส่งข้อความ ดูวิดีโอ หรือช้อปปิ้งออนไลน์ สร้างรอยเท้าดิจิทัล แม้เทคโนโลยีเหล่านี้
+ให้ความสะดวกและประสิทธิภาพ ก็ก่อให้เกิดความกังวลเรื่องข้อมูลส่วนบุคคลถูกใช้และจัดเก็บอย่างไร ผู้ใช้
+จำนวนมากไม่ทราบว่าตนสร้างข้อมูลมากเพียงใดในแต่ละวัน
+One important concept in this context is the Global Consumer Data Ecosystem (GCDE), which refers to
+the complex network of organizations that collect, process, and share consumer data worldwide. Within
+this system, companies gather information from multiple sources, including websites, apps, and online
+transactions. This data is then analyzed to understand user behavior and improve services, but it is
+also often shared with third parties.
+
+ย่อหน้า 2 แนวคิดสำคัญในบริบทนี้คือระบบนิเวศข้อมูลผู้บริโภคระดับโลก (GCDE) หมายถึงเครือข่ายซับซ้อน
+ขององค์กรที่เก็บ ประมวลผล และแบ่งปันข้อมูลผู้บริโภคทั่วโลก ในระบบนี้ บริษัทรวบรวมข้อมูลจากหลายแหล่ง
+รวมถึงเว็บไซต์ แอป และธุรกรรมออนไลน์ ข้อมูลจะถูกวิเคราะห์เพื่อเข้าใจพฤติกรรมผู้ใช้และปรับปรุงบริการ แต่
+ก็มักถูกแบ่งปันให้บุคคลที่สามด้วย
+Many online services appear to be “free,” but in reality, users often pay with their personal data. Social
+media platforms, search engines, and mobile applications collect information about users’ interests,
+habits, and preferences. This exchange creates a system where companies provide services at no cost
+while gaining valuable data in return. Therefore, the term “free” can be misleading, as users
+unknowingly trade privacy for convenience.
+
+ย่อหน้า 3 บริการออนไลน์หลายอย่างดูเหมือน “ฟรี” แต่ในความจริงผู้ใช้มักจ่ายด้วยข้อมูลส่วนตัว แพลตฟอร์ม
+โซเชียลมีเดีย เครื่องมือค้นหา และแอปมือถือเก็บข้อมูลเกี่ยวกับความสนใจ นิสัย และความชอบของผู้ใช้ การ
+แลกเปลี่ยนนี้สร้างระบบที่บริษัทให้บริการโดยไม่คิดค่าบริการขณะได้รับข้อมูลที่มีค่าเป็นการตอบแทน ดังนั้นคำ
+ว่า “ฟรี” อาจทำให้เข้าใจผิด เพราะผู้ใช้แลกความเป็นส่วนตัวกับความสะดวกโดยไม่รู้ตัว
+A key player in this system is the data broker, a company that collects and sells personal information to
+other businesses. These organizations compile detailed profiles of individuals based on their online and
+offline activities. The data is then used for targeted advertising, marketing strategies, and even
+decision-making processes such as credit evaluation. However, this practice raises serious concerns
+about privacy and the ethical use of personal information.
+
+ย่อหน้า 4 ผู้เล่นสำคัญในระบบนี้คือนายหน้าข้อมูล บริษัทที่เก็บและขายข้อมูลส่วนบุคคลให้ธุรกิจอื่น องค์กรเหล่า
+นี้รวบรวมโปรไฟล์โดยละเอียดของบุคคลจากกิจกรรมทั้งออนไลน์และออฟไลน์ ข้อมูลถูกนำไปใช้โฆษณากำหนด
+เป้าหมาย กลยุทธ์การตลาด และแม้แต่กระบวนการตัดสินใจ เช่น การประเมินเครดิต อย่างไรก็ตาม แนวปฏิบัตินี้
+ก่อให้เกิดความกังวลร้ายแรงเรื่องความเป็นส่วนตัวและการใช้ข้อมูลส่วนบุคคลอย่างมีจริยธรรม`,qs:[{kind:"mcq",ok:!0,q:`Question 1: Vocabulary (Paragraph 1)
+The word “footprint” in paragraph 1 is closest in meaning to:`,opts:[["A","damage"],["B","record"],["C","path"],["D","result"]],ans:"B",th:`คำถามที่ 1: คำศัพท์ (ย่อหน้า 1) คำว่า “footprint” ใกล้เคียงที่สุดกับ
+เฉลย: B. record (บันทึก/ร่องรอย)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 2: Detail (Paragraph 1)
+According to paragraph 1, why are people concerned about
+digital technology?`,opts:[["A","It is too expensive"],["B","It limits communication"],["C","It collects personal information"],["D","It reduces efficiency"]],ans:"C",th:`คำถามที่ 2: รายละเอียด ตามย่อหน้า 1 เหตุใดผู้คนจึงกังวลเรื่องเทคโนโลยีดิจิทัล
+เฉลย: C. เก็บข้อมูลส่วนบุคคล`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 3: Factual Information (Paragraph 2)
+What does GCDE stand for?`,opts:[["A","Global Consumer Digital Exchange"],["B","General Communication Data Environment"],["C","Global Consumer Data Ecosystem"],["D","Global Connection Data Engine"]],ans:"C",th:`คำถามที่ 3: ข้อเท็จจริง GCDE ย่อมาจากอะไร
+เฉลย: C. Global Consumer Data Ecosystem`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 4: Detail (Paragraph 2)
+According to paragraph 2, companies collect data from all of
+the following EXCEPT:`,opts:[["A","websites"],["B","mobile apps"],["C","online transactions"],["D","face-to-face conversations"]],ans:"D",th:`คำถามที่ 4: รายละเอียด บริษัทเก็บข้อมูลจากทุกแหล่งต่อไปนี้ ยกเว้น
+เฉลย: D. การสนทนาแบบเผชิญหน้า`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 5: Vocabulary (Paragraph 3)
+The word “misleading” in paragraph 3 is closest in meaning
+to:`,opts:[["A","confusing"],["B","false"],["C","unclear"],["D","incorrect"]],ans:"B",th:`คำถามที่ 5: คำศัพท์ คำว่า “misleading” ใกล้เคียงที่สุดกับ
+เฉลย: B. false (เท็จ/ผิด)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 6: Inference (Paragraph 3)
+What can be inferred about “free” online services?`,opts:[["A","They are completely without cost"],["B","Users always pay money later"],["C","Users exchange personal data for services"],["D","They are only used for entertainment"]],ans:"C",th:`คำถามที่ 6: การอนุมาน อนุมานอะไรได้เกี่ยวกับบริการออนไลน์ “ฟรี”
+เฉลย: C. ผู้ใช้แลกข้อมูลส่วนตัวกับบริการ`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 7: Purpose (Paragraph 4)
+Why does the author mention data brokers?`,opts:[["A","To explain how companies improve services"],["B","To show how data is collected and sold"],["C","To describe how users protect privacy"],["D","To compare different types of businesses"]],ans:"B",th:`คำถามที่ 7: จุดประสงค์ เหตุใดผู้เขียนจึงกล่าวถึงนายหน้าข้อมูล
+เฉลย: B. เพื่อแสดงว่าข้อมูลถูกเก็บและขายอย่างไร`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`Question 8: Sentence Insertion
+Look at the four squares [■] in paragraph 3:
+Paragraph 3 (modified):
+Many online services appear to be “free.” [■] Social media
+platforms collect user data. [■] This exchange creates a system
+of value. [■] Therefore, the term “free” can be misleading. [■]
+Where would the following sentence best fit?
+“However, users often do not realize the cost of these
+services.”`,opts:[["A","First square"],["B","Second square"],["C","Third square"],["D","Fourth square"]],ans:"A",th:`คำถามที่ 8: แทรกประโยค “อย่างไรก็ตาม ผู้ใช้มักไม่รู้ว่าบริการเหล่านี้มีต้นทุน” ควรอยู่ที่ช่องใด
+เฉลย: A. ช่องแรก`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`Question 9: Summary (3 Answers)
+Select THREE statements that express the most important
+ideas:
+⬜ A. Digital technology creates large amounts of user data
+⬜ B. All online services are dangerous
+⬜ C. Personal data is used by companies for various purposes
+⬜ D. Data brokers help protect privacy
+⬜ E. “Free” services often require personal data
+⬜ F. Technology reduces global communication`,opts:[],ans:null,th:`คำถามที่ 9: สรุป (เลือก 3)
+เฉลย: A. เทคโนโลยีดิจิทัลสร้างข้อมูลผู้ใช้จำนวนมาก • C. บริษัทใช้ข้อมูลส่วนบุคคลเพื่อวัตถุประสงค์ต่างๆ • E.
+บริการ “ฟรี” มักต้องการข้อมูลส่วนบุคคล (A, C, E)`,ans_text:null,raw:`Question 9: Summary (3 Answers)
+Select THREE statements that express the most important
+ideas:
+
+⬜ A. Digital technology creates large amounts of user data
+⬜ B. All online services are dangerous
+⬜ C. Personal data is used by companies for various purposes
+⬜ D. Data brokers help protect privacy
+⬜ E. “Free” services often require personal data
+⬜ F. Technology reduces global communication
+✅ Answers: A, C, E
+
+คำถามที่ 9: สรุป (เลือก 3)
+เฉลย: A. เทคโนโลยีดิจิทัลสร้างข้อมูลผู้ใช้จำนวนมาก • C. บริษัทใช้ข้อมูลส่วนบุคคลเพื่อวัตถุประสงค์ต่างๆ • E.
+บริการ “ฟรี” มักต้องการข้อมูลส่วนบุคคล (A, C, E)`},{kind:"mcq",ok:!0,q:`Question 10: Main Idea
+What is the main idea of the passage?`,opts:[["A","Technology has no negative effects"],["B","Digital services are always free"],["C","Digital technology is convenient but raises privacy concerns"],["D","Companies should stop using data"]],ans:"C",th:`คำถามที่ 10: ใจความสำคัญ
+เฉลย: C. เทคโนโลยีดิจิทัลสะดวกแต่ก่อให้เกิดความกังวลเรื่องความเป็นส่วนตัว`,ans_text:null,raw:null}],qa_raw:`Question 1: Vocabulary (Paragraph 1)
+The word “footprint” in paragraph 1 is closest in meaning to:
+A. damage
+B. record
+C. path
+D. result
+
+✅ Answer: B. record
+
+คำถามที่ 1: คำศัพท์ (ย่อหน้า 1) คำว่า “footprint” ใกล้เคียงที่สุดกับ
+เฉลย: B. record (บันทึก/ร่องรอย)
+Question 2: Detail (Paragraph 1)
+According to paragraph 1, why are people concerned about
+digital technology?
+A. It is too expensive
+B. It limits communication
+C. It collects personal information
+D. It reduces efficiency
+
+✅ Answer: C. It collects personal information
+
+คำถามที่ 2: รายละเอียด ตามย่อหน้า 1 เหตุใดผู้คนจึงกังวลเรื่องเทคโนโลยีดิจิทัล
+เฉลย: C. เก็บข้อมูลส่วนบุคคล
+Question 3: Factual Information (Paragraph 2)
+What does GCDE stand for?
+A. Global Consumer Digital Exchange
+B. General Communication Data Environment
+C. Global Consumer Data Ecosystem
+D. Global Connection Data Engine
+
+✅ Answer: C. Global Consumer Data Ecosystem
+คำถามที่ 3: ข้อเท็จจริง GCDE ย่อมาจากอะไร
+เฉลย: C. Global Consumer Data Ecosystem
+Question 4: Detail (Paragraph 2)
+According to paragraph 2, companies collect data from all of
+the following EXCEPT:
+A. websites
+B. mobile apps
+C. online transactions
+D. face-to-face conversations
+
+✅ Answer: D. face-to-face conversations
+
+คำถามที่ 4: รายละเอียด บริษัทเก็บข้อมูลจากทุกแหล่งต่อไปนี้ ยกเว้น
+เฉลย: D. การสนทนาแบบเผชิญหน้า
+
+
+Question 5: Vocabulary (Paragraph 3)
+The word “misleading” in paragraph 3 is closest in meaning
+to:
+A. confusing
+B. false
+C. unclear
+D. incorrect
+
+✅ Answer: B. false
+
+คำถามที่ 5: คำศัพท์ คำว่า “misleading” ใกล้เคียงที่สุดกับ
+เฉลย: B. false (เท็จ/ผิด)
+Question 6: Inference (Paragraph 3)
+What can be inferred about “free” online services?
+A. They are completely without cost
+B. Users always pay money later
+C. Users exchange personal data for services
+D. They are only used for entertainment
+
+✅ Answer: C. Users exchange personal data for services
+
+คำถามที่ 6: การอนุมาน อนุมานอะไรได้เกี่ยวกับบริการออนไลน์ “ฟรี”
+เฉลย: C. ผู้ใช้แลกข้อมูลส่วนตัวกับบริการ
+Question 7: Purpose (Paragraph 4)
+Why does the author mention data brokers?
+A. To explain how companies improve services
+B. To show how data is collected and sold
+C. To describe how users protect privacy
+D. To compare different types of businesses
+
+✅ Answer: B. To show how data is collected and sold
+
+คำถามที่ 7: จุดประสงค์ เหตุใดผู้เขียนจึงกล่าวถึงนายหน้าข้อมูล
+เฉลย: B. เพื่อแสดงว่าข้อมูลถูกเก็บและขายอย่างไร
+Question 8: Sentence Insertion
+Look at the four squares [■] in paragraph 3:
+Paragraph 3 (modified):
+Many online services appear to be “free.” [■] Social media
+platforms collect user data. [■] This exchange creates a system
+of value. [■] Therefore, the term “free” can be misleading. [■]
+Where would the following sentence best fit?
+“However, users often do not realize the cost of these
+services.”
+A. First square
+B. Second square
+C. Third square
+D. Fourth square
+
+✅ Answer: A. First square
+
+คำถามที่ 8: แทรกประโยค “อย่างไรก็ตาม ผู้ใช้มักไม่รู้ว่าบริการเหล่านี้มีต้นทุน” ควรอยู่ที่ช่องใด
+เฉลย: A. ช่องแรก
+
+
+Question 9: Summary (3 Answers)
+Select THREE statements that express the most important
+ideas:
+
+⬜ A. Digital technology creates large amounts of user data
+⬜ B. All online services are dangerous
+⬜ C. Personal data is used by companies for various purposes
+⬜ D. Data brokers help protect privacy
+⬜ E. “Free” services often require personal data
+⬜ F. Technology reduces global communication
+✅ Answers: A, C, E
+
+คำถามที่ 9: สรุป (เลือก 3)
+เฉลย: A. เทคโนโลยีดิจิทัลสร้างข้อมูลผู้ใช้จำนวนมาก • C. บริษัทใช้ข้อมูลส่วนบุคคลเพื่อวัตถุประสงค์ต่างๆ • E.
+บริการ “ฟรี” มักต้องการข้อมูลส่วนบุคคล (A, C, E)
+Question 10: Main Idea
+What is the main idea of the passage?
+A. Technology has no negative effects
+B. Digital services are always free
+C. Digital technology is convenient but raises privacy concerns
+D. Companies should stop using data
+
+✅ Answer: C. Digital technology is convenient but
+raises privacy concerns
+
+คำถามที่ 10: ใจความสำคัญ
+เฉลย: C. เทคโนโลยีดิจิทัลสะดวกแต่ก่อให้เกิดความกังวลเรื่องความเป็นส่วนตัว`},{n:148,type:"Reading",title:"42_Reading_The Psychology of Procrastination",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
 Procrastination, the act of delaying tasks despite knowing the negative consequences, is a widespread
 psychological behavior. Studies suggest that approximately 20% of adults worldwide are chronic
 procrastinators. This tendency is especially common among students and professionals who face longterm goals and deadlines. Although procrastination may seem like poor time management,
@@ -24915,6 +27298,8 @@ long-term benefit of studying is greater, the brain “discounts” its value be
 ย่อหน้า 2 คำอธิบายสำคัญอย่างหนึ่งคือแนวคิดที่เรียกว่าการลดค่าตามเวลา (temporal discounting) หมายถึง
 แนวโน้มที่บุคคลให้ค่ารางวัลทันทีมากกว่ารางวัลในอนาคต ตัวอย่างเช่น นักเรียนอาจเลือกดูหนังวันนี้แทนอ่าน
 หนังสือสอบสัปดาห์หน้า แม้ประโยชน์ระยะยาวของการอ่านจะมากกว่า สมองก็ “ลดค่า” เพราะถูกเลื่อนไป
+
+
 Temporal discounting is considered a cognitive mechanism that explains why people procrastinate.
 When a reward is far in the future, the brain reduces its perceived importance, making it harder to feel
 motivated. As deadlines approach, however, the perceived value of completing the task increases,
@@ -25008,8 +27393,6 @@ D. 50%
 
 คำถามที่ 1 ตามย่อหน้า 1 ผู้ใหญ่กี่เปอร์เซ็นต์เป็นคนผัดวันประกันพรุ่งเรื้อรัง
 เฉลย: C. 20%
-
-
 Question 2 The word “temporal” in paragraph 2 is closest in
 meaning to:
 A. emotional
@@ -25032,6 +27415,8 @@ D. calculating precisely
 
 คำถามที่ 3 คำว่า “discounting” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
 เฉลย: B. reducing the value (ลดมูลค่า)
+
+
 Question 4 According to paragraph 2, why do people prefer
 immediate rewards?
 A. They are easier to understand
@@ -25063,8 +27448,6 @@ D. studying behavior
 
 คำถามที่ 6 วลี “this tendency” ในย่อหน้า 1 หมายถึง
 เฉลย: B. การเลื่อนงาน
-
-
 Question 7 Look at the four squares ■ in paragraph 3.
 Where would the following sentence best fit?
 Sentence:
@@ -25080,6 +27463,8 @@ D. ■4
 คำถามที่ 7 แทรกประโยค “สิ่งนี้อธิบายว่าทำไมผู้คนรู้สึกมีแรงจูงใจฉับพลันเมื่อกำหนดส่งใกล้เข้ามา” ในย่อหน้า
 3
 เฉลย: C. ■3
+
+
 Question 8 Which of the following is NOT mentioned
 as a result of procrastination?
 A. Increased stress
@@ -25091,8 +27476,6 @@ D. Pressure
 
 คำถามที่ 8 ข้อใดไม่ได้กล่าวถึงเป็นผลของการผัดวันประกันพรุ่ง
 เฉลย: C. ความจำดีขึ้น
-
-
 Question 9
 Complete the table by matching the correct category.
 Statements
@@ -25137,8 +27520,6 @@ severe economic hardship that affected countries around the world.
 ทางการเงินที่สำคัญที่สุดในประวัติศาสตร์ ในวันนั้น ตลาดหุ้นสหรัฐฯ ล่มอย่างรุนแรงเมื่อนักลงทุนนับล้านรีบขาย
 หุ้น ราคาตกอย่างรวดเร็วและความตื่นตระหนกแพร่ไปทั้งตลาด เหตุการณ์นี้มักถูกมองเป็นจุดเริ่มต้นของภาวะ
 เศรษฐกิจตกต่ำครั้งใหญ่ ช่วงเวลาแห่งความยากลำบากทางเศรษฐกิจที่ส่งผลต่อประเทศทั่วโลก
-
-
 The causes of Black Tuesday were complex and developed over time. During the 1920s, many people
 began investing heavily in the stock market, often using borrowed money. This practice, known as
 speculation, created an unstable financial environment. Additionally, industries were producing more
@@ -25218,8 +27599,6 @@ D. The development of the stock market
 
 1. ใจความสำคัญของบทความคืออะไร
 เฉลย: B. สาเหตุและผลของวันอังคารทมิฬ
-
-
 2. Detail Question (Paragraph 2)
 Why was the stock market unstable in the 1920s?
 A. Too many government regulations
@@ -25254,6 +27633,8 @@ D. It depended only on agriculture
 
 4. การอนุมาน (ย่อหน้า 3): อนุมานอะไรได้เกี่ยวกับเศรษฐกิจโลกในภาวะเศรษฐกิจตกต่ำครั้งใหญ่
 เฉลย: C. อ่อนแอลงเพราะการค้าลดลง
+
+
 5. Sentence Insertion
 Where would the following sentence best fit in Paragraph 1?
 
@@ -25269,8 +27650,6 @@ D. After sentence 4
 5. แทรกประโยค: ประโยค “นักลงทุนจำนวนมากเชื่อว่าราคาหุ้นจะสูงขึ้นไปเรื่อยๆ” เหมาะที่ตำแหน่งใดใน
 ย่อหน้า 1
 เฉลย: B. หลังประโยคที่ 2
-
-
 6. Summary (3 Answers)
 Select THREE statements that express the most important
 ideas:
@@ -25285,7 +27664,243 @@ ideas:
 
 6. สรุป (เลือก 3)
 เฉลย: A. วันอังคารทมิฬก่อให้เกิดวิกฤตเศรษฐกิจโลก • C. การเก็งกำไรมีส่วนต่อการล่มของตลาด • E. การล่ม
-นำไปสู่การปฏิรูประบบการเงิน (A, C, E)`},{n:150,type:"Reading",title:"42_Reading_The Psychology of Procrastination (1)",date:"2026-04-30",status:"dup",dup:148},{n:151,type:"Reading",title:"Review Reading Eiffel Tower C2",date:"2026-04-30",status:"pending",dup:null},{n:152,type:"Reading",title:"40_Reading_Water Society and the Global Crisis",date:"2026-04-30",status:"pending",dup:null},{n:153,type:"Reading",title:"39_Reading_Graffiti Walls and Urban Expression",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+นำไปสู่การปฏิรูประบบการเงิน (A, C, E)`},{n:150,type:"Reading",title:"42_Reading_The Psychology of Procrastination (1)",date:"2026-04-30",status:"dup",dup:148},{n:151,type:"Reading",title:"Review Reading Eiffel Tower C2",date:"2026-04-30",status:"pending",dup:null},{n:152,type:"Reading",title:"40_Reading_Water Society and the Global Crisis",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
+Water is one of the most essential resources for human survival, yet it is increasingly under threat
+worldwide. The global water crisis refers to the growing scarcity of fresh water resources, which affects
+billions of people. This issue is not limited to arid regions; even countries with abundant water supplies
+are beginning to experience shortages due to mismanagement and overuse. As populations grow and
+industrial demands increase, the pressure on water systems continues to intensify.
+
+(1) น้ำเป็นหนึ่งในทรัพยากรที่จำเป็นที่สุดต่อการอยู่รอดของมนุษย์ แต่กำลังถูกคุกคามเพิ่มขึ้นทั่วโลก วิกฤตน้ำ
+โลกหมายถึงความขาดแคลนของแหล่งน้ำจืดที่เพิ่มขึ้น ซึ่งส่งผลต่อผู้คนนับพันล้าน ปัญหานี้ไม่ได้จำกัดอยู่เฉพาะ
+ภูมิภาคแห้งแล้ง แม้แต่ประเทศที่มีน้ำอุดมสมบูรณ์ก็เริ่มประสบการขาดแคลนเพราะการจัดการที่ผิดพลาดและ
+การใช้เกินขนาด เมื่อประชากรเพิ่มและความต้องการของอุตสาหกรรมสูงขึ้น แรงกดดันต่อระบบน้ำก็ยิ่งรุนแรง
+ขึ้น
+
+
+One of the primary causes of the water crisis is overconsumption. In many parts of the world, water is
+used inefficiently in agriculture, industry, and households. Additionally, pollution significantly reduces
+the availability of clean water. Industrial waste, agricultural runoff, and improper waste disposal
+contaminate rivers, lakes, and groundwater sources. As a result, the effects of the crisis begin to
+manifest in the form of dried-up rivers, declining water quality, and increased competition for
+resources.
+
+(2) สาเหตุหลักอย่างหนึ่งของวิกฤตน้ำคือการบริโภคเกินขนาด ในหลายส่วนของโลก น้ำถูกใช้อย่างไม่มี
+ประสิทธิภาพในเกษตรกรรม อุตสาหกรรม และครัวเรือน นอกจากนี้ มลพิษลดปริมาณน้ำสะอาดอย่างมาก ของ
+เสียอุตสาหกรรม น้ำไหลบ่าจากเกษตร และการกำจัดขยะไม่เหมาะสมปนเปื้อนแม่น้ำ ทะเลสาบ และแหล่งน้ำ
+ใต้ดิน ผลคือผลกระทบของวิกฤตเริ่มปรากฏในรูปแม่น้ำแห้ง คุณภาพน้ำลดลง และการแย่งทรัพยากรเพิ่มขึ้น
+Another contributing factor is climate change, which alters precipitation patterns and increases the
+frequency of droughts. Regions that once relied on predictable rainfall now face uncertainty, making it
+difficult to sustain agriculture and maintain water supplies. Furthermore, inadequate infrastructure in
+developing countries limits access to clean and safe drinking water, exacerbating social and economic
+inequalities.
+
+(3) ปัจจัยอีกอย่างคือการเปลี่ยนแปลงสภาพภูมิอากาศ ซึ่งเปลี่ยนรูปแบบฝนและเพิ่มความถี่ของภัยแล้ง ภูมิภาคที่
+เคยพึ่งฝนที่คาดเดาได้ตอนนี้เผชิญความไม่แน่นอน ทำให้ยากต่อการรักษาเกษตรกรรมและแหล่งน้ำ นอกจากนี้
+โครงสร้างพื้นฐานที่ไม่เพียงพอในประเทศกำลังพัฒนาจำกัดการเข้าถึงน้ำดื่มสะอาดและปลอดภัย ทำให้ความ
+เหลื่อมล้ำทางสังคมและเศรษฐกิจรุนแรงขึ้น
+To address the water crisis, several solutions have been proposed. First, improving water management
+practices can significantly reduce waste. Governments and organizations must invest in efficient
+irrigation systems and promote water conservation among individuals. Second, implementing
+wastewater recycling can provide a sustainable source of water, particularly in urban areas. Finally,
+international cooperation is essential, as water resources often cross national boundaries. By working
+together, countries can develop shared strategies to ensure equitable access to this vital resource.
+
+(4) เพื่อแก้วิกฤตน้ำ มีการเสนอทางแก้หลายอย่าง ประการแรก การปรับปรุงแนวปฏิบัติการจัดการน้ำช่วยลดการ
+สูญเปล่าได้อย่างมาก รัฐบาลและองค์กรต้องลงทุนในระบบชลประทานที่มีประสิทธิภาพและส่งเสริมการประหยัด
+น้ำในบุคคล ประการที่สอง การรีไซเคิลน้ำเสียให้แหล่งน้ำที่ยั่งยืน โดยเฉพาะในเขตเมือง สุดท้าย ความร่วมมือ
+ระหว่างประเทศจำเป็น เพราะแหล่งน้ำมักข้ามพรมแดนประเทศ ด้วยการร่วมมือกัน ประเทศต่างๆ พัฒนากลยุทธ์
+ร่วมเพื่อให้เข้าถึงทรัพยากรสำคัญนี้อย่างเท่าเทียมได้`,qs:[{kind:"mcq",ok:!0,q:`1. Main Idea
+What is the main idea of the passage?`,opts:[["A","Water pollution is the only global issue"],["B","The causes and solutions of the global water crisis"],["C","Climate change affects only agriculture"],["D","Water is not important for humans"]],ans:"B",th:`1. ใจความสำคัญ: ใจความสำคัญของบทความคืออะไร
+เฉลย: B. สาเหตุและทางแก้ของวิกฤตน้ำโลก`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`2. Detail Question
+According to paragraph 1, what increases pressure on water
+systems?`,opts:[["A","Decreasing population"],["B","Industrial decline"],["C","Population growth and industrial demand"],["D","Increased rainfall"]],ans:"C",th:`2. คำถามรายละเอียด: ตามย่อหน้า 1 อะไรเพิ่มแรงกดดันต่อระบบน้ำ
+เฉลย: C. การเพิ่มของประชากรและความต้องการของอุตสาหกรรม`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`3. Vocabulary (Manifest)
+The word “manifest” in paragraph 2 is closest in meaning to:`,opts:[["A","Hide"],["B","Show"],["C","Destroy"],["D","Reduce"]],ans:"B",th:`3. คำศัพท์ (Manifest): คำว่า “manifest” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
+เฉลย: B. Show (แสดงออก/ปรากฏ)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`4. Negative Fact
+Which of the following is NOT mentioned as a cause of the
+water crisis?`,opts:[["A","Overconsumption"],["B","Pollution"],["C","Climate change"],["D","Tourism"]],ans:"D",th:`4. ข้อเท็จจริงเชิงลบ: ข้อใดไม่ได้กล่าวถึงเป็นสาเหตุของวิกฤตน้ำ
+เฉลย: D. การท่องเที่ยว`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`5. Detail Question
+What is one effect of pollution mentioned in the passage?`,opts:[["A","Increased rainfall"],["B","Cleaner rivers"],["C","Reduced availability of clean water"],["D","Lower population"]],ans:"C",th:`5. คำถามรายละเอียด: ผลอย่างหนึ่งของมลพิษที่กล่าวถึงในบทความคืออะไร
+เฉลย: C. ปริมาณน้ำสะอาดที่หาได้ลดลง`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`6. Inference
+What can be inferred about developing countries?`,opts:[["A","They have perfect infrastructure"],["B","They have unlimited water"],["C","They face challenges in accessing clean water"],["D","They do not need water conservation"]],ans:"C",th:`6. การอนุมาน: อนุมานอะไรได้เกี่ยวกับประเทศกำลังพัฒนา
+เฉลย: C. เผชิญความท้าทายในการเข้าถึงน้ำสะอาด`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`7. Sentence Insertion
+Where would the following sentence best fit?
+👉 “This leads to serious consequences for both human health
+and agriculture.”`,opts:[["A","After sentence 1 in paragraph 2"],["B","After sentence 2 in paragraph 2"],["C","After sentence 3 in paragraph 2"],["D","After sentence 4 in paragraph 2"]],ans:"C",th:`7. แทรกประโยค: ประโยค “สิ่งนี้นำไปสู่ผลที่ร้ายแรงทั้งต่อสุขภาพมนุษย์และเกษตรกรรม” เหมาะที่ตำแหน่งใด
+เฉลย: C) หลังประโยคที่ 3 ในย่อหน้า 2`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`8. Cause Question
+Which is a primary cause of the water crisis?`,opts:[["A","Recycling"],["B","Overconsption"],["C","Cooperation"],["D","Conservation"]],ans:"B",th:`8. คำถามสาเหตุ: ข้อใดเป็นสาเหตุหลักของวิกฤตน้ำ
+เฉลย: B. การบริโภคเกินขนาด (ต้นฉบับพิมพ์ว่า Overconsption)`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`9. Solution Question
+Which of the following is a proposed solution?`,opts:[["A","Increasing pollution"],["B","Ignoring water usage"],["C","Wastewater recycling"],["D","Reducing population"]],ans:"C",th:`9. คำถามทางแก้: ข้อใดเป็นทางแก้ที่เสนอ
+เฉลย: C. การรีไซเคิลน้ำเสีย`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Summary (3 Answers)
+Select THREE statements that express the most important
+ideas:
+⬜ A. Water scarcity is a growing global issue
+⬜ B. Pollution improves water quality
+⬜ C. Climate change affects water availability
+⬜ D. Wastewater recycling is a sustainable solution
+⬜ E. Water is no longer needed by humans
+✅ A. Water scarcity is a growing global issue
+✅ C. Climate change affects water availability
+✅ D. Wastewater recycling is a sustainable solution`,opts:[],ans:null,th:`10. สรุป (เลือก 3): เลือกข้อความสามข้อที่แสดงแนวคิดสำคัญที่สุด
+เฉลย: A. ความขาดแคลนน้ำเป็นปัญหาระดับโลกที่เพิ่มขึ้น • C. การเปลี่ยนแปลงสภาพภูมิอากาศกระทบปริมาณ
+น้ำที่มี • D. การรีไซเคิลน้ำเสียเป็นทางแก้ที่ยั่งยืน`,ans_text:null,raw:`10. Summary (3 Answers)
+Select THREE statements that express the most important
+ideas:
+
+⬜ A. Water scarcity is a growing global issue
+⬜ B. Pollution improves water quality
+⬜ C. Climate change affects water availability
+⬜ D. Wastewater recycling is a sustainable solution
+⬜ E. Water is no longer needed by humans
+✅ A. Water scarcity is a growing global issue
+✅ C. Climate change affects water availability
+✅ D. Wastewater recycling is a sustainable solution
+
+10. สรุป (เลือก 3): เลือกข้อความสามข้อที่แสดงแนวคิดสำคัญที่สุด
+เฉลย: A. ความขาดแคลนน้ำเป็นปัญหาระดับโลกที่เพิ่มขึ้น • C. การเปลี่ยนแปลงสภาพภูมิอากาศกระทบปริมาณ
+น้ำที่มี • D. การรีไซเคิลน้ำเสียเป็นทางแก้ที่ยั่งยืน`},{kind:"mcq",ok:!0,q:`11. Reference Question
+The word “this issue” in paragraph 1 refers to:`,opts:[["A","Industrial growth"],["B","Water crisis"],["C","Population decline"],["D","Agriculture"]],ans:"B",th:`11. คำถามอ้างอิง: คำว่า “this issue” ในย่อหน้า 1 หมายถึง
+เฉลย: B. วิกฤตน้ำ`,ans_text:null,raw:null},{kind:"mcq",ok:!0,q:`12. Purpose Question
+Why does the author mention international cooperation?`,opts:[["A","To criticize governments"],["B","To show water is not important"],["C","To highlight the need for shared solutions"],["D","To discuss tourism"]],ans:"C",th:`12. จุดประสงค์: เหตุใดผู้เขียนจึงกล่าวถึงความร่วมมือระหว่างประเทศ
+เฉลย: C. เพื่อเน้นความจำเป็นของทางแก้ร่วมกัน`,ans_text:null,raw:null}],qa_raw:`1. Main Idea
+What is the main idea of the passage?
+A. Water pollution is the only global issue
+B. The causes and solutions of the global water crisis
+C. Climate change affects only agriculture
+D. Water is not important for humans
+Answer: B. The causes and solutions of the global water crisis
+
+1. ใจความสำคัญ: ใจความสำคัญของบทความคืออะไร
+เฉลย: B. สาเหตุและทางแก้ของวิกฤตน้ำโลก
+
+
+2. Detail Question
+According to paragraph 1, what increases pressure on water
+systems?
+A. Decreasing population
+B. Industrial decline
+C. Population growth and industrial demand
+D. Increased rainfall
+Answer: C. Population growth and industrial demand
+
+2. คำถามรายละเอียด: ตามย่อหน้า 1 อะไรเพิ่มแรงกดดันต่อระบบน้ำ
+เฉลย: C. การเพิ่มของประชากรและความต้องการของอุตสาหกรรม
+3. Vocabulary (Manifest)
+The word “manifest” in paragraph 2 is closest in meaning to:
+A. Hide
+B. Show
+C. Destroy
+D. Reduce
+Answer: B. Show
+
+3. คำศัพท์ (Manifest): คำว่า “manifest” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
+เฉลย: B. Show (แสดงออก/ปรากฏ)
+4. Negative Fact
+Which of the following is NOT mentioned as a cause of the
+water crisis?
+A. Overconsumption
+B. Pollution
+C. Climate change
+D. Tourism
+Answer: D. Tourism
+
+4. ข้อเท็จจริงเชิงลบ: ข้อใดไม่ได้กล่าวถึงเป็นสาเหตุของวิกฤตน้ำ
+เฉลย: D. การท่องเที่ยว
+5. Detail Question
+What is one effect of pollution mentioned in the passage?
+A. Increased rainfall
+B. Cleaner rivers
+C. Reduced availability of clean water
+D. Lower population
+Answer: C. Reduced availability of clean water
+
+5. คำถามรายละเอียด: ผลอย่างหนึ่งของมลพิษที่กล่าวถึงในบทความคืออะไร
+เฉลย: C. ปริมาณน้ำสะอาดที่หาได้ลดลง
+
+
+6. Inference
+What can be inferred about developing countries?
+A. They have perfect infrastructure
+B. They have unlimited water
+C. They face challenges in accessing clean water
+D. They do not need water conservation
+Answer: C. They face challenges in accessing clean water
+
+6. การอนุมาน: อนุมานอะไรได้เกี่ยวกับประเทศกำลังพัฒนา
+เฉลย: C. เผชิญความท้าทายในการเข้าถึงน้ำสะอาด
+7. Sentence Insertion
+Where would the following sentence best fit?
+
+👉 “This leads to serious consequences for both human health
+and agriculture.”
+
+(A) After sentence 1 in paragraph 2
+(B) After sentence 2 in paragraph 2
+(C) After sentence 3 in paragraph 2
+(D) After sentence 4 in paragraph 2
+Answer: C) After sentence 3 in paragraph 2
+
+7. แทรกประโยค: ประโยค “สิ่งนี้นำไปสู่ผลที่ร้ายแรงทั้งต่อสุขภาพมนุษย์และเกษตรกรรม” เหมาะที่ตำแหน่งใด
+เฉลย: C) หลังประโยคที่ 3 ในย่อหน้า 2
+8. Cause Question
+Which is a primary cause of the water crisis?
+A. Recycling
+B. Overconsption
+C. Cooperation
+D. Conservation
+Answer: B. Overconsption
+
+8. คำถามสาเหตุ: ข้อใดเป็นสาเหตุหลักของวิกฤตน้ำ
+เฉลย: B. การบริโภคเกินขนาด (ต้นฉบับพิมพ์ว่า Overconsption)
+9. Solution Question
+Which of the following is a proposed solution?
+A. Increasing pollution
+B. Ignoring water usage
+C. Wastewater recycling
+D. Reducing population
+Answer: C. Wastewater recycling
+
+9. คำถามทางแก้: ข้อใดเป็นทางแก้ที่เสนอ
+เฉลย: C. การรีไซเคิลน้ำเสีย
+
+
+10. Summary (3 Answers)
+Select THREE statements that express the most important
+ideas:
+
+⬜ A. Water scarcity is a growing global issue
+⬜ B. Pollution improves water quality
+⬜ C. Climate change affects water availability
+⬜ D. Wastewater recycling is a sustainable solution
+⬜ E. Water is no longer needed by humans
+✅ A. Water scarcity is a growing global issue
+✅ C. Climate change affects water availability
+✅ D. Wastewater recycling is a sustainable solution
+
+10. สรุป (เลือก 3): เลือกข้อความสามข้อที่แสดงแนวคิดสำคัญที่สุด
+เฉลย: A. ความขาดแคลนน้ำเป็นปัญหาระดับโลกที่เพิ่มขึ้น • C. การเปลี่ยนแปลงสภาพภูมิอากาศกระทบปริมาณ
+น้ำที่มี • D. การรีไซเคิลน้ำเสียเป็นทางแก้ที่ยั่งยืน
+11. Reference Question
+The word “this issue” in paragraph 1 refers to:
+A. Industrial growth
+B. Water crisis
+C. Population decline
+D. Agriculture
+Answer: B. Water crisis
+
+11. คำถามอ้างอิง: คำว่า “this issue” ในย่อหน้า 1 หมายถึง
+เฉลย: B. วิกฤตน้ำ
+12. Purpose Question
+Why does the author mention international cooperation?
+A. To criticize governments
+B. To show water is not important
+C. To highlight the need for shared solutions
+D. To discuss tourism
+Answer: C. To highlight the need for shared solutions
+
+12. จุดประสงค์: เหตุใดผู้เขียนจึงกล่าวถึงความร่วมมือระหว่างประเทศ
+เฉลย: C. เพื่อเน้นความจำเป็นของทางแก้ร่วมกัน`},{n:153,type:"Reading",title:"39_Reading_Graffiti Walls and Urban Expression",date:"2026-04-30",status:"ok",dup:null,body:`เนื้อหา (Passage)
 Paragraph 1 Graffiti, often seen on urban walls, has existed for centuries in various forms. The term
 originates from ancient inscriptions found on public surfaces, but modern graffiti became prominent in
 the late twentieth century. Initially associated with vandalism, graffiti has evolved into a complex form
@@ -25295,6 +27910,8 @@ of visual communication that reflects social, political, and cultural issues.
 โบราณบนพื้นผิวสาธารณะ แต่กราฟฟิตีสมัยใหม่โดดเด่นขึ้นในปลายศตวรรษที่ 20 ในตอนแรกถูกมองว่า
 เป็นการทำลายทรัพย์สิน แต่กราฟฟิตีพัฒนาเป็นรูปแบบการสื่อสารด้วยภาพที่ซับซ้อนซึ่งสะท้อนประเด็นสังคม
 การเมือง และวัฒนธรรม
+
+
 Paragraph 2 The rise of graffiti walls—designated public spaces where artists can legally paint—has
 transformed perceptions of this art form. These walls provide opportunities for artists to showcase their
 creativity without fear of punishment. As a result, graffiti has gained recognition as a legitimate art
@@ -25312,8 +27929,6 @@ its role in giving a voice to marginalized communities and promoting artistic fr
 ฟิตีก็อาจกระตุ้นการเขียนแท็กผิดกฎหมายที่อื่น นอกจากนี้บางคนเชื่อว่ากราฟฟิตีลดคุณค่าทางสุนทรียะของ
 สภาพแวดล้อมเมือง แม้มีข้อกังวลเหล่านี้ ผู้สนับสนุนเน้นบทบาทในการให้เสียงแก่ชุมชนชายขอบและส่งเสริม
 เสรีภาพทางศิลปะ
-
-
 Paragraph 4 In recent years, graffiti has increasingly entered mainstream culture. Works created on
 graffiti walls are sometimes sold for high prices, and artists have been invited to collaborate with
 galleries and corporations. This shift demonstrates how an activity once viewed negatively can be
@@ -25348,6 +27963,8 @@ Answer: B
 
 7. ตามย่อหน้า 2 ประโยชน์อย่างหนึ่งของกำแพงกราฟฟิตีคืออะไร
 เฉลย: B. ให้ศิลปินทำงานโดยไม่ถูกลงโทษ
+
+
 8.What can be inferred about early graffiti?
 A) It was always respected as art
 B) It was mainly created for museums
@@ -25371,8 +27988,6 @@ Answer: C
 9. ประโยค “ผลคือปัจจุบันถูกศึกษาและชื่นชมอย่างกว้างขวางในแวดวงวิชาการ” เหมาะที่ตำแหน่งใดในย่อหน้า
 1
 เฉลย: C. หลังประโยคเรื่องการพัฒนาเป็นการสื่อสาร
-
-
 10.All of the following are mentioned as criticisms of
 graffiti EXCEPT:
 A) It can encourage illegal tagging
@@ -25415,6 +28030,8 @@ Answer: B
 
 7. ตามย่อหน้า 2 ประโยชน์อย่างหนึ่งของกำแพงกราฟฟิตีคืออะไร
 เฉลย: B. ให้ศิลปินทำงานโดยไม่ถูกลงโทษ
+
+
 8.What can be inferred about early graffiti?
 A) It was always respected as art
 B) It was mainly created for museums
@@ -25438,8 +28055,6 @@ Answer: C
 9. ประโยค “ผลคือปัจจุบันถูกศึกษาและชื่นชมอย่างกว้างขวางในแวดวงวิชาการ” เหมาะที่ตำแหน่งใดในย่อหน้า
 1
 เฉลย: C. หลังประโยคเรื่องการพัฒนาเป็นการสื่อสาร
-
-
 10.All of the following are mentioned as criticisms of
 graffiti EXCEPT:
 A) It can encourage illegal tagging
@@ -25483,6 +28098,8 @@ Answer: B) selected
 
 2. คำว่า “designated” ในย่อหน้า 2 ใกล้เคียงที่สุดกับ
 เฉลย: B. selected (ถูกเลือกไว้)
+
+
 3. According to paragraph 3, what is one criticism of graffiti?
 A) It is too expensive
 B) It reduces urban beauty
@@ -25501,8 +28118,6 @@ Answer: C) They are gaining acceptance in mainstream culture
 
 4. อนุมานอะไรได้เกี่ยวกับศิลปินกราฟฟิตีในปัจจุบัน
 เฉลย: C. กำลังได้รับการยอมรับในวัฒนธรรมกระแสหลัก
-
-
 5. Why does the author mention “marginalized communities”?
 A) To explain why graffiti is illegal
 B) To show who opposes graffiti
@@ -25532,6 +28147,8 @@ Answer: B
 
 7. ตามย่อหน้า 2 ประโยชน์อย่างหนึ่งของกำแพงกราฟฟิตีคืออะไร
 เฉลย: B. ให้ศิลปินทำงานโดยไม่ถูกลงโทษ
+
+
 8.What can be inferred about early graffiti?
 A) It was always respected as art
 B) It was mainly created for museums
@@ -25555,8 +28172,6 @@ Answer: C
 9. ประโยค “ผลคือปัจจุบันถูกศึกษาและชื่นชมอย่างกว้างขวางในแวดวงวิชาการ” เหมาะที่ตำแหน่งใดในย่อหน้า
 1
 เฉลย: C. หลังประโยคเรื่องการพัฒนาเป็นการสื่อสาร
-
-
 10.All of the following are mentioned as criticisms of
 graffiti EXCEPT:
 A) It can encourage illegal tagging
@@ -25598,8 +28213,6 @@ activities beyond farming, such as craftsmanship, administration, and trade.
 ย่อหน้า 2 ความก้าวหน้าสำคัญอย่างหนึ่งของอารยธรรมโบราณคือการพัฒนาเกษตรกรรมที่เป็นระบบ ด้วยระบบ
 ชลประทานและการจัดการพืชผล สังคมสามารถผลิตอาหารส่วนเกิน ซึ่งทำให้ประชากรเพิ่มและนำไปสู่การแบ่ง
 งานเฉพาะทาง ผลคือผู้คนทำกิจกรรมอื่นนอกเหนือจากเกษตรได้ เช่น งานฝีมือ การบริหาร และการค้า
-
-
 Despite these advantages, ancient civilizations also faced significant limitations. Social inequality often
 emerged, with power concentrated among elites such as kings and priests. Additionally, reliance on
 agricultural production made societies susceptible to droughts, floods, and other natural disasters.
@@ -25668,8 +28281,6 @@ Answer: C. Specialization of labor
 
 คำถามที่ 3 ผลอย่างหนึ่งของอาหารส่วนเกินคืออะไร
 เฉลย: C. การแบ่งงานเฉพาะทาง
-
-
 Question 4 What problem did ancient civilizations often face?
 A. Lack of leadership
 B. Social equality
@@ -25689,6 +28300,8 @@ Answer: B. Record-keeping and communication
 
 คำถามที่ 5 ระบบการเขียนมีบทบาทอะไรในสังคมโบราณ
 เฉลย: B. การบันทึกและการสื่อสาร
+
+
 Question 6 What is the main idea of Paragraph 2?
 A. Ancient people preferred farming to other jobs
 B. Food surplus led to population growth and job specialization
@@ -25719,8 +28332,6 @@ Answer: B. Vulnerable
 
 คำถามที่ 8 คำว่า “susceptible” ในย่อหน้า 3 ใกล้เคียงที่สุดกับ
 เฉลย: B. Vulnerable (เปราะบาง)
-
-
 Question 9 The word “These challenges” in Paragraph 3 refers
 to:
 A. Social inequality and natural disasters
@@ -25741,6 +28352,8 @@ Answer: B. To explain a key innovation in civilizations
 
 คำถามที่ 10 เหตุใดผู้เขียนจึงกล่าวถึงระบบการเขียนในย่อหน้า 4
 เฉลย: B. เพื่ออธิบายนวัตกรรมสำคัญของอารยธรรม
+
+
 Question 11 Why were ancient civilizations vulnerable to
 environmental changes?
 A. They lacked technology
@@ -25784,6 +28397,8 @@ gaining independence.
 ตั้งอาณานิคมมักถูกบังคับให้ผลิตวัตถุดิบ เช่น ฝ้าย น้ำตาล และแร่ธาตุ ซึ่งส่งออกเพื่อประโยชน์ของผู้ตั้ง
 อาณานิคม ระบบนี้จำกัดการพัฒนาอุตสาหกรรมท้องถิ่นและก่อให้เกิดการพึ่งพา ผลคืออดีตอาณานิคมหลายแห่ง
 ประสบปัญหาสร้างเศรษฐกิจที่พึ่งตนเองได้แม้หลังได้รับเอกราช
+
+
 In addition to economic impacts, colonialism imposed cultural domination. Indigenous languages,
 traditions, and belief systems were often suppressed or replaced by those of the colonizers. Education
 systems were redesigned to reflect foreign values, which sometimes led to a loss of cultural identity.
@@ -25849,6 +28464,8 @@ materials...”`,opts:[["A","Colonies freely traded goods with other nations"],[
 เฉลย: C. สะท้อนค่านิยมของผู้ตั้งอาณานิคม`,ans_text:null,raw:null},{kind:"raw",ok:!1,q:`10. Why does the author mention “peaceful protests and
 armed struggles” in paragraph 4?`,opts:[["A","To compare two unrelated events"],["B","To show different forms of resistance"],["C","To criticize independence movements"],["D","To describe economic systems"]],ans:"B",th:`10. เหตุใดผู้เขียนจึงกล่าวถึง “การประท้วงอย่างสันติและการต่อสู้ด้วยอาวุธ” ในย่อหน้า 4
 เฉลย: B. เพื่อแสดงรูปแบบการต่อต้านที่หลากหลาย
+
+
 11.Select THREE answers that express the most important
 ideas in the passage:
 A. Colonialism created long-term economic dependency
@@ -25881,6 +28498,8 @@ Answer: B. To show different forms of resistance
 
 10. เหตุใดผู้เขียนจึงกล่าวถึง “การประท้วงอย่างสันติและการต่อสู้ด้วยอาวุธ” ในย่อหน้า 4
 เฉลย: B. เพื่อแสดงรูปแบบการต่อต้านที่หลากหลาย
+
+
 11.Select THREE answers that express the most important
 ideas in the passage:
 A. Colonialism created long-term economic dependency
@@ -25926,6 +28545,8 @@ Answer: C. use unfairly
 
 2. คำว่า “exploit” ในย่อหน้า 1 ใกล้เคียงที่สุดกับ
 เฉลย: C. use unfairly (ใช้อย่างไม่เป็นธรรม)
+
+
 3. Why did colonized countries struggle economically after
 independence?
 A. They lacked natural resources
@@ -25946,8 +28567,6 @@ Answer: C. Cultural identity was sometimes weakened
 
 4. อนุมานอะไรได้เกี่ยวกับการเปลี่ยนแปลงทางวัฒนธรรมในยุคอาณานิคม
 เฉลย: C. อัตลักษณ์ทางวัฒนธรรมบางครั้งอ่อนแอลง
-
-
 5. Insert Sentence Question
 Where would this sentence best fit?
 “This often prevented colonies from developing their own
@@ -25974,6 +28593,8 @@ Answer: B. economic exploitation of colonies
 
 6. คำว่า “this system” ในย่อหน้า 2 หมายถึง
 เฉลย: B. การขูดรีดทางเศรษฐกิจของอาณานิคม
+
+
 7. Which of the following is NOT mentioned as an effect of
 colonialism?
 A. Economic dependency
@@ -25998,8 +28619,6 @@ colonizers’ benefit
 
 8. ประโยคใดสื่อสาระสำคัญของประโยค “ดินแดนอาณานิคมมักถูกบังคับให้ผลิตวัตถุดิบ…”
 เฉลย: B. อาณานิคมถูกกำหนดให้จัดหาทรัพยากรเพื่อประโยชน์ของผู้ตั้งอาณานิคม
-
-
 9. What can be inferred about education during colonial rule?
 A. It focused on preserving indigenous culture
 B. It promoted local traditions
@@ -26019,6 +28638,8 @@ Answer: B. To show different forms of resistance
 
 10. เหตุใดผู้เขียนจึงกล่าวถึง “การประท้วงอย่างสันติและการต่อสู้ด้วยอาวุธ” ในย่อหน้า 4
 เฉลย: B. เพื่อแสดงรูปแบบการต่อต้านที่หลากหลาย
+
+
 11.Select THREE answers that express the most important
 ideas in the passage:
 A. Colonialism created long-term economic dependency
@@ -26041,5 +28662,54 @@ F. Colonies benefited equally from trade
 
 11. เลือกสามข้อที่แสดงแนวคิดสำคัญที่สุด
 เฉลย: A. ลัทธิอาณานิคมสร้างการพึ่งพาทางเศรษฐกิจระยะยาว C. ลัทธิอาณานิคมเกี่ยวกับการควบคุมและ
-ขูดรีดภูมิภาคที่อ่อนแอกว่า E. ลัทธิอาณานิคมมีอิทธิพลต่อระบบการเมืองและสังคมสมัยใหม่ (A, C, E)`},{n:156,type:"Listening",title:"Listening_Mystery Manor Review",date:"2026-04-30",status:"dup",dup:6}],Qr=[{approx:[],sec:"Reading",no:1,title:"Renewable Energy for a Better World",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[41],auto:[[1,41]]},{approx:[69,72,2],sec:"Reading",no:2,title:"Social media star",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[[1,72],[1,69],[.67,38]]},{approx:[],sec:"Reading",no:3,title:"Fashion influencers: how social media is changing the way we dress",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[2],auto:[[1,72],[1,69],[1,2]]},{approx:[],sec:"Reading",no:4,title:"The History of Animation",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[39,75],auto:[[1,75],[1,39]]},{approx:[],sec:"Reading",no:5,title:"The Exciting World of Space Exploration",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[42,99],auto:[[1,99],[1,42]]},{approx:[],sec:"Reading",no:6,title:"Making Healthy Choices in Modern Life",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[34],auto:[[1,34]]},{approx:[],sec:"Reading",no:7,title:"Protect Our Planet",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[4],auto:[[1,24],[1,4]]},{approx:[],sec:"Reading",no:8,title:"Environmental Conservation",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[24],auto:[]},{approx:[46],sec:"Reading",no:9,title:"Urban Green Gardens",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[]},{approx:[],sec:"Reading",no:10,title:"The Universal Appeal of Sports",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[]},{approx:[],sec:"Reading",no:11,title:"The Evolution of Photography",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[43],auto:[[1,43]]},{approx:[],sec:"Reading",no:12,title:"The Essentials of Sleeping N",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[20,83],auto:[]},{approx:[],sec:"Reading",no:13,title:"The Roman Empire",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[47,33],auto:[[1,47],[1,33]]},{approx:[69,72],sec:"Reading",no:14,title:"The Impact of Social Media on Your Life / How Social Media Affects Mental Health",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[38],auto:[[1,72],[1,69],[1,38]]},{approx:[],sec:"Reading",no:15,title:"Urbanization / Effects of Urbanization on Wildlife",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[37],auto:[[1,153],[1,136],[1,37]]},{approx:[],sec:"Reading",no:16,title:"Bees and Agriculture",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[23,90],auto:[[1,90],[1,23]]},{approx:[],sec:"Reading",no:17,title:"Streaming Music",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[103,36],auto:[[1,103],[1,36]]},{approx:[],sec:"Reading",no:18,title:"The Psychology of Color",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[40],auto:[[1,40]]},{approx:[],sec:"Reading",no:19,title:"Climate Change: Its Impact on the Polar Bear",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[22,5],auto:[[1,5],[.75,22]]},{approx:[],sec:"Reading",no:20,title:"The Eiffel Tower",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[84,151],auto:[[1,151],[1,84]]},{approx:[],sec:"Reading",no:21,title:"The History of the Bicycle",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[35,93],auto:[[1,35]]},{approx:[],sec:"Reading",no:22,title:"AI in Medicine",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[30],auto:[[1,30]]},{approx:[],sec:"Reading",no:23,title:"AI",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[95,104],auto:[]},{approx:[],sec:"Reading",no:24,title:"Sound in Motion Pictures",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[26,70,71],auto:[[1,26]]},{approx:[],sec:"Reading",no:25,title:"The History of Chocolate",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[7],auto:[[1,7]]},{approx:[],sec:"Reading",no:26,title:"The Great Wall of China",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[31],auto:[[1,31]]},{approx:[],sec:"Reading",no:27,title:"Gravitational Waves",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[27],auto:[[1,27]]},{approx:[],sec:"Reading",no:28,title:"Volcanic Geology",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[45],auto:[[1,45]]},{approx:[],sec:"Reading",no:29,title:"Street Busking/ Street Performances",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[29],auto:[[1,29]]},{approx:[],sec:"Reading",no:30,title:"The Evolution of Public Libraries",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[32],auto:[[1,32]]},{approx:[],sec:"Reading",no:31,title:"Women Codebreakers of World War II",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[54],auto:[[.67,54]]},{approx:[],sec:"Reading",no:32,title:"Coral Reefs",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[28],auto:[[1,28]]},{approx:[],sec:"Reading",no:33,title:"Street Lighting",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[44],auto:[[1,44]]},{approx:[],sec:"Reading",no:34,title:"Gentrification and social change",batch:"27 เรื่องใหม่ (17.01.69)",ids:[21],auto:[[1,21],[.67,2]]},{approx:[],sec:"Reading",no:35,title:"Bilingualism and cognitive benefits",batch:"27 เรื่องใหม่ (17.01.69)",ids:[17],auto:[[1,17]]},{approx:[],sec:"Reading",no:36,title:"Gig economy",batch:"27 เรื่องใหม่ (17.01.69)",ids:[],auto:[]},{approx:[],sec:"Reading",no:37,title:"The Internet of Things (IoT) in a smart home",batch:"27 เรื่องใหม่ (17.01.69)",ids:[144],auto:[[.8,144]]},{approx:[],sec:"Reading",no:38,title:"Pollution: microplastic pollution",batch:"27 เรื่องใหม่ (17.01.69)",ids:[113,13],auto:[[1,113]]},{approx:[],sec:"Reading",no:39,title:"Science of fermentation",batch:"27 เรื่องใหม่ (17.01.69)",ids:[118],auto:[[1,118]]},{approx:[],sec:"Reading",no:40,title:"The history of coffee trade",batch:"27 เรื่องใหม่ (17.01.69)",ids:[117,3],auto:[[.67,117],[.67,3]]},{approx:[],sec:"Reading",no:41,title:"Montessori method",batch:"27 เรื่องใหม่ (17.01.69)",ids:[141],auto:[[1,141]]},{approx:[],sec:"Reading",no:42,title:"History of Vaccines",batch:"27 เรื่องใหม่ (17.01.69)",ids:[128],auto:[[1,128]]},{approx:[],sec:"Reading",no:43,title:"Demonstrating of cat",batch:"27 เรื่องใหม่ (17.01.69)",ids:[138],auto:[]},{approx:[],sec:"Reading",no:44,title:"Antibiotic resistance N",batch:"27 เรื่องใหม่ (17.01.69)",ids:[139],auto:[[1,139]]},{approx:[],sec:"Reading",no:45,title:"The Great Depression/ Black Tuesday",batch:"27 เรื่องใหม่ (17.01.69)",ids:[149,114,15],auto:[[1,149],[1,114],[1,15]]},{approx:[],sec:"Reading",no:46,title:"Origins of paper money",batch:"27 เรื่องใหม่ (17.01.69)",ids:[14],auto:[[1,14]]},{approx:[],sec:"Reading",no:47,title:"Butterfly migration (Mexico)",batch:"27 เรื่องใหม่ (17.01.69)",ids:[123,116],auto:[[.67,123],[.67,116]]},{approx:[],sec:"Reading",no:48,title:"The Viking and Norse explorer",batch:"27 เรื่องใหม่ (17.01.69)",ids:[134],auto:[[1,134]]},{approx:[],sec:"Reading",no:49,title:"Neuroplasticity and brain adaptation",batch:"27 เรื่องใหม่ (17.01.69)",ids:[121],auto:[[1,121]]},{approx:[],sec:"Reading",no:50,title:"Graffiti wall/ Stress Art",batch:"27 เรื่องใหม่ (17.01.69)",ids:[153],auto:[]},{approx:[],sec:"Reading",no:51,title:"The Evolution of Theater and Drama/ / Acoustics architecture and ancient theater",batch:"27 เรื่องใหม่ (17.01.69)",ids:[130,12,9,1],auto:[[1,130],[1,12],[1,9]]},{approx:[],sec:"Reading",no:52,title:"Critical thinking in the digital age/ Data Privacy in the digital age",batch:"27 เรื่องใหม่ (17.01.69)",ids:[132,147],auto:[[.75,132],[.67,147]]},{approx:[],sec:"Reading",no:53,title:"Placebo effect",batch:"27 เรื่องใหม่ (17.01.69)",ids:[145],auto:[[1,145]]},{approx:[],sec:"Reading",no:54,title:"Bioluminescence in deep-sea creatures",batch:"27 เรื่องใหม่ (17.01.69)",ids:[119],auto:[[1,119]]},{approx:[],sec:"Reading",no:55,title:"Urban heat island",batch:"27 เรื่องใหม่ (17.01.69)",ids:[136],auto:[[1,136]]},{approx:[],sec:"Reading",no:56,title:"The History of emoji",batch:"27 เรื่องใหม่ (17.01.69)",ids:[125],auto:[]},{approx:[],sec:"Reading",no:57,title:"Underground transport",batch:"27 เรื่องใหม่ (17.01.69)",ids:[120],auto:[]},{approx:[],sec:"Reading",no:58,title:"Organ transplant",batch:"27 เรื่องใหม่ (17.01.69)",ids:[135],auto:[[1,135]]},{approx:[],sec:"Reading",no:59,title:"The Evaluation of Timekeeping",batch:"27 เรื่องใหม่ (17.01.69)",ids:[112],auto:[]},{approx:[],sec:"Reading",no:60,title:"Berlin Wall",batch:"27 เรื่องใหม่ (17.01.69)",ids:[122],auto:[[1,122]]},{approx:[],sec:"Reading",no:61,title:"Telemedicine & Remote Healthcare",batch:"5 เรื่องใหม่ (21.01.69)",ids:[],auto:[]},{approx:[],sec:"Reading",no:62,title:"The history of anesthesia surgery",batch:"5 เรื่องใหม่ (21.01.69)",ids:[137],auto:[[1,137]]},{approx:[],sec:"Reading",no:63,title:"Colonialism and Its Global Effects",batch:"5 เรื่องใหม่ (21.01.69)",ids:[155],auto:[[1,155]]},{approx:[],sec:"Reading",no:64,title:"The Suffragette Movement in Britain",batch:"5 เรื่องใหม่ (21.01.69)",ids:[124],auto:[[.67,124]]},{approx:[],sec:"Reading",no:65,title:"The Development of the Braille System",batch:"5 เรื่องใหม่ (21.01.69)",ids:[127],auto:[[1,127]]},{approx:[],sec:"Reading",no:66,title:"Plate Tectonics and Continental Crust N",batch:"4 เรื่องใหม่ (31.01.69)",ids:[131],auto:[[1,131]]},{approx:[],sec:"Reading",no:67,title:"Endangered language",batch:"4 เรื่องใหม่ (31.01.69)",ids:[115],auto:[[1,115]]},{approx:[],sec:"Reading",no:68,title:"Medieval Guild",batch:"4 เรื่องใหม่ (31.01.69)",ids:[143],auto:[[1,143]]},{approx:[],sec:"Reading",no:69,title:"The Democratic of Ancient Athens",batch:"4 เรื่องใหม่ (31.01.69)",ids:[126],auto:[[1,126]]},{approx:[],sec:"Reading",no:70,title:"The Linguistic Structure of Sign Language",batch:"14.02.69",ids:[129],auto:[[.75,129]]},{approx:[],sec:"Reading",no:71,title:"Financial Poverty / Microfinance",batch:"28.02.69",ids:[133],auto:[[1,133],[1,113]]},{approx:[],sec:"Reading",no:72,title:"The Science of Addiction",batch:"14.03.69",ids:[140],auto:[[1,140]]},{approx:[],sec:"Reading",no:73,title:"Gothic Architecture",batch:"18.03.69",ids:[142],auto:[[1,142]]},{approx:[],sec:"Reading",no:74,title:"Consumer Psychology and Marketing",batch:"28.03.69",ids:[146],auto:[[1,146]]},{approx:[],sec:"Reading",no:75,title:"Psychology of Procrastination",batch:"28.03.69",ids:[148],auto:[[1,148]]},{approx:[],sec:"Reading",no:76,title:"Water society and global crisis",batch:"28.03.69",ids:[152],auto:[[1,152]]},{approx:[],sec:"Reading",no:77,title:"Ancient civilization",batch:"28.03.69",ids:[154],auto:[[1,154]]},{approx:[],sec:"Reading",no:78,title:"Cryptocurrency And the evolution of economic technology",batch:"18.04.69",ids:[19],auto:[[1,19]]},{approx:[],sec:"Reading",no:79,title:"Epidemics that changed history",batch:"25.04.69",ids:[18],auto:[[1,18]]},{approx:[],sec:"Reading",no:80,title:"Genetic Therapy: Promise and Ethical Concerns",batch:"09.05.69",ids:[11],auto:[[1,11]]},{approx:[],sec:"Reading",no:81,title:"Ancient Roman Engineering Marvel",batch:"04.07.69",ids:[8],auto:[[1,8]]},{approx:[],sec:"Listening",no:1,title:"Used Furniture",batch:"",ids:[48,56],auto:[[1,56],[1,48]]},{approx:[],sec:"Listening",no:2,title:"Opera Show",batch:"",ids:[50,55],auto:[[1,50]]},{approx:[],sec:"Listening",no:3,title:"Concert",batch:"",ids:[49],auto:[[1,49]]},{approx:[],sec:"Listening",no:4,title:"Action Film",batch:"",ids:[86,110],auto:[[1,86]]},{approx:[],sec:"Listening",no:5,title:"Renewable Energy / Science Project: Wind Energy",batch:"",ids:[79],auto:[[1,79]]},{approx:[],sec:"Listening",no:6,title:"Taking a History Course",batch:"",ids:[102,10,101],auto:[[1,102],[1,10]]},{approx:[],sec:"Listening",no:7,title:"Amusement Park",batch:"",ids:[98,81],auto:[[1,98],[1,81]]},{approx:[],sec:"Listening",no:8,title:"Video Games",batch:"",ids:[85],auto:[[1,85]]},{approx:[],sec:"Listening",no:9,title:"Spring Festival",batch:"",ids:[80,51],auto:[[1,80],[1,51]]},{approx:[],sec:"Listening",no:10,title:"Road Trip",batch:"",ids:[108,87,82],auto:[[1,108],[1,87],[1,82]]},{approx:[],sec:"Listening",no:11,title:"A New Series: A Creepy Feeling",batch:"",ids:[105,100],auto:[[1,105],[1,100]]},{approx:[],sec:"Listening",no:12,title:"Music Festival",batch:"",ids:[89,16],auto:[[1,89],[1,80],[1,16]]}],Ur={class:"sub"},Vr={key:0,class:"note"},Jr={key:0,class:"card"},Kr={class:"note"},Yr={key:0,class:"badge"},$r={key:0},Xr={key:0,class:"raw"},Zr={class:"qh"},el=["onClick"],nl={key:0,class:"raw"},tl={class:"qh"},al=["onClick"],il={key:0,class:"raw"},sl={class:"raw"},ol={__name:"Item",props:{item:Object,all:Array},emits:["back","open"],setup(e,{emit:n}){const t=e,a=n,i=Ye(!0),s=zn({}),o=zn({}),r=/[\u0E00-\u0E7F]/,l=un(()=>{const x=[];let B=null;for(const w of(t.item.body||"").split(`
-`)){const D=w.trim();if(!D){B=null;continue}const _=r.test(D);B&&B.th===_?B.t+=" "+D:(B={th:_,t:D},x.push(B))}return x}),u=un(()=>t.item.qs||[]),d=un(()=>{const x=u.value.map((B,w)=>({q:B,i:w})).filter(B=>B.q.kind==="mcq");return{total:x.length,done:x.filter(B=>s[B.i]).length,right:x.filter(B=>s[B.i]===B.q.ans).length}}),m=x=>(x||"").replace(/\n+/g," "),C=un(()=>t.all.filter(x=>x.dup===t.item.n));return(x,B)=>(P(),M(N,null,[q("button",{class:"back",onClick:B[0]||(B[0]=w=>a("back"))},"← กลับ"),q("h1",null,"#"+G(e.item.n)+" "+G(e.item.title),1),q("p",Ur,[q("span",{class:ue(["badge",e.item.type==="Reading"?"r":"l"])},G(e.item.type),3),$e(" ไฟล์วันที่ "+G(e.item.date)+" ",1),C.value.length?(P(),M("span",Vr," · ซ้ำกับ "+G(C.value.map(w=>"#"+w.n).join(", ")),1)):me("",!0)]),e.item.status==="pending"&&!e.item.body?(P(),M("p",Jr,'รายการนี้อยู่ในสารบัญของไฟล์ต้นฉบับ แต่ไม่มีเนื้อหา/คำถามในไฟล์ (สถานะ "รอแปล")')):(P(),M(N,{key:1},[q("label",Kr,[ua(q("input",{type:"checkbox","onUpdate:modelValue":B[1]||(B[1]=w=>i.value=w)},null,512),[[Mr,i.value]]),B[2]||(B[2]=$e(" แสดงคำแปลไทย",-1))]),q("div",{class:ue(["card",{"hide-th":!i.value}])},[(P(!0),M(N,null,Ee(l.value,(w,D)=>(P(),M("p",{key:D,class:ue(w.th?"p-th":"p-en")},G(w.t),3))),128))],2),q("h2",null,[B[3]||(B[3]=$e("แบบฝึกหัด ",-1)),d.value.total?(P(),M("span",Yr,"ตอบแล้ว "+G(d.value.done)+"/"+G(d.value.total)+" · ถูก "+G(d.value.right),1)):me("",!0)]),u.value.length?me("",!0):(P(),M("div",$r,[B[4]||(B[4]=q("p",{class:"note"},"ไม่สามารถแยกเป็นข้อสอบได้ — แสดงข้อความต้นฉบับ",-1)),e.item.qa_raw?(P(),M("pre",Xr,G(e.item.qa_raw),1)):me("",!0)])),(P(!0),M(N,null,Ee(u.value,(w,D)=>(P(),M("div",{class:"card q",key:D},[w.kind==="mcq"?(P(),M(N,{key:0},[q("b",Zr,G(m(w.q)),1),(P(!0),M(N,null,Ee(w.opts,_=>(P(),M("button",{key:_[0],class:ue(["opt",{good:s[D]&&_[0]===w.ans,wrong:s[D]===_[0]&&_[0]!==w.ans}]),onClick:O=>!s[D]&&(s[D]=_[0])},G(_[0])+". "+G(_[1]),11,el))),128)),s[D]?(P(),M(N,{key:0},[q("p",{class:ue(s[D]===w.ans?"badge ok":"badge bad")},G(s[D]===w.ans?"ถูกต้อง":"เฉลย: "+w.ans),3),i.value&&w.th?(P(),M("pre",nl,G(w.th),1)):me("",!0)],64)):me("",!0)],64)):w.kind==="open"?(P(),M(N,{key:1},[q("b",tl,G(m(w.q)),1),q("button",{onClick:_=>o[D]=!o[D]},G(o[D]?"ซ่อนเฉลย":"ดูเฉลย"),9,al),o[D]?(P(),M(N,{key:0},[q("p",null,[B[5]||(B[5]=q("b",null,"เฉลย:",-1)),$e(" "+G(w.ans_text),1)]),i.value&&w.th?(P(),M("pre",il,G(w.th),1)):me("",!0)],64)):me("",!0)],64)):(P(),M(N,{key:2},[B[6]||(B[6]=q("p",{class:"note"},"ข้อนี้สร้างเป็นแบบฝึกหัดไม่ได้ — แสดงข้อความต้นฉบับ",-1)),q("pre",sl,G(w.raw),1)],64))]))),128))],64))],64))}},rl={class:"sum"},ll={class:"badge ok"},cl={class:"badge warn"},hl={class:"badge warn"},dl={class:"badge bad"},ul={style:{"overflow-x":"auto"}},pl={key:0,class:"note"},ml=["onClick"],gl={__name:"Checklist",props:{list:Array,lib:Array},emits:["open"],setup(e){const n=e,t=r=>n.lib.find(l=>l.n===r),a=r=>r.ids.length?r.ids.every(l=>{var u;return((u=t(l))==null?void 0:u.status)==="pending"})?"pending":"found":r.approx.length?"approx":"missing",i=un(()=>["Reading","Listening"].map(r=>({s:r,rows:n.list.filter(l=>l.sec===r)}))),s=(r,l)=>r.filter(u=>a(u)===l).length,o={found:["พบในไฟล์","ok"],pending:["มีในสารบัญ แต่ไม่มีเนื้อหา","warn"],approx:["ไม่พบชื่อตรง (มีเรื่องใกล้เคียง)","warn"],missing:["ไม่พบในไฟล์","bad"]};return(r,l)=>(P(),M(N,null,[l[1]||(l[1]=q("p",{class:"note"},'เทียบรายการในไฟล์ "รีวิวแนวข้อสอบ CEFR รอบ 31 ต.ค. 2569" (Reading 81 เรื่อง / Listening 12 เรื่อง) กับไฟล์ Reading_Listening_สรุปแปลไทย',-1)),(P(!0),M(N,null,Ee(i.value,u=>(P(),M("section",{key:u.s},[q("h2",null,G(u.s)+" ("+G(u.rows.length)+")",1),q("div",rl,[q("span",ll,"พบ "+G(s(u.rows,"found")),1),q("span",cl,"ไม่มีเนื้อหา "+G(s(u.rows,"pending")),1),q("span",hl,"ใกล้เคียง "+G(s(u.rows,"approx")),1),q("span",dl,"ไม่พบ "+G(s(u.rows,"missing")),1)]),q("div",ul,[q("table",null,[l[0]||(l[0]=q("tr",null,[q("th",null,"#"),q("th",null,"หัวข้อในรีวิว"),q("th",null,"สถานะ"),q("th",null,"เปิดดู")],-1)),(P(!0),M(N,null,Ee(u.rows,d=>(P(),M("tr",{key:d.no},[q("td",null,G(d.no),1),q("td",null,[$e(G(d.title),1),d.batch?(P(),M("div",pl,G(d.batch),1)):me("",!0)]),q("td",null,[q("span",{class:ue(["badge",o[a(d)][1]])},G(o[a(d)][0]),3)]),q("td",null,[(P(!0),M(N,null,Ee(d.ids.length?d.ids:d.approx,m=>(P(),M("a",{class:"lnk",key:m,onClick:C=>r.$emit("open",m)},"#"+G(m),9,ml))),128))])]))),128))])])]))),128))],64))}},fl=(e,n)=>{const t=e.__vccOpts||e;for(const[a,i]of n)t[a]=i;return t},yl={class:"gate"},wl={class:"card gate-box"},bl={key:0,class:"badge bad"},vl="11111111",Al={__name:"Gate",emits:["ok"],setup(e,{emit:n}){const t=n,a=Ye(""),i=Ye(!1),s=()=>{if(a.value.trim()===vl){try{localStorage.setItem("cefr_unlocked","1")}catch{}t("ok")}else i.value=!0,a.value=""};return(o,r)=>(P(),M("div",yl,[q("div",wl,[r[2]||(r[2]=q("h1",null,"สื่อการสอน CEFR",-1)),r[3]||(r[3]=q("p",{class:"sub"},"กรุณาใส่รหัสเพื่อเข้าใช้งาน",-1)),ua(q("input",{type:"password",inputmode:"numeric","onUpdate:modelValue":r[0]||(r[0]=l=>a.value=l),placeholder:"รหัส",autofocus:"",onKeyup:Or(s,["enter"]),onInput:r[1]||(r[1]=l=>i.value=!1)},null,544),[[ds,a.value]]),i.value?(P(),M("p",bl,"รหัสไม่ถูกต้อง")):me("",!0),q("button",{class:"on",style:{"margin-top":"12px",width:"100%"},onClick:s},"เข้าสู่ระบบ")])]))}},kl=fl(Al,[["__scopeId","data-v-6bf4e97f"]]),Cl={key:1,class:"wrap"},Bl={class:"tabs"},Tl={class:"tabs"},Dl=["onClick"],xl={class:"badge"},ql={class:"list"},Il=["onClick"],Wl={class:"num"},_l={class:"t"},Sl={key:0,class:"badge warn"},El={key:0},Rl={class:"note"},Pl=["onClick"],Ml={__name:"App",setup(e){let n=!1;try{n=localStorage.getItem("cefr_unlocked")==="1"}catch{}const t=Ye(n),a=()=>{try{localStorage.removeItem("cefr_unlocked")}catch{}t.value=!1},i=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"],s=Ye("lib"),o=Ye(""),r=Ye(null),l=Ye("All"),u=qn.filter(B=>B.status!=="dup"),d=un(()=>{const B=o.value.trim().toLowerCase(),w={};for(const D of u){if(l.value!=="All"&&D.type!==l.value||B&&!`${D.n} ${D.title}`.toLowerCase().includes(B))continue;const _=(D.date||"").slice(0,7)||"ไม่ระบุ";(w[_]||(w[_]=[])).push(D)}return Object.keys(w).sort().reverse().map(D=>{const[_,O]=D.split("-");return{key:D,label:O?`${i[+O-1]} ${_}`:D,items:w[D]}})}),m=qn.filter(B=>B.status==="dup"),C=B=>{r.value=qn.find(w=>w.n===B),window.scrollTo(0,0)},x=B=>B.replace(/^(?:\d+(?:[._]\d+)?_?\s*)?(?:TOEFL\s*|IELTS\s*|Review\s*)?(?:Reading|Listening)\s*[-_ ]*/i,"").replace(/_/g," ").trim()||B;return(B,w)=>t.value?(P(),M("div",Cl,[r.value?(P(),rt(ol,{key:0,item:r.value,all:ln(qn),onBack:w[1]||(w[1]=D=>r.value=null),onOpen:C},null,8,["item","all"])):(P(),M(N,{key:1},[w[6]||(w[6]=q("h1",null,"สื่อการสอน CEFR – Reading & Listening",-1)),w[7]||(w[7]=q("p",{class:"sub"},"เนื้อหา คำถาม และเฉลยทั้งหมดมาจากไฟล์ต้นฉบับเท่านั้น · จัดตามเดือนของไฟล์ ใหม่ → เก่า · ข้อที่สร้างเป็นแบบฝึกหัดไม่ได้จะแสดงข้อความดิบ",-1)),q("div",Bl,[q("button",{onClick:a,style:{"margin-left":"auto",order:"3"}},"ออกจากระบบ"),q("button",{class:ue({on:s.value==="lib"}),onClick:w[2]||(w[2]=D=>s.value="lib")},"คลังข้อสอบ ("+G(ln(u).length)+")",3),q("button",{class:ue({on:s.value==="chk"}),onClick:w[3]||(w[3]=D=>s.value="chk")},"ตรวจเทียบรีวิว 31 ต.ค. 2569",2)]),s.value==="lib"?(P(),M(N,{key:0},[ua(q("input",{type:"search","onUpdate:modelValue":w[4]||(w[4]=D=>o.value=D),placeholder:"ค้นหาชื่อเรื่อง หรือเลขที่…"},null,512),[[ds,o.value]]),q("div",Tl,[(P(),M(N,null,Ee(["All","Reading","Listening"],D=>q("button",{key:D,class:ue({on:l.value===D}),onClick:_=>l.value=D},G(D==="All"?"ทั้งหมด":D),11,Dl)),64))]),(P(!0),M(N,null,Ee(d.value,D=>(P(),M("section",{key:D.key},[q("h2",null,[$e(G(D.label)+" ",1),q("span",xl,G(D.items.length)+" เรื่อง",1)]),q("div",ql,[(P(!0),M(N,null,Ee(D.items,_=>(P(),M("button",{class:"row",key:_.n,onClick:O=>C(_.n)},[q("span",Wl,"#"+G(_.n),1),q("span",_l,G(x(_.title)),1),q("span",{class:ue(["badge",_.type==="Reading"?"r":"l"])},G(_.type),3),_.status==="pending"?(P(),M("span",Sl,"ไม่มีเนื้อหาในไฟล์")):me("",!0)],8,Il))),128))])]))),128)),ln(m).length?(P(),M("section",El,[w[5]||(w[5]=q("h2",null,"รายการซ้ำ (ไฟล์ต้นฉบับไม่แปลซ้ำ)",-1)),q("p",Rl,[(P(!0),M(N,null,Ee(ln(m),D=>(P(),M("span",{key:D.n},[$e("#"+G(D.n)+" → ",1),q("a",{class:"lnk",onClick:_=>C(D.dup)},"#"+G(D.dup),9,Pl)]))),128))])])):me("",!0)],64)):(P(),rt(gl,{key:1,list:ln(Qr),lib:ln(qn),onOpen:C},null,8,["list","lib"]))],64))])):(P(),rt(kl,{key:0,onOk:w[0]||(w[0]=D=>t.value=!0)}))}};Nr(Ml).mount("#app");
+ขูดรีดภูมิภาคที่อ่อนแอกว่า E. ลัทธิอาณานิคมมีอิทธิพลต่อระบบการเมืองและสังคมสมัยใหม่ (A, C, E)`},{n:156,type:"Listening",title:"Listening_Mystery Manor Review",date:"2026-04-30",status:"dup",dup:6},{n:157,type:"Reading",title:"TOEFL The Story of Animation",date:"2026-11-28",status:"ok",dup:null,added:!0,body:`The first animations were very simple. In the late 1800s, people made models and books with slightly different drawings on each page. When you flipped through the pages quickly, it looked like the picture was moving. These designs involved many pictures quickly showing one after another—just like how animation works today.
+
+In the early 1900s, animators started using film to create cartoons. One of the most famous early animators was Walt Disney. He created Mickey Mouse in 1928, and the character quickly became very popular. Disney and other animators worked hard to improve their techniques. They invented ways to show movement more naturally and added color to their cartoons.
+
+For many years, animation was done by hand. Artists had to draw every frame of the animation. For a short cartoon, they might need to draw thousands of pictures. This took a lot of time and was very hard work.
+
+In the 1990s, computer animation began to gain popularity. Instead of drawing by hand, animators could now use computers to create and move characters. One of the first major computer-animated movies was Toy Story (1995). It was a success and showed that computer animation could be just as good as hand-drawn animation.
+
+Today, many movies and TV shows use computer animation. But the animation process is still similar to how it was 100 years ago. Animators still need to understand how characters work and how to tell a story through pictures. Some artists even mix old and new techniques, using computers to help create animations they have drawn by hand. 2
+
+Animation has come a long way since the days of flip books. Now, animated movies are becoming more and more popular, with many winning major awards. As technology advances, who knows what kinds of amazing animations we’ll see next?`,qs:[{kind:"mcq",ok:!0,q:"1. What does the passage mainly discuss?",opts:[["A","How computer graphics replaced traditional art"],["B","The history and development of animation"],["C","The life and achievements of Walt Disney"],["D","Why animated movies are more popular than live-action films"]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"2. According to the passage, what was true about the first animations?",opts:[["A","They were created using computers."],["B","They were based on moving photographs."],["C","They consisted of many pictures shown in quick sequence."],["D","They were colored from the beginning."]],ans:"C",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"3. What is the meaning of the word “frame” as used in paragraph 3?",opts:[["A","A scene in a movie theater"],["B","A single drawing in an animation sequence"],["C","A border around a picture"],["D","A short video clip"]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"4. According to the passage, why was Toy Story important?",opts:[["A","It was the first cartoon to win an award."],["B","It showed that computer animation could match hand-drawn animation."],["C","It introduced color to animated movies."],["D","It was Walt Disney’s first major success."]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"5. The phrase “has come a long way” in the last paragraph means:",opts:[["A","Animation still uses the same techniques as in the 1800s"],["B","Animation has improved greatly over time"],["C","Animation is no longer popular"],["D","Animation has become more difficult"]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"6. Which of the following statements is true according to the passage?",opts:[["A","Computer animation completely replaced hand-drawn animation."],["B","Animators no longer need to understand storytelling."],["C","The basic principles of animation have remained similar for 100 years."],["D","Old animation techniques are no longer used in modern movies."]],ans:"C",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"7. What can be inferred about the future of animation?",opts:[["A","It will probably stop using computers."],["B","It will continue to evolve with technology."],["C","It will return to using hand-drawn pictures only."],["D","It will become less popular over time."]],ans:"B",th:"",raw:null,ans_text:null}],qa_raw:"",images:["pages/animation-1.png","pages/animation-2.png","pages/animation-3.png","pages/animation-4.png","pages/animation-5.png","pages/animation-6.png","pages/animation-7.png","pages/animation-8.png"],thai_images:!0},{n:158,type:"Reading",title:"The Hidden Work of Urban Trees",date:"2026-11-28",status:"ok",dup:null,added:!0,body:`Paragraph 1
+As cities expand, urban trees are increasingly recognized as more than decorative features of streets and parks. They perform a range of environmental functions that are often invisible to residents. By absorbing carbon dioxide, filtering airborne pollutants, and reducing the amount of heat absorbed by buildings and roads, trees contribute to healthier urban environments. However, their benefits depend not simply on the number of trees planted, but also on their age, species, location, and long-term survival.
+
+Paragraph 2
+One of the most significant contributions of urban trees is their ability to regulate temperature. In densely built neighborhoods, concrete and asphalt absorb solar radiation during the day and release it slowly at night, creating the urban heat island effect. Trees counteract this process through shade and transpiration, a mechanism in which water evaporates from their leaves. This process cools the surrounding air, although its effectiveness varies according to humidity, soil moisture, and tree characteristics. Consequently, planting trees in strategic locations may produce greater cooling benefits than distributing them randomly throughout a city.
+
+Paragraph 3
+Urban trees also influence the movement of rainwater. Their leaves intercept rainfall, while their roots create pathways through the soil that allow water to infiltrate rather than flow directly into drainage systems. These functions can reduce surface runoff and lower the risk of flooding during heavy rainfall. Nevertheless, trees cannot independently solve every drainage problem. In areas where soil is compacted, underground infrastructure is extensive, or rainfall exceeds the capacity of natural systems, additional measures such as permeable pavement and improved drainage networks may be necessary.
+
+Paragraph 4
+The benefits provided by trees change as they grow. Established urban trees, with their larger canopies and extensive root systems, generally offer more shade, store greater amounts of carbon, and intercept more rainfall than newly planted trees. Their ecological contributions accumulate over many years. Removing mature trees, therefore, can result in an immediate loss of environmental services that may take decades to replace. Although planting new trees is valuable, it should not be viewed as an equivalent substitute for protecting existing trees.
+
+Paragraph 5
+Young urban trees, in contrast, face a particularly vulnerable period during their early development. Their roots have not yet spread widely enough to access sufficient water, making them susceptible to drought and extreme heat. They may also be damaged by vehicles, construction activities, or improper pruning. Without regular watering, protective measures, and suitable soil conditions, a considerable proportion of newly planted trees may fail to survive. This is why successful urban forestry requires more than planting ceremonies; it demands consistent maintenance and monitoring.
+
+Paragraph 6
+Despite these advantages, urban forestry programs frequently encounter financial and practical constraints. Municipalities may have limited budgets, insufficient staff, or competing demands for land. In some neighborhoods, residents may oppose tree planting because they fear falling branches, blocked sidewalks, or damage to underground pipes. These concerns are not necessarily unreasonable, but they can be addressed through careful species selection, appropriate planting locations, and transparent communication. Effective planning must balance environmental objectives with the everyday needs of people who live and work in the area.
+
+Paragraph 7
+Ultimately, the success of an urban tree program should be measured not only by how many trees are planted but also by how many survive, how well they develop, and how equitably their benefits are distributed. A city that invests in protecting established trees while supporting the growth of young ones is more likely to build a resilient urban ecosystem. The hidden work of trees may be difficult to observe directly, yet its consequences are reflected in cooler streets, healthier communities, reduced flood risks, and improved quality of life. Recognizing these functions can help policymakers make decisions that benefit both present and future generations.`,qs:[{kind:"mcq",ok:!0,q:"1. The word “effectiveness” in Paragraph 2 is closest in meaning to:",opts:[["A","Efficacy"],["B","Expansion"],["C","Frequency"],["D","Complexity"],["E","Resistance"]],ans:"A",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"2. The word “constraints” in Paragraph 6 is closest in meaning to:",opts:[["A","Advantages"],["B","Limitations"],["C","Improvements"],["D","Opportunities"],["E","Preferences"]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"3. What is the main purpose of the passage?",opts:[["A","To argue that urban trees should be planted exclusively in residential neighborhoods"],["B","To explain the environmental benefits of urban trees and the challenges involved in maintaining them"],["C","To demonstrate that trees are more effective than modern drainage infrastructure"],["D","To compare the financial costs of planting trees in different cities"],["E","To criticize governments for spending money on environmental projects"]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"4. According to Paragraph 2, how do trees help reduce the urban heat island effect?",opts:[["A","By preventing all solar radiation from reaching buildings"],["B","By increasing the amount of concrete exposed to sunlight"],["C","By providing shade and releasing water through transpiration"],["D","By absorbing rainwater into underground drainage systems"],["E","By increasing humidity without affecting surrounding temperatures"]],ans:"C",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"5. What can be inferred from Paragraph 2 about the location of urban trees?",opts:[["A","Trees planted in every location provide identical cooling benefits."],["B","Strategic placement may improve the environmental benefits of trees."],["C","Trees should only be planted in areas with high humidity."],["D","The cooling effect of trees depends entirely on their species."],["E","Urban trees are ineffective in densely populated neighborhoods."]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"6. The word “infiltrate” in Paragraph 3 is closest in meaning to:",opts:[["A","Evaporate quickly"],["B","Enter or pass through gradually"],["C","Remain on the surface"],["D","Move away from an area"],["E","Become contaminated"]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"7. In Paragraph 4, the word “Their” in the sentence “Their ecological contributions accumulate over many years” refers to:",opts:[["A","Drainage systems"],["B","Newly planted trees"],["C","Established urban trees"],["D","Municipalities"],["E","Environmental policies"]],ans:"C",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"8. Why are young urban trees particularly vulnerable during their early development?",opts:[["A","They produce excessive shade that prevents growth."],["B","They have roots that are too extensive for urban environments."],["C","Their roots are not sufficiently developed to access adequate water."],["D","They cannot absorb carbon dioxide until they reach maturity."],["E","They are unable to survive in areas with underground infrastructure."]],ans:"C",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"9. Why does the author mention residents' concerns about falling branches, blocked sidewalks, and underground pipes in Paragraph 6?",opts:[["A","To suggest that residents should be excluded from urban planning decisions"],["B","To illustrate practical concerns that urban forestry programs must address"],["C","To prove that urban trees create more problems than benefits"],["D","To explain why trees should be removed from residential areas"],["E","To demonstrate that financial constraints are the only obstacle to planting trees"]],ans:"B",th:"",raw:null,ans_text:null},{kind:"mcq",ok:!0,q:"10. Which statement is best supported by the passage?",opts:[["A","Planting new trees can completely compensate for the removal of mature trees."],["B","Urban forestry programs are successful whenever a large number of trees are planted."],["C","Long-term maintenance is as important as planting trees in achieving environmental benefits."],["D","Urban trees eliminate the need for modern drainage infrastructure."]],ans:"C",th:"",raw:null,ans_text:null},{kind:"raw",ok:!1,q:"",opts:[],ans:null,th:"",ans_text:null,raw:`Question 11 (Drag & Drop) — ข้อความต้นฉบับ
+Question 11
+Drag each statement into the correct category.
+Category A: Established Urban Trees (3 statements)
+Statement 1
+Generally, provide more shade because of their larger
+canopies.
+Statement 3
+Store greater amounts of carbon and intercept more rainfall.
+Statement 5
+Have ecological contributions that accumulate over many years.
+Category B: Young Urban Trees (2 statements)
+Statements to classify
+Statement 2
+Are particularly vulnerable to drought because their roots have
+not spread widely.
+Statement 4
+Require regular watering and monitoring to improve their
+chances of survival.
+
+(คำแปลไทยของข้อนี้ดูจากภาพต้นฉบับด้านล่าง)`}],qa_raw:"",images:["pages/trees-01.png","pages/trees-02.png","pages/trees-03.png","pages/trees-04.png","pages/trees-05.png","pages/trees-06.png","pages/trees-07.png","pages/trees-08.png","pages/trees-09.png","pages/trees-10.png","pages/trees-11.png","pages/trees-12.png","pages/trees-13.png","pages/trees-14.png","pages/trees-15.png","pages/trees-16.png","pages/trees-17.png","pages/trees-18.png","pages/trees-19.png","pages/trees-20.png","pages/trees-21.png"],thai_images:!0}],jr=[{approx:[],sec:"Reading",no:1,title:"Renewable Energy for a Better World",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[41],auto:[[1,41]]},{approx:[69,72,2],sec:"Reading",no:2,title:"Social media star",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[[1,72],[1,69],[.67,38]]},{approx:[],sec:"Reading",no:3,title:"Fashion influencers: how social media is changing the way we dress",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[2],auto:[[1,72],[1,69],[1,2]]},{approx:[],sec:"Reading",no:4,title:"The History of Animation",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[39,75,157],auto:[[1,75],[1,39]]},{approx:[],sec:"Reading",no:5,title:"The Exciting World of Space Exploration",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[42,99],auto:[[1,99],[1,42]]},{approx:[],sec:"Reading",no:6,title:"Making Healthy Choices in Modern Life",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[34],auto:[[1,34]]},{approx:[],sec:"Reading",no:7,title:"Protect Our Planet",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[4],auto:[[1,24],[1,4]]},{approx:[],sec:"Reading",no:8,title:"Environmental Conservation",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[24],auto:[]},{approx:[46,158],sec:"Reading",no:9,title:"Urban Green Gardens",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[]},{approx:[],sec:"Reading",no:10,title:"The Universal Appeal of Sports",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[],auto:[]},{approx:[],sec:"Reading",no:11,title:"The Evolution of Photography",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[43],auto:[[1,43]]},{approx:[],sec:"Reading",no:12,title:"The Essentials of Sleeping N",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[20,83],auto:[]},{approx:[],sec:"Reading",no:13,title:"The Roman Empire",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[47,33],auto:[[1,47],[1,33]]},{approx:[69,72],sec:"Reading",no:14,title:"The Impact of Social Media on Your Life / How Social Media Affects Mental Health",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[38],auto:[[1,72],[1,69],[1,38]]},{approx:[],sec:"Reading",no:15,title:"Urbanization / Effects of Urbanization on Wildlife",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[37],auto:[[1,158],[1,153],[1,136]]},{approx:[],sec:"Reading",no:16,title:"Bees and Agriculture",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[23,90],auto:[[1,90],[1,23]]},{approx:[],sec:"Reading",no:17,title:"Streaming Music",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[103,36],auto:[[1,103],[1,36]]},{approx:[],sec:"Reading",no:18,title:"The Psychology of Color",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[40],auto:[[1,40]]},{approx:[],sec:"Reading",no:19,title:"Climate Change: Its Impact on the Polar Bear",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[22,5],auto:[[1,5],[.75,22]]},{approx:[],sec:"Reading",no:20,title:"The Eiffel Tower",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[84,151],auto:[[1,151],[1,84]]},{approx:[],sec:"Reading",no:21,title:"The History of the Bicycle",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[35,93],auto:[[1,35]]},{approx:[],sec:"Reading",no:22,title:"AI in Medicine",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[30],auto:[[1,30]]},{approx:[],sec:"Reading",no:23,title:"AI",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[95,104],auto:[]},{approx:[],sec:"Reading",no:24,title:"Sound in Motion Pictures",batch:"ชุดหลัก (ก่อน ต.ค. 2568)",ids:[26,70,71],auto:[[1,26]]},{approx:[],sec:"Reading",no:25,title:"The History of Chocolate",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[7],auto:[[1,7]]},{approx:[],sec:"Reading",no:26,title:"The Great Wall of China",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[31],auto:[[1,31]]},{approx:[],sec:"Reading",no:27,title:"Gravitational Waves",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[27],auto:[[1,27]]},{approx:[],sec:"Reading",no:28,title:"Volcanic Geology",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[45],auto:[[1,45]]},{approx:[],sec:"Reading",no:29,title:"Street Busking/ Street Performances",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[29],auto:[[1,29]]},{approx:[],sec:"Reading",no:30,title:"The Evolution of Public Libraries",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[32],auto:[[1,32]]},{approx:[],sec:"Reading",no:31,title:"Women Codebreakers of World War II",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[54],auto:[[.67,54]]},{approx:[],sec:"Reading",no:32,title:"Coral Reefs",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[28],auto:[[1,28]]},{approx:[],sec:"Reading",no:33,title:"Street Lighting",batch:"9 เรื่องใหม่ (ต.ค. 2568)",ids:[44],auto:[[1,44]]},{approx:[],sec:"Reading",no:34,title:"Gentrification and social change",batch:"27 เรื่องใหม่ (17.01.69)",ids:[21],auto:[[1,21],[.67,2]]},{approx:[],sec:"Reading",no:35,title:"Bilingualism and cognitive benefits",batch:"27 เรื่องใหม่ (17.01.69)",ids:[17],auto:[[1,17]]},{approx:[],sec:"Reading",no:36,title:"Gig economy",batch:"27 เรื่องใหม่ (17.01.69)",ids:[],auto:[]},{approx:[],sec:"Reading",no:37,title:"The Internet of Things (IoT) in a smart home",batch:"27 เรื่องใหม่ (17.01.69)",ids:[144],auto:[[.8,144]]},{approx:[],sec:"Reading",no:38,title:"Pollution: microplastic pollution",batch:"27 เรื่องใหม่ (17.01.69)",ids:[113,13],auto:[[1,113]]},{approx:[],sec:"Reading",no:39,title:"Science of fermentation",batch:"27 เรื่องใหม่ (17.01.69)",ids:[118],auto:[[1,118]]},{approx:[],sec:"Reading",no:40,title:"The history of coffee trade",batch:"27 เรื่องใหม่ (17.01.69)",ids:[117,3],auto:[[.67,117],[.67,3]]},{approx:[],sec:"Reading",no:41,title:"Montessori method",batch:"27 เรื่องใหม่ (17.01.69)",ids:[141],auto:[[1,141]]},{approx:[],sec:"Reading",no:42,title:"History of Vaccines",batch:"27 เรื่องใหม่ (17.01.69)",ids:[128],auto:[[1,128]]},{approx:[],sec:"Reading",no:43,title:"Demonstrating of cat",batch:"27 เรื่องใหม่ (17.01.69)",ids:[138],auto:[]},{approx:[],sec:"Reading",no:44,title:"Antibiotic resistance N",batch:"27 เรื่องใหม่ (17.01.69)",ids:[139],auto:[[1,139]]},{approx:[],sec:"Reading",no:45,title:"The Great Depression/ Black Tuesday",batch:"27 เรื่องใหม่ (17.01.69)",ids:[149,114,15],auto:[[1,149],[1,114],[1,15]]},{approx:[],sec:"Reading",no:46,title:"Origins of paper money",batch:"27 เรื่องใหม่ (17.01.69)",ids:[14],auto:[[1,14]]},{approx:[],sec:"Reading",no:47,title:"Butterfly migration (Mexico)",batch:"27 เรื่องใหม่ (17.01.69)",ids:[123,116],auto:[[.67,123],[.67,116]]},{approx:[],sec:"Reading",no:48,title:"The Viking and Norse explorer",batch:"27 เรื่องใหม่ (17.01.69)",ids:[134],auto:[[1,134]]},{approx:[],sec:"Reading",no:49,title:"Neuroplasticity and brain adaptation",batch:"27 เรื่องใหม่ (17.01.69)",ids:[121],auto:[[1,121]]},{approx:[],sec:"Reading",no:50,title:"Graffiti wall/ Stress Art",batch:"27 เรื่องใหม่ (17.01.69)",ids:[153],auto:[]},{approx:[],sec:"Reading",no:51,title:"The Evolution of Theater and Drama/ / Acoustics architecture and ancient theater",batch:"27 เรื่องใหม่ (17.01.69)",ids:[130,12,9,1],auto:[[1,130],[1,12],[1,9]]},{approx:[],sec:"Reading",no:52,title:"Critical thinking in the digital age/ Data Privacy in the digital age",batch:"27 เรื่องใหม่ (17.01.69)",ids:[132,147],auto:[[.75,132],[.67,147]]},{approx:[],sec:"Reading",no:53,title:"Placebo effect",batch:"27 เรื่องใหม่ (17.01.69)",ids:[145],auto:[[1,145]]},{approx:[],sec:"Reading",no:54,title:"Bioluminescence in deep-sea creatures",batch:"27 เรื่องใหม่ (17.01.69)",ids:[119],auto:[[1,119]]},{approx:[],sec:"Reading",no:55,title:"Urban heat island",batch:"27 เรื่องใหม่ (17.01.69)",ids:[136],auto:[[1,136]]},{approx:[],sec:"Reading",no:56,title:"The History of emoji",batch:"27 เรื่องใหม่ (17.01.69)",ids:[125],auto:[]},{approx:[],sec:"Reading",no:57,title:"Underground transport",batch:"27 เรื่องใหม่ (17.01.69)",ids:[120],auto:[]},{approx:[],sec:"Reading",no:58,title:"Organ transplant",batch:"27 เรื่องใหม่ (17.01.69)",ids:[135],auto:[[1,135]]},{approx:[],sec:"Reading",no:59,title:"The Evaluation of Timekeeping",batch:"27 เรื่องใหม่ (17.01.69)",ids:[112],auto:[]},{approx:[],sec:"Reading",no:60,title:"Berlin Wall",batch:"27 เรื่องใหม่ (17.01.69)",ids:[122],auto:[[1,122]]},{approx:[],sec:"Reading",no:61,title:"Telemedicine & Remote Healthcare",batch:"5 เรื่องใหม่ (21.01.69)",ids:[],auto:[]},{approx:[],sec:"Reading",no:62,title:"The history of anesthesia surgery",batch:"5 เรื่องใหม่ (21.01.69)",ids:[137],auto:[[1,137]]},{approx:[],sec:"Reading",no:63,title:"Colonialism and Its Global Effects",batch:"5 เรื่องใหม่ (21.01.69)",ids:[155],auto:[[1,155]]},{approx:[],sec:"Reading",no:64,title:"The Suffragette Movement in Britain",batch:"5 เรื่องใหม่ (21.01.69)",ids:[124],auto:[[.67,124]]},{approx:[],sec:"Reading",no:65,title:"The Development of the Braille System",batch:"5 เรื่องใหม่ (21.01.69)",ids:[127],auto:[[1,127]]},{approx:[],sec:"Reading",no:66,title:"Plate Tectonics and Continental Crust N",batch:"4 เรื่องใหม่ (31.01.69)",ids:[131],auto:[[1,131]]},{approx:[],sec:"Reading",no:67,title:"Endangered language",batch:"4 เรื่องใหม่ (31.01.69)",ids:[115],auto:[[1,115]]},{approx:[],sec:"Reading",no:68,title:"Medieval Guild",batch:"4 เรื่องใหม่ (31.01.69)",ids:[143],auto:[[1,143]]},{approx:[],sec:"Reading",no:69,title:"The Democratic of Ancient Athens",batch:"4 เรื่องใหม่ (31.01.69)",ids:[126],auto:[[1,126]]},{approx:[],sec:"Reading",no:70,title:"The Linguistic Structure of Sign Language",batch:"14.02.69",ids:[129],auto:[[.75,129]]},{approx:[],sec:"Reading",no:71,title:"Financial Poverty / Microfinance",batch:"28.02.69",ids:[133],auto:[[1,133],[1,113]]},{approx:[],sec:"Reading",no:72,title:"The Science of Addiction",batch:"14.03.69",ids:[140],auto:[[1,140]]},{approx:[],sec:"Reading",no:73,title:"Gothic Architecture",batch:"18.03.69",ids:[142],auto:[[1,142]]},{approx:[],sec:"Reading",no:74,title:"Consumer Psychology and Marketing",batch:"28.03.69",ids:[146],auto:[[1,146]]},{approx:[],sec:"Reading",no:75,title:"Psychology of Procrastination",batch:"28.03.69",ids:[148],auto:[[1,148]]},{approx:[],sec:"Reading",no:76,title:"Water society and global crisis",batch:"28.03.69",ids:[152],auto:[[1,152]]},{approx:[],sec:"Reading",no:77,title:"Ancient civilization",batch:"28.03.69",ids:[154],auto:[[1,154]]},{approx:[],sec:"Reading",no:78,title:"Cryptocurrency And the evolution of economic technology",batch:"18.04.69",ids:[19],auto:[[1,19]]},{approx:[],sec:"Reading",no:79,title:"Epidemics that changed history",batch:"25.04.69",ids:[18],auto:[[1,18]]},{approx:[],sec:"Reading",no:80,title:"Genetic Therapy: Promise and Ethical Concerns",batch:"09.05.69",ids:[11],auto:[[1,11]]},{approx:[],sec:"Reading",no:81,title:"Ancient Roman Engineering Marvel",batch:"04.07.69",ids:[8],auto:[[1,8]]},{approx:[],sec:"Listening",no:1,title:"Used Furniture",batch:"",ids:[48,56],auto:[[1,56],[1,48]]},{approx:[],sec:"Listening",no:2,title:"Opera Show",batch:"",ids:[50,55],auto:[[1,50]]},{approx:[],sec:"Listening",no:3,title:"Concert",batch:"",ids:[49],auto:[[1,49]]},{approx:[],sec:"Listening",no:4,title:"Action Film",batch:"",ids:[86,110],auto:[[1,86]]},{approx:[],sec:"Listening",no:5,title:"Renewable Energy / Science Project: Wind Energy",batch:"",ids:[79],auto:[[1,79]]},{approx:[],sec:"Listening",no:6,title:"Taking a History Course",batch:"",ids:[102,10,101],auto:[[1,102],[1,10]]},{approx:[],sec:"Listening",no:7,title:"Amusement Park",batch:"",ids:[98,81],auto:[[1,98],[1,81]]},{approx:[],sec:"Listening",no:8,title:"Video Games",batch:"",ids:[85],auto:[[1,85]]},{approx:[],sec:"Listening",no:9,title:"Spring Festival",batch:"",ids:[80,51],auto:[[1,80],[1,51]]},{approx:[],sec:"Listening",no:10,title:"Road Trip",batch:"",ids:[108,87,82],auto:[[1,108],[1,87],[1,82]]},{approx:[],sec:"Listening",no:11,title:"A New Series: A Creepy Feeling",batch:"",ids:[105,100],auto:[[1,105],[1,100]]},{approx:[],sec:"Listening",no:12,title:"Music Festival",batch:"",ids:[89,16],auto:[[1,89],[1,80],[1,16]]}],Ur={class:"sub"},Vr={key:0,class:"note"},Jr={key:0,class:"card"},Kr={class:"note"},Yr={key:0,class:"badge"},$r={key:0},Xr={key:0,class:"raw"},Zr={class:"qh"},el=["onClick"],nl={key:0,class:"raw"},tl={class:"qh"},al=["onClick"],il={key:0,class:"raw"},sl={class:"raw"},ol=["src"],rl={__name:"Item",props:{item:Object,all:Array},emits:["back","open"],setup(e,{emit:n}){const t=e,a=n,i=$e(!0),s=Fn({}),o=Fn({}),r=/[\u0E00-\u0E7F]/,l=un(()=>{const W=[];let y=null;for(const v of(t.item.body||"").split(`
+`)){const x=v.trim();if(!x){y=null;continue}const R=r.test(x);y&&y.th===R?y.t+=" "+x:(y={th:R,t:x},W.push(y))}return W}),u=un(()=>t.item.qs||[]),d=un(()=>{const W=u.value.map((y,v)=>({q:y,i:v})).filter(y=>y.q.kind==="mcq");return{total:W.length,done:W.filter(y=>s[y.i]).length,right:W.filter(y=>s[y.i]===y.q.ans).length}}),m=W=>(W||"").replace(/\n+/g," "),B="/krutong/",q=un(()=>t.all.filter(W=>W.dup===t.item.n));return(W,y)=>(E(),H(N,null,[D("button",{class:"back",onClick:y[0]||(y[0]=v=>a("back"))},"← กลับ"),D("h1",null,"#"+O(e.item.n)+" "+O(e.item.title),1),D("p",Ur,[D("span",{class:pe(["badge",e.item.type==="Reading"?"r":"l"])},O(e.item.type),3),Xe(" ไฟล์วันที่ "+O(e.item.date)+" ",1),q.value.length?(E(),H("span",Vr," · ซ้ำกับ "+O(q.value.map(v=>"#"+v.n).join(", ")),1)):de("",!0)]),e.item.status==="pending"&&!e.item.body?(E(),H("p",Jr,'รายการนี้อยู่ในสารบัญของไฟล์ต้นฉบับ แต่ไม่มีเนื้อหา/คำถามในไฟล์ (สถานะ "รอแปล")')):(E(),H(N,{key:1},[D("label",Kr,[ua(D("input",{type:"checkbox","onUpdate:modelValue":y[1]||(y[1]=v=>i.value=v)},null,512),[[Mr,i.value]]),y[2]||(y[2]=Xe(" แสดงคำแปลไทย",-1))]),D("div",{class:pe(["card",{"hide-th":!i.value}])},[(E(!0),H(N,null,Ae(l.value,(v,x)=>(E(),H("p",{key:x,class:pe(v.th?"p-th":"p-en")},O(v.t),3))),128))],2),D("h2",null,[y[3]||(y[3]=Xe("แบบฝึกหัด ",-1)),d.value.total?(E(),H("span",Yr,"ตอบแล้ว "+O(d.value.done)+"/"+O(d.value.total)+" · ถูก "+O(d.value.right),1)):de("",!0)]),u.value.length?de("",!0):(E(),H("div",$r,[y[4]||(y[4]=D("p",{class:"note"},"ไม่สามารถแยกเป็นข้อสอบได้ — แสดงข้อความต้นฉบับ",-1)),e.item.qa_raw?(E(),H("pre",Xr,O(e.item.qa_raw),1)):de("",!0)])),(E(!0),H(N,null,Ae(u.value,(v,x)=>(E(),H("div",{class:"card q",key:x},[v.kind==="mcq"?(E(),H(N,{key:0},[D("b",Zr,O(m(v.q)),1),(E(!0),H(N,null,Ae(v.opts,R=>(E(),H("button",{key:R[0],class:pe(["opt",{good:s[x]&&R[0]===v.ans,wrong:s[x]===R[0]&&R[0]!==v.ans}]),onClick:Q=>!s[x]&&(s[x]=R[0])},O(R[0])+". "+O(R[1]),11,el))),128)),s[x]?(E(),H(N,{key:0},[D("p",{class:pe(s[x]===v.ans?"badge ok":"badge bad")},O(s[x]===v.ans?"ถูกต้อง":"เฉลย: "+v.ans),3),i.value&&v.th?(E(),H("pre",nl,O(v.th),1)):de("",!0)],64)):de("",!0)],64)):v.kind==="open"?(E(),H(N,{key:1},[D("b",tl,O(m(v.q)),1),D("button",{onClick:R=>o[x]=!o[x]},O(o[x]?"ซ่อนเฉลย":"ดูเฉลย"),9,al),o[x]?(E(),H(N,{key:0},[D("p",null,[y[5]||(y[5]=D("b",null,"เฉลย:",-1)),Xe(" "+O(v.ans_text),1)]),i.value&&v.th?(E(),H("pre",il,O(v.th),1)):de("",!0)],64)):de("",!0)],64)):(E(),H(N,{key:2},[y[6]||(y[6]=D("p",{class:"note"},"ข้อนี้สร้างเป็นแบบฝึกหัดไม่ได้ — แสดงข้อความต้นฉบับ",-1)),D("pre",sl,O(v.raw),1)],64))]))),128)),e.item.images&&e.item.images.length?(E(),H(N,{key:1},[y[7]||(y[7]=D("h2",null,"ต้นฉบับ (ภาพ) — ใช้ดูคำแปลไทย",-1)),y[8]||(y[8]=D("p",{class:"note"},"ข้อความไทยในไฟล์นี้ดึงเป็นตัวอักษรได้ไม่ถูกต้อง จึงแสดงเป็นภาพหน้าต้นฉบับ",-1)),D("details",null,[D("summary",null,"เปิดดูภาพทั้ง "+O(e.item.images.length)+" หน้า",1),(E(!0),H(N,null,Ae(e.item.images,v=>(E(),H("img",{key:v,src:Ke(B)+v,loading:"lazy",style:{width:"100%",margin:"8px 0",border:"1px solid var(--line)"}},null,8,ol))),128))])],64)):de("",!0)],64))],64))}},ll={class:"sum"},cl={class:"badge ok"},hl={class:"badge warn"},dl={class:"badge warn"},ul={class:"badge bad"},pl={style:{"overflow-x":"auto"}},ml={key:0,class:"note"},gl=["onClick"],fl={__name:"Checklist",props:{list:Array,lib:Array},emits:["open"],setup(e){const n=e,t=r=>n.lib.find(l=>l.n===r),a=r=>r.ids.length?r.ids.every(l=>{var u;return((u=t(l))==null?void 0:u.status)==="pending"})?"pending":"found":r.approx.length?"approx":"missing",i=un(()=>["Reading","Listening"].map(r=>({s:r,rows:n.list.filter(l=>l.sec===r)}))),s=(r,l)=>r.filter(u=>a(u)===l).length,o={found:["พบในไฟล์","ok"],pending:["มีในสารบัญ แต่ไม่มีเนื้อหา","warn"],approx:["ไม่พบชื่อตรง (มีเรื่องใกล้เคียง)","warn"],missing:["ไม่พบในไฟล์","bad"]};return(r,l)=>(E(),H(N,null,[l[1]||(l[1]=D("p",{class:"note"},'เทียบรายการในไฟล์ "รีวิวแนวข้อสอบ CEFR รอบ 31 ต.ค. 2569" (Reading 81 เรื่อง / Listening 12 เรื่อง) กับไฟล์ Reading_Listening_สรุปแปลไทย',-1)),(E(!0),H(N,null,Ae(i.value,u=>(E(),H("section",{key:u.s},[D("h2",null,O(u.s)+" ("+O(u.rows.length)+")",1),D("div",ll,[D("span",cl,"พบ "+O(s(u.rows,"found")),1),D("span",hl,"ไม่มีเนื้อหา "+O(s(u.rows,"pending")),1),D("span",dl,"ใกล้เคียง "+O(s(u.rows,"approx")),1),D("span",ul,"ไม่พบ "+O(s(u.rows,"missing")),1)]),D("div",pl,[D("table",null,[l[0]||(l[0]=D("tr",null,[D("th",null,"#"),D("th",null,"หัวข้อในรีวิว"),D("th",null,"สถานะ"),D("th",null,"เปิดดู")],-1)),(E(!0),H(N,null,Ae(u.rows,d=>(E(),H("tr",{key:d.no},[D("td",null,O(d.no),1),D("td",null,[Xe(O(d.title),1),d.batch?(E(),H("div",ml,O(d.batch),1)):de("",!0)]),D("td",null,[D("span",{class:pe(["badge",o[a(d)][1]])},O(o[a(d)][0]),3)]),D("td",null,[(E(!0),H(N,null,Ae(d.ids.length?d.ids:d.approx,m=>(E(),H("a",{class:"lnk",key:m,onClick:B=>r.$emit("open",m)},"#"+O(m),9,gl))),128))])]))),128))])])]))),128))],64))}},yl=(e,n)=>{const t=e.__vccOpts||e;for(const[a,i]of n)t[a]=i;return t},wl={class:"gate"},bl={class:"card gate-box"},vl={key:0,class:"badge bad"},Al="11111111",kl={__name:"Gate",emits:["ok"],setup(e,{emit:n}){const t=n,a=$e(""),i=$e(!1),s=()=>{if(a.value.trim()===Al){try{localStorage.setItem("cefr_unlocked","1")}catch{}t("ok")}else i.value=!0,a.value=""};return(o,r)=>(E(),H("div",wl,[D("div",bl,[r[2]||(r[2]=D("h1",null,"สื่อการสอน CEFR",-1)),r[3]||(r[3]=D("p",{class:"sub"},"กรุณาใส่รหัสเพื่อเข้าใช้งาน",-1)),ua(D("input",{type:"password",inputmode:"numeric","onUpdate:modelValue":r[0]||(r[0]=l=>a.value=l),placeholder:"รหัส",autofocus:"",onKeyup:Gr(s,["enter"]),onInput:r[1]||(r[1]=l=>i.value=!1)},null,544),[[ds,a.value]]),i.value?(E(),H("p",vl,"รหัสไม่ถูกต้อง")):de("",!0),D("button",{class:"on",style:{"margin-top":"12px",width:"100%"},onClick:s},"เข้าสู่ระบบ")])]))}},Cl=yl(kl,[["__scopeId","data-v-6bf4e97f"]]),Bl={key:1,class:"wrap"},Tl={class:"tabs"},Dl={class:"tabs"},xl=["onClick"],ql={class:"badge"},Il={class:"list"},Wl=["onClick"],_l={class:"num"},El={class:"t"},Sl={key:0,class:"badge ok"},Rl={key:1,class:"badge warn"},Pl={key:0},Ml={class:"note"},Hl=["onClick"],Ol={__name:"App",setup(e){let n=!1;try{n=localStorage.getItem("cefr_unlocked")==="1"}catch{}const t=$e(n),a=()=>{try{localStorage.removeItem("cefr_unlocked")}catch{}t.value=!1},i=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"],s=$e("lib"),o=$e(""),r=$e(null),l=$e("All"),u=qn.filter(W=>W.status!=="dup"),d=un(()=>{const W=o.value.trim().toLowerCase(),y={};for(const v of u){if(l.value!=="All"&&v.type!==l.value||W&&!`${v.n} ${v.title}`.toLowerCase().includes(W))continue;const x=(v.date||"").slice(0,7)||"ไม่ระบุ";(y[x]||(y[x]=[])).push(v)}return Object.keys(y).sort().reverse().map(v=>{const[x,R]=v.split("-");return{key:v,label:R?`${i[+R-1]} ${x}`:v,items:y[v]}})}),m=qn.filter(W=>W.status==="dup"),B=W=>{r.value=qn.find(y=>y.n===W),window.scrollTo(0,0)},q=W=>W.replace(/^(?:\d+(?:[._]\d+)?_?\s*)?(?:TOEFL\s*|IELTS\s*|Review\s*)?(?:Reading|Listening)\s*[-_ ]*/i,"").replace(/_/g," ").trim()||W;return(W,y)=>t.value?(E(),H("div",Bl,[r.value?(E(),rt(rl,{key:0,item:r.value,all:Ke(qn),onBack:y[1]||(y[1]=v=>r.value=null),onOpen:B},null,8,["item","all"])):(E(),H(N,{key:1},[y[6]||(y[6]=D("h1",null,"สื่อการสอน CEFR – Reading & Listening",-1)),y[7]||(y[7]=D("p",{class:"sub"},"เนื้อหา คำถาม และเฉลยทั้งหมดมาจากไฟล์ต้นฉบับเท่านั้น · จัดตามเดือนของไฟล์ ใหม่ → เก่า · ข้อที่สร้างเป็นแบบฝึกหัดไม่ได้จะแสดงข้อความดิบ",-1)),D("div",Tl,[D("button",{onClick:a,style:{"margin-left":"auto",order:"3"}},"ออกจากระบบ"),D("button",{class:pe({on:s.value==="lib"}),onClick:y[2]||(y[2]=v=>s.value="lib")},"คลังข้อสอบ ("+O(Ke(u).length)+")",3),D("button",{class:pe({on:s.value==="chk"}),onClick:y[3]||(y[3]=v=>s.value="chk")},"ตรวจเทียบรีวิว 31 ต.ค. 2569",2)]),s.value==="lib"?(E(),H(N,{key:0},[ua(D("input",{type:"search","onUpdate:modelValue":y[4]||(y[4]=v=>o.value=v),placeholder:"ค้นหาชื่อเรื่อง หรือเลขที่…"},null,512),[[ds,o.value]]),D("div",Dl,[(E(),H(N,null,Ae(["All","Reading","Listening"],v=>D("button",{key:v,class:pe({on:l.value===v}),onClick:x=>l.value=v},O(v==="All"?"ทั้งหมด":v),11,xl)),64))]),(E(!0),H(N,null,Ae(d.value,v=>(E(),H("section",{key:v.key},[D("h2",null,[Xe(O(v.label)+" ",1),D("span",ql,O(v.items.length)+" เรื่อง",1)]),D("div",Il,[(E(!0),H(N,null,Ae(v.items,x=>(E(),H("button",{class:"row",key:x.n,onClick:R=>B(x.n)},[D("span",_l,"#"+O(x.n),1),D("span",El,O(q(x.title)),1),D("span",{class:pe(["badge",x.type==="Reading"?"r":"l"])},O(x.type),3),x.added?(E(),H("span",Sl,"เพิ่มใหม่")):de("",!0),x.status==="pending"?(E(),H("span",Rl,"ไม่มีเนื้อหาในไฟล์")):de("",!0)],8,Wl))),128))])]))),128)),Ke(m).length?(E(),H("section",Pl,[y[5]||(y[5]=D("h2",null,"รายการซ้ำ (ไฟล์ต้นฉบับไม่แปลซ้ำ)",-1)),D("p",Ml,[(E(!0),H(N,null,Ae(Ke(m),v=>(E(),H("span",{key:v.n},[Xe("#"+O(v.n)+" → ",1),D("a",{class:"lnk",onClick:x=>B(v.dup)},"#"+O(v.dup),9,Hl)]))),128))])])):de("",!0)],64)):(E(),rt(fl,{key:1,list:Ke(jr),lib:Ke(qn),onOpen:B},null,8,["list","lib"]))],64))])):(E(),rt(Cl,{key:0,onOk:y[0]||(y[0]=v=>t.value=!0)}))}};Nr(Ol).mount("#app");

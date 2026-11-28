@@ -22,6 +22,7 @@ const score = computed(() => {
   return { total: m.length, done: m.filter(x => picked[x.i]).length, right: m.filter(x => picked[x.i] === x.q.ans).length }
 })
 const clean = s => (s || '').replace(/\n+/g, ' ')
+const base = import.meta.env.BASE_URL
 const dupsOf = computed(() => props.all.filter(r => r.dup === props.item.n))
 </script>
 <template>
@@ -64,5 +65,12 @@ const dupsOf = computed(() => props.all.filter(r => r.dup === props.item.n))
         <pre class="raw">{{ q.raw }}</pre>
       </template>
     </div>
+    <template v-if="item.images && item.images.length">
+      <h2>ต้นฉบับ (ภาพ) — ใช้ดูคำแปลไทย</h2>
+      <p class="note">ข้อความไทยในไฟล์นี้ดึงเป็นตัวอักษรได้ไม่ถูกต้อง จึงแสดงเป็นภาพหน้าต้นฉบับ</p>
+      <details><summary>เปิดดูภาพทั้ง {{ item.images.length }} หน้า</summary>
+        <img v-for="im in item.images" :key="im" :src="base + im" loading="lazy" style="width:100%;margin:8px 0;border:1px solid var(--line)" />
+      </details>
+    </template>
   </template>
 </template>
